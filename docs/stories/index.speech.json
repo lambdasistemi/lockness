@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/stories/index.md",
-    "sha256": "f2391ccf35bae9a88c27a935913cc9af4981f6c6bf368324c0f11e3422d013b9"
+    "sha256": "5a65f47a322a0f2334c102e8ec329a82711649d41a8a28793fecb6532dab071d"
   },
   "verify-before-using-ledger-facts": [
     {
@@ -16,6 +16,24 @@
   "keep-dependent-reads-coherent": [
     {
       "text": "Reads and pagination remain at one selected state while new blocks arrive. Unavailable and expired chainpoints are refused. Fork behavior remains to be decided.",
+      "pause": 400
+    }
+  ],
+  "run-an-anchor-and-buy-ledger-capacity": [
+    {
+      "text": "An operator runs its own node and anchor for maximum trust independence, then buys archive access, retained views and proof generation. The terminal rejects evidence that does not verify against locally established roots. Validation and commitment maintenance remain local responsibilities.",
+      "pause": 400
+    }
+  ],
+  "observe-institutional-publications": [
+    {
+      "text": "An operator selects institutional publishers and verifies their signed roots. Unknown keys, wrong networks, incompatible schemes or unacceptable freshness must not establish accepted roots. This reduces local infrastructure with explicit institutional trust. No actual institutional participation is claimed.",
+      "pause": 400
+    }
+  ],
+  "buy-availability-and-switch-providers": [
+    {
+      "text": "An application buys observable coverage, retention, throughput, latency and uptime. It can switch to a compatible provider at the same chainpoint without changing anchor policy, using a new provider-local session. Unavailable views and history must be reported. Fallback must not silently change the root, chainpoint or strength of evidence.",
       "pause": 400
     }
   ],
@@ -37,12 +55,6 @@
       "pause": 400
     }
   ],
-  "evidence-status": [
-    {
-      "text": "These stories are acceptance targets. No formal model, simulator or production conformance result has yet been delivered.",
-      "pause": 400
-    }
-  ],
   "act-on-verified-facts": [
     {
       "text": "A terminal verifies the facts needed for its application, then builds a transaction or drives an external effect. Its application policy authorizes that action; a proof alone is not an instruction to act.",
@@ -50,6 +62,12 @@
     },
     {
       "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
+      "pause": 400
+    }
+  ],
+  "evidence-status": [
+    {
+      "text": "These stories are acceptance targets. No formal model, simulator or production conformance result has yet been delivered.",
       "pause": 400
     }
   ]

@@ -2,7 +2,7 @@
 
 As an application developer, let terminals consume anchored data: verify the facts behind a transaction or real-world action without trusting the server that supplies them or running a chain follower for each application.
 
-Lockness is the project-level architecture for independently published ledger commitments, chainpoint-bound data and witnesses, and optional application proof builders on Cardano.
+**Web2 scaling with explicit trust management.** Lockness separates the roots a terminal trusts from the providers it pays for data and computation. Providers compete on capacity, availability, speed and price; terminals verify their answers at a selected chainpoint before acting.
 
 **Status: design only.** This repository records the direction and unresolved contracts. It does not yet contain a ledger service, client verifier, formal model or simulator.
 
@@ -13,6 +13,16 @@ A server answer alone asks the terminal to accept the server's view of the ledge
 This makes data providers replaceable and proof construction delegable. A wallet can check the NFT state it uses to build a transaction; an external system can check a ledger fact before authorizing an effect. Applications share the cost of generic chain following while keeping their own interpretation and action policy.
 
 Anchored data means data whose relevant claim has been verified against an accepted commitment. It does not mean every response must carry a proof: historical transaction CBOR may be reconstruction material, with the reconstructed state checked against an anchored application root. Proofs establish their stated claims; freshness, completeness and permission to act need their own contracts. See [the verification boundary](docs/architecture/system.md#why-data-should-travel-with-proofs).
+
+## Choose trust and buy availability
+
+**Running your own anchor is the optimal deal for trust independence.** It runs a node, follows the chain and computes your accepted roots. You can outsource the ledger service's historical storage, retained chainpoint views, queries and proof generation while preserving your own source of trust. The anchor still pays the cost of validation and commitment maintenance.
+
+**Observing institutional root publications is an exceptionally attractive operational deal.** A terminal can verify publications from institutions it chooses to trust, without operating its own anchor. That exchanges infrastructure cost for an explicit institutional trust assumption. No institution is claimed to offer this service today.
+
+In either configuration, applications buy availability from providers: history coverage, retention, session leases, throughput, latency and uptime. Proof verification establishes the stated claims against accepted roots; the application–provider agreement promises delivery. Switching providers must preserve the terminal's trust policy.
+
+This enables market-driven scaling through ordinary servers, caches and replicas. The design aims to make data provision a computational business whose capacity follows demand. Interoperable evidence, practical switching and measurable service commitments are requirements for that market, not an already demonstrated optimum. Read the [trust and availability model](docs/design/trust-and-availability.md).
 
 ## User stories
 
@@ -35,6 +45,7 @@ Ledger proofs are consumed off-chain by terminals. Application proofs are the pr
 
 ## Read the design
 
+- [Trust choices, availability and the provider market](docs/design/trust-and-availability.md)
 - [Architecture and chain-following responsibilities](docs/architecture/system.md)
 - [Chainpoint sessions](docs/design/chainpoints.md)
 - [Decisions and unresolved contracts](docs/design/decisions.md)
@@ -50,7 +61,7 @@ Read the published design at <https://lambdasistemi.github.io/lockness/>.
 - **`lockness-applications`** interpret ledger history and serve application proofs; they do not need their own chain follower.
 - **`lockness-terminals`** consume roots, data and proofs, verify them, and build transactions or use verified facts to drive real-world effects.
 
-Any number of anchors and ledgers may operate. Component names describe roles; separate component repositories have not been created. The four names describe roles; they do not prescribe how many deployments or repositories exist.
+Any number of anchors and ledgers may operate. Component names describe roles; separate component repositories have not been created. An application operator can buy services without running an application proof builder itself.
 
 ## Repository scope
 

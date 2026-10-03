@@ -1,8 +1,20 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "f50d1af93d2b6148d91e0a3c2e442237b04493ba0d34729228c2e501501b6890"
+    "sha256": "00d0a46d9dc4272be8ff839a4d2323dba602fe0f0749ebe21282748fa4e19e79"
   },
+  "why-terminals-should-consume-anchored-data": [
+    {
+      "text": "Terminals consume anchored data to check the facts behind their actions independently of the data provider. Proofs connect stated claims to an accepted anchor root at a selected chainpoint. This lets applications share chain following and delegate proof construction while retaining verification and action policy. Historical reconstruction material need not carry its own proof; the resulting state must be checked.",
+      "pause": 400
+    }
+  ],
+  "choose-trust-and-buy-availability": [
+    {
+      "text": "Running your own anchor is the optimal deal for trust independence. It validates the chain and maintains commitments while you outsource historical storage, views and queries. Observing chosen institutional publications is an exceptionally attractive operational deal under explicit institutional trust. Applications purchase availability from providers. Market-driven scaling needs interoperable evidence, practical switching and measurable delivery commitments; it is not a demonstrated optimum.",
+      "pause": 400
+    }
+  ],
   "user-stories": [
     {
       "text": "Clients verify ledger and application facts before use. Anchors publish commitments; ledgers serve chainpoint-bound evidence; application services can build proofs. The diagram shows the client receiving authority from anchors and evidence from the two provider roles.",
@@ -19,13 +31,13 @@
   ],
   "read-the-design": [
     {
-      "text": "Read the architecture, chainpoint sessions, recorded decisions, delivery roadmap and user stories. The documentation site is intended to publish the same record as this repository.",
+      "text": "Start with trust choices and the availability market, then read the architecture, chainpoint sessions, decisions, roadmap and user stories.",
       "pause": 400
     }
   ],
   "named-components": [
     {
-      "text": "Lockness anchors run nodes and serve signed roots. Lockness ledgers run nodes and serve data and proofs. Lockness applications serve application proofs. Lockness terminals consume and verify roots, data and proofs, then build transactions or drive real-world effects. Any number of anchors and ledgers may operate.",
+      "text": "Anchors run nodes and publish roots. Ledgers run nodes and serve data and proofs. Application services interpret history and build proofs. Terminals verify evidence before building transactions or driving real-world effects. An application operator can purchase services without operating a proof builder. These are roles, not a fixed deployment count.",
       "pause": 400
     }
   ],
@@ -44,12 +56,6 @@
   "license": [
     {
       "text": "The repository uses the Apache License, version two.",
-      "pause": 400
-    }
-  ],
-  "why-terminals-should-consume-anchored-data": [
-    {
-      "text": "Terminals consume anchored data to check the facts behind their actions independently of the data provider. Proofs connect stated claims to an accepted anchor root at a selected chainpoint. This lets applications share chain following and delegate proof construction while retaining verification and action policy. Historical reconstruction material need not carry its own proof; the resulting state must be checked.",
       "pause": 400
     }
   ]

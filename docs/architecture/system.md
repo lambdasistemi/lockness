@@ -1,6 +1,6 @@
 # Architecture and operating cost
 
-As a project maintainer, invest chain-following infrastructure once in generic ledger capabilities, while adding applications through interpretation and proof construction.
+As a project maintainer, separate the cost of establishing trusted roots from the cost of serving data, so applications can buy capacity while terminals retain their verification policy.
 
 ## Why data should travel with proofs
 
@@ -31,9 +31,8 @@ Data should travel with the evidence needed to verify the claims a terminal reli
 
 ```mermaid
 flowchart TB
-    F[Validated chain feed] -->|Blocks and rollback events| E[Generic ledger engine]
-    E -->|Current commitments| P[Lockness anchors]
-    E -->|Content and chainpoint views| D[Lockness ledgers]
+    N[Anchor's node] -->|Validated blocks and rollbacks| P[Lockness anchor]
+    M[Provider's node] -->|Validated blocks and rollbacks| D[Lockness ledger]
     P -->|Signed publications| C[Lockness terminal]
     D -->|Data and ledger witnesses| C
     D -->|Transactions and referenced outputs| A[Lockness application]
@@ -43,6 +42,16 @@ flowchart TB
 Anchors and ledgers are plural because any number of independent instances may exist. Both roles run nodes. Anchors serve signed roots; ledgers serve data and proofs. They can reuse the generic commitment engine without sharing a running process. Independent publishers establish their own commitments. Signing an untrusted provider's supplied root does not create independent assurance. The cost and trust consequences of shared node infrastructure must be explicit.
 
 A terminal is the consuming role, including wallets, applications and integrations with external systems. It verifies the roots, proofs and data it uses, then builds transactions or uses the verified facts to drive real-world effects. The authorization and execution of those effects are application policy, not an action performed by the generic ledger service.
+
+## Offload computation while retaining trust control
+
+Running your own anchor is the optimal trust deal when independence is the objective: your node validates the chain and your anchor computes the roots used by your terminals. The anchor maintains the current commitment state required by its scheme and handles rollback. It need not operate the ledger service's transaction archive, historical query views or public query and proof-serving capacity. Actual anchor costs remain to be measured.
+
+Observing institutional root publications offers an exceptionally attractive operational alternative. The terminal checks signatures and publication bindings under its chosen institutional policy, while the institutions operate anchors. This reduces local infrastructure by accepting institutional endorsements. The protocol must make that choice explicit and must not silently replace it when data providers change.
+
+With either source of accepted roots, storage, indexing, reconstruction and proof generation can be delegated to providers. Correctness checks remain with terminals; delivery commitments belong to the application–provider market. Increasing offloaded work need not increase trust in a data provider's assertions, provided the same required claims remain verifiable.
+
+The [trust and availability model](../design/trust-and-availability.md) defines the service commitments and switching requirements. Payment processing, provider discovery and remedies for missed commitments remain open integration choices.
 
 ## Data and trust are separate
 

@@ -2,6 +2,16 @@
 
 As an application developer, let terminals consume anchored data before building transactions or driving real-world effects, without maintaining a chain follower for each application.
 
+## Web2 scaling with explicit trust management
+
+Lockness lets applications buy data and computation from competing providers while terminals keep control over trust. Ordinary servers, caches and replicas supply capacity; independently accepted roots and proof verification establish the claims the terminal consumes.
+
+**Run your own anchor for the optimal deal in trust independence.** Maintain your own validated chain and commitments, then buy the ledger service's historical storage, chainpoint views, queries and proof generation. Extensive offloading can preserve your own source of trust.
+
+**Observe institutional publications for an exceptionally attractive operational deal.** Accept signed roots from institutions selected under your trust policy and avoid operating an anchor. The institutional trust is explicit; no participating institution or live publication service is claimed today.
+
+Applications and providers negotiate availability: coverage, retention, throughput, latency and uptime. This separates a checkable answer from a commercial promise to deliver it. The goal is efficient market-driven scaling through interchangeable providers. Read the [trust and availability model](design/trust-and-availability.md) for the choices and acceptance requirements.
+
 ## Why terminals should consume anchored data
 
 The value of Lockness is a checkable basis for action. A terminal receives data and proof from a provider, accepts a root under its independent anchor policy, and verifies the claim at a selected chainpoint before consuming the data. It can change data providers or delegate proof construction while retaining control over which evidence it accepts.
@@ -16,9 +26,9 @@ Lockness separates who provides data from who endorses ledger commitments. A cli
 
 ```mermaid
 flowchart LR
-    N[Validated chain feed] -->|Blocks and rollbacks| P[Independent anchor]
-    N -->|Blocks and rollbacks| L[Lockness ledger]
-    P -->|Signed root stream| C[Terminal trust policy]
+    O[Own anchor] -->|Locally established roots| C[Terminal trust policy]
+    I[Chosen institutional anchors] -->|Signed root publications| C
+    B[Application operator] -->|Availability agreement| L[Competing ledger providers]
     L -->|Pinned data and witnesses| V[Terminal verification]
     C -->|Accepted commitment| V
     L -->|Historical reconstruction data| A[Lockness application]

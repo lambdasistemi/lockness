@@ -12,6 +12,20 @@ Changing the data provider must not change the accepted claim when the commitmen
 
 A client reads several assets and pages through their outputs under one session. New blocks do not change the selected view. Unavailable or expired chainpoints produce explicit refusals. Fork handling is an open ruling rather than an assumed success path.
 
+## Run an anchor and buy ledger capacity
+
+An operator seeking maximum trust independence runs a node and anchor that compute the roots its terminals accept. It buys archive access, retained chainpoint views and proof generation from a provider without operating its own ledger service. The terminal rejects provider data that fails verification against the locally established root. Anchor validation and commitment maintenance remain the operator's responsibility.
+
+## Observe institutional publications
+
+An operator seeking low local infrastructure cost selects institutional publishers under an explicit trust policy. Its terminals verify signed publications and use the accepted roots to check provider answers. Unknown keys, wrong networks, incompatible schemes and publications that fail the chosen freshness policy must not become accepted roots. The exact acceptance policy remains to be specified; no institution is claimed to participate today.
+
+## Buy availability and switch providers
+
+An application operator buys defined coverage, retention, session leases, throughput, latency and uptime. A provider reports missing coverage, expiry or overload explicitly. The commercial commitment makes delivery observable; it does not change the terminal's verification requirements.
+
+The terminal can acquire a session from another compatible provider at the same accepted chainpoint and verify the same claims without changing anchor policy. Session tokens are provider-local. If the replacement cannot serve that view, fallback reports unavailability instead of silently weakening the claim or selecting a newer chainpoint. Interoperability, refusal and switching are acceptance targets for market-driven scaling.
+
 ## Add an application without another chain follower
 
 An application builder retrieves transactions and required historical inputs, interprets its protocol and reconstructs a tree. The client checks the result against the application root in the authenticated state output. Missing reconstruction data remains an explicit failure; a matching final state root is not proof of every historical event.

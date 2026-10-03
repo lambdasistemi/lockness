@@ -10,6 +10,10 @@ The following direction was established in the project discussion on 3 October 2
 | --- | --- | --- |
 | Work at project level in Lockness | Extend one repository's asset endpoint in isolation | Trust publication, retained views and client verification cross component boundaries. |
 | Terminals consume anchored data before acting | Accept the data provider's answer as authoritative | Verification connects the answer to an independently accepted root; data providers and proof builders remain replaceable. |
+| Own anchor is the optimal deal for trust independence | Equate independent verification with running every data service locally | Keep local root establishment while outsourcing ledger capacity. |
+| Institutional publications are a first-class operational offer | Require each terminal operator to maintain an anchor | Obtain roots at low local operating cost under explicit institutional trust. |
+| Applications purchase provider availability | Bundle correctness authority with purchased data capacity | Price delivery while terminals verify claims independently. |
+| Require provider interoperability and switching evidence | Claim an optimal market from the architecture alone | Market-driven scaling needs practical substitution and measurable service commitments. |
 | Publishers emit signed commitments for every block | Publishers choose and retain client query sessions | Publication and data-serving availability are independent responsibilities. |
 | Clients use a selected published chainpoint | Clients ask publishers to coordinate each query | Signed streams supply commitments independently of data retrieval. |
 | Chainpoint-bound proof-bearing API | Duplicate Koios response shapes as the governing contract | Query compatibility alone does not establish coherent multi-query reads. |
@@ -49,6 +53,8 @@ Here the present is the selected chainpoint. An application proof is intended fo
 
 ## What remains unproved
 
+- Anchor operating cost and the additional cost of ledger archives, retained views and proof-serving capacity need separate measurements.
+- Provider switching, evidence interoperability and observable availability commitments need concrete contracts and acceptance evidence; market efficiency is a design thesis.
 - The full commitment inventory: live UTxOs, asset sets and any historical indexes need separately stated proof guarantees.
 - Completeness and absence require explicit proof contracts; inclusion proofs alone do not establish a full result set.
 - Archive coverage and referenced-output retrieval must be sufficient for a real application's replay, not merely a selected transaction sample.
