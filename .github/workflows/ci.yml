@@ -43,13 +43,19 @@ jobs:
           path: site
       - name: Check rendered pages
         run: |
-          test -s site/index.html
-          test -s site/architecture/system/index.html
-          test -s site/design/chainpoints/index.html
-          test -s site/design/trust-and-availability/index.html
-          test -s site/design/decisions/index.html
-          test -s site/model/index.html
-          cmp site/model.speech.json site/model/index.speech.json
+          nix shell \
+            'github:NixOS/nixpkgs/13043924aaa7375ce482ebe2494338e058282925#bash' \
+            'github:NixOS/nixpkgs/13043924aaa7375ce482ebe2494338e058282925#coreutils' \
+            'github:NixOS/nixpkgs/13043924aaa7375ce482ebe2494338e058282925#diffutils' \
+            --command bash -euo pipefail -c '
+              test -s site/index.html
+              test -s site/architecture/system/index.html
+              test -s site/design/chainpoints/index.html
+              test -s site/design/trust-and-availability/index.html
+              test -s site/design/decisions/index.html
+              test -s site/model/index.html
+              cmp site/model.speech.json site/model/index.speech.json
+            '
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: [build-gate, docs-build]
