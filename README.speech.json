@@ -1,0 +1,46 @@
+{
+  "_source": {
+    "file": "README.md",
+    "sha256": "b1f68a4c99f3ea6f8d82666ea9d096850b228db0a1f63a2910f4f2e4b400c595"
+  },
+  "user-stories": [
+    {
+      "text": "Clients verify ledger and application facts before use. Anchors publish commitments; ledgers serve checkpointed evidence; application services can build proofs. The diagram shows the client receiving authority from anchors and evidence from the two provider roles.",
+      "pause": 400
+    },
+    {
+      "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
+      "pause": 400
+    }
+  ],
+  "read-the-design": [
+    {
+      "text": "Read the architecture, checkpoint sessions, recorded decisions, delivery roadmap and user stories. The documentation site is intended to publish the same record as this repository.",
+      "pause": 400
+    }
+  ],
+  "named-components": [
+    {
+      "text": "Lockness anchors run nodes and serve signed roots. Lockness ledgers run nodes and serve data and proofs. Lockness applications serve application proofs. Lockness terminals consume and verify roots, data and proofs, then build transactions or drive real-world effects. Any number of anchors and ledgers may operate.",
+      "pause": 400
+    }
+  ],
+  "repository-scope": [
+    {
+      "text": "Lockness owns the project-level design and contracts. Existing CSMT component tickets describe an earlier architecture and must be reconciled before implementation.",
+      "pause": 400
+    }
+  ],
+  "check-the-documentation": [
+    {
+      "text": "Run the documentation check script with Nix installed. It checks presentation and builds the site strictly. Passing this check does not prove the system design or implementation.",
+      "pause": 400
+    }
+  ],
+  "license": [
+    {
+      "text": "The repository uses the Apache License, version two.",
+      "pause": 400
+    }
+  ]
+}

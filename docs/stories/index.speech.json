@@ -1,0 +1,52 @@
+{
+  "_source": {
+    "file": "docs/stories/index.md",
+    "sha256": "31cd54ae65720e7e9150da3f4c336a68d93bb9abd7f4ee4f9d4efefc7e963168"
+  },
+  "verify-before-using-ledger-facts": [
+    {
+      "text": "The client accepts a commitment under its own policy and checks the intended NFT state. Changed bytes, identity, root or network must never become accepted facts.",
+      "pause": 400
+    }
+  ],
+  "keep-dependent-reads-coherent": [
+    {
+      "text": "Reads and pagination remain at one selected state while new blocks arrive. Unavailable and expired checkpoints are refused. Fork behavior remains to be decided.",
+      "pause": 400
+    }
+  ],
+  "add-an-application-without-another-chain-follower": [
+    {
+      "text": "An application reconstructs state from transactions and historical inputs. Its result must match the authenticated application root. Missing history is a failure, not an empty successful answer.",
+      "pause": 400
+    }
+  ],
+  "delegate-proof-construction": [
+    {
+      "text": "Clients can ask an application service to construct proofs and verify them locally, or perform the construction themselves. Authority stays with the same accepted root.",
+      "pause": 400
+    }
+  ],
+  "publish-trust-without-serving-queries": [
+    {
+      "text": "An anchor runs a node and computes signed commitments for each block. It does not have to retain historical query views. No institution is assumed to provide this service.",
+      "pause": 400
+    }
+  ],
+  "evidence-status": [
+    {
+      "text": "These stories are acceptance targets. No formal model, simulator or production conformance result has yet been delivered.",
+      "pause": 400
+    }
+  ],
+  "act-on-verified-facts": [
+    {
+      "text": "A terminal verifies the facts needed for its application, then builds a transaction or drives an external effect. Its application policy authorizes that action; a proof alone is not an instruction to act.",
+      "pause": 400
+    },
+    {
+      "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
+      "pause": 400
+    }
+  ]
+}

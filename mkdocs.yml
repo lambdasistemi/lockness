@@ -1,0 +1,30 @@
+site_name: Lockness
+site_description: Independently trusted ledger commitments and checkpointed evidence
+site_url: https://lambdasistemi.github.io/lockness/
+repo_url: https://github.com/lambdasistemi/lockness
+theme:
+  name: material
+  palette:
+    scheme: slate
+  features:
+    - navigation.sections
+    - content.code.copy
+nav:
+  - Home: index.md
+  - User stories: stories/index.md
+  - Architecture: architecture/system.md
+  - Checkpoint sessions: design/checkpoints.md
+  - Decisions and evidence: design/decisions.md
+  - Roadmap: roadmap.md
+plugins:
+  - search
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+extra_javascript:
+  - https://cdn.jsdelivr.net/gh/paolino/dev-assets@0328b73b71788bb83848fe407dd04136a52c3697/mkdocs/docs/js/read-aloud.js

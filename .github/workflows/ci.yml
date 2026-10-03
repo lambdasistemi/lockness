@@ -4,10 +4,84 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   build-gate:
     name: Build Gate
+    if: github.event.action != 'closed'
     runs-on: nixos
     steps:
-      - name: Bootstrap
-        run: echo 'Repository bootstrap only; design checks follow.'
+      - uses: actions/checkout@v6
+      - name: Check and build documentation
+        run: ./tools/check-docs.sh
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site
+          path: site
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+  docs-build:
+    name: Docs build
+    needs: build-gate
+    runs-on: nixos
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: docs-site
+          path: site
+      - name: Check rendered pages
+        run: |
+          test -s site/index.html
+          test -s site/architecture/system/index.html
+          test -s site/design/checkpoints/index.html
+          test -s site/design/decisions/index.html
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: [build-gate, docs-build]
+    runs-on: nixos
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+  preview:
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    needs: build-gate
+    runs-on: nixos
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: docs-site
+          path: site
+      - uses: paolino/dev-assets/static-preview@main
+        with:
+          path: site
+  cleanup-preview:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: nixos
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: paolino/dev-assets/static-preview@main
+        with:
+          mode: cleanup

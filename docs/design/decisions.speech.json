@@ -1,0 +1,40 @@
+{
+  "_source": {
+    "file": "docs/design/decisions.md",
+    "sha256": "a07024493c0b0047227a81201b641c56fa8a909be2757afa230b682a6bcf93e0"
+  },
+  "recorded-direction": [
+    {
+      "text": "The decisions favor project-level contracts, roots for every block, checkpoint-bound queries, raw transaction reconstruction and optional application proof services. The diagram separates design direction, reviewed models and production implementation.",
+      "pause": 400
+    }
+  ],
+  "named-deployment-roles": [
+    {
+      "text": "Anchors and ledgers run nodes. Anchors serve signed roots; ledgers serve data and proofs. Applications serve application proofs. Terminals consume all three, verify them and build transactions or drive real-world effects. The names describe roles rather than a fixed deployment count.",
+      "pause": 400
+    }
+  ],
+  "words-that-constrain-the-design": [
+    {
+      "text": "The project separates immutable hashed content from chain indexes. Anchors publish roots for every block. Proof-bearing answers bind to an externally supplied root; later discussion clarified that reconstruction transactions may arrive without individual proofs.",
+      "pause": 400
+    },
+    {
+      "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
+      "pause": 400
+    }
+  ],
+  "what-remains-unproved": [
+    {
+      "text": "Commitment coverage, complete-set proofs, archive sufficiency, publisher policy and session rollback behavior are still unresolved. Application verification must bind the intended identity and state.",
+      "pause": 400
+    }
+  ],
+  "evidence-available-today": [
+    {
+      "text": "MPFS already verifies reconstructed facts against an anchored state root. The inspected Koios and Blockfrost interfaces do not promise the required shared chain-point sessions. Related root-signing work is not evidence that the whole publication protocol exists.",
+      "pause": 400
+    }
+  ]
+}

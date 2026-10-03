@@ -1,0 +1,18 @@
+{
+  "_source": {
+    "file": "docs/index.md",
+    "sha256": "706c22ba8cbfd82e3631f6bf2bda84c447719a298ae399b319a8102c2c5ae0ad"
+  },
+  "user-stories": [
+    {
+      "text": "The client receives independently signed commitments and data with witnesses from a ledger provider. An optional application builder interprets historical transactions and supplies application proofs. The client checks both levels of evidence.",
+      "pause": 400
+    }
+  ],
+  "current-state": [
+    {
+      "text": "Lockness is in design. The record distinguishes proposed behavior from unproved contracts. No production service, accepted formal model or institutional publisher is claimed.",
+      "pause": 400
+    }
+  ]
+}
