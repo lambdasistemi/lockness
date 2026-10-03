@@ -1,7 +1,7 @@
 {
-  "inspect-root-acceptance-and-sessions": [
+  "inspect-roots-sessions-and-ledger-answers": [
     {
-      "text": "Inspect root acceptance and sessions.",
+      "text": "Inspect roots, sessions and ledger answers.",
       "pause": 500
     },
     {
@@ -13,7 +13,11 @@
       "pause": 400
     },
     {
-      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Source links below follow the session feature branch so the new modules are available to pull-request reviewers before merge. Record that branch head when assessing the model.",
+      "text": "A terminal then verifies the ledger answer against its independently accepted root. An honest answer returns the application root in the witnessed output's datum. A witness valid only under a provider root refuses at the selected point. Two honest outputs carrying the same asset show why a separate uniqueness assumption is needed.",
+      "pause": 400
+    },
+    {
+      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
       "pause": 400
     }
   ],
@@ -27,11 +31,47 @@
       "pause": 400
     },
     {
-      "text": "lean/env enters the lean/ directory with revision-pinned Lean 4.29.0 and its C compiler, and rejects a different Lean version. For an interactive pinned environment, run ./lean/env bash; there the commands are lake build and lake exe lockness-sim accept-root <scenario>. The toolchain file also supports standard Elan workflows. The library uses core and Std, with no mathlib or external Lake packages.",
+      "text": "lean/env enters the lean/ directory with revision-pinned Lean 4.29.0 and its C compiler, and rejects a different Lean version. For an interactive pinned environment, run ./lean/env bash; there the commands are lake build and lake exe lockness-sim accept-root <scenario>. The toolchain file also supports standard Elan workflows. Ledger sets use Mathlib Finset at revision 8a178386ffc0f5fef0b77738bb5449d50efeea95, with narrow finite-set imports and every transitive Lake revision recorded in the manifest. Lean and Nix pins are unchanged. The environment supplies pinned Git, Curl and Zstd and rehydrates the required Mathlib cache from the committed dependency graph when needed. Dependency and cache acquisition are setup, not proof evidence.",
       "pause": 400
     },
     {
-      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root or session scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.",
+      "text": "Scenario: Honest publications; Observable result: accepted-root, full selected point, exact root scheme and bytes, two distinct endorsers despite a duplicate publication.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Untrusted key; Observable result: no-root, full selected point, signature validity explicitly labelled an abstract assumption.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Removed trusted-set check; Observable result: Production refuses; the mutation accepts the untrusted root and has a compiled refutation of the unchanged safety statement.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Honest session; Observable result: Exact point and independently obtained root; two unchanged active reads, expiry refusal and release to closed.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Absent point; Observable result: unavailablePoint at the selected point.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Newer point; Observable result: unavailablePoint at the selected point; same-slot alternate hash and alternate network also refuse.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Honest ledger answer; Observable result: Application root of the authenticated output; independent root acceptance is executed first, provider root fields are ignored.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Substituted root; Observable result: Witness succeeds under the answer's root and fails under the independent accepted root; verifier returns selected-point evidenceFailure.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Duplicate asset; Observable result: Two distinct finite honest members carrying the same asset both verify, returning different datum roots; OneShot and the unique-output conclusion are false.",
+      "pause": 400
+    },
+    {
+      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session or ledger scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.",
       "pause": 400
     }
   ],
@@ -45,7 +85,7 @@
       "pause": 400
     },
     {
-      "text": "The acceptance definition returns noRoot selectedPoint when no proposal qualifies. The shared refusal type has exactly three constructors: noRoot, unavailablePoint and evidenceFailure, each carrying the selected point. Root acceptance only emits noRoot; session acquisition emits unavailablePoint. Evidence verification remains later behavior.",
+      "text": "The acceptance definition returns noRoot selectedPoint when no proposal qualifies. The shared refusal type has exactly three constructors: noRoot, unavailablePoint and evidenceFailure, each carrying the selected point. Root acceptance only emits noRoot; session acquisition emits unavailablePoint. Ledger verification emits evidenceFailure; all three retain the selected point.",
       "pause": 400
     }
   ],
@@ -56,6 +96,30 @@
     },
     {
       "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: Bytes, Chainpoint, Root, Publication; Contract in this slice: Original byte sequences, exact point/root identities and original message/signature evidence.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: Policy; Contract in this slice: Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: Refusal; Contract in this slice: Exactly the three selected-point refusals.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: Session; Contract in this slice: Selected point and root; acquisition and lifecycle in the session module, described below.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: LedgerAnswer; Contract in this slice: Point, exact object/witness bytes and untrusted provider root; verification is described below.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: AppAnswer; Contract in this slice: Application identity, context, point, root, claim, exact value and proof; no application verification behavior.",
       "pause": 400
     },
     {
@@ -93,6 +157,84 @@
       "pause": 400
     }
   ],
+  "verify-ledger-answers": [
+    {
+      "text": "Verify ledger answers.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal, use a provider's answer to identify the application root carried by an asset's honest ledger output. Supply the root independently accepted for the selected network, slot and block hash. The ledger verifier checks answer-point equality, decodes the object to exact input/output bytes, and requires re-encoding to reproduce the witnessed object unchanged. It checks the witness against the independent root argument and those original object bytes. It then checks the asset on that same decoded output, extracts its datum, and parses those bytes under the policy schema. Every failed observation returns evidenceFailure session.selectedPoint.",
+      "pause": 400
+    },
+    {
+      "text": "The provider's answer.root and session.acceptedRoot are neither authorities nor required equality conditions. An honest answer can succeed when both disagree with the accepted root. Acquisition only establishes point coherence; it cannot create root endorsement or honest-root correspondence. Root acceptance's trusted endorsement and the separate selected-point correspondence hypothesis remain distinct.",
+      "pause": 400
+    },
+    {
+      "text": "The soundness proof quantifies arbitrary policies, finite ledgers, roots, sessions, answers and interpretations. Under all the following premises, successful verification identifies a member at the selected point which actually carries the policy asset, has the returned honest datum root, and equals every other member carrying that asset.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: Selected-point honest-root correspondence; What it supplies: Independent accepted root equals the honest commitment for this exact selected point.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: WitnessSound; What it supplies: A successful witness check under the honest root implies membership of the exact input/output pair.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: ObjectEncodingFaithful; What it supplies: The policy's representation is injective on exact input/output byte pairs; this is an external representation assumption.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: AssetObservationSound; What it supplies: A successful asset observation implies that the same output actually carries that asset.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: DatumObservationSound; What it supplies: Extraction and parsing of that same output's bytes under the selected schema agree with its honest datum root.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: OneShot; What it supplies: At every point, any two member pairs carrying the selected asset are equal.",
+      "pause": 400
+    },
+    {
+      "text": "verifyLedger_observations exposes the full successful path, including exact bytes and every interpretation observation. verifyLedger_refusal proves the selected-point evidence refusal for every error. verifyLedger_sound : LedgerSoundness verifyLedger proves the complete member, asset, honest datum-root and unique-pair conclusion. Encoding injectivity remains an explicit premise of the frozen contract; byte binding itself uses the executable re-encoding equality. These predicates do not implement cryptography, a datum format, CSMT internals or Cardano serialization.",
+      "pause": 400
+    },
+    {
+      "text": "The honest fixtures inhabit all premises together with selected-point correspondence and acceptance. Their reversible framing preserves zero bytes, order and 255, and its injectivity is proved for arbitrary byte pairs. This framing is only an example of an abstract representation. The honest ledger has one member; the unrestricted ledger type also admits two different outputs carrying the same asset. No uniqueness restriction is hidden in its type.",
+      "pause": 400
+    },
+    {
+      "text": "The root-substitution witness passes point, decoding, byte binding, asset and datum conditions. Its unchanged witness succeeds under the provider root and fails at the real accepted-root boundary. A compiled mutation of the actual verifier, checking either the answer root or session root, accepts the impostor and constructively falsifies the unchanged LedgerSoundness statement. The original proof and actual simulator outcome assertion then reject that mutation.",
+      "pause": 400
+    },
+    {
+      "text": "The duplicate-asset refutation has two distinct honest finite members, the same asset, different datum roots and two successful answers under one independent root. Witness, encoding, asset and datum assumptions and selected-point correspondence all hold. Only OneShot is false. Removing exactly that premise from the universal statement leaves its complete conclusion unchanged; a constructive proof negates the resulting guarantee. A failed tactic is not used as the counterexample.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Genuine finite sets; Alternative: Unrestricted lists; Why: Ground truth has finite-set membership and equality semantics.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Independently accepted root argument; Alternative: Check under provider answer/session root; Why: A provider cannot endorse its own evidence.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Preserve and bind the same object bytes; Alternative: Observe a separately decoded or normalized output; Why: Membership must authenticate the output whose asset and datum are interpreted.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Explicit executable callbacks and soundness predicates; Alternative: Treat Boolean success as semantic truth; Why: Witness correctness and interpretation correspondence remain separately assumed.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Separate OneShot premise; Alternative: Forbid duplicate assets in every ledger value; Why: Membership and unique state are different claims; the counterexample stays reachable.",
+      "pause": 400
+    }
+  ],
   "assess-the-evidence": [
     {
       "text": "Assess the evidence.",
@@ -103,7 +245,7 @@
       "pause": 400
     },
     {
-      "text": "The gate executes all three root scenarios and all three session scenarios, runs the permanent lifecycle check, and compiles both counterexample modules. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
+      "text": "The gate executes all three root, session and ledger scenarios, runs the permanent lifecycle check, and compiles the root, session and ledger counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
       "pause": 400
     },
     {
@@ -115,7 +257,7 @@
       "pause": 400
     },
     {
-      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Ledger witness checks, application proofs, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
+      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof verification, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; no model proof establishes these for a deployed system. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
       "pause": 400
     },
     {
@@ -125,6 +267,6 @@
   ],
   "_source": {
     "file": "index.md",
-    "sha256": "acf5fe2e4abda858a510493ea27e1d3512b55109de8b6fd802563fa28cb8af69"
+    "sha256": "7032cb09cb0022ae207e10bdfb77b91815f27d63606d9c82a12e21b547183901"
   }
 }

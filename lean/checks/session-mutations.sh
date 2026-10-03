@@ -5,7 +5,7 @@ scratch=$(mktemp -d "$PWD/.lake/session-mutations.XXXXXX")
 trap 'rm -rf "$scratch"' EXIT
 mkdir -p "$scratch/Lockness/Counterexamples" "$scratch/Lockness/Sim"
 cp -R .lake/build/lib/lean/Lockness/. "$scratch/Lockness/"
-export LEAN_PATH="$scratch:$PWD/.lake/build/lib/lean"
+export LEAN_PATH="$scratch:$PWD/.lake/build/lib/lean${LEAN_PATH:+:$LEAN_PATH}"
 stage() {
   printf 'STAGE command='; printf '%q ' "$@"; printf '\n'
   local result=0

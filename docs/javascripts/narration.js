@@ -45,16 +45,61 @@
     next();
   };
 
-  fetch(here.base + 'audio/manifest.json', { cache: 'no-cache' }).then(r => r.json()).then(manifest => {
-    const sections = {};
-    Object.entries(manifest.clips).forEach(([name, clip]) => {
-      if (clip.page !== here.source) return;
-      (sections[clip.section] = sections[clip.section] || []).push({ name, index: clip.index, pause_ms: clip.pause_ms, version: clip.audio_sha256.slice(0, 16) });
+  const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
+  const pause = value => typeof value === 'number' && Number.isFinite(value) && value >= 0;
+  const json = async url => {
+    const response = await fetch(url, { cache: 'no-cache' });
+    if (!response.ok) throw new Error('Narration input unavailable');
+    return response.json();
+  };
+  const textHash = async text => {
+    const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(bytes), byte => byte.toString(16).padStart(2, '0')).join('');
+  };
+  if (typeof here.source !== 'string' || !here.source.startsWith('docs/') || !here.source.endsWith('.md')) return;
+  const speechUrl = here.base + here.source.slice(5).replace(/\.md$/, '.speech.json');
+
+  Promise.all([json(here.base + 'audio/manifest.json'), json(speechUrl)]).then(async ([manifest, speech]) => {
+    if (!object(manifest) || !object(manifest.clips) || !object(speech) ||
+        !object(speech._source) || !hash(speech._source.sha256)) throw new Error('Invalid narration input');
+    Object.entries(speech).forEach(([id, segments]) => {
+      if (id.startsWith('_')) return;
+      if (!Array.isArray(segments) || !segments.length || segments.some(segment =>
+        !object(segment) || typeof segment.text !== 'string' || !segment.text.trim() ||
+        !pause(segment.pause === undefined ? 200 : segment.pause) || (segment.skip !== undefined && typeof segment.skip !== 'boolean'))) {
+        throw new Error('Invalid speech section');
+      }
     });
-    Object.entries(sections).forEach(([id, clips]) => {
+    const sections = new Map();
+    Object.entries(manifest.clips).forEach(([name, clip]) => {
+      if (!object(clip) || typeof clip.page !== 'string' || typeof clip.section !== 'string' ||
+          !Number.isInteger(clip.index) || clip.index < 0 || !pause(clip.pause_ms) ||
+          !hash(clip.text_sha256) || !hash(clip.audio_sha256) || !/^[a-z0-9-]+\/[a-z0-9-]+$/.test(name)) {
+        throw new Error('Invalid narration clip');
+      }
+      if (clip.page !== here.source) return;
+      if (!sections.has(clip.section)) sections.set(clip.section, []);
+      sections.get(clip.section).push({ name, index: clip.index, pause_ms: clip.pause_ms,
+        text_sha256: clip.text_sha256, version: clip.audio_sha256.slice(0, 16) });
+    });
+    // Validate every section before exposing any controls; hash failures never play stale clips.
+    const checked = await Promise.all(Array.from(sections, async ([id, clips]) => {
+      if (!Object.hasOwn(speech, id) || id.startsWith('_')) return null;
+      const expected = speech[id].map((segment, index) => ({ segment, index })).filter(({ segment }) => !segment.skip);
+      if (!expected.length || clips.length !== expected.length) return null;
+      clips.sort((a, b) => a.index - b.index);
+      const matches = await Promise.all(expected.map(async ({ segment, index }, position) => {
+        const clip = clips[position];
+        return clip.index === index && clip.pause_ms === (segment.pause === undefined ? 200 : segment.pause) &&
+          clip.text_sha256 === await textHash(segment.text);
+      }));
+      return matches.every(Boolean) ? { id, clips } : null;
+    }));
+    let playable = 0;
+    checked.filter(Boolean).forEach(({ id, clips }) => {
       const heading = document.getElementById(id);
       if (!heading) return;
-      clips.sort((a, b) => a.index - b.index);
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'narration-play';
@@ -62,8 +107,9 @@
       button.setAttribute('aria-pressed', 'false');
       button.addEventListener('click', () => play(button, clips));
       heading.appendChild(button);
+      playable++;
     });
-    if (!Object.keys(sections).length) return;
+    if (!playable) return;
     const speed = document.createElement('button');
     speed.type = 'button';
     speed.id = 'narration-speed';

@@ -75,6 +75,30 @@
     {
       "text": "Claims and evidence boundaries.",
       "pause": 500
+    },
+    {
+      "text": "Design claim: Terminals verify data against independently accepted ledger roots; Evidence boundary: Executable root acceptance, session and ledger verification model with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Own anchors preserve trust independence; institutional publications reduce local infrastructure; Evidence boundary: These are trust and operating choices, not measured price rankings; no institution is claimed to participate today.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Providers compete on computation and availability; Evidence boundary: No interoperable provider market or globally optimal pricing demonstrated.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: CSMT-UTXO supplies existing commitment machinery; Evidence boundary: Retained views, history coverage, leases and publication contracts require additional work; see existing projects.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Ledger proofs authenticate their stated claims at a chainpoint; Evidence boundary: The ledger model proves unique-output/datum-root soundness under separate honest-root, witness, encoding, asset/datum and OneShot premises; membership alone does not establish uniqueness, completeness, canonicality or settlement.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Application services can reconstruct state and build proofs; Evidence boundary: Transaction-CBOR replay and dependency coverage still need application-specific evidence.",
+      "pause": 400
     }
   ],
   "what-remains-unproved": [
@@ -111,7 +135,7 @@
       "pause": 300
     },
     {
-      "text": "Application replay and proof checks need to bind NFT identity, unique-state assumptions, exact datum, root and selected state without accepting a different application or chainpoint.",
+      "text": "The ledger model binds the asset and exact witnessed-output datum to a selected-point accepted root under explicit assumptions. Application replay and proof checks still need their own application/context, nested-proof and transition bindings.",
       "pause": 300
     },
     {
@@ -125,7 +149,7 @@
       "pause": 500
     },
     {
-      "text": "The root acceptance and session model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.",
+      "text": "The root acceptance, session and ledger verification model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. The ledger verifier checks the witness against the independently accepted root argument and binds the original object bytes to every asset and datum observation. Its universal proof identifies an honest member, actual asset, honest datum root and unique asset-bearing pair under separate selected-point correspondence, witness, encoding, interpretation and OneShot premises. Nontrivial honest fixtures inhabit all premises and acceptance together. A compiled provider-root substitution accepts an impostor and constructively refutes the unchanged guarantee; a two-member same-asset ledger refutes the complete unique-output guarantee when only OneShot is removed. All three ledger scenarios run through the real verifier. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.",
       "pause": 400
     },
     {
@@ -143,6 +167,6 @@
   ],
   "_source": {
     "file": "decisions.md",
-    "sha256": "9bdf76716f301bd13ec810753897cf23c2b23558395ab81cac68a6288fdc306d"
+    "sha256": "86a93786f4117db6c6b2a028fa8d1fb68eb318922309db72bc3744573be57559"
   }
 }

@@ -35,7 +35,8 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_javascript:
-  - javascripts/narration.js?v=76776db46bd6dcce
+  - javascripts/mermaid.js?v=2a50635b636f64fe
+  - javascripts/narration.js?v=157ba36ecb57f2f1
 extra_css:
   - stylesheets/diagrams.css?v=2d9bb90e2ff068d7
   - stylesheets/terminal.css?v=445524ea612ee456

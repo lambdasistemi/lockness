@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "9505528559338b47d2790af80af5572aad6a28e501773494d530d103a9406f39"
+    "sha256": "cd6cae692f259ffafd0d1077d235b6890eac3bb670021d107e7a5b823b5c2a0c"
   },
   "user-stories": [
     {
@@ -17,7 +17,7 @@
   ],
   "read-the-design": [
     {
-      "text": "Start with runnable root acceptance and selected point session journeys. Inspect trusted and untrusted publications, exact session acquisition, absence and newer point refusal. Continue through concepts, trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
+      "text": "Start with runnable root acceptance, selected point session journeys and ledger answer verification. Inspect trusted endorsement, exact acquisition, honest ledger answers, provider root substitution refusal and two same asset outputs with different datum roots. Continue through concepts, trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
       "pause": 400
     }
   ],
@@ -29,7 +29,7 @@
   ],
   "check-the-documentation": [
     {
-      "text": "The model gate checks pinned Lean proofs, axiom dependencies, production semantic counterexamples, root and session scenarios, repeated reads and expiry refusal. Session acquisition preserves arbitrary provider offers at the exact point; it does not prove root trust. The documentation gate checks diagram and speech freshness and builds the site. Just CI runs both. Model properties do not establish component implementation or deployment.",
+      "text": "The model gate checks pinned Lean proofs, all named declaration types and axiom dependencies, production semantic counterexamples and all root, session and ledger journeys. Sessions preserve arbitrary provider offers at the exact point and retain the inherited repeated read and expiry behavior. Ledger verification uses the independent root and exact witnessed object bytes. Its honest unique output and datum root guarantee requires explicit commitment, witness, encoding, interpretation and OneShot premises. Two honest same asset members show why membership alone is insufficient. Pinned Mathlib finite sets and transitive revisions support the model; dependency acquisition is setup. The documentation gate checks diagram and speech freshness and builds the site. Just CI runs both. Independent review, remote CI, component implementation and deployment remain distinct evidence.",
       "pause": 400
     }
   ],
