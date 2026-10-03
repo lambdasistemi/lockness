@@ -27,7 +27,7 @@
       if (current !== state) return;
       if (position >= clips.length) { stop(); return; }
       const clip = clips[position++];
-      audio.src = here.base + 'audio/clips/' + clip.name + '.mp3';
+      audio.src = here.base + 'audio/clips/' + clip.name + '.mp3?v=' + clip.version;
       audio.playbackRate = rate;
       audio.onended = () => { state.timer = setTimeout(next, clip.pause_ms / rate); };
       audio.play().catch(error => {
@@ -39,11 +39,11 @@
     next();
   };
 
-  fetch(here.base + 'audio/manifest.json').then(r => r.json()).then(manifest => {
+  fetch(here.base + 'audio/manifest.json', { cache: 'no-cache' }).then(r => r.json()).then(manifest => {
     const sections = {};
     Object.entries(manifest.clips).forEach(([name, clip]) => {
       if (clip.page !== here.source) return;
-      (sections[clip.section] = sections[clip.section] || []).push({ name, index: clip.index, pause_ms: clip.pause_ms });
+      (sections[clip.section] = sections[clip.section] || []).push({ name, index: clip.index, pause_ms: clip.pause_ms, version: clip.audio_sha256.slice(0, 16) });
     });
     Object.entries(sections).forEach(([id, clips]) => {
       const heading = document.getElementById(id);
