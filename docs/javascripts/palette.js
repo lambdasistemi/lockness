@@ -6,6 +6,7 @@
   const isDark = () => choice === 'dark' || (choice !== 'light' && system.matches);
   const apply = () => {
     const dark = isDark();
+    document.documentElement.dataset.locknessPalette = dark ? 'dark' : 'light';
     document.getElementById('lockness-dark-palette').media = dark ? 'all' : 'not all';
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
     const button = document.getElementById('lockness-palette-toggle');
