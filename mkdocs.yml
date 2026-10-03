@@ -34,10 +34,10 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_javascript:
-  - javascripts/audition.js?v=548b29bad7312882
+  - javascripts/audition.js?v=6788a1a8318d4355
   - https://cdn.jsdelivr.net/gh/paolino/dev-assets@0328b73b71788bb83848fe407dd04136a52c3697/mkdocs/docs/js/read-aloud.js
 extra_css:
-  - stylesheets/diagrams.css?v=8cbf30edd9d82a0e
+  - stylesheets/diagrams.css?v=dedab219857bbcf0
   - stylesheets/terminal.css?v=f29bc5de520d63ab
 validation:
   links:

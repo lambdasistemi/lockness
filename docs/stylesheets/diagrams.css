@@ -21,3 +21,7 @@
 [data-lockness-palette="dark"] .diagram img {
   filter: invert(0.87) hue-rotate(180deg);
 }
+
+.voice-audition #kokoro-voice { width: 100%; max-width: 100%; }
+.voice-audition .voice-navigation { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.voice-audition .voice-navigation button { padding: .4rem .7rem; }

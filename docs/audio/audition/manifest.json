@@ -157,6 +157,960 @@
       "bytes": 318216,
       "input_characters": 666,
       "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Alloy — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_alloy",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:58:54.420Z",
+      "file": "kokoro-af-alloy.mp3",
+      "sha256": "87599b370a9bd032adca5972d16f61e047b618cf6f653a222ab42b9b33f96909",
+      "bytes": 302184,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Aoede — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_aoede",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:58:56.515Z",
+      "file": "kokoro-af-aoede.mp3",
+      "sha256": "70134088d68ed73940cfe0509392d0e75110ad28b697d6672d179de6a9587a03",
+      "bytes": 297672,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Bella — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_bella",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:58:57.750Z",
+      "file": "kokoro-af-bella.mp3",
+      "sha256": "8f1f76fbe238d579e1789730f92cbd26086642a636b9cbebf95058ce5b4cc3e5",
+      "bytes": 327120,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Jessica — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_jessica",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:58:58.717Z",
+      "file": "kokoro-af-jessica.mp3",
+      "sha256": "4181024eccfee50da0cdfb79bcf5b53550d5a019018e2478f3508fc421b41c0b",
+      "bytes": 274728,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Kore — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_kore",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:58:59.918Z",
+      "file": "kokoro-af-kore.mp3",
+      "sha256": "5db77c610e0eb8e99cad5dc0102fc2f10eec4f71a0271a2ceecc6475f5d14fdd",
+      "bytes": 314448,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Nicole — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_nicole",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:01.424Z",
+      "file": "kokoro-af-nicole.mp3",
+      "sha256": "d6f4721e668ed38f67f2ffdf3900b0c5c1a4ca2c49f589e85fa74d56d0dd11dd",
+      "bytes": 416832,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Nova — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_nova",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:02.481Z",
+      "file": "kokoro-af-nova.mp3",
+      "sha256": "1f1c1da94a12b2c4633aac4c6430925077f3b55ec0f5d2f5f071ad349eaa090e",
+      "bytes": 283392,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "River — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_river",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:03.618Z",
+      "file": "kokoro-af-river.mp3",
+      "sha256": "ac822e76e3447bbef17d9f23644846902cf38311b7ef9cf4e24161789cd32d79",
+      "bytes": 271512,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Sarah — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_sarah",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:04.804Z",
+      "file": "kokoro-af-sarah.mp3",
+      "sha256": "5a973a5c132bc84d64dfa2e7096d1f4f1a82ad7c23e10f08922bf123b3eb0def",
+      "bytes": 307440,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Sky — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "af_sky",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:06.359Z",
+      "file": "kokoro-af-sky.mp3",
+      "sha256": "da9c8ee5fdc63035007be229abb7dad561d4a7b74e0f8413e1e17e7bcf8c416e",
+      "bytes": 295704,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Adam — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_adam",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:08.014Z",
+      "file": "kokoro-am-adam.mp3",
+      "sha256": "6323dea6261c496a9ec08c37f1a082e07499b058fc810a640a2aea321f6733ab",
+      "bytes": 300552,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Echo — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_echo",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:09.221Z",
+      "file": "kokoro-am-echo.mp3",
+      "sha256": "71d501fd721155c4c3298809b843e4af7c3fdc4f67c877aa69f81e184593374e",
+      "bytes": 305352,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Eric — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_eric",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:10.204Z",
+      "file": "kokoro-am-eric.mp3",
+      "sha256": "daf6a8f6010dd1ed2ffa8508db537a6e1a7e778481add58ececf6472b25d8bd7",
+      "bytes": 260328,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Fenrir — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_fenrir",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:11.439Z",
+      "file": "kokoro-am-fenrir.mp3",
+      "sha256": "5418ac98367192448f28274cbe94458a4ca56ce60ceddd6a49c87f53ccd16d61",
+      "bytes": 328272,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Liam — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_liam",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:14.255Z",
+      "file": "kokoro-am-liam.mp3",
+      "sha256": "46b4a38ea00b75602a23cba812ffa70232bedbb72719cd39e402ad9abad3954e",
+      "bytes": 281976,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Michael — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_michael",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:15.487Z",
+      "file": "kokoro-am-michael.mp3",
+      "sha256": "b83483ad6ec9dac55e01f995f69b6a1adf68cbd3f71dacd109684fad7d6a57eb",
+      "bytes": 340608,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Onyx — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_onyx",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:16.497Z",
+      "file": "kokoro-am-onyx.mp3",
+      "sha256": "a5755b5e8a636a580a834ddf3308318a6ddb170e89606105cd70178d3d351809",
+      "bytes": 280776,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Puck — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_puck",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:18.559Z",
+      "file": "kokoro-am-puck.mp3",
+      "sha256": "9a7e67ef09b06e7caab07cd7b5b8146bf316e94222ee8c860ae078e019e7b007",
+      "bytes": 351048,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Santa — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "am_santa",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:20.183Z",
+      "file": "kokoro-am-santa.mp3",
+      "sha256": "628cd132cc57e907e83aaaffaf76b9dfa2c32bfd6e759c14de754ffaf4f60bb1",
+      "bytes": 308328,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Alice — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bf_alice",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:24.190Z",
+      "file": "kokoro-bf-alice.mp3",
+      "sha256": "5080fcfa729d817e546d9a0893e9c909f6eb4b70690a8a6f629df08f37d994f4",
+      "bytes": 296424,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Emma — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bf_emma",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:30.870Z",
+      "file": "kokoro-bf-emma.mp3",
+      "sha256": "b618bb7a7f0ecf19896f7ba1db8bf046a84f76576034889d628aa16e8fa0cfef",
+      "bytes": 292824,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Isabella — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bf_isabella",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:35.460Z",
+      "file": "kokoro-bf-isabella.mp3",
+      "sha256": "b0b459b3315178d681850a0c18b27f944cea4ac82f2550ab8aea2e9b337c75f5",
+      "bytes": 313128,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Lily — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bf_lily",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:39.011Z",
+      "file": "kokoro-bf-lily.mp3",
+      "sha256": "7a16026e31ea30a437d192892f915b32d2e4571b25a8563bbdf820a5441c22a7",
+      "bytes": 276456,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Daniel — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bm_daniel",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:41.765Z",
+      "file": "kokoro-bm-daniel.mp3",
+      "sha256": "a74d597ba63b0145ae7700f1f5b05e369ebff98cd0bc96608062bd2429c62a72",
+      "bytes": 272400,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Fable — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bm_fable",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:44.577Z",
+      "file": "kokoro-bm-fable.mp3",
+      "sha256": "c89c74eacb876f47f7aa522891bc6cb8106f41b0413a07079206afd005a89c6b",
+      "bytes": 303768,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "George — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bm_george",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:47.088Z",
+      "file": "kokoro-bm-george.mp3",
+      "sha256": "117dcca159e5bcfd3dc445d756c2136f40bf8cfaf25e84b3b4404ac58650a670",
+      "bytes": 296616,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Lewis — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "bm_lewis",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:50.073Z",
+      "file": "kokoro-bm-lewis.mp3",
+      "sha256": "e3423bc09fc95954b90e8a170df61bb0cfed3e9db958e053ace993a0c84ac6a0",
+      "bytes": 325224,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Dora — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "ef_dora",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:52.608Z",
+      "file": "kokoro-ef-dora.mp3",
+      "sha256": "68f038418a3b1c1c54f0ae98510c911d79b3366f737191696e0f6de638397ed8",
+      "bytes": 282576,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Alex — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "em_alex",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:54.737Z",
+      "file": "kokoro-em-alex.mp3",
+      "sha256": "6e1d9786d6f638266ff474c5a4142be6cd4569f904e0f6b352bbf6add4a99ff6",
+      "bytes": 285648,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Santa — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "em_santa",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:55.857Z",
+      "file": "kokoro-em-santa.mp3",
+      "sha256": "51c4d6f69c081f57e7b623a0176e8b3eb5a1cc4e7b43d280b4d8e33fae8d4052",
+      "bytes": 287136,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Siwis — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "ff_siwis",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:57.036Z",
+      "file": "kokoro-ff-siwis.mp3",
+      "sha256": "28e0cfb4e38c22db36888daa2f3b3079bcb597fb9c85bc02c7e01fd8e9a1275a",
+      "bytes": 314232,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Alpha — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "hf_alpha",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:59:58.868Z",
+      "file": "kokoro-hf-alpha.mp3",
+      "sha256": "7292c2b41899624b12b4c527cd74997858ba52d0a62c0513de8fc7d0958b50f3",
+      "bytes": 323376,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Beta — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "hf_beta",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:01.590Z",
+      "file": "kokoro-hf-beta.mp3",
+      "sha256": "d648fd598f807f40724186da56f3f6cbdee79b55e1985e1663f679d6871f8a41",
+      "bytes": 289104,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Omega — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "hm_omega",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:04.601Z",
+      "file": "kokoro-hm-omega.mp3",
+      "sha256": "23b21ff9d4a9dedcef68508cbb99c71ee927f9be2c7084c4afc56f53a0a6a002",
+      "bytes": 328488,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Psi — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "hm_psi",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:06.226Z",
+      "file": "kokoro-hm-psi.mp3",
+      "sha256": "4c5f2de8452d69b83c66942e9fafae58d6ff69fa7a3af86abd7ea00bdfc3fa28",
+      "bytes": 319920,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Sara — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "if_sara",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:07.360Z",
+      "file": "kokoro-if-sara.mp3",
+      "sha256": "1844e9055fa1ee05baedf66444846f3469f5ae8e8fdaee5847176189c97f23cc",
+      "bytes": 310392,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Nicola — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "im_nicola",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:09.463Z",
+      "file": "kokoro-im-nicola.mp3",
+      "sha256": "9bd0aedefb62aafd4fa611ab7c3ab9778a16fbeeb7d26b5d79d7ea247884af6d",
+      "bytes": 343320,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Alpha — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "jf_alpha",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:11.207Z",
+      "file": "kokoro-jf-alpha.mp3",
+      "sha256": "93884ef7e64c0f782b23206e1eaee3bfbbfa316e11fadc30349be2038c4f2ad3",
+      "bytes": 337704,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Gongitsune — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "jf_gongitsune",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:14.910Z",
+      "file": "kokoro-jf-gongitsune.mp3",
+      "sha256": "a7a813f7200d5c4d06586edc9a2847acb5139c4316278398ac04b294262b117d",
+      "bytes": 348960,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Nezumi — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "jf_nezumi",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:16.444Z",
+      "file": "kokoro-jf-nezumi.mp3",
+      "sha256": "f842c732a7df4b652dc4b70e6e1f583be248deafb720f77ea376c16d77465cca",
+      "bytes": 349032,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Tebukuro — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "jf_tebukuro",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:17.951Z",
+      "file": "kokoro-jf-tebukuro.mp3",
+      "sha256": "4976e085782922ba38ea06924b9aacace2ffd45f1dbed86c389cca3bb2761a36",
+      "bytes": 343656,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Kumo — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "jm_kumo",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:19.216Z",
+      "file": "kokoro-jm-kumo.mp3",
+      "sha256": "752ffb82a44a5ffaeb9d910ba907825f89786b473e6d65b30b0df9430bc08860",
+      "bytes": 378024,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Dora — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "pf_dora",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:20.811Z",
+      "file": "kokoro-pf-dora.mp3",
+      "sha256": "0d10ce4a4f8ae5c02803629235b4340f67ceaf462f10b5fef754877f21a1b9df",
+      "bytes": 280920,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Alex — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "pm_alex",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:23.321Z",
+      "file": "kokoro-pm-alex.mp3",
+      "sha256": "132d9d7668be5155511b8c13d74582b36e0459518d6e5db297b5671bbd8b0526",
+      "bytes": 281064,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Santa — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "pm_santa",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:25.609Z",
+      "file": "kokoro-pm-santa.mp3",
+      "sha256": "97f490a83759111f70ac2b849f330df110eda2df378260dec419d3d5246485f3",
+      "bytes": 285840,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Xiaobei — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zf_xiaobei",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:29.192Z",
+      "file": "kokoro-zf-xiaobei.mp3",
+      "sha256": "12b50e5fbd5f75e62e7610c938a14b2f626db27734fbda87af8817a46763f282",
+      "bytes": 323088,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Xiaoni — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zf_xiaoni",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:31.802Z",
+      "file": "kokoro-zf-xiaoni.mp3",
+      "sha256": "2bdc38a587df5d01e1af2b30c698518e4957cec1db4b6be86d4f35f61b40ba53",
+      "bytes": 298800,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Xiaoxiao — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zf_xiaoxiao",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:33.109Z",
+      "file": "kokoro-zf-xiaoxiao.mp3",
+      "sha256": "ecd51ae5f090504f533f455c08be07a5974fa600800478cf1f6673b74c09cd88",
+      "bytes": 294312,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Xiaoyi — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zf_xiaoyi",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:34.274Z",
+      "file": "kokoro-zf-xiaoyi.mp3",
+      "sha256": "8d59575cc13f05dbdee13ae8a51fb1b2cf706d00e4a4f3fd0366a66c55ef8ca3",
+      "bytes": 281064,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Yunjian — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zm_yunjian",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:35.536Z",
+      "file": "kokoro-zm-yunjian.mp3",
+      "sha256": "d2ed03507eea886e39578acbc74eaaf4f620bfa324c0b0c5cc25eac5aa55dd32",
+      "bytes": 293688,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Yunxi — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zm_yunxi",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:36.488Z",
+      "file": "kokoro-zm-yunxi.mp3",
+      "sha256": "e1d7571548f65468234cdc2269c52f485bb35cf5129a14c4f5a921327a5f9f71",
+      "bytes": 269280,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Yunxia — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zm_yunxia",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:38.002Z",
+      "file": "kokoro-zm-yunxia.mp3",
+      "sha256": "a8b409d15f8bf5cd3534b2b3ef887a807bd7fb393d3603f0f2881225a5f138fd",
+      "bytes": 300120,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
+    },
+    {
+      "name": "Yunyang — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "model_version": "2f0893cb40f2ae8356e8e1f7463e52236425f5fd",
+      "voice_id": "zm_yunyang",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T15:00:41.038Z",
+      "file": "kokoro-zm-yunyang.mp3",
+      "sha256": "61a0342ba2fbb4080f62fe0994a29c820bbe3be913e6cf4465da4f0f1bd4407d",
+      "bytes": 308112,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
     }
   ],
   "selected_voice": "Matilda"
