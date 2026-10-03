@@ -1,9 +1,12 @@
-# Compare narration — ElevenLabs
+# Compare narration — ElevenLabs and Kokoro
 
-**Selected voice: Matilda.** Compare the two Matilda recordings to choose a model for the Singular, cardano-keri and Lockness documentation. Both read the same passage with the same voice settings. These are AI-generated recordings from ElevenLabs. Each player has pause and seeking controls; starting another voice pauses the previous one.
+Compare voices for the Singular, cardano-keri and Lockness documentation. **Matilda is the current voice choice; Heart is the new Kokoro candidate.** Every recording reads the same passage. The two Matilda samples use the same ElevenLabs voice settings; Heart uses Kokoro through DeepInfra, with the same requested speed of 0.95. These are AI-generated recordings. Starting another player pauses the previous one.
 
 <div class="voice-audition">
 <p><label for="audition-speed">Listening speed</label> <select id="audition-speed"><option value="0.85">0.85×</option><option value="1" selected>1×</option><option value="1.15">1.15×</option><option value="1.3">1.3×</option></select></p>
+
+<p id="kokoro-heart"><strong>Heart · Kokoro</strong> · new candidate<br>American female voice · generated with DeepInfra</p>
+<audio controls preload="metadata" aria-label="Listen to Heart with Kokoro" src="../audio/audition/kokoro-heart.mp3?v=075202ab4b418aaa"></audio>
 
 <p id="matilda"><strong>Matilda · Multilingual v2</strong> · current selection<br>American · original recording</p>
 <audio controls preload="metadata" aria-label="Listen to Matilda with Multilingual v2" src="../audio/audition/matilda.mp3?v=0998450c9cf499ce"></audio>

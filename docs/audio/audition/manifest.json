@@ -1,16 +1,6 @@
 {
-  "provider": "ElevenLabs",
-  "model": "eleven_multilingual_v2",
-  "format": "mp3_44100_128",
   "text": "A terminal is a lightweight web application with cryptographic capabilities. It chooses a chainpoint, retrieves data from a provider, and checks the evidence against a root from an anchor it accepts.\n\nThe provider supplies the data, but does not decide what the terminal should trust. A ledger proof can authenticate an output that contains an application root. The terminal can then use that root to verify an application proof.\n\nOnce the checks pass, the user can build a blockchain transaction, or use the verified information off-chain. Running your own anchor gives you independence over trust, while data providers compete on availability, capacity, and price.",
   "text_sha256": "3efba572a3ecfe6f2334aa89676a983f724af9cd23952bdee9c32e3c13b5c41e",
-  "voice_settings": {
-    "stability": 0.5,
-    "similarity_boost": 0.75,
-    "style": 0,
-    "use_speaker_boost": true,
-    "speed": 0.95
-  },
   "generated_at": "2026-10-03T13:11:55.198Z",
   "samples": [
     {
@@ -21,7 +11,16 @@
       "sha256": "5ca6a6231b027ea87d146d447f38df707e83348bbcf093a2a7fad2277f08513d",
       "bytes": 662927,
       "characters_charged": "666",
-      "model": "eleven_multilingual_v2"
+      "model": "eleven_multilingual_v2",
+      "provider": "ElevenLabs",
+      "format": "mp3_44100_128",
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      }
     },
     {
       "name": "Alice",
@@ -31,7 +30,16 @@
       "sha256": "b184e132c0addab7e1cb2811529746a0333978aa9043f6b92908377f6329fda1",
       "bytes": 751534,
       "characters_charged": "666",
-      "model": "eleven_multilingual_v2"
+      "model": "eleven_multilingual_v2",
+      "provider": "ElevenLabs",
+      "format": "mp3_44100_128",
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      }
     },
     {
       "name": "Bella",
@@ -41,7 +49,16 @@
       "sha256": "4d39ddefee1537b9689f6d59fc017f9e3d767d1823a1e2cebdef6da32c7c55fe",
       "bytes": 689258,
       "characters_charged": "666",
-      "model": "eleven_multilingual_v2"
+      "model": "eleven_multilingual_v2",
+      "provider": "ElevenLabs",
+      "format": "mp3_44100_128",
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      }
     },
     {
       "name": "Lily",
@@ -52,7 +69,16 @@
       "sha256": "869c6afced5e81638c881bfc5273abbfb3fcecdec1e75bad2044607be4819186",
       "bytes": 743175,
       "characters_charged": "666",
-      "model": "eleven_multilingual_v2"
+      "model": "eleven_multilingual_v2",
+      "provider": "ElevenLabs",
+      "format": "mp3_44100_128",
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      }
     },
     {
       "name": "Sarah",
@@ -63,7 +89,16 @@
       "sha256": "d5bbf138c79b9d6320df2c556b9b9094756b53ce0d1048e38cd954e3a9aa2f18",
       "bytes": 667524,
       "characters_charged": "666",
-      "model": "eleven_multilingual_v2"
+      "model": "eleven_multilingual_v2",
+      "provider": "ElevenLabs",
+      "format": "mp3_44100_128",
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      }
     },
     {
       "name": "Matilda",
@@ -74,7 +109,16 @@
       "sha256": "0998450c9cf499ce651072b4ca56a84f62a2c3da69f49eb71a0c9dbe0ea575e9",
       "bytes": 704723,
       "characters_charged": "666",
-      "model": "eleven_multilingual_v2"
+      "model": "eleven_multilingual_v2",
+      "provider": "ElevenLabs",
+      "format": "mp3_44100_128",
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      }
     },
     {
       "name": "Matilda — Flash v2.5",
@@ -85,7 +129,34 @@
       "file": "matilda-flash.mp3",
       "sha256": "71194e33c6f31490c3e599bb2c733fc2717abba0814a66fe0c8751729a13869a",
       "bytes": 669614,
-      "characters_charged": "333"
+      "characters_charged": "333",
+      "provider": "ElevenLabs",
+      "format": "mp3_44100_128",
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 0.95
+      }
+    },
+    {
+      "name": "Heart — Kokoro",
+      "provider": "DeepInfra",
+      "model": "hexgrad/Kokoro-82M",
+      "voice_id": "af_heart",
+      "accent": "american",
+      "format": "mp3",
+      "voice_settings": {
+        "speed": 0.95
+      },
+      "service_tier": "default",
+      "generated_at": "2026-10-03T14:55:15.705Z",
+      "file": "kokoro-heart.mp3",
+      "sha256": "075202ab4b418aaa7fc0fa19a0519dc7fd1b2df94f2593874fd349a0ce9316ae",
+      "bytes": 318216,
+      "input_characters": 666,
+      "estimated_cost_usd": 0.00041292
     }
   ],
   "selected_voice": "Matilda"
