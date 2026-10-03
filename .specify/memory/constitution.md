@@ -4,6 +4,8 @@
 
 Lockness enables terminals to consume anchored data: verify the claims behind transactions and real-world actions while choosing trust independently of data provision. It owns the project-level design for independently endorsed Cardano ledger commitments, evidence at selected chainpoints, and application verification. Component implementation remains separately owned.
 
+The project proposition is Web2 scaling with explicit trust management: applications purchase availability and computation from competing providers while terminals retain control over accepted evidence.
+
 ## Core principles
 
 1. Documentation, specifications, vision and acceptance outrank implementation. Code is regenerable from a good record; the record is not regenerable from code. Every change updates its documentation in the same diff. Acceptance is stated in user-visible terms before code; scope reductions must not erase the record.
@@ -17,6 +19,10 @@ Lockness enables terminals to consume anchored data: verify the claims behind tr
 8. Ledger witnesses are off-chain verification evidence for terminals, not transaction redeemers. Application proofs enter redeemers and are checked by application validators; Cardano checks transaction validity against its actual ledger state. Anchor root publication is separate.
 
 9. Distinguish proof values by time and purpose: ledger proofs concern on-chain validity at the selected chainpoint (present); application proofs concern on-chain validation of a proposed transaction (future). Neither a historical witness nor preflight verification promises future transaction acceptance.
+
+10. Running your own anchor is the optimal deal for trust independence; observing chosen institutional publications is an exceptionally attractive operational deal with explicit institutional trust. Both permit outsourcing ledger services. Do not imply equal trust assumptions or negligible anchor cost.
+11. Availability is a priced commitment between applications and providers. Correctness verification and delivery obligations are separate contracts. Provider switching must preserve accepted roots, chainpoints and claim strength, or explicitly refuse unavailable coverage.
+12. Market-driven scaling is a project objective requiring interoperable evidence, practical switching and measurable service commitments. Do not claim demonstrated optimal economics from a design alone.
 
 ## Development
 

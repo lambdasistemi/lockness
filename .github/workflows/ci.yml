@@ -44,6 +44,7 @@ jobs:
           test -s site/index.html
           test -s site/architecture/system/index.html
           test -s site/design/chainpoints/index.html
+          test -s site/design/trust-and-availability/index.html
           test -s site/design/decisions/index.html
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

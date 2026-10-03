@@ -1,16 +1,26 @@
 site_name: Lockness
-site_description: Independently trusted ledger commitments and chainpoint-bound evidence
+site_description: Web2 scaling with explicit trust management — choose trusted roots and buy verifiable data capacity
 site_url: https://lambdasistemi.github.io/lockness/
 repo_url: https://github.com/lambdasistemi/lockness
 theme:
   name: material
   palette:
-    scheme: slate
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
   features:
     - navigation.sections
     - content.code.copy
 nav:
   - Home: index.md
+  - Trust and availability: design/trust-and-availability.md
   - User stories: stories/index.md
   - Architecture: architecture/system.md
   - Chainpoint sessions: design/chainpoints.md

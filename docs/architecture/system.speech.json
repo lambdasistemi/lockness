@@ -1,11 +1,23 @@
 {
   "_source": {
     "file": "docs/architecture/system.md",
-    "sha256": "ae4627a13ed4d92dd1553d03c77e26a4493332308a3be6ebfe3f40932ddff9be"
+    "sha256": "2c7ebe997365a1458ac9d8d4fe563b423c54bf0447c46fc20cf2a36708450040"
   },
+  "why-data-should-travel-with-proofs": [
+    {
+      "text": "Data travels with proofs so a terminal can check the claim it relies on against an independently accepted root. For an NFT, a ledger witness authenticates the output containing the application root; the terminal then checks the application proof against that root. External actions require their own authorization policy. Signatures establish endorsements, witnesses establish stated claims, and neither alone establishes completeness or freshness. Data and proofs may be retrieved separately when their bindings match.",
+      "pause": 400
+    }
+  ],
   "components-and-chain-following": [
     {
-      "text": "Anchors and ledgers both run nodes and follow the chain. Applications build application proofs from retrieved data. Terminals verify roots, proofs and data, then build transactions or drive real-world effects under their application policy. Shared code does not imply shared trust.",
+      "text": "The diagram separates the anchor node from the provider node. Anchors compute trusted commitments; ledgers maintain and serve data and witnesses. Both follow the chain and can reuse code without sharing a running process. Applications interpret history and build proofs. Terminals verify claims and apply their action policy.",
+      "pause": 400
+    }
+  ],
+  "offload-computation-while-retaining-trust-control": [
+    {
+      "text": "Running your own anchor preserves independent root establishment while outsourcing ledger archives, retained views, queries and proof serving. The anchor still needs validation and commitment state. Institutional publications reduce local infrastructure under explicit institutional trust. Both options keep correctness checks with terminals while provider agreements promise availability. Actual costs and commercial integrations remain open.",
       "pause": 400
     }
   ],
@@ -38,12 +50,6 @@
   "decisions": [
     {
       "text": "The design reuses generic chain-following capabilities instead of creating an indexer per application. Independent trust remains separate from data provision, and clients may delegate proof construction without delegating verification.",
-      "pause": 400
-    }
-  ],
-  "why-data-should-travel-with-proofs": [
-    {
-      "text": "Data travels with proofs so a terminal can check the claim it relies on against an independently accepted root. For an NFT, a ledger witness authenticates the output containing the application root; the terminal then checks the application proof against that root. External actions require their own authorization policy. Signatures establish endorsements, witnesses establish stated claims, and neither alone establishes completeness or freshness. Data and proofs may be retrieved separately when their bindings match.",
       "pause": 400
     }
   ]

@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/roadmap.md",
-    "sha256": "b3ca91eebde6b3c0b0bdcae8e95e4cf2a6938e87939969c94cc14fe1864ca5f8"
+    "sha256": "8d62800e22110d3aad19605fbad44fe8c96dee198289f06ed32ba30f228a993a"
   },
   "settle-the-chainpoint-contract": [
     {
@@ -9,15 +9,21 @@
       "pause": 400
     }
   ],
+  "specify-the-trust-and-availability-offers": [
+    {
+      "text": "Specify both own-anchor and institutional-publication choices, keeping root acceptance separate from purchased data capacity. Define availability commitments, compatible evidence, sessions and explicit coverage failures. Resolve rollback before promising session behavior. Discovery, billing and remedies remain integration choices.",
+      "pause": 400
+    }
+  ],
   "measure-the-ledger-engine": [
     {
-      "text": "Measure ingestion, retention, chainpoint acquisition and concurrent query costs against the existing storage machinery before choosing an implementation.",
+      "text": "Measure existing storage against the accepted contracts. Separate anchor validation and commitment costs from ledger archive, retained-view and proof-serving costs. These measurements explain what remains local and what can be purchased; they do not establish optimal prices.",
       "pause": 400
     }
   ],
   "demonstrate-one-complete-journey": [
     {
-      "text": "Verify a signed root and NFT output, obtain reconstruction inputs, rebuild application state and verify a proof. Repeat with rollback, expiry, missing history and deliberate corruption.",
+      "text": "Verify an NFT state and application proof at a pinned chainpoint before transaction construction. Exercise altered data, missing history, rollback and expiry. Switch between two compatible providers without changing anchor policy, and refuse incompatible coverage or root substitution. Test both local roots and explicitly identified test institutional publishers.",
       "pause": 400
     }
   ],

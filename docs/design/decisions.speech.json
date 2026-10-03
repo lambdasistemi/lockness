@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "34ebf8706fee2cdcdcf4cb20f3bdb4fd23226d2ff70aa16e9c009f65835629a9"
+    "sha256": "123ec980d8a04d78a1597f38e1decadeb012880bc0292edf01ecb957cef94562"
   },
   "recorded-direction": [
     {
-      "text": "The decisions favor project-level contracts, roots for every block, chainpoint-bound queries, raw transaction reconstruction and optional application proof services. The diagram separates design direction, reviewed models and production implementation.",
+      "text": "The design separates chosen root authority from purchased data capacity. An own anchor offers maximum trust independence; institutional publications offer low local operating cost under explicit trust. Applications buy availability. Provider switching and interoperable evidence are acceptance requirements for market-driven scaling. The diagram distinguishes these design decisions from a reviewed model and implemented behavior.",
       "pause": 400
     }
   ],
@@ -31,7 +31,7 @@
   ],
   "what-remains-unproved": [
     {
-      "text": "Commitment coverage, complete-set proofs, archive sufficiency, publisher policy and session rollback behavior are still unresolved. Application verification must bind the intended identity and state.",
+      "text": "The commitment inventory, completeness proofs, historical reconstruction coverage, root publication policy and session behavior still need contracts and evidence. Anchor and ledger costs require separate measurements. Switching and availability commitments need acceptance demonstrations; market efficiency remains a thesis.",
       "pause": 400
     }
   ],

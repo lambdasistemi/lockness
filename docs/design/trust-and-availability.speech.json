@@ -1,0 +1,42 @@
+{
+  "_source": {
+    "file": "docs/design/trust-and-availability.md",
+    "sha256": "4127db0ee10c676918b60ccb65a7a8d36724f25ad1e949d23acae208db6b4ccc"
+  },
+  "the-project-proposition": [
+    {
+      "text": "Web2 scaling with explicit trust management separates data capacity from the roots a terminal accepts. Providers sell computation and availability, and terminals verify claims. Efficient market-driven scaling is the economic thesis; interoperability and practical switching must demonstrate it.",
+      "pause": 400
+    }
+  ],
+  "two-attractive-trust-deals": [
+    {
+      "text": "Running your own anchor is the optimal deal for trust independence, with real validation and commitment-maintenance costs. Observing selected institutional publications is an exceptionally attractive operational deal that accepts institutional trust. The table compares who establishes roots, local work and trust choices. The diagram keeps both root choices separate from the application agreement with data providers; terminal verification joins accepted commitments with supplied evidence.",
+      "pause": 400
+    }
+  ],
+  "what-applications-buy": [
+    {
+      "text": "Application operators buy generic ledger services and may separately buy application interpretation and proofs. Availability agreements specify coverage, chainpoint retention, session leases, capacity, latency, uptime, recovery, prices and accounting. Each dimension needs observable behavior. Commercial promises govern delivery; a proof cannot make an unavailable provider answer. Rollback, billing and remedies remain open contracts.",
+      "pause": 400
+    }
+  ],
+  "switching-must-preserve-verification": [
+    {
+      "text": "A replacement provider serves the same network, chainpoint, commitment scheme and claims under a new local session. If it cannot serve the view or history, it reports the limitation. Switching must preserve anchor policy and proof strength. Acceptance must demonstrate equivalent verified claims across providers and rejection of altered data or substituted roots.",
+      "pause": 400
+    }
+  ],
+  "design-decisions": [
+    {
+      "text": "Separate trust choice from purchased capacity. Offer both independent anchors and institutional publications. Price observable availability instead of treating proofs as uptime guarantees. Require switching evidence instead of assuming an API creates a competitive market.",
+      "pause": 400
+    }
+  ],
+  "evidence-and-next-step": [
+    {
+      "text": "This is a design proposition, with no demonstrated provider market, availability contract or cost advantage. Specify contracts, measure anchor and ledger costs separately, and exercise provider switching next.",
+      "pause": 400
+    }
+  ]
+}

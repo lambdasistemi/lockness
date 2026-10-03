@@ -1,23 +1,29 @@
 {
   "_source": {
     "file": "docs/index.md",
-    "sha256": "6b3bf962d9e2394f80a379ebdfd07cb5044815a1fa5c9a8427d6059af1363057"
+    "sha256": "78033507e74a12c8501ae998c0321552ba027aec283710156e370e69bd9d4da5"
   },
-  "user-stories": [
+  "web2-scaling-with-explicit-trust-management": [
     {
-      "text": "The client receives independently signed commitments and data with witnesses from a ledger provider. An optional application builder interprets historical transactions and supplies application proofs. The client checks both levels of evidence.",
-      "pause": 400
-    }
-  ],
-  "current-state": [
-    {
-      "text": "Lockness is in design. The record distinguishes proposed behavior from unproved contracts. No production service, accepted formal model or institutional publisher is claimed.",
+      "text": "Lockness separates trusted roots from purchased data capacity. Run your own anchor for maximum trust independence, or observe chosen institutional publications for an exceptionally attractive operational deal under explicit institutional trust. Applications buy coverage, throughput and uptime; terminals verify delivered claims. No live institutional publication service or optimal market is claimed.",
       "pause": 400
     }
   ],
   "why-terminals-should-consume-anchored-data": [
     {
       "text": "Lockness gives terminals a checkable basis for action. They verify provider data against independently accepted roots before building transactions or driving real-world effects. Data providers can be replaced without surrendering trust policy. Proofs establish specified claims; completeness, freshness and action authorization remain separate requirements.",
+      "pause": 400
+    }
+  ],
+  "user-stories": [
+    {
+      "text": "The diagram shows two choices feeding the terminal policy: locally established roots from an own anchor, or signed publications from selected institutions. An application operator buys availability from competing ledger providers. The terminal checks ledger data and application proofs against accepted commitments before acting.",
+      "pause": 400
+    }
+  ],
+  "current-state": [
+    {
+      "text": "Lockness is in design. The record distinguishes proposed behavior from unproved contracts. No production service, accepted formal model or institutional publisher is claimed.",
       "pause": 400
     }
   ]
