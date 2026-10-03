@@ -1,0 +1,54 @@
+{
+  "_source": {
+    "file": "docs/concepts.md",
+    "sha256": "f1bc31310845f4d258f8e6f59b0fe3c7cc66a42f9005272dce31efbd62b9e171"
+  },
+  "assets-and-nft-state-outputs": [
+    {
+      "text": "An asset identity combines policy and asset name. In the example an NFT identifies an application state output whose exact datum must be authenticated. The page links MPFS and Singular, ledger witnesses and the worked sequence.",
+      "pause": 400
+    }
+  ],
+  "two-roots-with-different-scopes": [
+    {
+      "text": "A ledger root covers the indexed ledger quantities at a chainpoint. An application root is inside the state output datum in this integration. Verify the output first, then use its application root to verify the next claim.",
+      "pause": 400
+    }
+  ],
+  "ledger-and-application-proofs": [
+    {
+      "text": "Ledger proofs support checking existing indexed ledger facts off-chain. Application proofs support application validation and may enter redeemers. Inclusion alone does not prove query completeness or freshness.",
+      "pause": 400
+    }
+  ],
+  "transaction-cbor-datums-and-redeemers": [
+    {
+      "text": "Transaction CBOR encodes the transaction. Datums carry output-associated application data and redeemers supply script-execution data. Parsing the envelope differs from interpreting Plutus data. The generic service preserves information and applications assign meaning.",
+      "pause": 400
+    }
+  ],
+  "chainpoints-views-and-sessions": [
+    {
+      "text": "Chainpoints identify positions, views expose state and sessions retain access under a lease. Follow the session page for refusal, retention and rollback behavior.",
+      "pause": 400
+    }
+  ],
+  "a-chain-of-application-roots": [
+    {
+      "text": "CSMT-UTXO authenticates the chain-wide live UTxO set. A proven output datum carries an application root. A verified application value may carry a further root. Every descendant claim needs its own checked proof and interpretation.",
+      "pause": 400
+    }
+  ],
+  "untrusted-application-services": [
+    {
+      "text": "Application services are untrusted computation providers, just like ledgers. The terminal checks their results against the authenticated application root instead of accepting a service assertion. Follow the trust boundary and delegation story for rejected cases.",
+      "pause": 400
+    }
+  ],
+  "follow-the-example": [
+    {
+      "text": "Follow the project links into proof composition. CSMT-UTXO supplies the existing engine and measurement starting point. Availability obligations are explained in the market page.",
+      "pause": 400
+    }
+  ]
+}

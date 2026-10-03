@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/trust-and-availability.md",
-    "sha256": "4127db0ee10c676918b60ccb65a7a8d36724f25ad1e949d23acae208db6b4ccc"
+    "sha256": "7831a25d0d04308dc618d991f75462b3625fa791420cf3728710bc0733c2bb09"
   },
   "the-project-proposition": [
     {
@@ -11,7 +11,7 @@
   ],
   "two-attractive-trust-deals": [
     {
-      "text": "Running your own anchor is the optimal deal for trust independence, with real validation and commitment-maintenance costs. Observing selected institutional publications is an exceptionally attractive operational deal that accepts institutional trust. The table compares who establishes roots, local work and trust choices. The diagram keeps both root choices separate from the application agreement with data providers; terminal verification joins accepted commitments with supplied evidence.",
+      "text": "Running your own anchor offers maximum trust independence; chosen institutional publications offer low local operating cost with explicit institutional trust. CSMT-UTXO is the engine and measurement starting point. The diagram separates choosing root authority from buying service capacity. A dotted agreement connects buyer and provider; accepted commitments and supplied evidence meet only at terminal verification.",
       "pause": 400
     }
   ],

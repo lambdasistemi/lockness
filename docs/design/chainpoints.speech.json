@@ -1,17 +1,17 @@
 {
   "_source": {
     "file": "docs/design/chainpoints.md",
-    "sha256": "b2b65e99f6aad7766fad78cf6bddcfeaf4323d497aa3543db77c68622c6339f8"
+    "sha256": "ae1037d5ef5843de924e988c8d4465044d25cb13ddf36c4a65618ca01eeacb95"
   },
   "session-contract": [
     {
-      "text": "Chainpoint follows the Cardano API type: genesis, or a slot number and block-header hash. Network is separate context. A view exposes state at a chainpoint; a session binds access to the network and retained view under a lease. Genesis session support and abandoned-branch behavior remain open decisions.",
+      "text": "The state diagram starts with a selected chainpoint and either acquires a retained view or refuses. Active sessions support repeated reads, can expire or close, and can encounter rollback. The rollback branch explicitly has no decided outcome. This is separate from silently rebinding a session. Chainpoint means genesis or slot and block-header hash; the network is separate context.",
       "pause": 400
     }
   ],
   "storage-separation": [
     {
-      "text": "A session selects chainpoint index roots, which resolve references into immutable content. The same view produces witnesses. Payloads survive rollback, while index membership and branch status determine their ledger meaning. The physical mechanism still needs measurement.",
+      "text": "The diagram follows a session into retained index roots, content references and immutable content. The index supplies the membership witness and the content store supplies exact bytes to the response. Chain membership supplies meaning; merely storing content does not prove that it is live.",
       "pause": 400
     }
   ],

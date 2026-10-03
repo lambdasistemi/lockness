@@ -1,0 +1,42 @@
+---
+config:
+  theme: base
+  themeVariables:
+    fontFamily: "Helvetica, Arial, sans-serif"
+    fontSize: "15px"
+    actorBkg: "#ffffff"
+    actorBorder: "#475569"
+    actorTextColor: "#203040"
+    signalColor: "#475569"
+    signalTextColor: "#203040"
+  sequence:
+    actorMargin: 25
+    messageMargin: 30
+    mirrorActors: false
+    width: 115
+    wrap: true
+    useMaxWidth: false
+---
+sequenceDiagram
+    box rgb(225,243,235) Root authority
+      participant A as Anchor
+    end
+    box rgb(238,232,250) Verification
+      participant T as Terminal
+    end
+    box rgb(230,239,252) Ledger data
+      participant L as Ledger
+    end
+    box rgb(255,240,221) Application
+      participant P as Proof builder
+    end
+    A->>T: Root for chainpoint P
+    T->>L: Acquire P and read NFT
+    L-->>T: Output + ledger witness
+    T->>T: Verify NFT output
+    T->>P: Request proof for<br/>verified application root
+    P->>L: History at P
+    L-->>P: CBOR + references
+    P->>P: Reconstruct state
+    P-->>T: Application proof
+    T->>T: Verify before use

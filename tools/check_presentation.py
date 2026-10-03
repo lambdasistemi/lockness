@@ -24,6 +24,7 @@ from pathlib import Path
 LABEL = re.compile(r"(?<![\w/#.-])(?:R|S|D|N|M|INV)-?\d{1,3}[a-z]?(?![\w.-])")
 FENCE = re.compile(r"^```")
 MERMAID = re.compile(r"^```mermaid\b")
+DIAGRAM_ASSET = re.compile(r"^<!-- diagram: [\w-]+ -->$")
 HEADING = re.compile(r"^(#{1,6})\s+(.*)$")
 STORY = re.compile(r"\b(stor(y|ies)|who (this|it) is for|what you can do)\b", re.I)
 STRUCTURAL = re.compile(r"(architecture|design|lifecycle|flow|protocol|overview|spec)", re.I)
@@ -93,6 +94,9 @@ def scan(path):
             continue
         if in_fence:
             continue
+        if DIAGRAM_ASSET.match(line):
+            # Source/image freshness is checked by render_diagrams.py.
+            mermaid += 1
         h = HEADING.match(line)
         if h:
             headings.append((len(h.group(1)), h.group(2).strip()))

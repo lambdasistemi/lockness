@@ -14,7 +14,7 @@ Turn the [availability dimensions](design/trust-and-availability.md#what-applica
 
 ## Measure the ledger engine
 
-Assess the existing CSMT, RocksDB and rollback interfaces against the accepted contract. Prototype content retention and bounded chainpoint views. Measure ingestion cost, storage growth, chainpoint acquisition, query latency and concurrent sessions. Reuse existing code where the contract fits; do not assume every existing abstraction does.
+Assess the existing [CSMT-UTXO engine](projects.md#csmt-utxo-the-existing-engine), RocksDB and rollback interfaces against the accepted contract. Prototype content retention and bounded chainpoint views. Measure ingestion cost, storage growth, chainpoint acquisition, query latency and concurrent sessions. Reuse existing code where the contract fits; do not assume every existing abstraction does.
 
 Measure the anchor's node, validation and current commitment maintenance separately from the ledger service's historical storage, retained views and query/proof capacity. Use those measurements to explain what an operator retains locally and what applications can purchase. Do not infer negligible anchor cost or optimal prices.
 

@@ -1,0 +1,24 @@
+{
+  "_source": {
+    "file": "docs/projects.md",
+    "sha256": "fd41fede8a29f21e0b174dbc0c632af521f1c0c5efb343c94e26c8942a351344"
+  },
+  "csmt-utxo-the-existing-engine": [
+    {
+      "text": "CSMT-UTXO already follows the chain, maintains the live UTxO commitment and serves inclusion proofs. Links lead to its architecture, storage schema, setup guide, API, benchmarks and runtime metrics. Benchmark definitions are not deployment cost measurements; distinguish commitment updates from key-value-only baselines and include node costs.",
+      "pause": 400
+    }
+  ],
+  "application-consumers": [
+    {
+      "text": "The table links MPFS and Singular to their repositories. MPFS has a linked facts verifier as prior evidence. The proposed history-retrieval integration and complete Lockness journey remain to be demonstrated.",
+      "pause": 400
+    }
+  ],
+  "assess-the-evidence": [
+    {
+      "text": "Use the decision record for evidence boundaries, the roadmap for next demonstrations and the availability page for service commitments.",
+      "pause": 400
+    }
+  ]
+}

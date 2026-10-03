@@ -20,12 +20,9 @@ The following direction was established in the project discussion on 3 October 2
 | Serve complete transaction CBOR as reconstruction material | Define a smaller application-neutral transaction projection now | Sufficiency is application dependent; preserving information precedes optimization. |
 | Optional application proof services | Either trust an application backend or do everything locally | Proof construction can be delegated and checked locally. |
 
-```mermaid
-flowchart LR
-    D[Design direction] -->|Specify observable guarantees| M[Executable model]
-    M -->|Audit statements and exercise counterexamples| R[Reviewed contract]
-    R -->|Implement and test correspondence| I[Production implementation]
-```
+<!-- diagram: decisions -->
+<div class="diagram"><a href="../diagrams/decisions.png"><img src="../diagrams/decisions.png" alt="Design inputs lead through model and review to implementation; later stages remain uncompleted." width="276" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/decisions.png">Open full size</a> · <a href="../diagrams/decisions.mmd">Mermaid source</a></p>
 
 ## Named deployment roles
 

@@ -1,0 +1,75 @@
+{
+  "renderer": {
+    "command": [
+      "nix",
+      "run",
+      "github:NixOS/nixpkgs/117cc7f94e8072499b0a7aa4c52084fa4e11cc9b#mermaid-cli",
+      "--"
+    ],
+    "scale": 2
+  },
+  "diagrams": [
+    {
+      "name": "roles",
+      "source": "roles.mmd",
+      "image": "roles.png",
+      "alt": "Anchors supply accepted roots; ledgers and application builders supply evidence to terminals."
+    },
+    {
+      "name": "overview",
+      "source": "overview.mmd",
+      "image": "overview.png",
+      "alt": "Chosen roots and untrusted ledger and application services meet at terminal verification; both services remain outside the trust boundary."
+    },
+    {
+      "name": "infrastructure",
+      "source": "infrastructure.mmd",
+      "image": "infrastructure.png",
+      "alt": "Anchor and provider operate separate nodes; terminals combine roots with evidence, and application builders consume ledger history."
+    },
+    {
+      "name": "storage",
+      "source": "storage.mmd",
+      "image": "storage.png",
+      "alt": "A session pins index roots that resolve immutable content and supply membership witnesses for one chainpoint."
+    },
+    {
+      "name": "decisions",
+      "source": "decisions.mmd",
+      "image": "decisions.png",
+      "alt": "Design inputs lead through model and review to implementation; later stages remain uncompleted."
+    },
+    {
+      "name": "market",
+      "source": "market.mmd",
+      "image": "market.png",
+      "alt": "Trust selection and the availability agreement are separate; accepted roots and purchased evidence meet at terminal verification."
+    },
+    {
+      "name": "proof-composition",
+      "source": "proof-composition.mmd",
+      "image": "proof-composition.png",
+      "alt": "The terminal verifies the NFT output, asks for an application proof, and verifies that proof against the root from the output."
+    },
+    {
+      "name": "session",
+      "source": "session.mmd",
+      "image": "session.png",
+      "alt": "A retained session supports repeated reads; expiry and missing views refuse, and rollback policy is explicitly unresolved."
+    },
+    {
+      "name": "root-chain",
+      "source": "root-chain.mmd",
+      "image": "root-chain.png",
+      "alt": "The ledger root authenticates a UTxO and datum, which carries an application root. Application proofs can authenticate further roots, with a separate check at every link."
+    }
+  ],
+  "pages": [
+    "../../README.md",
+    "../../docs/index.md",
+    "../../docs/architecture/system.md",
+    "../../docs/design/chainpoints.md",
+    "../../docs/design/decisions.md",
+    "../../docs/design/trust-and-availability.md"
+  ]
+}

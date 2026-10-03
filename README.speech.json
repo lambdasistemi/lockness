@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "00d0a46d9dc4272be8ff839a4d2323dba602fe0f0749ebe21282748fa4e19e79"
+    "sha256": "f9bda49d199da1573535daf31f47387d7b46949d46001872f48431a8418cfefd"
   },
   "why-terminals-should-consume-anchored-data": [
     {
-      "text": "Terminals consume anchored data to check the facts behind their actions independently of the data provider. Proofs connect stated claims to an accepted anchor root at a selected chainpoint. This lets applications share chain following and delegate proof construction while retaining verification and action policy. Historical reconstruction material need not carry its own proof; the resulting state must be checked.",
+      "text": "Both ledger and application services are untrusted for correctness. A ledger proof authenticates an output and its datum, which carries an application root. Application proofs can establish values containing further roots, with a separate check at each step. Providers can be replaced and computation delegated while terminals keep their acceptance policy.",
       "pause": 400
     }
   ],
@@ -17,21 +17,13 @@
   ],
   "user-stories": [
     {
-      "text": "Clients verify ledger and application facts before use. Anchors publish commitments; ledgers serve chainpoint-bound evidence; application services can build proofs. The diagram shows the client receiving authority from anchors and evidence from the two provider roles.",
-      "pause": 400
-    },
-    {
-      "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
-      "pause": 400
-    },
-    {
-      "text": "Ledger proof values concern on-chain validity in the present, at the selected chainpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
+      "text": "The diagram uses green for anchors, blue for ledgers, orange for application builders and purple for terminals. Anchors provide roots. Ledgers provide data and proofs, plus history to builders. Builders return application proofs. Terminals verify evidence before constructing transactions or authorizing effects. Ledger proofs remain off-chain; application proofs enter redeemers.",
       "pause": 400
     }
   ],
   "read-the-design": [
     {
-      "text": "Start with trust choices and the availability market, then read the architecture, chainpoint sessions, decisions, roadmap and user stories.",
+      "text": "Use concepts to understand assets and roots, and the projects page to find CSMT-UTXO, MPFS and Singular. Continue to trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
       "pause": 400
     }
   ],
@@ -49,7 +41,7 @@
   ],
   "check-the-documentation": [
     {
-      "text": "Run the documentation check script with Nix installed. It checks presentation and builds the site strictly. Passing this check does not prove the system design or implementation.",
+      "text": "The documentation script checks source-bound rendered diagrams, speech freshness and a strict site build. Regenerate diagrams from the manifest with the pinned renderer, then inspect every render and update narration. Source and image hashes prove freshness, not visual accuracy or protocol correctness.",
       "pause": 400
     }
   ],

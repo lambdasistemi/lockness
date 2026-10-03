@@ -17,15 +17,23 @@ theme:
         name: Switch to light mode
   features:
     - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.footer
     - content.code.copy
 nav:
-  - Home: index.md
-  - Trust and availability: design/trust-and-availability.md
-  - User stories: stories/index.md
-  - Architecture: architecture/system.md
-  - Chainpoint sessions: design/chainpoints.md
-  - Decisions and evidence: design/decisions.md
-  - Roadmap: roadmap.md
+  - Start here:
+      - Lockness: index.md
+      - Trust and availability: design/trust-and-availability.md
+      - User stories: stories/index.md
+  - Understand the design:
+      - Concepts: concepts.md
+      - Architecture and proofs: architecture/system.md
+      - Chainpoint sessions: design/chainpoints.md
+  - Explore the projects:
+      - CSMT-UTXO, MPFS and Singular: projects.md
+      - Decisions and evidence: design/decisions.md
+      - Delivery roadmap: roadmap.md
 plugins:
   - search
 markdown_extensions:
@@ -38,3 +46,10 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_javascript:
   - https://cdn.jsdelivr.net/gh/paolino/dev-assets@0328b73b71788bb83848fe407dd04136a52c3697/mkdocs/docs/js/read-aloud.js
+extra_css:
+  - stylesheets/diagrams.css
+validation:
+  links:
+    anchors: warn
+hooks:
+  - docs/hooks/diagram_paths.py

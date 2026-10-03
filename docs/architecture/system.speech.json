@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/architecture/system.md",
-    "sha256": "2c7ebe997365a1458ac9d8d4fe563b423c54bf0447c46fc20cf2a36708450040"
+    "sha256": "92c76153258708174fcd48d1679deeef7d2cc88e62f98525aaef573f0bb72222"
   },
   "why-data-should-travel-with-proofs": [
     {
@@ -11,33 +11,25 @@
   ],
   "components-and-chain-following": [
     {
-      "text": "The diagram separates the anchor node from the provider node. Anchors compute trusted commitments; ledgers maintain and serve data and witnesses. Both follow the chain and can reuse code without sharing a running process. Applications interpret history and build proofs. Terminals verify claims and apply their action policy.",
+      "text": "The diagram separates anchor infrastructure, shown in green, from provider infrastructure in blue. Both have nodes. An orange application builder consumes ledger history. Purple terminal verification receives roots and both levels of proofs. Shared code does not require a shared running process.",
       "pause": 400
     }
   ],
   "offload-computation-while-retaining-trust-control": [
     {
-      "text": "Running your own anchor preserves independent root establishment while outsourcing ledger archives, retained views, queries and proof serving. The anchor still needs validation and commitment state. Institutional publications reduce local infrastructure under explicit institutional trust. Both options keep correctness checks with terminals while provider agreements promise availability. Actual costs and commercial integrations remain open.",
+      "text": "An own anchor preserves independent roots while ledger archives and query capacity are outsourced. Institutional publications reduce local infrastructure under explicit institutional trust. CSMT-UTXO is the existing engine; its benchmarks and metrics start the cost assessment. The remaining comparison includes the node, commitment maintenance and additional archive and serving workloads.",
       "pause": 400
     }
   ],
   "data-and-trust-are-separate": [
     {
-      "text": "The client chooses which signed roots to accept. Data providers and application builders supply checkable evidence. The signed message and publisher policy still need precise definitions.",
+      "text": "Ledger providers and Lockness application services are both untrusted for correctness. An application builder may reconstruct state and generate proofs, but the terminal verifies every required claim against the root authenticated through the exact ledger output. Substitute roots, wrong applications, invalid proofs and missing evidence cannot become accepted facts. A builder checking its own inputs does not replace terminal verification.",
       "pause": 400
     }
   ],
   "proof-composition": [
     {
-      "text": "The client accepts a signed root, acquires the named chainpoint and verifies an NFT state output. An application builder uses historical data to produce a proof against the application root in that verified output. A proof valid at an old state does not guarantee a future transaction will be accepted.",
-      "pause": 400
-    },
-    {
-      "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
-      "pause": 400
-    },
-    {
-      "text": "Ledger proof values concern on-chain validity in the present, at the selected chainpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
+      "text": "The first diagram shows a chain-wide, application-independent ledger root authenticating a UTxO and datum. Interpreting that datum yields the application root. Application proofs authenticate values, which can carry further roots. Dashed links indicate optional nesting, not an automatic proof of descendants. CSMT-UTXO commits to the live UTxO set. The sequence then shows a terminal verifying an NFT output, requesting a proof for that verified application root, and checking the builder result. Ledger proofs concern present validity and stay off-chain; application proofs support future validation in redeemers. Every chain link must bind the expected identity, encoding and claim.",
       "pause": 400
     }
   ],

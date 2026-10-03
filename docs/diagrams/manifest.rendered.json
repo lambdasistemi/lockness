@@ -1,0 +1,56 @@
+{
+  "roles": {
+    "inputs": "a4e2b95193237fcea8deca9aac7bb40b4d20828c6040e8b3bc5145c8ebbfd3b8",
+    "image": "535c716f291a926b0f5271dcafd33d20909dd3d98ff588adbf4d8ebbf0ab3c8b",
+    "width": 1046,
+    "height": 1004
+  },
+  "overview": {
+    "inputs": "a308a8bfe45e9e65536014bc489bec78508ca3bf888513b017ba970c8d8a90f7",
+    "image": "b8fdb35cd4bd35c7483cc3873a444f9d449ad57a052bd2b5342d187a5c35c7dd",
+    "width": 1426,
+    "height": 1098
+  },
+  "infrastructure": {
+    "inputs": "873e250ae80a125a9369843d2ea96998b18516bf1b350e6cbbd865f507e92ad4",
+    "image": "c2f7334c98e52a39fd2890956f50c1792b7de99e4eb5e7f4a1d4cc1640adf50b",
+    "width": 1264,
+    "height": 1482
+  },
+  "storage": {
+    "inputs": "8a60f1c971b3a1d2eee1084a42a93dd4f67314080746f2ef648d247f6cfbcdfc",
+    "image": "4f706cef2479e092da9c7bf80ad32e1372a3303dca316cf55695a4f7e29cb45d",
+    "width": 692,
+    "height": 1294
+  },
+  "decisions": {
+    "inputs": "74e4b8b869339f0859a261bb4e51131a72678bc24fdc675bd5085e60ae880b31",
+    "image": "36575202590b3327cf6f105327c868243d333e0c83db7281bd47cec8e0fc5072",
+    "width": 552,
+    "height": 1050
+  },
+  "market": {
+    "inputs": "444cfa36a4f45f15a20c9d4041713c1358630a9377cd87ad20d8bc623d3ca265",
+    "image": "f805a991bab2221072564ff8076d1425e8629c1185106800d5c24d89537557a8",
+    "width": 1434,
+    "height": 1098
+  },
+  "proof-composition": {
+    "inputs": "ed2cbcca8dd74c6b2b0ee6501e2183eb04925258426cb6e22f167519713dcca2",
+    "image": "8dba1ef939b2248fbbb04d45cee6cb683f8ef81dd887c6f829a1c39d71e714ab",
+    "width": 1418,
+    "height": 1656
+  },
+  "session": {
+    "inputs": "bef33cc6df59d109569ccbf1091520fbd339ef8398087e90c0edf5180df27fef",
+    "image": "d7a5b3a97cb979b1b51ececb8c8b7e239ea62482586da7215d8863298a8e3e5b",
+    "width": 1568,
+    "height": 1038
+  },
+  "root-chain": {
+    "inputs": "fd4ae2b542414192ba45279b817f7531eccd94cbff1a90a73073960a7b0473da",
+    "image": "7098983bec3bc069059b7c0da7bb23faf57a815694d3fd2a1ce4ee5ece05cf2a",
+    "width": 534,
+    "height": 1628
+  }
+}

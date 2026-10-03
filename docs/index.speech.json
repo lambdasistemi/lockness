@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/index.md",
-    "sha256": "78033507e74a12c8501ae998c0321552ba027aec283710156e370e69bd9d4da5"
+    "sha256": "b6ccdc9a048989e4990b3e401e2d790aa57c5162a3d50e586c9addd7ecce4b09"
   },
   "web2-scaling-with-explicit-trust-management": [
     {
@@ -9,15 +9,21 @@
       "pause": 400
     }
   ],
+  "find-your-path": [
+    {
+      "text": "For the proposition, follow trust choices and availability. For verification, follow concepts, proof composition and chainpoint sessions. For existing work, follow the projects page, evidence and roadmap.",
+      "pause": 400
+    }
+  ],
   "why-terminals-should-consume-anchored-data": [
     {
-      "text": "Lockness gives terminals a checkable basis for action. They verify provider data against independently accepted roots before building transactions or driving real-world effects. Data providers can be replaced without surrendering trust policy. Proofs establish specified claims; completeness, freshness and action authorization remain separate requirements.",
+      "text": "Ledger providers and application builders are both untrusted. The terminal verifies a chain of roots from a ledger commitment through a UTxO datum to the application root and possibly further trees. Each descendant claim requires its own proof. Completeness and freshness remain explicit requirements.",
       "pause": 400
     }
   ],
   "user-stories": [
     {
-      "text": "The diagram shows two choices feeding the terminal policy: locally established roots from an own anchor, or signed publications from selected institutions. An application operator buys availability from competing ledger providers. The terminal checks ledger data and application proofs against accepted commitments before acting.",
+      "text": "The diagram marks ledger and application services inside a boundary labelled untrusted for correctness. Own or institutional anchors feed the terminal policy. Independently supplied roots and evidence meet at terminal verification before action. Colours distinguish anchors, ledgers, applications and terminals.",
       "pause": 400
     }
   ],

@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/roadmap.md",
-    "sha256": "8d62800e22110d3aad19605fbad44fe8c96dee198289f06ed32ba30f228a993a"
+    "sha256": "effc20631f220f7ab67fdf7408627203e14d1cf034d8af4b607c234f055828ad"
   },
   "settle-the-chainpoint-contract": [
     {
@@ -17,7 +17,7 @@
   ],
   "measure-the-ledger-engine": [
     {
-      "text": "Measure existing storage against the accepted contracts. Separate anchor validation and commitment costs from ledger archive, retained-view and proof-serving costs. These measurements explain what remains local and what can be purchased; they do not establish optimal prices.",
+      "text": "Start with the linked CSMT-UTXO engine, benchmark paths and metrics. Measure anchor validation and current commitment costs separately from archive storage, retained views and query or proof serving. Bind results to the actual workload and configuration.",
       "pause": 400
     }
   ],

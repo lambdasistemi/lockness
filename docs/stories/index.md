@@ -34,6 +34,8 @@ An application builder retrieves transactions and required historical inputs, in
 
 A client requests an application proof from a service and verifies it locally. It can instead construct the proof itself from checked state. Neither route changes which root is authoritative.
 
+The application service is untrusted for correctness. Replacing the application root, proving a different NFT or application claim, returning an invalid proof, or omitting required evidence must not produce an accepted result. A verified parent datum or tree value may introduce another root; the terminal verifies every subsequent application proof in that chain before consuming its claim.
+
 ## Publish trust without serving queries
 
 A publisher follows a trusted ledger feed, computes commitments and signs each block's publication. It need not retain historical query views. The client selects trusted keys; no named organization is assumed to participate.
