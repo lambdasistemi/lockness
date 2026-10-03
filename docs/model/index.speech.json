@@ -1,0 +1,30 @@
+{
+  "_source": {
+    "file": "docs/model/index.md",
+    "sha256": "13e34344299719cb713e873e6344869116abdb30d7a2b208b8d9722779cdf27e"
+  },
+  "run-the-scenarios": [
+    {
+      "text": "A reviewer runs the honest, untrusted key and subset mutation scenarios in the pinned Lean environment. Honest publications accept the exact root with two distinct endorsers. An untrusted key refuses at the selected point even with assumed signature validity. Removing the trust check accepts that root and falsifies the same safety statement. Unexpected outcomes and unknown scenarios exit with errors.",
+      "pause": 400
+    }
+  ],
+  "follow-the-acceptance-boundary": [
+    {
+      "text": "The diagram follows original publications from the selected point through verification observations, distinct keys and trusted membership. Nonempty agreement leads to the accepted root; failure leads to no root at the selected point. Reaching an honest ledger root requires a separate correspondence hypothesis. The decisions table explains why arbitrary observations, exact binding, distinct keys and nonempty endorsement are separate checks.",
+      "pause": 400
+    }
+  ],
+  "read-the-model-contracts": [
+    {
+      "text": "Shared types preserve exact bytes, the full chainpoint and root identity. Session and answer types define later interfaces without implementing their behavior. Signature validity is an arbitrary proposition, supplied implicitly with no global instance. The proofs establish trusted endorsement and selected point refusal. Signature validity requires observation soundness; honest root equality separately requires correspondence. Counterexamples make both boundaries concrete.",
+      "pause": 400
+    }
+  ],
+  "assess-the-evidence": [
+    {
+      "text": "The gate builds all modules and inventories every stored theorem, including private proofs. Lean checks anonymous examples during compilation; strict warnings and source policy reject their holes. Deliberate holes and custom escape axioms must be rejected for their actual axiom dependency. Compiled production mutations change outcomes before unchanged proofs fail. The diagram and scenarios show model evidence. Documentation, independent review, remote CI, implementation and live deployment remain different evidence layers. Kernel trust and external soundness hypotheses remain explicit. These finite controls do not claim exhaustive coverage. The guard and theorem share a candidate definition; these controls do not independently establish specification fidelity.",
+      "pause": 400
+    }
+  ]
+}
