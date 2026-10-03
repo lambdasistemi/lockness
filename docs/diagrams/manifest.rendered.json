@@ -1,0 +1,68 @@
+{
+  "roles": {
+    "inputs": "a4e2b95193237fcea8deca9aac7bb40b4d20828c6040e8b3bc5145c8ebbfd3b8",
+    "image": "535c716f291a926b0f5271dcafd33d20909dd3d98ff588adbf4d8ebbf0ab3c8b",
+    "width": 1046,
+    "height": 1004
+  },
+  "overview": {
+    "inputs": "7944b23251d06fd5c4b400d8179a886b4fb80cf6733bf76247961c9f339ea4f5",
+    "image": "189c40ed30a0b3284e41584bd284fd5ac67b4ead9545868aa5caf7815bb8d6ab",
+    "width": 1240,
+    "height": 1144
+  },
+  "infrastructure": {
+    "inputs": "873e250ae80a125a9369843d2ea96998b18516bf1b350e6cbbd865f507e92ad4",
+    "image": "c2f7334c98e52a39fd2890956f50c1792b7de99e4eb5e7f4a1d4cc1640adf50b",
+    "width": 1264,
+    "height": 1482
+  },
+  "storage": {
+    "inputs": "8a60f1c971b3a1d2eee1084a42a93dd4f67314080746f2ef648d247f6cfbcdfc",
+    "image": "4f706cef2479e092da9c7bf80ad32e1372a3303dca316cf55695a4f7e29cb45d",
+    "width": 692,
+    "height": 1294
+  },
+  "decisions": {
+    "inputs": "74e4b8b869339f0859a261bb4e51131a72678bc24fdc675bd5085e60ae880b31",
+    "image": "36575202590b3327cf6f105327c868243d333e0c83db7281bd47cec8e0fc5072",
+    "width": 552,
+    "height": 1050
+  },
+  "market": {
+    "inputs": "800a199efa9372da447c62a93d41692316f703965d86fa4887c02eef4689e6c2",
+    "image": "76008422a68e2c0bcc856ffd8feb758dbc2b18acdd9670efbe292121381f4c10",
+    "width": 1306,
+    "height": 1144
+  },
+  "proof-composition": {
+    "inputs": "483494275c16d1fca4bb6e56c18c60bca164b014e33af4d61376284805abed60",
+    "image": "94670c4fcf7b47edce50e57f997ecbfd7798666cf0147f79687da6c5a50da67b",
+    "width": 1248,
+    "height": 1694
+  },
+  "session": {
+    "inputs": "bef33cc6df59d109569ccbf1091520fbd339ef8398087e90c0edf5180df27fef",
+    "image": "42c240417184fe731e8282099e4863ad95e9cf157e60cbedd21a1a0996b15f6b",
+    "width": 1568,
+    "height": 1038
+  },
+  "root-chain": {
+    "inputs": "fd4ae2b542414192ba45279b817f7531eccd94cbff1a90a73073960a7b0473da",
+    "image": "7098983bec3bc069059b7c0da7bb23faf57a815694d3fd2a1ce4ee5ece05cf2a",
+    "width": 534,
+    "height": 1628
+  },
+  "roadmap": {
+    "inputs": "8569b078b89b1101cd8efceaa55160b5254818f683e18aa55f690212f86cb4de",
+    "image": "a7b74cfeb7dd25a4581cbf53d596a61f0d6dbc722288ed2baac7393e86a86d8f",
+    "width": 1208,
+    "height": 1184
+  },
+  "roadmap-journey": {
+    "inputs": "6dffcb3329740f70d079d48fefef09981e5e96037d4b34bfc3d45ddce92f42c1",
+    "image": "7f90550b39a7ee88baede9f2e41912a4290003ac5c10ef95011cb94613537c91",
+    "width": 1568,
+    "height": 1180
+  }
+}

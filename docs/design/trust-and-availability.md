@@ -12,7 +12,7 @@ The economic thesis is that interchangeable, verifiable providers enable efficie
 
 **Running your own anchor is the optimal deal for trust independence.** Your node validates the chain and your anchor establishes the roots your terminals accept. You can buy all required ledger queries and proofs from outside providers. You retain the chain-validation, software and cryptographic assumptions of your own infrastructure, without adding a provider's assertion as the authority for an answer.
 
-An anchor is still real infrastructure. It follows the chain, maintains the state needed to compute current commitments and handles rollback. Outsourcing ledger services removes the need to operate their archive, retained query views and query-serving capacity; it does not eliminate the anchor's own computational cost.
+An anchor is still real infrastructure; [CSMT-UTXO is the existing engine and measurement starting point](../projects.md#csmt-utxo-the-existing-engine). It follows the chain, maintains the state needed to compute current commitments and handles rollback. Outsourcing ledger services removes the need to operate their archive, retained query views and query-serving capacity; it does not eliminate the anchor's own computational cost.
 
 **Observing institutional root publications is an exceptionally attractive operational deal.** Institutions operate anchors and publish signed roots for every block. Terminals verify publications from institutions selected by their policy and consume provider data against those commitments. This avoids operating an anchor locally while making institutional trust explicit. No institution is claimed to participate today.
 
@@ -23,15 +23,9 @@ An anchor is still real infrastructure. It follows the chain, maintains the stat
 
 Both choices use the same independent data-provider boundary. Institutional publication is a first-class deployment choice, not a promise of identical trust assumptions to running your own anchor. Which institutions, agreement rules and freshness conditions to accept remains terminal policy.
 
-```mermaid
-flowchart LR
-    O[Own anchor] -->|Locally established roots| T[Terminal acceptance policy]
-    I[Chosen institutional anchors] -->|Signed publications| T
-    A[Application operator] -->|Buys availability| P[Competing data and proof providers]
-    P -->|Data and evidence for a chainpoint| V[Terminal verification]
-    T -->|Accepted commitment and policy| V
-    V -->|Verified claims| E[Transaction construction or real-world action]
-```
+<!-- diagram: market -->
+<div class="diagram"><a href="../diagrams/market.png"><img src="../diagrams/market.png" alt="Trust selection and the availability agreement are separate; accepted roots and purchased evidence meet at terminal verification." width="653" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/market.png">Open full size</a> · <a href="../diagrams/market.mmd">Mermaid source</a></p>
 
 ## What applications buy
 

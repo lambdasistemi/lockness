@@ -1,0 +1,37 @@
+---
+config:
+  layout: elk
+  theme: base
+  themeVariables:
+    fontFamily: "Helvetica, Arial, sans-serif"
+    fontSize: "15px"
+    primaryTextColor: "#203040"
+    lineColor: "#475569"
+    edgeLabelBackground: "#ffffff"
+  flowchart:
+    htmlLabels: false
+    nodeSpacing: 25
+    rankSpacing: 45
+  elk:
+    nodePlacementStrategy: BRANDES_KOEPF
+    mergeEdges: false
+---
+flowchart TB
+    R[Accepted ledger root<br/>at chainpoint P]:::anchor -->|Same authority| T[Terminal checks]:::terminal
+    subgraph U[Untrusted services]
+      A[Provider A]:::ledger
+      B[Provider B]:::ledger
+      P[Application builder]:::app
+    end
+    A -->|UTxO + witness| T
+    B -->|Equivalent claim| T
+    P -->|Application proofs| T
+    T -->|All links verify| V[Verified application<br/>claim]:::terminal
+    T -->|Evidence fails| E[Explicit rejection]:::neutral
+    V -->|Action policy| X[Construct transaction<br/>or authorize effect]:::terminal
+    style U fill:#f8fafc,stroke:#687384,stroke-dasharray:5 4
+    classDef anchor fill:#e1f3eb,stroke:#2c7155,stroke-width:1.5px,color:#163d2e
+    classDef ledger fill:#e6effc,stroke:#416dad,stroke-width:1.5px,color:#203a63
+    classDef app fill:#fff0dd,stroke:#a46b25,stroke-width:1.5px,color:#644317
+    classDef terminal fill:#eee8fa,stroke:#7856a8,stroke-width:1.5px,color:#463064
+    classDef neutral fill:#f3f4f6,stroke:#687384,stroke-width:1.5px,color:#293342

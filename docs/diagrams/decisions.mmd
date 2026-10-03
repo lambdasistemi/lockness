@@ -1,0 +1,28 @@
+---
+config:
+  layout: elk
+  theme: base
+  themeVariables:
+    fontFamily: "Helvetica, Arial, sans-serif"
+    fontSize: "15px"
+    primaryTextColor: "#203040"
+    lineColor: "#475569"
+    edgeLabelBackground: "#ffffff"
+  flowchart:
+    htmlLabels: false
+    nodeSpacing: 25
+    rankSpacing: 45
+  elk:
+    nodePlacementStrategy: BRANDES_KOEPF
+    mergeEdges: false
+---
+flowchart TB
+    D[Design direction]:::neutral -->|Specify guarantees| M[Executable model]:::neutral
+    M -->|Audit + counterexamples| R[Reviewed contract]:::neutral
+    R -->|Implement + validate| I[Production implementation]:::neutral
+
+    classDef anchor fill:#e1f3eb,stroke:#2c7155,stroke-width:1.5px,color:#163d2e
+    classDef ledger fill:#e6effc,stroke:#416dad,stroke-width:1.5px,color:#203a63
+    classDef app fill:#fff0dd,stroke:#a46b25,stroke-width:1.5px,color:#644317
+    classDef terminal fill:#eee8fa,stroke:#7856a8,stroke-width:1.5px,color:#463064
+    classDef neutral fill:#f3f4f6,stroke:#687384,stroke-width:1.5px,color:#293342

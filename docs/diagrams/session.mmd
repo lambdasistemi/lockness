@@ -1,0 +1,27 @@
+---
+config:
+  theme: base
+  themeVariables:
+    fontFamily: "Helvetica, Arial, sans-serif"
+    fontSize: "15px"
+    primaryColor: "#e6effc"
+    primaryBorderColor: "#416dad"
+    primaryTextColor: "#203a63"
+    lineColor: "#475569"
+---
+stateDiagram-v2
+    direction TB
+    [*] --> Requested: Select chainpoint
+    Requested --> Active: Acquire view
+    Requested --> Unavailable: View absent
+    Active --> Active: Read or paginate
+    Active --> Expired: Lease expires
+    Active --> Closed: Release session
+    Active --> BranchDecision: Block rolled back
+    state "Branch policy unresolved" as BranchDecision
+    Unavailable --> [*]: Explicit refusal
+    Expired --> [*]: Further reads refused
+    Closed --> [*]: Release view
+    note right of BranchDecision
+      No outcome chosen yet
+    end note

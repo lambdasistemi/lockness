@@ -8,33 +8,17 @@ Use **chainpoint** throughout Lockness. This corresponds to Cardano API's [`Chai
 
 A session token binds reads to the network, selected chainpoint and a retained view; it is not a source of trust. A chainpoint names a chain position, a view exposes state at that position, and a session retains access under a lease. The client verifies results against its separately accepted commitment. Different providers may issue different tokens for the same chainpoint. Whether sessions can be acquired at genesis remains a service-contract decision.
 
-```mermaid
-stateDiagram-v2
-    [*] --> Requested: Select a published point
-    Requested --> Active: Acquire a retained view
-    Requested --> Unavailable: Point cannot be served
-    Active --> Active: Read or paginate at the same point
-    Active --> Expired: Bounded lease expires
-    Active --> Closed: Client releases session
-    Active --> BranchDecision: Selected block is rolled back
-    BranchDecision --> [*]: Behavior awaits design ruling
-    Unavailable --> [*]: Explicit refusal
-    Expired --> [*]: Explicit refusal on further use
-    Closed --> [*]: Release retained reference
-```
+<!-- diagram: session -->
+<div class="diagram"><a href="../diagrams/session.png"><img src="../diagrams/session.png" alt="A retained session supports repeated reads; expiry and missing views refuse, and rollback policy is explicitly unresolved." width="784" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/session.png">Open full size</a> · <a href="../diagrams/session.mmd">Mermaid source</a></p>
 
 Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block; the policy for sessions on an abandoned branch remains open. No automatic chainpoint substitution is allowed.
 
 ## Storage separation
 
-```mermaid
-flowchart LR
-    S[Read session at point P] -->|Select| V[Retained index roots for P]
-    V -->|Resolve live membership and assets| R[Content references]
-    R -->|Fetch by hash| B[Append-only content store]
-    V -->|Construct witnesses| W[Proof response]
-    B -->|Supply exact bytes| W
-```
+<!-- diagram: storage -->
+<div class="diagram"><a href="../diagrams/storage.png"><img src="../diagrams/storage.png" alt="A session pins index roots that resolve immutable content and supply membership witnesses for one chainpoint." width="346" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/storage.png">Open full size</a> · <a href="../diagrams/storage.mmd">Mermaid source</a></p>
 
 Immutable content survives rollback. Chain-index membership and branch status determine which content belongs to the selected ledger state. Storing an object is not evidence that it is live or canonical.
 

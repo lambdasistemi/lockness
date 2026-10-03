@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/stories/index.md",
-    "sha256": "5a65f47a322a0f2334c102e8ec329a82711649d41a8a28793fecb6532dab071d"
+    "sha256": "697ded747c6361e55a55688acf07f4a18409e28c9d663c2aa1a89ea3c66abb17"
   },
   "verify-before-using-ledger-facts": [
     {
@@ -45,7 +45,7 @@
   ],
   "delegate-proof-construction": [
     {
-      "text": "Clients can ask an application service to construct proofs and verify them locally, or perform the construction themselves. Authority stays with the same accepted root.",
+      "text": "The terminal may delegate proof construction to an untrusted application service or construct locally. Either way it checks the required claim against the authenticated application root. Wrong NFTs, substitute roots, invalid proofs and missing evidence must not be accepted. Nested root chains require a separate verified link at each step.",
       "pause": 400
     }
   ],

@@ -12,7 +12,17 @@ Lockness lets applications buy data and computation from competing providers whi
 
 Applications and providers negotiate availability: coverage, retention, throughput, latency and uptime. This separates a checkable answer from a commercial promise to deliver it. The goal is efficient market-driven scaling through interchangeable providers. Read the [trust and availability model](design/trust-and-availability.md) for the choices and acceptance requirements.
 
+## Find your path
+
+- **Assess the proposition:** [trust choices and the availability market](design/trust-and-availability.md).
+- **Follow a verified answer:** [concepts](concepts.md) → [proof composition](architecture/system.md#proof-composition) → [chainpoint sessions](design/chainpoints.md).
+- **Explore existing work:** [CSMT-UTXO, MPFS and Singular](projects.md) → [evidence](design/decisions.md#evidence-available-today) → [delivery roadmap](roadmap.md).
+
 ## Why terminals should consume anchored data
+
+**Both ledger providers and Lockness application services are untrusted for correctness.** They supply data, interpretation and proof construction; terminals verify the claims before using them.
+
+The [chain of roots](architecture/system.md#proof-composition) begins with an application-independent ledger commitment. A proven UTxO authenticates its datum, including the application root carried there. An application proof can then authenticate values in that tree, potentially including further application roots. Every link is verified; the application service does not become a new trust authority.
 
 The value of Lockness is a checkable basis for action. A terminal receives data and proof from a provider, accepts a root under its independent anchor policy, and verifies the claim at a selected chainpoint before consuming the data. It can change data providers or delegate proof construction while retaining control over which evidence it accepts.
 
@@ -24,16 +34,9 @@ The proof must establish the claim the action needs. A membership proof alone ca
 
 Lockness separates who provides data from who endorses ledger commitments. A client selects a commitment at a chainpoint, obtains a read session for that point, and verifies the evidence it uses. Application-specific proof construction can happen locally or at an optional service.
 
-```mermaid
-flowchart LR
-    O[Own anchor] -->|Locally established roots| C[Terminal trust policy]
-    I[Chosen institutional anchors] -->|Signed root publications| C
-    B[Application operator] -->|Availability agreement| L[Competing ledger providers]
-    L -->|Pinned data and witnesses| V[Terminal verification]
-    C -->|Accepted commitment| V
-    L -->|Historical reconstruction data| A[Lockness application]
-    A -->|Application proofs| V
-```
+<!-- diagram: overview -->
+<div class="diagram"><a href="diagrams/overview.png"><img src="diagrams/overview.png" alt="Chosen roots and untrusted ledger and application services meet at terminal verification; both services remain outside the trust boundary." width="620" loading="lazy"></a></div>
+<p class="diagram-links"><a href="diagrams/overview.png">Open full size</a> · <a href="diagrams/overview.mmd">Mermaid source</a></p>
 
 ## Current state
 

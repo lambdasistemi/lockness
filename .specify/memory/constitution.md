@@ -13,6 +13,7 @@ The project proposition is Web2 scaling with explicit trust management: applicat
 3. A session never silently changes chainpoint. Network, slot, block hash, commitment identity and version must be unambiguous.
 4. Ledger services remain application independent. Preserve transaction information; application libraries interpret its meaning.
 5. Proof construction may be delegated. Verification, exact claim binding and the client's trust policy may not be replaced by provider assertions.
+   Both ledger providers and `lockness-applications` services are untrusted for correctness. A ledger proof authenticates the UTxO and datum that carry an application root; application proofs may authenticate values carrying further roots. Every link and its interpretation must be checked before the terminal consumes a descendant claim.
 6. Historical material, authenticated membership, completeness, currentness and application-state reconstruction are distinct claims.
 7. Reuse one generic chain-following engine across appropriate deployment roles; independently endorsed roots require an explicit trusted ledger source, not blind signing of a provider's root.
 
