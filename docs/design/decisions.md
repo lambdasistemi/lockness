@@ -8,14 +8,14 @@ The following direction was established in the project discussion on 3 October 2
 
 | Direction | Earlier alternative | Why it changed |
 | --- | --- | --- |
-| Work at project level in Lockness | Extend one repository's asset endpoint in isolation | Trust publication, retained views and client verification cross component boundaries. |
+| Work at project level in Lockness | Extend one repository's asset endpoint in isolation | Trust publication, retained views and terminal verification cross component boundaries. |
 | Terminals consume anchored data before acting | Accept the data provider's answer as authoritative | Verification connects the answer to an independently accepted root; data providers and proof builders remain replaceable. |
 | Own anchor is the optimal deal for trust independence | Equate independent verification with running every data service locally | Keep local root establishment while outsourcing ledger capacity. |
 | Institutional publications are a first-class operational offer | Require each terminal operator to maintain an anchor | Obtain roots at low local operating cost under explicit institutional trust. |
 | Applications purchase provider availability | Bundle correctness authority with purchased data capacity | Price delivery while terminals verify claims independently. |
 | Require provider interoperability and switching evidence | Claim an optimal market from the architecture alone | Market-driven scaling needs practical substitution and measurable service commitments. |
-| Publishers emit signed commitments for every block | Publishers choose and retain client query sessions | Publication and data-serving availability are independent responsibilities. |
-| Clients use a selected published chainpoint | Clients ask publishers to coordinate each query | Signed streams supply commitments independently of data retrieval. |
+| Anchors emit signed commitments for every block | Anchors choose and retain terminal query sessions | Publication and data-serving availability are independent responsibilities. |
+| Terminals use a selected published chainpoint | Terminals ask anchors to coordinate each query | Signed streams supply commitments independently of data retrieval. |
 | Chainpoint-bound proof-bearing API | Duplicate Koios response shapes as the governing contract | Query compatibility alone does not establish coherent multi-query reads. |
 | Serve complete transaction CBOR as reconstruction material | Define a smaller application-neutral transaction projection now | Sufficiency is application dependent; preserving information precedes optimization. |
 | Optional application proof services | Either trust an application backend or do everything locally | Proof construction can be delegated and checked locally. |
@@ -30,13 +30,11 @@ The project names the roles `lockness-anchors` and `lockness-ledgers`, plural be
 
 ## Words that constrain the design
 
-Selected project rulings, preserved verbatim:
+Project rulings, paraphrased for readability:
 
-> "we need to separate a hash to content append only DB containing the assets and chain cursors indexing them"
-
-> "and trust providers, they will just publish them all. Every block will have one."
-
-> "So now we don't have to serve data with the same shape of COYOS because I mean we have different guarantees and the approach of mpfs backent applies, every answer carries the data necessary to build proofs against an external provided root for the pinned chainpoint"
+- Separate immutable, hash-addressed content from chainpoint indexes.
+- Anchors publish a signed root for every block independently of query sessions.
+- The API is governed by chainpoint coherence and evidence sufficient for verification, rather than Koios response compatibility.
 
 The later discussion refined the last statement: historical transactions can be untrusted reconstruction material, while claims used as authoritative ledger or application facts need verification. The precise endpoint claim inventory is still open.
 
@@ -46,7 +44,18 @@ The temporal distinction is an explicit project ruling:
 
 > "the ledger proofs are about on-chain validity (present), application proofs are about on-chain validation (future)"
 
-Here the present is the selected chainpoint. An application proof is intended for checking a proposed transition on-chain; its availability is not a promise of future transaction acceptance.
+Here the present is the selected chainpoint. For the UTxO commitment, the proof establishes output membership under the accepted root, not an independent execution of transaction-validity rules. An application proof is intended for checking a proposed transition on-chain; its availability is not a promise of future transaction acceptance.
+
+## Claims and evidence boundaries
+
+| Design claim | Evidence boundary |
+| --- | --- |
+| Terminals verify data against independently accepted ledger roots | No accepted Lockness formal model, verifier or end-to-end deployment yet |
+| Own anchors preserve trust independence; institutional publications reduce local infrastructure | These are trust and operating choices, not measured price rankings; no institution is claimed to participate today |
+| Providers compete on computation and availability | No interoperable provider market or globally optimal pricing demonstrated |
+| CSMT-UTXO supplies existing commitment machinery | Retained views, history coverage, leases and publication contracts require additional work; see [existing projects](../projects.md) |
+| Ledger proofs authenticate their stated claims at a chainpoint | Membership does not establish uniqueness, result completeness, canonicality or settlement |
+| Application services can reconstruct state and build proofs | Transaction-CBOR replay and dependency coverage still need application-specific evidence |
 
 ## What remains unproved
 
@@ -54,10 +63,11 @@ Here the present is the selected chainpoint. An application proof is intended fo
 - Provider switching, evidence interoperability and observable availability commitments need concrete contracts and acceptance evidence; market efficiency is a design thesis.
 - The full commitment inventory: live UTxOs, asset sets and any historical indexes need separately stated proof guarantees.
 - Completeness and absence require explicit proof contracts; inclusion proofs alone do not establish a full result set.
-- Archive coverage and referenced-output retrieval must be sufficient for a real application's replay, not merely a selected transaction sample.
-- Publisher policy, key rotation, signed message encodings, freshness and rollback notices remain unspecified.
+- [Archive coverage](chainpoints.md#history-coverage-before-costing) must be selected before cost commitments; referenced-output retrieval must cover every dependency of a real application replay.
+- Anchor policy, key rotation, signed message encodings, freshness and rollback notices remain unspecified.
 - Active-session behavior on fork abandonment and bounded retention remain unresolved.
-- Application replay and proof checks need to bind NFT identity, exact datum, root and selected state without accepting a different application or chainpoint.
+- Application replay and proof checks need to bind NFT identity, unique-state assumptions, exact datum, root and selected state without accepting a different application or chainpoint.
+- External effects require an explicit settlement policy and evidence of continued ancestry; signatures or same-point anchor agreement alone do not establish settlement.
 
 ## Evidence available today
 
@@ -65,4 +75,4 @@ Here the present is the selected chainpoint. An application proof is intended fo
 
 The inspected [Koios asset query](https://github.com/cardano-community/koios-artifacts/blob/2e2eb57933e1e2528de5ca36ee961759841cf389/files/grest/rpc/assets/asset_utxos.sql) and [Blockfrost API](https://github.com/blockfrost/openapi/blob/05c6d61311f2d4d5c701d029ba702be86d36da69/openapi.json) do not expose the required shared chainpoint session contract for the relevant UTxO queries. This is a finding about those published interfaces, not their internal database capabilities.
 
-[CSMT root-signing work](https://github.com/lambdasistemi/cardano-utxo-csmt/pull/231) is related work. Its existence does not establish an accepted publisher-stream protocol.
+[CSMT root-signing work](https://github.com/lambdasistemi/cardano-utxo-csmt/pull/231) is related work. Its existence does not establish an accepted anchor publication protocol.

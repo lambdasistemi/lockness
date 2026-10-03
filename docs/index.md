@@ -1,16 +1,12 @@
 # Lockness
 
-As an application developer, let terminals consume anchored data before building transactions or driving real-world effects, without maintaining a chain follower for each application.
+As an application developer, check the data behind a transaction or real-world action without trusting its server. Lockness calls the consuming wallet or integration a **terminal**: it verifies evidence before using an answer.
 
 ## Web2 scaling with explicit trust management
 
-Lockness lets applications buy data and computation from competing providers while terminals keep control over trust. Ordinary servers, caches and replicas supply capacity; independently accepted roots and proof verification establish the claims the terminal consumes.
+Applications buy data and computation from competing providers. Terminals choose anchors that establish trusted ledger roots, then check provider answers against those roots. This separation makes data provision a computational business whose capacity can scale through ordinary servers, caches and replicas.
 
-**Run your own anchor for the optimal deal in trust independence.** Maintain your own validated chain and commitments, then buy the ledger service's historical storage, chainpoint views, queries and proof generation. Extensive offloading can preserve your own source of trust.
-
-**Observe institutional publications for an exceptionally attractive operational deal.** Accept signed roots from institutions selected under your trust policy and avoid operating an anchor. The institutional trust is explicit; no participating institution or live publication service is claimed today.
-
-Applications and providers negotiate availability: coverage, retention, throughput, latency and uptime. This separates a checkable answer from a commercial promise to deliver it. The goal is efficient market-driven scaling through interchangeable providers. Read the [trust and availability model](design/trust-and-availability.md) for the choices and acceptance requirements.
+Running your own anchor is the optimal deal for trust independence; observing chosen institutional publications is an exceptionally attractive operational deal under explicit institutional trust. The [trust and availability model](design/trust-and-availability.md) owns these choices and the delivery commitments applications purchase.
 
 ## Find your path
 
@@ -20,19 +16,13 @@ Applications and providers negotiate availability: coverage, retention, throughp
 
 ## Why terminals should consume anchored data
 
-**Both ledger providers and Lockness application services are untrusted for correctness.** They supply data, interpretation and proof construction; terminals verify the claims before using them.
+**Anchored data** is data whose required claim the terminal has verified against an independently accepted root. Both ledger providers and application services remain untrusted for correctness.
 
-The [chain of roots](architecture/system.md#proof-composition) begins with an application-independent ledger commitment. A proven UTxO authenticates its datum, including the application root carried there. An application proof can then authenticate values in that tree, potentially including further application roots. Every link is verified; the application service does not become a new trust authority.
-
-The value of Lockness is a checkable basis for action. A terminal receives data and proof from a provider, accepts a root under its independent anchor policy, and verifies the claim at a selected chainpoint before consuming the data. It can change data providers or delegate proof construction while retaining control over which evidence it accepts.
-
-A wallet uses this evidence to check the state from which it constructs a transaction. An integration uses it to establish a ledger fact before applying its policy for a real-world effect. Both can share generic ledger infrastructure without inheriting the data server's authority.
-
-The proof must establish the claim the action needs. A membership proof alone cannot establish query completeness, and a valid proof at an old chainpoint cannot establish freshness. Historical transactions may be untrusted material used to reconstruct state that is then checked against an anchored application root. Read [why data should travel with proofs](architecture/system.md#why-data-should-travel-with-proofs) for the boundary between evidence, trust and action.
+A ledger proof can authenticate an NFT state output and its datum. That datum carries an application root used to verify application proofs, including links to further trees. Follow [proof composition](architecture/system.md#proof-composition) for the complete chain and [the verification boundary](architecture/system.md#why-data-should-travel-with-proofs) for the claims an action needs.
 
 ## User stories
 
-Lockness separates who provides data from who endorses ledger commitments. A client selects a commitment at a chainpoint, obtains a read session for that point, and verifies the evidence it uses. Application-specific proof construction can happen locally or at an optional service.
+Lockness separates who provides data from who endorses ledger commitments. A terminal finds a chainpoint with both an accepted root and an available provider view, acquires a session, and verifies the evidence it uses. Application-specific proof construction can happen locally or at an optional service.
 
 <!-- diagram: overview -->
 <div class="diagram"><a href="diagrams/overview.png?v=189c40ed30a0b328"><img src="diagrams/overview.png?v=189c40ed30a0b328" alt="Chosen roots and untrusted ledger and application services meet at terminal verification; both services remain outside the trust boundary." width="620" loading="lazy"></a></div>
@@ -40,6 +30,4 @@ Lockness separates who provides data from who endorses ledger commitments. A cli
 
 ## Current state
 
-This is a design-stage project. The architecture direction is recorded; chainpoint behavior during rollback, authenticated history, proof formats and acceptance rules remain to be specified and tested. There is no production Lockness service or accepted formal model yet. No institution is claimed to operate a publisher.
-
-Start with the [architecture](architecture/system.md), then the [chainpoint contract](design/chainpoints.md) and [delivery roadmap](roadmap.md).
+This is a design-stage project. The [decision record](design/decisions.md#claims-and-evidence-boundaries) states what exists, what is proposed and what remains unproved. The [roadmap](roadmap.md) turns those gaps into deliverables and acceptance criteria.

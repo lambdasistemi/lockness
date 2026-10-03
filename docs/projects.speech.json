@@ -1,17 +1,17 @@
 {
   "_source": {
     "file": "docs/projects.md",
-    "sha256": "fd41fede8a29f21e0b174dbc0c632af521f1c0c5efb343c94e26c8942a351344"
+    "sha256": "73f139e65c56e879cba97cc206e4f1bb8da8ab057438b21cbc6a6ab6d796cea1"
   },
   "csmt-utxo-the-existing-engine": [
     {
-      "text": "CSMT-UTXO already follows the chain, maintains the live UTxO commitment and serves inclusion proofs. Links lead to its architecture, storage schema, setup guide, API, benchmarks and runtime metrics. Benchmark definitions are not deployment cost measurements; distinguish commitment updates from key-value-only baselines and include node costs.",
+      "text": "The linked CSMT-UTXO revision already follows the chain, maintains current UTxO commitments and serves inclusion proofs, historical roots and address lookup. Its documented schema has no transaction archive. The table separates reusable machinery from additional anchor publication work and ledger-provider indexes, archive, retained views, leases and refusals. The packaging choice remains open. Measure the workloads separately; the old CSMT lane stays paused.",
       "pause": 400
     }
   ],
   "application-consumers": [
     {
-      "text": "The table links MPFS and Singular to their repositories. MPFS has a linked facts verifier as prior evidence. The proposed history-retrieval integration and complete Lockness journey remain to be demonstrated.",
+      "text": "MPFS and Singular remain application consumers. The existing MPFS verifier consumes backend facts. Replay from transaction CBOR needs a deterministic interpreter and complete dependencies. The linked acceptance run will test that proposed integration after implementation.",
       "pause": 400
     }
   ],

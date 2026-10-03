@@ -1,11 +1,17 @@
 {
   "_source": {
     "file": "docs/concepts.md",
-    "sha256": "f1bc31310845f4d258f8e6f59b0fe3c7cc66a42f9005272dce31efbd62b9e171"
+    "sha256": "46cbe720534beda299406cc311a68440a880f7dad0f53fea66cb7bd7afe2ec2e"
   },
+  "standard-vocabulary": [
+    {
+      "text": "An anchor establishes and publishes signed ledger roots. A ledger provider serves data and ledger proofs; it is distinct from the Cardano ledger. An application service interprets history and builds application proofs. A terminal chooses anchors and checks the evidence. Ledger roots commit to generic ledger quantities; application roots commit to application state.",
+      "pause": 400
+    }
+  ],
   "assets-and-nft-state-outputs": [
     {
-      "text": "An asset identity combines policy and asset name. In the example an NFT identifies an application state output whose exact datum must be authenticated. The page links MPFS and Singular, ledger witnesses and the worked sequence.",
+      "text": "An asset identity combines minting policy and asset name. Using it as a unique state identifier requires a policy limiting the asset to one unit and state rules preserving the authoritative output. Inclusion alone proves neither unique supply nor authority. If several candidates are allowed, the application contract must define which is authoritative.",
       "pause": 400
     }
   ],
@@ -35,7 +41,7 @@
   ],
   "a-chain-of-application-roots": [
     {
-      "text": "CSMT-UTXO authenticates the chain-wide live UTxO set. A proven output datum carries an application root. A verified application value may carry a further root. Every descendant claim needs its own checked proof and interpretation.",
+      "text": "An authenticated application value may carry another root. Every descendant claim requires a checked proof and the expected interpretation. The architecture owns the root-chain diagram and verification order.",
       "pause": 400
     }
   ],

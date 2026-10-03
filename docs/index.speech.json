@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "docs/index.md",
-    "sha256": "a5498a9f381747eef847e57c852d014fbcf32e4fd679e0d5a6b09456257066bf"
+    "sha256": "cbf889cec12c72532f5e376a3375edf0c41360aa2664d853e1704b5699078b4e"
   },
   "web2-scaling-with-explicit-trust-management": [
     {
-      "text": "Lockness separates trusted roots from purchased data capacity. Run your own anchor for maximum trust independence, or observe chosen institutional publications for an exceptionally attractive operational deal under explicit institutional trust. Applications buy coverage, throughput and uptime; terminals verify delivered claims. No live institutional publication service or optimal market is claimed.",
+      "text": "Applications buy data and computation while terminals choose anchors and verify answers. This separates correctness trust from capacity and enables competition on availability. An own anchor preserves independence; chosen institutional publications reduce local infrastructure under explicit trust. Follow the canonical trust and availability page.",
       "pause": 400
     }
   ],
@@ -17,19 +17,19 @@
   ],
   "why-terminals-should-consume-anchored-data": [
     {
-      "text": "Ledger providers and application builders are both untrusted. The terminal verifies a chain of roots from a ledger commitment through a UTxO datum to the application root and possibly further trees. Each descendant claim requires its own proof. Completeness and freshness remain explicit requirements.",
+      "text": "Anchored data is data whose required claim has been verified against an independently accepted root. Ledger providers and application services remain untrusted. A ledger proof authenticates an output datum carrying an application root. Follow proof composition for checking further links.",
       "pause": 400
     }
   ],
   "user-stories": [
     {
-      "text": "The diagram marks ledger and application services inside a boundary labelled untrusted for correctness. Own or institutional anchors feed the terminal policy. Independently supplied roots and evidence meet at terminal verification before action. Colours distinguish anchors, ledgers, applications and terminals.",
+      "text": "The terminal finds a chainpoint with an accepted anchor root and an available provider view, acquires a session and verifies its evidence. The diagram keeps both ledger and application services outside the trust boundary. Their answers meet independently accepted roots at terminal verification.",
       "pause": 400
     }
   ],
   "current-state": [
     {
-      "text": "Lockness is in design. The record distinguishes proposed behavior from unproved contracts. No production service, accepted formal model or institutional publisher is claimed.",
+      "text": "The project remains at design stage. The decision record owns claims and evidence limits, and the roadmap defines deliverables and acceptance criteria.",
       "pause": 400
     }
   ]

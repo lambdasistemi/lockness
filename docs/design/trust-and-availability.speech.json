@@ -1,17 +1,17 @@
 {
   "_source": {
     "file": "docs/design/trust-and-availability.md",
-    "sha256": "689ad80e7596d2f4e322cedc4e44df76c121fe4c81a61bc69e7dd3c42fe2167d"
+    "sha256": "ad234e46bf0b3b86c676f3213d9cf40c7d6ac65b1189e5bd2bc9c3f6706c907a"
   },
   "the-project-proposition": [
     {
-      "text": "Web2 scaling with explicit trust management separates data capacity from the roots a terminal accepts. Providers sell computation and availability, and terminals verify claims. Efficient market-driven scaling is the economic thesis; interoperability and practical switching must demonstrate it.",
+      "text": "Proofs let data provision become a computational business while terminals keep trust policy. Ordinary capacity can scale through caches and replicas. Interoperability and practical switching are acceptance targets; the decision record owns the evidence boundary.",
       "pause": 400
     }
   ],
   "two-attractive-trust-deals": [
     {
-      "text": "Running your own anchor offers maximum trust independence; chosen institutional publications offer low local operating cost with explicit institutional trust. CSMT-UTXO is the engine and measurement starting point. The diagram separates choosing root authority from buying service capacity. A dotted agreement connects buyer and provider; accepted commitments and supplied evidence meet only at terminal verification.",
+      "text": "An own anchor offers the optimal deal for trust independence. Institutional publications offer an exceptionally attractive operational deal with explicit trust. Both retain software and cryptographic assumptions. Anchors sharing engines, nodes or infrastructure can fail together; agreement is not implementation diversity. The diagram separates root selection from service purchase and combines roots and evidence at terminal verification.",
       "pause": 400
     }
   ],
@@ -23,7 +23,7 @@
   ],
   "switching-must-preserve-verification": [
     {
-      "text": "A replacement provider serves the same network, chainpoint, commitment scheme and claims under a new local session. If it cannot serve the view or history, it reports the limitation. Switching must preserve anchor policy and proof strength. Acceptance must demonstrate equivalent verified claims across providers and rejection of altered data or substituted roots.",
+      "text": "A switch preserves network, chainpoint, scheme, required claims and anchor policy while acquiring a new provider-local session. Missing coverage must produce refusal. The first run uses two instances of one implementation to demonstrate switching; independent-implementation interoperability requires a second implementation passing the same contract.",
       "pause": 400
     }
   ],
@@ -35,7 +35,7 @@
   ],
   "evidence-and-next-step": [
     {
-      "text": "This is a design proposition, with no demonstrated provider market, availability contract or cost advantage. Specify contracts, measure anchor and ledger costs separately, and exercise provider switching next.",
+      "text": "Follow the decision record for evidence limits. Next specify service and proof contracts, measure anchor and provider costs separately and demonstrate switching.",
       "pause": 400
     }
   ]

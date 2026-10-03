@@ -17,18 +17,21 @@ config:
     mergeEdges: false
 ---
 flowchart TB
-    R[Accepted ledger root<br/>at chainpoint P]:::anchor -->|Same authority| T[Terminal checks]:::terminal
+    R[Accepted ledger root<br/>at chainpoint P]:::anchor -->|Verify against| T[Terminal checks]:::terminal
     subgraph U[Untrusted services]
       A[Provider A]:::ledger
       B[Provider B]:::ledger
-      P[Application builder]:::app
+      P[Application<br/>builder]:::app
     end
     A -->|UTxO + witness| T
     B -->|Equivalent claim| T
     P -->|Application proofs| T
     T -->|All links verify| V[Verified application<br/>claim]:::terminal
     T -->|Evidence fails| E[Explicit rejection]:::neutral
-    V -->|Action policy| X[Construct transaction<br/>or authorize effect]:::terminal
+    V -->|Transaction policy| X[Construct transaction]:::terminal
+    V -->|Effect policy| S{Settlement condition<br/>satisfied?}:::terminal
+    S -->|Yes + authorization| F[Authorize effect]:::terminal
+    S -->|No or abandoned point| E
     style U fill:#f8fafc,stroke:#687384,stroke-dasharray:5 4
     classDef anchor fill:#e1f3eb,stroke:#2c7155,stroke-width:1.5px,color:#163d2e
     classDef ledger fill:#e6effc,stroke:#416dad,stroke-width:1.5px,color:#203a63

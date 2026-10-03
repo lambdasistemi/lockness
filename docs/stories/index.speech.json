@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "docs/stories/index.md",
-    "sha256": "697ded747c6361e55a55688acf07f4a18409e28c9d663c2aa1a89ea3c66abb17"
+    "sha256": "7cd9ece0e2dae7c389c7afa87a3f18d29987e4384968f115657f6f34e3992748"
   },
   "verify-before-using-ledger-facts": [
     {
-      "text": "The client accepts a commitment under its own policy and checks the intended NFT state. Changed bytes, identity, root or network must never become accepted facts.",
+      "text": "The terminal accepts a commitment under its own policy and checks the intended NFT state. Changed bytes, identity, root or network must never become accepted facts.",
       "pause": 400
     },
     {
@@ -27,7 +27,7 @@
   ],
   "observe-institutional-publications": [
     {
-      "text": "An operator selects institutional publishers and verifies their signed roots. Unknown keys, wrong networks, incompatible schemes or unacceptable freshness must not establish accepted roots. This reduces local infrastructure with explicit institutional trust. No actual institutional participation is claimed.",
+      "text": "The operator selects institutional anchors under explicit trust policy. The terminal rejects unknown keys, wrong networks, incompatible schemes and stale publications. Follow the trust page for the acceptance requirements.",
       "pause": 400
     }
   ],
@@ -51,17 +51,13 @@
   ],
   "publish-trust-without-serving-queries": [
     {
-      "text": "An anchor runs a node and computes signed commitments for each block. It does not have to retain historical query views. No institution is assumed to provide this service.",
+      "text": "An anchor computes commitments from a trusted chain feed and signs each block’s publication without serving historical query views. The terminal chooses trusted keys.",
       "pause": 400
     }
   ],
   "act-on-verified-facts": [
     {
-      "text": "A terminal verifies the facts needed for its application, then builds a transaction or drives an external effect. Its application policy authorizes that action; a proof alone is not an instruction to act.",
-      "pause": 400
-    },
-    {
-      "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
+      "text": "A terminal checks data before constructing transactions or authorizing external effects. Ledger proofs stay off-chain; application proofs can enter redeemers. Irreversible effects additionally wait for settlement. An abandoned point or missing settlement evidence causes refusal or deferral.",
       "pause": 400
     }
   ],

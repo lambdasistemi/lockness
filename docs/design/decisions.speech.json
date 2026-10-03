@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "b6691493f1416d916c44cd9ad523ba95fdc5a03217f373317bf7ad52d69622c1"
+    "sha256": "c7cd1a07bcad194328d7b8a84e7acde10daed9e34d8037fd37da85485a5d5660"
   },
   "recorded-direction": [
     {
@@ -17,21 +17,19 @@
   ],
   "words-that-constrain-the-design": [
     {
-      "text": "The project separates immutable hashed content from chain indexes. Anchors publish roots for every block. Proof-bearing answers bind to an externally supplied root; later discussion clarified that reconstruction transactions may arrive without individual proofs.",
+      "text": "The rulings require immutable content separate from chainpoint indexes, independent per-block anchor publication and an API governed by coherent evidence rather than Koios compatibility. Historical CBOR can be untrusted reconstruction material. The preserved present-validity and future-validation ruling distinguishes off-chain ledger membership checks from application proofs used in redeemers.",
       "pause": 400
-    },
+    }
+  ],
+  "claims-and-evidence-boundaries": [
     {
-      "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
-      "pause": 400
-    },
-    {
-      "text": "Ledger proof values concern on-chain validity in the present, at the selected chainpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
+      "text": "This table separates architecture from delivery. Lockness has no accepted formal model, verifier or end-to-end deployment. Own and institutional anchors express trust choices, not measured price rankings; no institution is claimed to participate today. CSMT machinery exists, but archive, sessions and application replay need further work. Membership alone proves neither uniqueness nor settlement.",
       "pause": 400
     }
   ],
   "what-remains-unproved": [
     {
-      "text": "The commitment inventory, completeness proofs, historical reconstruction coverage, root publication policy and session behavior still need contracts and evidence. Anchor and ledger costs require separate measurements. Switching and availability commitments need acceptance demonstrations; market efficiency remains a thesis.",
+      "text": "Open contracts cover anchor costs, interoperability, proof scopes, completeness, archive coverage and references, anchor policies, retained views, unique state assumptions and exact application bindings. Irreversible effects also need settlement evidence. Coverage must be selected before cost commitments.",
       "pause": 400
     }
   ],

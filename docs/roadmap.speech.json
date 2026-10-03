@@ -1,47 +1,59 @@
 {
   "_source": {
     "file": "docs/roadmap.md",
-    "sha256": "4f98a9ee1a622bb4615e992f1c59b07ab0496ea3cb4789bd522f25fe18eae1b7"
+    "sha256": "eae3ef416da09f7d8a333d48b47d347a5168158bf39c30c7283805b44d681072"
   },
   "delivery-dependencies": [
     {
-      "text": "The roadmap diagram shows three contract workstreams: roots and proofs, sessions and history, and availability and switching. Commitment and session contracts inform CSMT-UTXO measurements. These measured capabilities and service contracts feed the complete journey before component delivery is assigned. The table gives each workstream a concrete deliverable and an exit criterion.",
+      "text": "The dependency diagram now starts with three contracts defining the acceptance journey. Assign components and a measurement prototype against that specification, build them, measure their capacity, then pass the journey before widening the service. An existing CSMT anchor baseline feeds measurement separately. The contracts, Lean model, proofs and simulation belong in Lockness; implementation repositories are assigned before code work.",
+      "pause": 400
+    }
+  ],
+  "specify-roots-reconstruction-and-settlement": [
+    {
+      "text": "The roots workstream owns proof claims, encodings, unique NFT state assumptions and nested roots. It also decides reconstruction coverage and reference dependencies before the archive is sized. Publication branch correction and evidence of continued ancestry support an explicit settlement policy. The exit contract names acceptance, deferral and refusal cases. Replay sufficiency is then demonstrated with implemented components.",
       "pause": 400
     }
   ],
   "settle-the-chainpoint-contract": [
     {
-      "text": "Specify acquisition, leases, rollback, eviction and history coverage with a reviewed executable model and simulation. The exit evidence includes explicit refusals and no silent chainpoint substitution. Cryptographic assumptions remain separate.",
+      "text": "The Lean model covers discovery, acquisition, reads, expiry, eviction and abandoned branches under explicit cryptographic assumptions. Behavior is distinct from numerical limits. The model enforces declared leases and refusal rules; measurements choose viable windows, durations and concurrency. Reviewed counterexamples must include acquisition races and rollback.",
       "pause": 400
     }
   ],
   "specify-the-trust-and-availability-offers": [
     {
-      "text": "Define both own-anchor and institutional-publication choices, with root acceptance separate from data delivery. The exit contract specifies the verification boundary for both untrusted services and observable availability promises.",
+      "text": "Own-anchor and institutional policies remain separate from purchased capacity. Define observable coverage, compatible evidence, sessions and switching. Usable-view discovery is required; marketplace discovery, billing and remedies are integration choices, with no on-chain marketplace required. Numerical offers follow measurement.",
       "pause": 400
     }
   ],
-  "measure-the-ledger-engine": [
+  "define-the-acceptance-journey": [
     {
-      "text": "Start with the linked CSMT-UTXO engine, benchmark paths and metrics. Measure anchor validation and current commitment costs separately from archive storage, retained views and query or proof serving. Bind results to the actual workload and configuration.",
-      "pause": 400
-    }
-  ],
-  "demonstrate-one-complete-journey": [
-    {
-      "text": "The second diagram keeps one accepted root and chainpoint while the terminal checks equivalent ledger claims from two providers and proofs from an untrusted application builder. Valid links yield an application claim; failed evidence is rejected before action. Demonstrate provider switching, nested roots, wrong roots, missing history and expired sessions, with test publishers explicitly labelled.",
+      "text": "Define the acceptance cases before assigning components. The journey authenticates an NFT output, reconstructs application state and verifies proofs, including a nested root. The diagram checks two instances of the same provider implementation, plus an untrusted application builder. Valid claims feed transaction construction or a separate settlement and authorization decision for an effect. Failed evidence, an abandoned point or unsatisfied settlement causes rejection or deferral. Two instances establish switching, not independent-implementation interoperability.",
       "pause": 400
     }
   ],
   "assign-implementation-work": [
     {
-      "text": "Map the agreed contracts and demonstration evidence to anchor, ledger, application and terminal owners. Each role has a separate acceptance boundary. Reconcile existing CSMT issues explicitly; this plan neither moves those issues nor releases paused work.",
+      "text": "Reconcile the internal-index and HTTP epics with the accepted contracts and cases. Assign each role an implementation repository, including the experimental archive and retained-view prototype. The role table gives anchors, ledger providers, applications and terminals distinct deliverables and acceptance boundaries. Decide whether to retain or replace the prototype after measurement.",
+      "pause": 400
+    }
+  ],
+  "measure-the-ledger-engine": [
+    {
+      "text": "Measure two different artifacts. The existing engine supplies a baseline for ingestion, current commitment maintenance and storage, including node cost. New archive, view and session measurements require building the assigned prototype first and showing its reconstruction inputs suffice. Bind results to revisions and workloads, then choose storage and numerical service limits. Measurements do not prove a complete publication service.",
+      "pause": 400
+    }
+  ],
+  "pass-the-acceptance-journey": [
+    {
+      "text": "After components exist, run the defined journey with two separately operated provider instances, unchanged anchor policy and new provider-local sessions. Exercise all failures, nested roots and a chainpoint abandoned before effect settlement. Bind observations to component revisions and distinguish simulated authorization, transaction construction and actual on-chain validation. Independent-implementation interoperability remains a later target.",
       "pause": 400
     }
   ],
   "delivery-status": [
     {
-      "text": "This bootstrap creates a design record and documentation checks only. Existing paused implementation work remains paused; no production service or product release is launched.",
+      "text": "Lockness-specific implementation has not started. Existing CSMT-UTXO and MPFS provide starting evidence. A product release pipeline awaits a releasable artifact and its owning repository.",
       "pause": 400
     }
   ]
