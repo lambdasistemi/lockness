@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "9bdf76716f301bd13ec810753897cf23c2b23558395ab81cac68a6288fdc306d"
+    "sha256": "86a93786f4117db6c6b2a028fa8d1fb68eb318922309db72bc3744573be57559"
   },
   "recorded-direction": [
     {
@@ -23,19 +23,19 @@
   ],
   "claims-and-evidence-boundaries": [
     {
-      "text": "The root and session model makes a bounded executable contribution to the design. Root acceptance establishes trusted endorsement under explicit observations. Session acquisition preserves the exact selected point for arbitrary providers; it does not establish root trust. Neither provides a full system verifier or deployment. Own and institutional anchors express trust choices, not measured price rankings. Membership alone proves neither uniqueness nor settlement.",
+      "text": "The root, session and ledger model makes a bounded executable contribution. Root acceptance establishes terminal endorsement, acquisition preserves the exact selected point and ledger verification binds the same witnessed object to the independent root and its asset and datum observations. Honest unique output and application root soundness requires separate correspondence, witness, encoding, interpretation and OneShot premises. Membership alone does not imply uniqueness, completeness, canonicality or settlement. This is model evidence rather than a full system verifier or deployment. Trust and operating choices are not measured price rankings.",
       "pause": 400
     }
   ],
   "what-remains-unproved": [
     {
-      "text": "The root model exposes trusted keys and agreement. Concrete policy selection, key rotation, signed encodings, freshness and rollback notices remain open, together with archive coverage, application bindings and settlement. Coverage must be selected before cost commitments.",
+      "text": "Concrete anchor policy selection, key rotation, signed encodings, freshness and rollback notices remain open. The ledger model binds the witnessed asset and datum under explicit hypotheses; application replay, nested proof and transition bindings need their own evidence. Archive coverage, provider interoperability, cost commitments and settlement remain unresolved.",
       "pause": 400
     }
   ],
   "evidence-available-today": [
     {
-      "text": "Pinned Lean proofs and scenarios establish root acceptance and selected point session properties. Observation soundness and honest root correspondence are separate hypotheses. Repeated reads, expiry refusal and release are observable. Removing the actual acquisition guard accepts a newer session and constructively refutes the unchanged guarantee. Branch abandonment and lease policy remain open. Independent acceptance, remote CI, implementation and deployment need distinct revision bound results. Existing MPFS verification and inspected Koios and Blockfrost interfaces remain prior, bounded evidence.",
+      "text": "Pinned Lean proofs and scenarios establish root acceptance, exact point session behavior and ledger answer verification. The ledger soundness statement identifies an honest member, actual asset, honest datum root and unique asset bearing pair under separate selected point correspondence, witness, encoding, interpretation and OneShot hypotheses. Honest fixtures inhabit all premises with acceptance. Real production provider root substitutions accept an impostor and constructively refute the unchanged guarantee. Two honest same asset outputs with different datum roots refute the full unique output guarantee after only OneShot is removed. All three ledger scenarios exercise the verifier. Inherited repeated reads, expiry refusal, release and no substitution controls remain. Branch and lease policy, independent acceptance, remote CI, component implementation and deployment require separate evidence. Existing MPFS verification and inspected Koios and Blockfrost interfaces remain prior bounded evidence.",
       "pause": 400
     }
   ]

@@ -1,35 +1,41 @@
 {
   "_source": {
     "file": "docs/model/index.md",
-    "sha256": "acf5fe2e4abda858a510493ea27e1d3512b55109de8b6fd802563fa28cb8af69"
+    "sha256": "43769b5cb47a38e93322ec5c4350d833e5f79ac91f60481bbebd52ac88ea0563"
   },
   "run-the-scenarios": [
     {
-      "text": "Run the three root journeys and the honest, absent point and newer point session journeys in the pinned Lean environment. Honest session acquisition returns the exact point and the root obtained from independent root acceptance. Two active reads retain it; expiry and release refuse further reads at the original point. Absent and newer offers refuse; alternate network and same slot hash also refuse. Unknown commands and scenarios return usage code sixty four. Source links follow the session feature branch for review before merge; record its head when assessing a candidate.",
+      "text": "Run the three root journeys, three session journeys and three ledger journeys in the pinned Lean environment. Honest session acquisition returns the exact point and independently obtained root; two active reads retain it and expiry and release refuse at the original point. Ledger verification returns the honest datum root, refuses a provider root witness at the accepted root boundary, and accepts two honest duplicate asset answers with different datum roots to expose the missing uniqueness premise. Unknown commands and scenarios return usage code sixty four. Ledger source links follow its feature branch; inherited session links retain their source branch. Record the candidate head. Mathlib is pinned with every transitive revision and narrow finite set imports. Cache acquisition is setup rather than proof evidence.",
       "pause": 400
     }
   ],
   "follow-the-acceptance-boundary": [
     {
-      "text": "The diagram follows original publications from the selected point through verification observations, distinct keys and trusted membership. Nonempty agreement leads to the accepted root; failure leads to no root at the selected point. Reaching an honest ledger root requires a separate correspondence hypothesis. The decisions table explains why arbitrary observations, exact binding, distinct keys and nonempty endorsement are separate checks.",
+      "text": "The diagram follows original publications from the selected point through verification observations, distinct keys and trusted membership. Nonempty agreement leads to the accepted root; failure leads to no root at the selected point. Honest ledger root correspondence is a separate hypothesis. Root acceptance, session acquisition and ledger verification emit their respective selected point refusals. The choices table keeps observations, exact binding, distinct keys and nonempty endorsement separate.",
       "pause": 400
     }
   ],
   "read-the-model-contracts": [
     {
-      "text": "Shared types preserve exact bytes and the full chainpoint and root identity. Session acquisition and lifecycle now have executable behavior; answer verification remains later work. Signature validity is an arbitrary proposition, with no global instance. Root proofs establish trusted endorsement. Signature validity requires observation soundness; honest root equality separately requires correspondence. Session acquisition assumes neither provider honesty nor root trust.",
+      "text": "Shared types preserve exact bytes and full point and root identity. Policy now adds explicit asset and schema selection, object decoding and representation, witness checking and asset and datum observations. The ledger answer adds an untrusted provider root; application answer verification remains later work. Signature validity remains an arbitrary proposition with no global instance. Root endorsement, signature observation soundness, honest root correspondence and session acquisition remain separate contracts.",
       "pause": 400
     }
   ],
   "assess-the-evidence": [
     {
-      "text": "The gate builds all modules and inventories every stored theorem, including private proofs. It executes all root and session journeys and the permanent lifecycle check. Deliberate holes and custom escape axioms must reach the relevant rejection. Production root mutations remain checked. The session mutation removes the actual acquisition guard, compiles, accepts a newer session and constructively refutes the unchanged universal statement. The control recompiles the session counterexample and simulator against the mutation, while copying unchanged root dependencies as compiled inputs. It does not rebuild the full dependent closure. The exact unchanged acquisition proof then fails, and the real simulator rejects the changed outcome. These finite controls establish model evidence, without exhaustive mutation coverage. Kernel trust, cryptographic observation soundness and honest root correspondence remain explicit limits. Independent acceptance, remote CI, component implementation and deployment each need separate evidence.",
+      "text": "The gate builds every source, records stored theorem axioms and the types and axiom dependencies of all named model declarations, and rejects named and anonymous holes and custom axioms. It runs the inherited root and session production controls, lifecycle and all ledger journeys. Ledger tests cover each point field, object decoding and byte binding, witness, asset, schema and datum refusal, ignored provider roots and all jointly inhabited premises. Real production root substitutions compile and constructively refute the unchanged guarantee before unchanged proof and simulator rejection. Duplicate asset uniqueness is constructively refuted while all other premises hold. These are finite model controls rather than exhaustive mutation coverage. Kernel trust and all correspondence and observation predicates remain explicit external assumptions. Independent acceptance, remote CI, source publication, component implementation and deployment need their own evidence.",
       "pause": 400
     }
   ],
   "acquire-the-selected-session": [
     {
       "text": "The terminal selects a full chainpoint before acquisition. An arbitrary provider can offer any session. The model checks network, slot and block hash, then returns the entire offer unchanged. This proves point coherence and preserves bytes, but does not establish that the offered root was independently accepted. The lifecycle diagram shows acquisition to active or unavailable, repeated active reads, expiry refusal and release to closed. Its abandoned branch path remains unresolved and is omitted from the executable relation. Expiry has no chosen duration or scheduler. The declarations table explains universal acquisition, refusal and transition inversions. The choices table rejects slot only equality, relabelled offers and premature lease policy.",
+      "pause": 400
+    }
+  ],
+  "verify-ledger-answers": [
+    {
+      "text": "A terminal supplies the independently accepted root for the exact selected point. The verifier decodes the original object, requires exact reproduction of those witnessed bytes, checks the witness under that independent root, then observes the asset and datum of the same output and parses under the policy schema. The flow diagram connects the accepted root and full point to witnessed bytes, the decoded pair, that output datum and the returned application root; failed observations lead to evidence failure at the selected point. Provider answer and session roots are ignored, even when different from the accepted root. Soundness quantifies arbitrary policies, ledgers and interpretations. Under selected point correspondence, witness soundness, faithful representation, asset and datum interpretation and OneShot, success identifies an honest member with the actual asset, honest datum root and unique asset bearing pair. Nontrivial reversible byte framing inhabits the external assumptions without proposing a wire format. The root substitution witness passes every surrounding check, succeeds under its own root and fails under the accepted root. Compiled production mutations of either provider root choice refute the unchanged soundness guarantee and fail the simulator assertion. The duplicate asset example has two distinct honest members, different datum roots and two accepted answers. Every retained premise holds; only OneShot is false. Removing only that premise constructively falsifies the same complete conclusion. The choices table explains finite sets, independent root authority, exact byte binding, separate interpretation predicates and unrestricted duplicate representation.",
       "pause": 400
     }
   ]

@@ -6,6 +6,11 @@ namespace Lockness
 
 abbrev Bytes := List UInt8
 abbrev Key := Bytes
+abbrev TxIn := Bytes
+abbrev TxOut := Bytes
+abbrev Asset := Bytes
+abbrev Schema := Bytes
+abbrev Witness := Bytes
 
 structure Chainpoint where
   network : Bytes
@@ -30,6 +35,14 @@ structure Policy where
   trustedKeys : List Key
   agreement : List Key → Bool
   verify : Publication → Bool
+  asset : Asset
+  schema : Schema
+  decodeObject : Bytes → Option (TxIn × TxOut)
+  objectBytes : (TxIn × TxOut) → Bytes
+  checkWitness : Witness → Root → Bytes → Bool
+  assetOf : TxOut → Option Asset
+  datumOf : TxOut → Option Bytes
+  parseDatum : Schema → Bytes → Option Root
 
 -- Each instance is an arbitrary hypothesis, not an implementation of signatures.
 class SignatureModel where
@@ -59,6 +72,7 @@ structure LedgerAnswer where
   point : Chainpoint
   object : Bytes
   witness : Bytes
+  root : Root
   deriving DecidableEq, Repr
 
 structure AppAnswer where

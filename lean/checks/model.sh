@@ -23,7 +23,7 @@ for file in "${modules[@]}"; do
   module=${file%.lean}; module=${module//\//.}
   printf 'import %s\n' "$module"
 done > "$scratch/Inventory.lean"
-printf '\n#audit_lockness\n' >> "$scratch/Inventory.lean"
+printf '\n#audit_lockness\n#inventory_lockness_declarations\n' >> "$scratch/Inventory.lean"
 stage lake env lean "$scratch/Inventory.lean"
 for hole in sorry admit axiom anonymous; do
   if [[ $hole = axiom ]]; then
@@ -50,13 +50,13 @@ stage lake exe lockness-sim accept-root honest
 stage lake exe lockness-sim accept-root untrusted-key
 stage lake exe lockness-sim accept-root subset-mutation
 stage lake env lean Lockness/Counterexamples/SubsetMutation.lean
-stage bash checks/mutations.sh
+stage lake env bash checks/mutations.sh
 stage lake env lean Lockness/Tests/Session.lean
 stage lake env lean Lockness/Counterexamples/SessionMutation.lean
 stage lake exe lockness-sim session honest
 stage lake exe lockness-sim session absent-point
 stage lake exe lockness-sim session newer-point
-stage bash checks/session-mutations.sh
+stage lake env bash checks/session-mutations.sh
 usage_failure() {
   local diagnostic=$1 result=0
   shift
@@ -66,7 +66,16 @@ usage_failure() {
   grep -qF "$diagnostic" "$scratch/usage.log"
   echo "USAGE-CONTROL exit=$result args=$*"
 }
-usage_failure 'unknown session scenario' session unknown
+stage lake env lean Lockness/Tests/Ledger.lean
+stage lake env lean Lockness/Counterexamples/LedgerRootMutation.lean
+stage lake env lean Lockness/Counterexamples/LedgerUniqueness.lean
+stage lake exe lockness-sim ledger honest
+stage lake exe lockness-sim ledger substituted-root
+stage lake exe lockness-sim ledger duplicate-asset
+stage lake env bash checks/ledger-mutations.sh
+usage_failure 'unknown ledger scenario' ledger unknown
+usage_failure 'usage: lockness-sim' ledger
+usage_failure 'unknown session scenario'  session unknown
 usage_failure 'usage: lockness-sim' unknown
 usage_failure 'usage: lockness-sim' session
 usage_failure 'unknown accept-root scenario' accept-root unknown
@@ -76,4 +85,4 @@ if stage lake exe lockness-sim accept-root unknown > "$scratch/scenario.log" 2>&
 fi
 cat "$scratch/scenario.log"
 grep -qF 'unknown accept-root scenario' "$scratch/scenario.log"
-echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-and-session lifecycle=repeated-expiry-release signatures=abstract deployment=unestablished"
+echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger lifecycle=repeated-expiry-release signatures=abstract deployment=unestablished"

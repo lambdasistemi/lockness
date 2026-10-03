@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "${BASH_SOURCE[0]%/*}"
-packages=(lean4 stdenv.cc bash coreutils findutils gnugrep gnused diffutils)
+packages=(lean4 stdenv.cc bash coreutils findutils gnugrep gnused diffutils git curl zstd)
 installables=()
 for package in "${packages[@]}"; do
   installables+=("github:NixOS/nixpkgs/13043924aaa7375ce482ebe2494338e058282925#$package")
@@ -10,5 +10,6 @@ exec nix shell "${installables[@]}" --command bash -euo pipefail -c '
   expected=$(sed -n "s@leanprover/lean4:v@@p" lean-toolchain)
   actual=$(lean --version)
   [[ $actual == "Lean (version $expected,"* ]] || { echo "unexpected toolchain: $actual" >&2; exit 1; }
+  bash setup-deps.sh
   exec "$@"
 ' bash "$@"

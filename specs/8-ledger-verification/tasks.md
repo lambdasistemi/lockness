@@ -1,15 +1,15 @@
 # Ledger verification tasks
 
-As a reviewer, trace each accepted deliverable to the final behavior commit and its evidence.
+As a reviewer, trace each accepted deliverable to the behavior or forward documentation commit and its evidence. Parent ruling A-002-immutable-source-delivery permits the documentation publication and final handoff tasks to remain open in the intermediate behavior commit, then be stamped after their accepted work in the final documentation commit. Every final-head check and outward delivery requirement remains owed.
 
 ## Ledger model slice
 
-- [ ] finite-ledger-interface: approved shared byte/observation contract, genuine finite sets and pinned dependencies with inherited mechanical adaptation.
-- [ ] accepted-root-ledger-verification: selected-point, exact-object, asset/schema and independently accepted witness checks with observation inversion and refusal guarantee.
-- [ ] unique-output-ledger-soundness: separate inhabited correspondence, witness/interpretation and OneShot premises; honest unique-output/datum-root proof.
-- [ ] substituted-root-counterexample: own-root checking succeeds while the actual accepted-root boundary refuses; content-dependent production control.
-- [ ] duplicate-asset-counterexample: two honest members with different datum roots constructively falsify the unchanged guarantee without OneShot.
-- [ ] ledger-simulator-and-gates: three real ledger scenarios, inherited controls/lifecycle, all-model axiom inventory and final-head pinned build/check evidence.
+- [x] finite-ledger-interface: approved shared byte/observation contract, genuine finite sets and pinned dependencies with inherited mechanical adaptation.
+- [x] accepted-root-ledger-verification: selected-point, exact-object, asset/schema and independently accepted witness checks with observation inversion and refusal guarantee.
+- [x] unique-output-ledger-soundness: separate inhabited correspondence, witness/interpretation and OneShot premises; honest unique-output/datum-root proof.
+- [x] substituted-root-counterexample: own-root checking succeeds while the actual accepted-root boundary refuses; content-dependent production control.
+- [x] duplicate-asset-counterexample: two honest members with different datum roots constructively falsify the unchanged guarantee without OneShot.
+- [x] ledger-simulator-and-gates: three real ledger scenarios, inherited controls/lifecycle, all-model axiom inventory and final-head pinned build/check evidence.
 - [ ] ledger-docs-and-speech: reader-facing guarantees, assumptions, decisions, scenarios and limits; curated speech hashes and accessible source links.
 - [ ] audited-review-handoff: persistent checkpoint approval trail, final task/tree/history checks, exact-head remote CI and live preview/source publication evidence, ready-for-review PR and terminal child reconciliation.
 

@@ -6,7 +6,9 @@ As a reviewer, inspect one ledger verification slice with an explicit shared con
 
 The accepted predecessor is `bdca4460bd7f0bd900d16398453a855f354b96b0`, tree `609eeb042741965e95d00e5bff1428acc1bb523b`. Baseline model, documentation and `just ci` checks passed on that clean predecessor. The epic owner's ledger-interface-v1 response releases the concrete interface proposal and its exact fence; inherited behavior remains frozen.
 
-Planning precedes one behavior slice comprising shared interface adaptation, ledger model/proofs, counterexamples, simulator integration and matching documentation. Local checkpoint commits remain provenance. After acceptance, CO consolidates the accepted tree and TO task stamp into a bisect-safe behavior commit.
+Planning precedes one behavior slice comprising shared interface adaptation, ledger model/proofs, counterexamples, simulator integration and matching documentation. Local checkpoint commits remain provenance. After acceptance, CO consolidates the accepted tree and TO planning/task delta into a bisect-safe behavior commit. Parent ruling A-002-immutable-source-delivery prospectively adds one forward documentation commit in the same PR: after the approved behavior commit is published to the draft PR and its immutable source bytes are verified, CO pins ledger source links to that revision and updates matching speech/hash metadata. Inherited session source links retain their existing publication obligation.
+
+The behavior commit maps the first six model tasks. Documentation publication and final handoff stay open for the forward documentation commit. The persistent auditor approves exact planning/task and documentation deltas; all seven clean-head checks converge separately on the intermediate behavior head and final documentation head. Intermediate publication is not readiness. Parent preserves the published behavior commit through merge ancestry; its linked model bytes must equal final-head model bytes. Do not rewrite published history or delete source reachability without a revised ruling. Original gate/model statements and their frozen hashes remain unchanged.
 
 ## Released architectural choices
 
