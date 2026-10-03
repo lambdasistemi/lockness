@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block extrahead %}
+<link id="lockness-dark-palette" href="{{ 'css/palettes/dark.css' | url }}" rel="stylesheet" media="(prefers-color-scheme: dark)">
+<script src="{{ 'javascripts/palette.js' | url }}?v=c887385cbad8d2f3"></script>
+{% if page and page.file %}<script>window.lockness = { base: "{{ base_url }}/".replace(/\/+$/, "/"), source: "docs/{{ page.file.src_uri }}" };</script>{% endif %}
+{% endblock %}
+{% block side_panel %}
+<aside id="terminal-mkdocs-side-panel">
+  <details id="lockness-navigation">
+    <summary>Explore Lockness</summary>
+    {% include "partials/side-nav/side-nav.html" %}
+    {% include "partials/side-panel/side-toc.html" %}
+  </details>
+</aside>
+{% endblock %}
