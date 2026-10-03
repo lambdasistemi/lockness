@@ -1,17 +1,21 @@
 {
   "_source": {
     "file": "docs/stories/index.md",
-    "sha256": "31cd54ae65720e7e9150da3f4c336a68d93bb9abd7f4ee4f9d4efefc7e963168"
+    "sha256": "f2391ccf35bae9a88c27a935913cc9af4981f6c6bf368324c0f11e3422d013b9"
   },
   "verify-before-using-ledger-facts": [
     {
       "text": "The client accepts a commitment under its own policy and checks the intended NFT state. Changed bytes, identity, root or network must never become accepted facts.",
       "pause": 400
+    },
+    {
+      "text": "Replacing the data provider must preserve the accepted claim when evidence agrees. A provider cannot substitute its own root for the accepted anchor, and membership alone must not be treated as query completeness.",
+      "pause": 400
     }
   ],
   "keep-dependent-reads-coherent": [
     {
-      "text": "Reads and pagination remain at one selected state while new blocks arrive. Unavailable and expired checkpoints are refused. Fork behavior remains to be decided.",
+      "text": "Reads and pagination remain at one selected state while new blocks arrive. Unavailable and expired chainpoints are refused. Fork behavior remains to be decided.",
       "pause": 400
     }
   ],

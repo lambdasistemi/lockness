@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/index.md",
-    "sha256": "706c22ba8cbfd82e3631f6bf2bda84c447719a298ae399b319a8102c2c5ae0ad"
+    "sha256": "6b3bf962d9e2394f80a379ebdfd07cb5044815a1fa5c9a8427d6059af1363057"
   },
   "user-stories": [
     {
@@ -12,6 +12,12 @@
   "current-state": [
     {
       "text": "Lockness is in design. The record distinguishes proposed behavior from unproved contracts. No production service, accepted formal model or institutional publisher is claimed.",
+      "pause": 400
+    }
+  ],
+  "why-terminals-should-consume-anchored-data": [
+    {
+      "text": "Lockness gives terminals a checkable basis for action. They verify provider data against independently accepted roots before building transactions or driving real-world effects. Data providers can be replaced without surrendering trust policy. Proofs establish specified claims; completeness, freshness and action authorization remain separate requirements.",
       "pause": 400
     }
   ]

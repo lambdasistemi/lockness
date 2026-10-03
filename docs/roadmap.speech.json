@@ -1,9 +1,9 @@
 {
   "_source": {
     "file": "docs/roadmap.md",
-    "sha256": "a5244e600f23075a71a26985acee1b7ae12b111e7a17c3a23421a7ff1ecb905b"
+    "sha256": "b3ca91eebde6b3c0b0bdcae8e95e4cf2a6938e87939969c94cc14fe1864ca5f8"
   },
-  "settle-the-checkpoint-contract": [
+  "settle-the-chainpoint-contract": [
     {
       "text": "First record the remaining rulings and build a small model with an independently reviewed contract and playable simulation. Cryptographic assumptions must stay explicit.",
       "pause": 400
@@ -11,7 +11,7 @@
   ],
   "measure-the-ledger-engine": [
     {
-      "text": "Measure ingestion, retention, checkpoint acquisition and concurrent query costs against the existing storage machinery before choosing an implementation.",
+      "text": "Measure ingestion, retention, chainpoint acquisition and concurrent query costs against the existing storage machinery before choosing an implementation.",
       "pause": 400
     }
   ],

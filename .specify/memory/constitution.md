@@ -2,13 +2,13 @@
 
 ## Purpose
 
-Lockness owns the project-level design for independently endorsed Cardano ledger commitments, checkpointed evidence, and application verification. Component implementation remains separately owned.
+Lockness enables terminals to consume anchored data: verify the claims behind transactions and real-world actions while choosing trust independently of data provision. It owns the project-level design for independently endorsed Cardano ledger commitments, evidence at selected chainpoints, and application verification. Component implementation remains separately owned.
 
 ## Core principles
 
 1. Documentation, specifications, vision and acceptance outrank implementation. Code is regenerable from a good record; the record is not regenerable from code. Every change updates its documentation in the same diff. Acceptance is stated in user-visible terms before code; scope reductions must not erase the record.
 2. Data provision and trust provision are distinct. Clients explicitly select trusted publishers and verify evidence before using facts.
-3. A session never silently changes chain point. Network, slot, block hash, commitment identity and version must be unambiguous.
+3. A session never silently changes chainpoint. Network, slot, block hash, commitment identity and version must be unambiguous.
 4. Ledger services remain application independent. Preserve transaction information; application libraries interpret its meaning.
 5. Proof construction may be delegated. Verification, exact claim binding and the client's trust policy may not be replaced by provider assertions.
 6. Historical material, authenticated membership, completeness, currentness and application-state reconstruction are distinct claims.
@@ -16,7 +16,7 @@ Lockness owns the project-level design for independently endorsed Cardano ledger
 
 8. Ledger witnesses are off-chain verification evidence for terminals, not transaction redeemers. Application proofs enter redeemers and are checked by application validators; Cardano checks transaction validity against its actual ledger state. Anchor root publication is separate.
 
-9. Distinguish proof values by time and purpose: ledger proofs concern on-chain validity at the selected checkpoint (present); application proofs concern on-chain validation of a proposed transaction (future). Neither a historical witness nor preflight verification promises future transaction acceptance.
+9. Distinguish proof values by time and purpose: ledger proofs concern on-chain validity at the selected chainpoint (present); application proofs concern on-chain validation of a proposed transaction (future). Neither a historical witness nor preflight verification promises future transaction acceptance.
 
 ## Development
 

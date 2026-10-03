@@ -2,6 +2,24 @@
 
 As a project maintainer, invest chain-following infrastructure once in generic ledger capabilities, while adding applications through interpretation and proof construction.
 
+## Why data should travel with proofs
+
+A terminal uses ledger answers to make decisions. If an answer is merely a provider assertion, the terminal depends on that provider's correctness. With a proof, it can check the answer's stated claim against a commitment independently accepted from anchors. The proof connects the supplied data to the accepted ledger state at the selected chainpoint.
+
+The resulting value is control over what the terminal consumes. Data providers can be replaced or cached, and proof construction can be delegated, while verification and anchor selection remain with the terminal. Applications can share the expensive work of chain following without sharing a server's unchecked interpretation of their state.
+
+For example, a terminal preparing an MPFS or Singular transaction needs the application root in a particular NFT's state output. It verifies the output's ledger witness against its accepted anchor root, binds the NFT identity and exact datum, then verifies the application proof against the application root in that datum. The ledger provider need not interpret the application, and the application proof builder need not be trusted to supply a correct proof.
+
+For an external effect, the same verified ledger fact becomes an input to the terminal's action policy. Proof verification does not itself authorize a payment, unlock a resource or establish a real-world fact. That policy also decides which anchors, chainpoints, freshness and rollback conditions are acceptable.
+
+| Evidence | What the terminal can check | What still needs a separate contract |
+| --- | --- | --- |
+| Anchor signature | Who endorsed a root and the message it binds | Whether that anchor and chainpoint meet the terminal's trust policy |
+| Ledger witness | Its stated claim about data at the accepted chainpoint | Completeness or absence beyond that claim, and freshness |
+| Application proof | Its stated claim against the application root in verified state | Whether the intended transition is authorized and will validate when submitted |
+
+Data should travel with the evidence needed to verify the claims a terminal relies on. This is a logical association; data and proofs can be retrieved separately if their claim, commitment and chainpoint bindings match. Raw historical transactions can remain untrusted reconstruction inputs when the resulting state is checked against an anchored root. A proof against a root supplied only by the same untrusted data server does not provide the independent trust boundary described here.
+
 ## Components and chain following
 
 | Component | Chain following | Responsibility |
@@ -15,7 +33,7 @@ As a project maintainer, invest chain-following infrastructure once in generic l
 flowchart TB
     F[Validated chain feed] -->|Blocks and rollback events| E[Generic ledger engine]
     E -->|Current commitments| P[Lockness anchors]
-    E -->|Content and checkpoint views| D[Lockness ledgers]
+    E -->|Content and chainpoint views| D[Lockness ledgers]
     P -->|Signed publications| C[Lockness terminal]
     D -->|Data and ledger witnesses| C
     D -->|Transactions and referenced outputs| A[Lockness application]
@@ -28,20 +46,20 @@ A terminal is the consuming role, including wallets, applications and integratio
 
 ## Data and trust are separate
 
-A root publisher endorses a commitment for a network and chain point. A client owns the trusted keys and acceptance policy. A ledger provider and an application proof builder remain untrusted for correctness; valid evidence, rather than their identity, permits the client to use a result.
+A root publisher endorses a commitment for a network and chainpoint. A client owns the trusted keys and acceptance policy. A ledger provider and an application proof builder remain untrusted for correctness; valid evidence, rather than their identity, permits the client to use a result.
 
 Signed messages need an unambiguous network, slot, block hash, commitment scheme/version and root identity. Publisher agreement rules, key rotation, freshness and branch correction are unresolved protocol contracts. A signature identifies an endorsement; it does not establish the correctness of the endorsed ledger.
 
 ## Proof composition
 
-The two proof values have different temporal roles. **Ledger proofs concern on-chain validity in the present**, meaning the ledger state at the selected checkpoint. **Application proofs concern on-chain validation in the future**, when a proposed transaction executes.
+The two proof values have different temporal roles. **Ledger proofs concern on-chain validity in the present**, meaning the ledger state at the selected chainpoint. **Application proofs concern on-chain validation in the future**, when a proposed transaction executes.
 
 | Proof value | What it establishes or supports | Where it is checked |
 | --- | --- | --- |
-| Ledger proof | A claim about the already established ledger state at the selected checkpoint: the present facts used for construction. | Off-chain, by the terminal against an accepted anchor commitment. |
+| Ledger proof | A claim about the already established ledger state at the selected chainpoint: the present facts used for construction. | Off-chain, by the terminal against an accepted anchor commitment. |
 | Application proof | Evidence for the application validator to check a proposed transition: future validation. | In the terminal before use, then on-chain from the transaction redeemer. |
 
-“Present” is checkpoint-relative, not a promise that an old view remains the chain tip. “Future validation” describes the proof's role, not a guarantee that the submitted transaction succeeds after intervening state changes.
+“Present” is chainpoint-relative, not a promise that an old view remains the chain tip. “Future validation” describes the proof's role, not a guarantee that the submitted transaction succeeds after intervening state changes.
 
 ```mermaid
 sequenceDiagram
@@ -51,7 +69,7 @@ sequenceDiagram
     participant A as Application builder
     P->>C: Signed commitment for point P
     C->>L: Acquire a read session at P
-    L-->>C: Session token or checkpoint unavailable
+    L-->>C: Session token or chainpoint unavailable
     C->>L: Read NFT state with ledger witness
     L-->>C: Exact output and proof for P
     C->>C: Verify against accepted ledger commitment
@@ -61,7 +79,7 @@ sequenceDiagram
     C->>C: Verify before transaction construction
 ```
 
-Application builders may generate proofs on behalf of clients. A client may instead reconstruct the tree locally. The application root comes from the verified state output; it is distinct from the ledger-index root. A reused proof must match the receiving context's claim, encoding and root. Valid evidence at an old checkpoint is not a promise that a future transaction will still be admissible.
+Application builders may generate proofs on behalf of clients. A client may instead reconstruct the tree locally. The application root comes from the verified state output; it is distinct from the ledger-index root. A reused proof must match the receiving context's claim, encoding and root. Valid evidence at an old chainpoint is not a promise that a future transaction will still be admissible.
 
 **Transaction boundary:** ledger proofs remain off-chain and are not included in transaction redeemers. A terminal uses them to check the ledger data it builds from. Application-level proofs are included in redeemers and checked by the application validators against the on-chain application state. Cardano validates inputs, value conservation and the other applicable ledger rules against its actual state; it does not consume the terminal's CSMT witness as a substitute for those checks. Signed anchor-root publication remains separate from transaction submission.
 
@@ -71,7 +89,7 @@ Historical transactions may be untrusted reconstruction material. Matching the r
 
 The generic service retains transaction CBOR and ledger references. It must understand enough ledger structure to index and follow the chain, but does not decide what a redeemer means for MPFS or Singular. Exact history coverage and spent/reference-input resolution remain to be specified. Application proof builders interpret datums, redeemers and other application-relevant transaction fields.
 
-Not every response needs a proof. Each endpoint must state its claim and whether its payload is authenticated evidence or untrusted reconstruction material. Evidence-bearing responses may bundle data and proofs. Separate retrieval can remain possible, but Koios wire compatibility is not a requirement for the stronger checkpoint contract.
+Not every response needs a proof. Each endpoint must state its claim and whether its payload is authenticated evidence or untrusted reconstruction material. Evidence-bearing responses may bundle data and proofs. Separate retrieval can remain possible, but Koios wire compatibility is not a requirement for the stronger chainpoint contract.
 
 ## Decisions
 

@@ -1,5 +1,5 @@
 site_name: Lockness
-site_description: Independently trusted ledger commitments and checkpointed evidence
+site_description: Independently trusted ledger commitments and chainpoint-bound evidence
 site_url: https://lambdasistemi.github.io/lockness/
 repo_url: https://github.com/lambdasistemi/lockness
 theme:
@@ -13,7 +13,7 @@ nav:
   - Home: index.md
   - User stories: stories/index.md
   - Architecture: architecture/system.md
-  - Checkpoint sessions: design/checkpoints.md
+  - Chainpoint sessions: design/chainpoints.md
   - Decisions and evidence: design/decisions.md
   - Roadmap: roadmap.md
 plugins:
