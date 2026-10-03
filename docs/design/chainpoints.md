@@ -9,16 +9,16 @@ Use **chainpoint** throughout Lockness. This corresponds to Cardano API's [`Chai
 A session token binds reads to the network, selected chainpoint and a retained view; it is not a source of trust. A chainpoint names a chain position, a view exposes state at that position, and a session retains access under a lease. The client verifies results against its separately accepted commitment. Different providers may issue different tokens for the same chainpoint. Whether sessions can be acquired at genesis remains a service-contract decision.
 
 <!-- diagram: session -->
-<div class="diagram"><a href="../diagrams/session.png"><img src="../diagrams/session.png" alt="A retained session supports repeated reads; expiry and missing views refuse, and rollback policy is explicitly unresolved." width="784" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/session.png">Open full size</a> · <a href="../diagrams/session.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/session.png?v=42c240417184fe73"><img src="../diagrams/session.png?v=42c240417184fe73" alt="A retained session supports repeated reads; expiry and missing views refuse, and rollback policy is explicitly unresolved." width="784" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/session.png?v=42c240417184fe73">Open full size</a> · <a href="../diagrams/session.mmd?v=814064504407234d">Mermaid source</a></p>
 
 Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block; the policy for sessions on an abandoned branch remains open. No automatic chainpoint substitution is allowed.
 
 ## Storage separation
 
 <!-- diagram: storage -->
-<div class="diagram"><a href="../diagrams/storage.png"><img src="../diagrams/storage.png" alt="A session pins index roots that resolve immutable content and supply membership witnesses for one chainpoint." width="346" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/storage.png">Open full size</a> · <a href="../diagrams/storage.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/storage.png?v=4f706cef2479e092"><img src="../diagrams/storage.png?v=4f706cef2479e092" alt="A session pins index roots that resolve immutable content and supply membership witnesses for one chainpoint." width="346" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/storage.png?v=4f706cef2479e092">Open full size</a> · <a href="../diagrams/storage.mmd?v=0e3d8cf3d2f021c4">Mermaid source</a></p>
 
 Immutable content survives rollback. Chain-index membership and branch status determine which content belongs to the selected ledger state. Storing an object is not evidence that it is live or canonical.
 

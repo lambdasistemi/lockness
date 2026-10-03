@@ -24,8 +24,8 @@ An anchor is still real infrastructure; [CSMT-UTXO is the existing engine and me
 Both choices use the same independent data-provider boundary. Institutional publication is a first-class deployment choice, not a promise of identical trust assumptions to running your own anchor. Which institutions, agreement rules and freshness conditions to accept remains terminal policy.
 
 <!-- diagram: market -->
-<div class="diagram"><a href="../diagrams/market.png"><img src="../diagrams/market.png" alt="Trust selection and the availability agreement are separate; accepted roots and purchased evidence meet at terminal verification." width="653" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/market.png">Open full size</a> · <a href="../diagrams/market.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/market.png?v=76008422a68e2c0b"><img src="../diagrams/market.png?v=76008422a68e2c0b" alt="Trust selection and the availability agreement are separate; accepted roots and purchased evidence meet at terminal verification." width="653" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/market.png?v=76008422a68e2c0b">Open full size</a> · <a href="../diagrams/market.mmd?v=a1789611aa6e614a">Mermaid source</a></p>
 
 ## What applications buy
 

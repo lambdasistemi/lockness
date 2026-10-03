@@ -34,8 +34,8 @@ This enables market-driven scaling through ordinary servers, caches and replicas
 - An independent publisher follows the ledger and publishes a signed commitment for every block without hosting historical query views.
 
 <!-- diagram: roles -->
-<div class="diagram"><a href="docs/diagrams/roles.png"><img src="docs/diagrams/roles.png" alt="Anchors supply accepted roots; ledgers and application builders supply evidence to terminals." width="523" loading="lazy"></a></div>
-<p class="diagram-links"><a href="docs/diagrams/roles.png">Open full size</a> · <a href="docs/diagrams/roles.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="docs/diagrams/roles.png?v=535c716f291a926b"><img src="docs/diagrams/roles.png?v=535c716f291a926b" alt="Anchors supply accepted roots; ledgers and application builders supply evidence to terminals." width="523" loading="lazy"></a></div>
+<p class="diagram-links"><a href="docs/diagrams/roles.png?v=535c716f291a926b">Open full size</a> · <a href="docs/diagrams/roles.mmd?v=4837eed6f241e496">Mermaid source</a></p>
 
 **Ledger proofs concern on-chain validity in the present, at the selected chainpoint. Application proofs concern on-chain validation of a future proposed transaction.**
 

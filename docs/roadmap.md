@@ -7,8 +7,8 @@ As a project maintainer, fund generic chain-following capabilities and make one 
 The next outcome is a reviewable contract for a terminal to verify an application claim through a chain of roots while purchasing data availability. Work proceeds through the dependencies below; this is a proposed project structure, not a claim that teams or implementation milestones have started.
 
 <!-- diagram: roadmap -->
-<div class="diagram"><a href="diagrams/roadmap.png"><img src="diagrams/roadmap.png" alt="Root, session and availability contracts feed engine measurement and a complete verification journey before implementation work is assigned." width="604" loading="lazy"></a></div>
-<p class="diagram-links"><a href="diagrams/roadmap.png">Open full size</a> · <a href="diagrams/roadmap.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="diagrams/roadmap.png?v=a7b74cfeb7dd25a4"><img src="diagrams/roadmap.png?v=a7b74cfeb7dd25a4" alt="Root, session and availability contracts feed engine measurement and a complete verification journey before implementation work is assigned." width="604" loading="lazy"></a></div>
+<p class="diagram-links"><a href="diagrams/roadmap.png?v=a7b74cfeb7dd25a4">Open full size</a> · <a href="diagrams/roadmap.mmd?v=6c53d6bbd5ad273f">Mermaid source</a></p>
 
 The contract workstreams can be developed together. The complete journey depends on all of them: measurements alone cannot settle trust or rollback behavior, and correct proofs alone cannot establish provider availability.
 
@@ -45,8 +45,8 @@ Exit evidence: reproducible measurements bound to the engine revision, hardware,
 ## Demonstrate one complete journey
 
 <!-- diagram: roadmap-journey -->
-<div class="diagram"><a href="diagrams/roadmap-journey.png"><img src="diagrams/roadmap-journey.png" alt="The terminal keeps one accepted chainpoint and root policy while checking ledger evidence from two providers and application proofs from an untrusted builder; failed evidence is rejected before action." width="784" loading="lazy"></a></div>
-<p class="diagram-links"><a href="diagrams/roadmap-journey.png">Open full size</a> · <a href="diagrams/roadmap-journey.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="diagrams/roadmap-journey.png?v=7f90550b39a7ee88"><img src="diagrams/roadmap-journey.png?v=7f90550b39a7ee88" alt="The terminal keeps one accepted chainpoint and root policy while checking ledger evidence from two providers and application proofs from an untrusted builder; failed evidence is rejected before action." width="784" loading="lazy"></a></div>
+<p class="diagram-links"><a href="diagrams/roadmap-journey.png?v=7f90550b39a7ee88">Open full size</a> · <a href="diagrams/roadmap-journey.mmd?v=ec6814596749f58c">Mermaid source</a></p>
 
 Use independently configured publisher keys, a pinned chainpoint and one NFT. Verify its ledger witness, retrieve the complete reconstruction inputs, interpret the application, match the reconstructed root and verify an application proof before transaction construction.
 
