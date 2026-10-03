@@ -17,12 +17,15 @@ config:
     mergeEdges: false
 ---
 flowchart TB
-    C[Roots + proof<br/>contracts]:::anchor -->|Defines claims| J[Complete verification<br/>journey]:::terminal
-    S[Sessions + history<br/>contracts]:::ledger -->|Defines coverage| M[CSMT-UTXO costs<br/>and storage choice]:::ledger
-    C -->|Defines commitments| M
-    A[Availability +<br/>switching contract]:::app -->|Defines service offer| J
-    M -->|Measured capability| J
-    J -->|Acceptance evidence| I[Assign component<br/>implementation work]:::neutral
+    C[Roots, replay<br/>and settlement]:::anchor -->|Claim cases| D[Define acceptance<br/>journey]:::terminal
+    S[Session behavior<br/>and limits]:::ledger -->|Session cases| D
+    A[Availability +<br/>switching contract]:::app -->|Service cases| D
+    D -->|Acceptance specification| I[Assign components<br/>and prototype]:::neutral
+    I -->|Build capabilities| P[Components + archive<br/>and view prototype]:::ledger
+    P -->|Measure new workloads| M[Set storage choice<br/>and service limits]:::ledger
+    B[Existing CSMT-UTXO<br/>anchor baseline]:::anchor -->|Baseline costs| M
+    M -->|Configured implementation| J[Pass acceptance<br/>journey]:::terminal
+    J -->|Delivery evidence| E[Expand service surface<br/>and test interoperability]:::neutral
     classDef anchor fill:#e1f3eb,stroke:#2c7155,stroke-width:1.5px,color:#163d2e
     classDef ledger fill:#e6effc,stroke:#416dad,stroke-width:1.5px,color:#203a63
     classDef app fill:#fff0dd,stroke:#a46b25,stroke-width:1.5px,color:#644317

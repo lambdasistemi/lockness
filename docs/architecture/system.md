@@ -83,8 +83,8 @@ The two proof values have different temporal roles. **Ledger proofs concern on-c
 Before acquiring a session, the terminal [finds a usable chainpoint](../design/chainpoints.md#find-a-usable-chainpoint): an accepted anchor publication and a provider offer must agree on the network, chainpoint and commitment scheme. Provider availability is a claim to confirm at acquisition, not a source of trusted roots.
 
 <!-- diagram: proof-composition -->
-<div class="diagram"><a href="../diagrams/proof-composition.png?v=9340edb31cb0b162"><img src="../diagrams/proof-composition.png?v=9340edb31cb0b162" alt="The terminal selects an accepted and available chainpoint, acquires a session, verifies the NFT output, then checks the application proof against its authenticated root." width="732" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/proof-composition.png?v=9340edb31cb0b162">Open full size</a> · <a href="../diagrams/proof-composition.mmd?v=f53ec8e9612f4425">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/proof-composition.png?v=d37d9a9efc1520f7"><img src="../diagrams/proof-composition.png?v=d37d9a9efc1520f7" alt="The terminal selects an accepted and available chainpoint, acquires a session, verifies the NFT output, then checks the application proof against its authenticated root." width="660" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/proof-composition.png?v=d37d9a9efc1520f7">Open full size</a> · <a href="../diagrams/proof-composition.mmd?v=867014ec3a114c43">Mermaid source</a></p>
 
 Application builders may generate proofs on behalf of terminals. A terminal may instead reconstruct the tree locally. The application root comes from the verified state output; it is distinct from the ledger root. A reused proof must match the receiving context's claim, encoding and root. Valid evidence at an old chainpoint is not a promise that a future transaction will still be admissible.
 

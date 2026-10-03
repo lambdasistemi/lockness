@@ -36,7 +36,7 @@ Choose archive coverage before sizing or committing to ledger-provider operating
 
 The contract must specify the starting chainpoint, selection rules, retention, backfill, referenced and spent-output resolution, and missing-coverage responses. A filter is sufficient only if a representative MPFS or Singular replay can obtain every dependency it needs, including transactions or outputs outside that filter. Serving reconstruction material does not by itself prove completeness.
 
-Exit evidence is a declared coverage offer and a deterministic application replay that reproduces the authenticated application root. Measure that workload and its reference closure; do not assign a generic cost estimate to an unspecified archive. The [roadmap](../roadmap.md#settle-the-chainpoint-contract) makes this a prerequisite for engine sizing.
+Exit evidence is a declared coverage offer and a deterministic application replay that reproduces the authenticated application root. Measure that workload and its reference closure; do not assign a generic cost estimate to an unspecified archive. The [roadmap](../roadmap.md#specify-roots-reconstruction-and-settlement) makes this a prerequisite for engine sizing.
 
 ## Decisions
 

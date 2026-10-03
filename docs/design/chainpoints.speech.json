@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/chainpoints.md",
-    "sha256": "3da1bb2e00148a270f6b6e53f6010d5c5c43e8016f0effd0aba9556a71ccca43"
+    "sha256": "15330d1945fe0c60add691ff9f2bbd985479e6dceef695d342cd0faec0c980b0"
   },
   "find-a-usable-chainpoint": [
     {
@@ -23,7 +23,7 @@
   ],
   "history-coverage-before-costing": [
     {
-      "text": "Choose coverage before sizing the ledger provider. Full-chain and filtered transaction archives are different offers; both preserve complete CBOR for the transactions they serve. Declare starting point, filters, backfill, retention, reference resolution and refusals. A real application replay must obtain all dependencies and reproduce the authenticated root before the workload is costed.",
+      "text": "The roots and reconstruction workstream owns history coverage. Choose it before sizing the provider. Declare full-chain or filtered coverage, starting point, backfill, retention, all reference dependencies and refusals. Demonstrate deterministic replay to the authenticated root before cost commitments. Complete transaction CBOR is retained for each covered transaction.",
       "pause": 400
     }
   ],

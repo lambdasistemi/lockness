@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/projects.md",
-    "sha256": "842b8c236535de6832680a9cf8ee395b488c16bba0b9ddc39021968a7fc7bdee"
+    "sha256": "73f139e65c56e879cba97cc206e4f1bb8da8ab057438b21cbc6a6ab6d796cea1"
   },
   "csmt-utxo-the-existing-engine": [
     {
@@ -11,7 +11,7 @@
   ],
   "application-consumers": [
     {
-      "text": "MPFS and Singular remain application consumers. The linked MPFS verifier consumes backend facts; deterministic replay from transaction CBOR and complete dependencies still need evidence. Follow the full verification journey.",
+      "text": "MPFS and Singular remain application consumers. The existing MPFS verifier consumes backend facts. Replay from transaction CBOR needs a deterministic interpreter and complete dependencies. The linked acceptance run will test that proposed integration after implementation.",
       "pause": 400
     }
   ],

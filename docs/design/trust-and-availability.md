@@ -50,7 +50,7 @@ A terminal moving from one provider to another keeps its accepted network, chain
 
 If the second provider lacks that view or the required history, it reports the limitation. Fallback must not silently choose a new chainpoint, root authority or weaker proof contract. Selecting another chainpoint requires an explicit terminal decision. Caches and replicas inherit the same bindings and freshness requirements.
 
-The acceptance journey must show two providers serving the same accepted claims, a successful switch without changing anchor policy, and a refusal when compatible coverage is absent. It must also show rejection of altered data and a provider attempting to substitute its own root. Equivalent claims need not have byte-identical proofs.
+The acceptance journey must show two providers serving the same accepted claims, a successful switch without changing anchor policy, and a refusal when compatible coverage is absent. It must also show rejection of altered data and a provider attempting to substitute its own root. Equivalent claims need not have byte-identical proofs. The [first acceptance run](../roadmap.md#define-the-acceptance-journey) uses two provider instances of one implementation and demonstrates switching. Interoperability between independent implementations requires a second implementation passing the same contract.
 
 ## Design decisions
 

@@ -36,10 +36,10 @@
     "height": 1144
   },
   "proof-composition": {
-    "inputs": "59cf5e541967b278d6dfb0cfc0fa5971e39678153773357a84b9dbac9d9c78c7",
-    "image": "9340edb31cb0b1628aba20bc8c81a6d833135a1c7cafa829f5a466d806692aa6",
-    "width": 1464,
-    "height": 2294
+    "inputs": "2ff0706287eff7b6eee6bedcd9f17c3c260c6430298b2da7b604bb7e9ec728d0",
+    "image": "d37d9a9efc1520f7ff311ec896a1a5670dde3aa82e9bbf9a393b87f7f43dd0ee",
+    "width": 1320,
+    "height": 2484
   },
   "session": {
     "inputs": "bef33cc6df59d109569ccbf1091520fbd339ef8398087e90c0edf5180df27fef",
@@ -54,15 +54,15 @@
     "height": 1628
   },
   "roadmap": {
-    "inputs": "8569b078b89b1101cd8efceaa55160b5254818f683e18aa55f690212f86cb4de",
-    "image": "a7b74cfeb7dd25a4581cbf53d596a61f0d6dbc722288ed2baac7393e86a86d8f",
-    "width": 1208,
-    "height": 1184
+    "inputs": "16179146853e1c5ea5bc94555bebef1c3a31e15ae90ea67c87a000e306448c89",
+    "image": "372061a0db52dc61705fbaaa072d433f245bb226e0189625bcdb88dd389f3e8b",
+    "width": 1294,
+    "height": 2254
   },
   "roadmap-journey": {
-    "inputs": "6dffcb3329740f70d079d48fefef09981e5e96037d4b34bfc3d45ddce92f42c1",
-    "image": "7f90550b39a7ee88baede9f2e41912a4290003ac5c10ef95011cb94613537c91",
-    "width": 1568,
-    "height": 1180
+    "inputs": "3a52c67b873d57a45aa739fefce70397fe4f74f0ce5c2f3afdec90a9bdd78a18",
+    "image": "e7d7917fc7c4b93f644e542fc1637d1f8a75e8bbb00a0238044d20f411bcfa3b",
+    "width": 1540,
+    "height": 1892
   }
 }

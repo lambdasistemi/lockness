@@ -28,7 +28,7 @@ The existing [internal-index epic](https://github.com/lambdasistemi/cardano-utxo
 | MPFS | [Repository and documentation](https://github.com/lambdasistemi/cardano-mpfs-offchain) · [existing facts verifier](https://github.com/lambdasistemi/cardano-mpfs-offchain/blob/0f82465f5f828c2ab987a166e9e24c2368228d01/cardano-mpfs-verify/lib/Cardano/MPFS/Client/Verify/Read.hs) | Prior implementation checks reconstructed facts against the application root in an anchored state output. |
 | Singular | [Repository and documentation](https://github.com/lambdasistemi/singular) | Application consumer whose state interpretation and proof construction stay outside the generic ledger service. |
 
-Follow the [asset and NFT concepts](concepts.md#assets-and-nft-state-outputs) into the [proof-composition sequence](architecture/system.md#proof-composition). MPFS’s linked verifier consumes backend facts; replay from transaction CBOR still needs a deterministic application interpreter and complete reconstruction inputs. The proposed history-retrieval integration still needs the [complete journey](roadmap.md#demonstrate-one-complete-journey); these links do not claim it is delivered.
+Follow the [asset and NFT concepts](concepts.md#assets-and-nft-state-outputs) into the [proof-composition sequence](architecture/system.md#proof-composition). MPFS’s linked verifier consumes backend facts; replay from transaction CBOR still needs a deterministic application interpreter and complete reconstruction inputs. The proposed history-retrieval integration still needs the [complete journey](roadmap.md#pass-the-acceptance-journey); these links do not claim it is delivered.
 
 ## Assess the evidence
 

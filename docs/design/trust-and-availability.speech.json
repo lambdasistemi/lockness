@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/trust-and-availability.md",
-    "sha256": "9b7de797b4a4b3bc330a65d7406fe1b444227216e0cfb9ea0ae0696776f7f9e0"
+    "sha256": "ad234e46bf0b3b86c676f3213d9cf40c7d6ac65b1189e5bd2bc9c3f6706c907a"
   },
   "the-project-proposition": [
     {
@@ -23,7 +23,7 @@
   ],
   "switching-must-preserve-verification": [
     {
-      "text": "A replacement provider serves the same network, chainpoint, commitment scheme and claims under a new local session. If it cannot serve the view or history, it reports the limitation. Switching must preserve anchor policy and proof strength. Acceptance must demonstrate equivalent verified claims across providers and rejection of altered data or substituted roots.",
+      "text": "A switch preserves network, chainpoint, scheme, required claims and anchor policy while acquiring a new provider-local session. Missing coverage must produce refusal. The first run uses two instances of one implementation to demonstrate switching; independent-implementation interoperability requires a second implementation passing the same contract.",
       "pause": 400
     }
   ],

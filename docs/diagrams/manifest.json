@@ -67,13 +67,13 @@
       "name": "roadmap",
       "source": "roadmap.mmd",
       "image": "roadmap.png",
-      "alt": "Root, session and availability contracts feed engine measurement and a complete verification journey before implementation work is assigned."
+      "alt": "Contracts define the journey before component and prototype assignment. Measured implementations then pass the journey before service expansion and independent interoperability testing."
     },
     {
       "name": "roadmap-journey",
       "source": "roadmap-journey.mmd",
       "image": "roadmap-journey.png",
-      "alt": "The terminal keeps one accepted chainpoint and root policy while checking ledger evidence from two providers and application proofs from an untrusted builder; failed evidence is rejected before action."
+      "alt": "The terminal verifies claims from two provider instances and an untrusted application builder. Transaction construction and external effects have separate policies; effects require settlement and authorization."
     }
   ],
   "pages": [

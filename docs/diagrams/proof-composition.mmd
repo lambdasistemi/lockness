@@ -34,13 +34,13 @@ sequenceDiagram
       participant B as Proof builder
     end
     A->>T: Signed root stream
-    T->>L: Discover retained views<br/>and coverage
-    L-->>T: Available chainpoints
-    T->>T: Select accepted and<br/>available chainpoint P
+    T->>L: Discover views<br/>and coverage
+    L-->>T: Available<br/>chainpoints
+    T->>T: Choose usable<br/>chainpoint P
     T->>L: Acquire P
-    L-->>T: Session for P or refusal
-    Note over T,L: Continue only after acquisition
-    T->>L: Read NFT under session
+    L-->>T: Session for P<br/>or refusal
+    Note over T,L: Continue after<br/>successful acquisition
+    T->>L: Read NFT<br/>under session
     L-->>T: Output + ledger witness
     T->>T: Verify NFT output
     T->>B: Request proof for<br/>verified application root
