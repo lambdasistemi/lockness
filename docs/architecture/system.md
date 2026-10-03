@@ -81,7 +81,7 @@ The two proof values have different temporal roles. **Ledger proofs concern on-c
 “Present” is chainpoint-relative, not a promise that an old view remains the chain tip. “Future validation” describes the proof's role, not a guarantee that the submitted transaction succeeds after intervening state changes.
 
 <!-- diagram: proof-composition -->
-<div class="diagram"><a href="../diagrams/proof-composition.png"><img src="../diagrams/proof-composition.png" alt="The terminal verifies the NFT output, asks for an application proof, and verifies that proof against the root from the output." width="709" loading="lazy"></a></div>
+<div class="diagram"><a href="../diagrams/proof-composition.png"><img src="../diagrams/proof-composition.png" alt="The terminal verifies the NFT output, asks for an application proof, and verifies that proof against the root from the output." width="624" loading="lazy"></a></div>
 <p class="diagram-links"><a href="../diagrams/proof-composition.png">Open full size</a> · <a href="../diagrams/proof-composition.mmd">Mermaid source</a></p>
 
 Application builders may generate proofs on behalf of clients. A client may instead reconstruct the tree locally. The application root comes from the verified state output; it is distinct from the ledger-index root. A reused proof must match the receiving context's claim, encoding and root. Valid evidence at an old chainpoint is not a promise that a future transaction will still be admissible.

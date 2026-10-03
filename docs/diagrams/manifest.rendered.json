@@ -6,10 +6,10 @@
     "height": 1004
   },
   "overview": {
-    "inputs": "a308a8bfe45e9e65536014bc489bec78508ca3bf888513b017ba970c8d8a90f7",
-    "image": "b8fdb35cd4bd35c7483cc3873a444f9d449ad57a052bd2b5342d187a5c35c7dd",
-    "width": 1426,
-    "height": 1098
+    "inputs": "7944b23251d06fd5c4b400d8179a886b4fb80cf6733bf76247961c9f339ea4f5",
+    "image": "189c40ed30a0b3284e41584bd284fd5ac67b4ead9545868aa5caf7815bb8d6ab",
+    "width": 1240,
+    "height": 1144
   },
   "infrastructure": {
     "inputs": "873e250ae80a125a9369843d2ea96998b18516bf1b350e6cbbd865f507e92ad4",
@@ -30,20 +30,20 @@
     "height": 1050
   },
   "market": {
-    "inputs": "444cfa36a4f45f15a20c9d4041713c1358630a9377cd87ad20d8bc623d3ca265",
-    "image": "f805a991bab2221072564ff8076d1425e8629c1185106800d5c24d89537557a8",
-    "width": 1434,
-    "height": 1098
+    "inputs": "800a199efa9372da447c62a93d41692316f703965d86fa4887c02eef4689e6c2",
+    "image": "76008422a68e2c0bcc856ffd8feb758dbc2b18acdd9670efbe292121381f4c10",
+    "width": 1306,
+    "height": 1144
   },
   "proof-composition": {
-    "inputs": "ed2cbcca8dd74c6b2b0ee6501e2183eb04925258426cb6e22f167519713dcca2",
-    "image": "8dba1ef939b2248fbbb04d45cee6cb683f8ef81dd887c6f829a1c39d71e714ab",
-    "width": 1418,
-    "height": 1656
+    "inputs": "483494275c16d1fca4bb6e56c18c60bca164b014e33af4d61376284805abed60",
+    "image": "94670c4fcf7b47edce50e57f997ecbfd7798666cf0147f79687da6c5a50da67b",
+    "width": 1248,
+    "height": 1694
   },
   "session": {
     "inputs": "bef33cc6df59d109569ccbf1091520fbd339ef8398087e90c0edf5180df27fef",
-    "image": "d7a5b3a97cb979b1b51ececb8c8b7e239ea62482586da7215d8863298a8e3e5b",
+    "image": "42c240417184fe731e8282099e4863ad95e9cf157e60cbedd21a1a0996b15f6b",
     "width": 1568,
     "height": 1038
   },
@@ -52,5 +52,17 @@
     "image": "7098983bec3bc069059b7c0da7bb23faf57a815694d3fd2a1ce4ee5ece05cf2a",
     "width": 534,
     "height": 1628
+  },
+  "roadmap": {
+    "inputs": "8569b078b89b1101cd8efceaa55160b5254818f683e18aa55f690212f86cb4de",
+    "image": "a7b74cfeb7dd25a4581cbf53d596a61f0d6dbc722288ed2baac7393e86a86d8f",
+    "width": 1208,
+    "height": 1184
+  },
+  "roadmap-journey": {
+    "inputs": "6dffcb3329740f70d079d48fefef09981e5e96037d4b34bfc3d45ddce92f42c1",
+    "image": "7f90550b39a7ee88baede9f2e41912a4290003ac5c10ef95011cb94613537c91",
+    "width": 1568,
+    "height": 1180
   }
 }

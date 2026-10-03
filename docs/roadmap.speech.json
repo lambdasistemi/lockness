@@ -1,17 +1,23 @@
 {
   "_source": {
     "file": "docs/roadmap.md",
-    "sha256": "effc20631f220f7ab67fdf7408627203e14d1cf034d8af4b607c234f055828ad"
+    "sha256": "2abd5289fe766f4deb5fa0fde26d26ba3e51b2f403f759efc20cddf9098dd056"
   },
+  "delivery-dependencies": [
+    {
+      "text": "The roadmap diagram shows three contract workstreams: roots and proofs, sessions and history, and availability and switching. Commitment and session contracts inform CSMT-UTXO measurements. These measured capabilities and service contracts feed the complete journey before component delivery is assigned. The table gives each workstream a concrete deliverable and an exit criterion.",
+      "pause": 400
+    }
+  ],
   "settle-the-chainpoint-contract": [
     {
-      "text": "First record the remaining rulings and build a small model with an independently reviewed contract and playable simulation. Cryptographic assumptions must stay explicit.",
+      "text": "Specify acquisition, leases, rollback, eviction and history coverage with a reviewed executable model and simulation. The exit evidence includes explicit refusals and no silent chainpoint substitution. Cryptographic assumptions remain separate.",
       "pause": 400
     }
   ],
   "specify-the-trust-and-availability-offers": [
     {
-      "text": "Specify both own-anchor and institutional-publication choices, keeping root acceptance separate from purchased data capacity. Define availability commitments, compatible evidence, sessions and explicit coverage failures. Resolve rollback before promising session behavior. Discovery, billing and remedies remain integration choices.",
+      "text": "Define both own-anchor and institutional-publication choices, with root acceptance separate from data delivery. The exit contract specifies the verification boundary for both untrusted services and observable availability promises.",
       "pause": 400
     }
   ],
@@ -23,13 +29,13 @@
   ],
   "demonstrate-one-complete-journey": [
     {
-      "text": "Verify an NFT state and application proof at a pinned chainpoint before transaction construction. Exercise altered data, missing history, rollback and expiry. Switch between two compatible providers without changing anchor policy, and refuse incompatible coverage or root substitution. Test both local roots and explicitly identified test institutional publishers.",
+      "text": "The second diagram keeps one accepted root and chainpoint while the terminal checks equivalent ledger claims from two providers and proofs from an untrusted application builder. Valid links yield an application claim; failed evidence is rejected before action. Demonstrate provider switching, nested roots, wrong roots, missing history and expired sessions, with test publishers explicitly labelled.",
       "pause": 400
     }
   ],
   "assign-implementation-work": [
     {
-      "text": "Reconcile the older CSMT milestones with the accepted project contracts. Keep project decisions here and implementation acceptance in the component repositories.",
+      "text": "Map the agreed contracts and demonstration evidence to anchor, ledger, application and terminal owners. Each role has a separate acceptance boundary. Reconcile existing CSMT issues explicitly; this plan neither moves those issues nor releases paused work.",
       "pause": 400
     }
   ],

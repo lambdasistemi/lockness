@@ -17,19 +17,19 @@ config:
     mergeEdges: false
 ---
 flowchart TB
-    subgraph Trust[Choose root authority]
-      O[Own anchor]:::anchor -->|Local roots| T[Trust policy]:::terminal
-      I[Institutional<br/>anchors]:::anchor -->|Signed roots| T
+    R[Accepted ledger root<br/>at chainpoint P]:::anchor -->|Same authority| T[Terminal checks]:::terminal
+    subgraph U[Untrusted services]
+      A[Provider A]:::ledger
+      B[Provider B]:::ledger
+      P[Application builder]:::app
     end
-    subgraph Market[Buy service capacity]
-      B[Application<br/>operator]:::app -.->|Availability agreement| P[Data + proof provider]:::ledger
-    end
-    T -->|Accepted commitment| V[Terminal verification]:::terminal
-    P -->|Data + evidence| V
-    V -->|Verified claims| E[Transactions or effects]:::terminal
-    style Trust fill:#f5fbf8,stroke:#2c7155
-    style Market fill:#f5f8fd,stroke:#416dad
-
+    A -->|UTxO + witness| T
+    B -->|Equivalent claim| T
+    P -->|Application proofs| T
+    T -->|All links verify| V[Verified application<br/>claim]:::terminal
+    T -->|Evidence fails| E[Explicit rejection]:::neutral
+    V -->|Action policy| X[Construct transaction<br/>or authorize effect]:::terminal
+    style U fill:#f8fafc,stroke:#687384,stroke-dasharray:5 4
     classDef anchor fill:#e1f3eb,stroke:#2c7155,stroke-width:1.5px,color:#163d2e
     classDef ledger fill:#e6effc,stroke:#416dad,stroke-width:1.5px,color:#203a63
     classDef app fill:#fff0dd,stroke:#a46b25,stroke-width:1.5px,color:#644317

@@ -18,11 +18,11 @@ config:
 ---
 flowchart TB
     subgraph Trust[Chosen root authority]
-      O[Own anchor]:::anchor -->|Local roots| T[Terminal policy]:::terminal
-      I[Institutional anchors]:::anchor -->|Signed roots| T
+      O[Own anchor]:::anchor -->|Local roots| T[Trust policy]:::terminal
+      I[Institutional<br/>anchors]:::anchor -->|Signed roots| T
     end
-    subgraph Services[Untrusted for correctness]
-      L[Ledger provider]:::ledger -->|History| P[Application builder]:::app
+    subgraph Services[Untrusted services]
+      L[Ledger provider]:::ledger -->|History| P[Application<br/>builder]:::app
     end
     T -->|Accepted root| V[Terminal verification]:::terminal
     L -->|Data + proofs| V

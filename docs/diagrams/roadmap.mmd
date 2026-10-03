@@ -17,19 +17,12 @@ config:
     mergeEdges: false
 ---
 flowchart TB
-    subgraph Trust[Choose root authority]
-      O[Own anchor]:::anchor -->|Local roots| T[Trust policy]:::terminal
-      I[Institutional<br/>anchors]:::anchor -->|Signed roots| T
-    end
-    subgraph Market[Buy service capacity]
-      B[Application<br/>operator]:::app -.->|Availability agreement| P[Data + proof provider]:::ledger
-    end
-    T -->|Accepted commitment| V[Terminal verification]:::terminal
-    P -->|Data + evidence| V
-    V -->|Verified claims| E[Transactions or effects]:::terminal
-    style Trust fill:#f5fbf8,stroke:#2c7155
-    style Market fill:#f5f8fd,stroke:#416dad
-
+    C[Roots + proof<br/>contracts]:::anchor -->|Defines claims| J[Complete verification<br/>journey]:::terminal
+    S[Sessions + history<br/>contracts]:::ledger -->|Defines coverage| M[CSMT-UTXO costs<br/>and storage choice]:::ledger
+    C -->|Defines commitments| M
+    A[Availability +<br/>switching contract]:::app -->|Defines service offer| J
+    M -->|Measured capability| J
+    J -->|Acceptance evidence| I[Assign component<br/>implementation work]:::neutral
     classDef anchor fill:#e1f3eb,stroke:#2c7155,stroke-width:1.5px,color:#163d2e
     classDef ledger fill:#e6effc,stroke:#416dad,stroke-width:1.5px,color:#203a63
     classDef app fill:#fff0dd,stroke:#a46b25,stroke-width:1.5px,color:#644317
