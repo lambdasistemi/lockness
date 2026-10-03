@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "a07024493c0b0047227a81201b641c56fa8a909be2757afa230b682a6bcf93e0"
+    "sha256": "704e98bac8a483e8b0e7a91818e18e346d5a02eacbbdb8dda191c02da1b92ddf"
   },
   "recorded-direction": [
     {
@@ -22,6 +22,10 @@
     },
     {
       "text": "Ledger proofs are checked off-chain and are not placed in transaction redeemers. Application proofs are placed in redeemers. Cardano checks actual ledger validity, and application validators check the application proofs.",
+      "pause": 400
+    },
+    {
+      "text": "Ledger proof values concern on-chain validity in the present, at the selected checkpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
       "pause": 400
     }
   ],

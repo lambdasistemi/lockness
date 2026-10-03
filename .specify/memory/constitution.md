@@ -16,6 +16,8 @@ Lockness owns the project-level design for independently endorsed Cardano ledger
 
 8. Ledger witnesses are off-chain verification evidence for terminals, not transaction redeemers. Application proofs enter redeemers and are checked by application validators; Cardano checks transaction validity against its actual ledger state. Anchor root publication is separate.
 
+9. Distinguish proof values by time and purpose: ledger proofs concern on-chain validity at the selected checkpoint (present); application proofs concern on-chain validation of a proposed transaction (future). Neither a historical witness nor preflight verification promises future transaction acceptance.
+
 ## Development
 
 Design direction, accepted model, source behavior, tests, deployment and release are reported separately. Use Nix-backed documentation checks. Change shared contracts through a reviewed decision and preserve counterexamples. Do not infer authorization to launch teams, merge implementations or publish releases from a planning artifact.

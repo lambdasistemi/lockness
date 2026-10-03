@@ -40,6 +40,12 @@ The later discussion refined the last statement: historical transactions can be 
 
 Ledger and application proofs have distinct destinations: ledger witnesses are verified off-chain by terminals and are not carried into transactions. Application proofs are carried in redeemers and checked by application validators. Cardano enforces transaction validity against its own ledger state. This distinction does not stop anchors publishing signed roots.
 
+The temporal distinction is an explicit project ruling:
+
+> "the ledger proofs are about on-chain validity (present), application proofs are about on-chain validation (future)"
+
+Here the present is the selected checkpoint. An application proof is intended for checking a proposed transition on-chain; its availability is not a promise of future transaction acceptance.
+
 ## What remains unproved
 
 - The full commitment inventory: live UTxOs, asset sets and any historical indexes need separately stated proof guarantees.

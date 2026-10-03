@@ -34,6 +34,15 @@ Signed messages need an unambiguous network, slot, block hash, commitment scheme
 
 ## Proof composition
 
+The two proof values have different temporal roles. **Ledger proofs concern on-chain validity in the present**, meaning the ledger state at the selected checkpoint. **Application proofs concern on-chain validation in the future**, when a proposed transaction executes.
+
+| Proof value | What it establishes or supports | Where it is checked |
+| --- | --- | --- |
+| Ledger proof | A claim about the already established ledger state at the selected checkpoint: the present facts used for construction. | Off-chain, by the terminal against an accepted anchor commitment. |
+| Application proof | Evidence for the application validator to check a proposed transition: future validation. | In the terminal before use, then on-chain from the transaction redeemer. |
+
+“Present” is checkpoint-relative, not a promise that an old view remains the chain tip. “Future validation” describes the proof's role, not a guarantee that the submitted transaction succeeds after intervening state changes.
+
 ```mermaid
 sequenceDiagram
     participant P as Anchor

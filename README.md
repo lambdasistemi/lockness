@@ -21,6 +21,8 @@ flowchart LR
     A -->|Application data and proofs| C
 ```
 
+**Ledger proofs concern on-chain validity in the present, at the selected checkpoint. Application proofs concern on-chain validation of a future proposed transaction.**
+
 Ledger proofs are consumed off-chain by terminals. Application proofs are the proofs included in transaction redeemers. Cardano validates the transaction against its actual ledger state; application validators check the application proofs. Signed roots still belong to the independent anchor streams.
 
 ## Read the design
