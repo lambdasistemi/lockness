@@ -70,8 +70,10 @@ def check_speech(md, headings):
     keys = {k for k in data if not k.startswith("_")}
     # Speech covers the sections a reader can play: h2 and h3, as the reader and the generator do.
     ids = {slugify(text) for level, text in headings if level in (2, 3)}
-    if keys != ids:
-        out.append({"file": str(speech), "rule": "speech-headings-mismatch", "missing": sorted(ids - keys), "extra": sorted(keys - ids)})
+    # The lead under the page title is spoken under the h1's own key, when it has one.
+    lead = {slugify(text) for level, text in headings if level == 1}
+    if ids - keys or keys - ids - lead:
+        out.append({"file": str(speech), "rule": "speech-headings-mismatch", "missing": sorted(ids - keys), "extra": sorted(keys - ids - lead)})
     for k in keys:
         segs = data[k]
         if not (isinstance(segs, list) and segs and all(isinstance(s, dict) and isinstance(s.get("text"), str) and s["text"].strip() for s in segs)):

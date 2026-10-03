@@ -1,36 +1,130 @@
 {
-  "_source": {
-    "file": "docs/model/index.md",
-    "sha256": "acf5fe2e4abda858a510493ea27e1d3512b55109de8b6fd802563fa28cb8af69"
-  },
+  "inspect-root-acceptance-and-sessions": [
+    {
+      "text": "Inspect root acceptance and sessions.",
+      "pause": 500
+    },
+    {
+      "text": "As a design reviewer, run a terminal's root choice against trusted and untrusted publications. An honest scenario returns the accepted root and selected chainpoint. A publication from an untrusted key returns no-root at that same point, even when signature validity is assumed. Removing the trusted-set check demonstrates why that refusal matters.",
+      "pause": 400
+    },
+    {
+      "text": "A terminal also acquires exactly its selected point, repeats reads from that session, and receives the original-point refusal when the provider is absent, offers another point, or the session expires.",
+      "pause": 400
+    },
+    {
+      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Source links below follow the session feature branch so the new modules are available to pull-request reviewers before merge. Record that branch head when assessing the model.",
+      "pause": 400
+    }
+  ],
   "run-the-scenarios": [
     {
-      "text": "Run the three root journeys and the honest, absent point and newer point session journeys in the pinned Lean environment. Honest session acquisition returns the exact point and the root obtained from independent root acceptance. Two active reads retain it; expiry and release refuse further reads at the original point. Absent and newer offers refuse; alternate network and same slot hash also refuse. Unknown commands and scenarios return usage code sixty four. Source links follow the session feature branch for review before merge; record its head when assessing a candidate.",
+      "text": "Run the scenarios.",
+      "pause": 500
+    },
+    {
+      "text": "From the repository root, with Nix flakes enabled:",
+      "pause": 400
+    },
+    {
+      "text": "lean/env enters the lean/ directory with revision-pinned Lean 4.29.0 and its C compiler, and rejects a different Lean version. For an interactive pinned environment, run ./lean/env bash; there the commands are lake build and lake exe lockness-sim accept-root <scenario>. The toolchain file also supports standard Elan workflows. The library uses core and Std, with no mathlib or external Lake packages.",
+      "pause": 400
+    },
+    {
+      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root or session scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.",
       "pause": 400
     }
   ],
   "follow-the-acceptance-boundary": [
     {
-      "text": "The diagram follows original publications from the selected point through verification observations, distinct keys and trusted membership. Nonempty agreement leads to the accepted root; failure leads to no root at the selected point. Reaching an honest ledger root requires a separate correspondence hypothesis. The decisions table explains why arbitrary observations, exact binding, distinct keys and nonempty endorsement are separate checks.",
+      "text": "Follow the acceptance boundary.",
+      "pause": 500
+    },
+    {
+      "text": "The terminal supplies its policy and selected point. For each proposed root, acceptRoot finds publications at the exact network, slot and block hash, with that root's exact scheme and bytes. It passes the original publication, including unchanged signature and message sequences, to an arbitrary Boolean observation supplied by the policy. It deduplicates keys, keeps trusted members, and accepts the first root whose nonempty distinct endorsement satisfies the supplied agreement. Untrusted publications cannot manufacture agreement or prevent qualifying trusted publications from being considered.",
+      "pause": 400
+    },
+    {
+      "text": "The acceptance definition returns noRoot selectedPoint when no proposal qualifies. The shared refusal type has exactly three constructors: noRoot, unavailablePoint and evidenceFailure, each carrying the selected point. Root acceptance only emits noRoot; session acquisition emits unavailablePoint. Evidence verification remains later behavior.",
       "pause": 400
     }
   ],
   "read-the-model-contracts": [
     {
-      "text": "Shared types preserve exact bytes and the full chainpoint and root identity. Session acquisition and lifecycle now have executable behavior; answer verification remains later work. Signature validity is an arbitrary proposition, with no global instance. Root proofs establish trusted endorsement. Signature validity requires observation soundness; honest root equality separately requires correspondence. Session acquisition assumes neither provider honesty nor root trust.",
-      "pause": 400
-    }
-  ],
-  "assess-the-evidence": [
+      "text": "Read the model contracts.",
+      "pause": 500
+    },
     {
-      "text": "The gate builds all modules and inventories every stored theorem, including private proofs. It executes all root and session journeys and the permanent lifecycle check. Deliberate holes and custom escape axioms must reach the relevant rejection. Production root mutations remain checked. The session mutation removes the actual acquisition guard, compiles, accepts a newer session and constructively refutes the unchanged universal statement. The control recompiles the session counterexample and simulator against the mutation, while copying unchanged root dependencies as compiled inputs. It does not rebuild the full dependent closure. The exact unchanged acquisition proof then fails, and the real simulator rejects the changed outcome. These finite controls establish model evidence, without exhaustive mutation coverage. Kernel trust, cryptographic observation soundness and honest root correspondence remain explicit limits. Independent acceptance, remote CI, component implementation and deployment each need separate evidence.",
+      "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm.",
+      "pause": 400
+    },
+    {
+      "text": "SigValid publication is an uncomputed proposition supplied by an implicit, arbitrary SignatureModel. The project defines no global instance fixing validity. ObservationSound policy explicitly assumes that a true observation implies this predicate. Neither an observation nor the model simulator implements signature verification. Signature encodings, key rotation and cryptographic correctness remain external contracts.",
+      "pause": 400
+    },
+    {
+      "text": "The general proofs state their guarantees over arbitrary policies, publications and selected points:",
+      "pause": 400
+    },
+    {
+      "text": "The counterexamples give an inhabited abstract validity hypothesis for an untrusted publication, prove its refusal, constructively refute safety after removing trusted-set checking, and show that endorsement alone does not establish an honest ledger root.",
       "pause": 400
     }
   ],
   "acquire-the-selected-session": [
     {
-      "text": "The terminal selects a full chainpoint before acquisition. An arbitrary provider can offer any session. The model checks network, slot and block hash, then returns the entire offer unchanged. This proves point coherence and preserves bytes, but does not establish that the offered root was independently accepted. The lifecycle diagram shows acquisition to active or unavailable, repeated active reads, expiry refusal and release to closed. Its abandoned branch path remains unresolved and is omitted from the executable relation. Expiry has no chosen duration or scheduler. The declarations table explains universal acquisition, refusal and transition inversions. The choices table rejects slot only equality, relabelled offers and premature lease policy.",
+      "text": "Acquire the selected session.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal, retain one selected ledger identity while the provider follows new blocks. The session model treats a provider as an arbitrary Chainpoint → Option Session, with no honesty restriction. Session.point is definitionally its stored selectedPoint. Acquisition checks complete network, slot and block-hash equality and returns the entire offered session unchanged; it never rewrites an offer to look like the requested point.",
+      "pause": 400
+    },
+    {
+      "text": "Successful acquisition establishes point coherence and preservation of the offered root and bytes. It does not establish that the provider's acceptedRoot was independently accepted. Root acceptance remains a separate terminal operation; cryptographic observation soundness and honest-root correspondence remain separate hypotheses. The honest simulator obtains its root by executing acceptRoot before offering the session. Other arbitrary providers can offer any root at that point.",
+      "pause": 400
+    },
+    {
+      "text": "The diagram preserves the session design. The executable inductive SessionState and SessionTransition model requested acquisition as active or unavailable, active reads as active again, expiry as expired, and release as closed. readSession returns the same active session; expired and closed reads return unavailablePoint at its original point. Requested and unavailable reads also refuse their selected point. Closed and unavailable states have no outgoing transitions; an expired-read observation retains the expired state. Expiry is an event, with no duration or scheduler. The diagram's unresolved branch path is deliberately absent from the transition relation and remains a separate design question. The model does not implement pagination, token encodings, leases, storage retention or physical view release.",
+      "pause": 400
+    },
+    {
+      "text": "The session tests prove concrete honest, absent, newer-slot, alternate-hash and alternate-network outcomes. Their permanent executable check obtains a successful session, performs two active reads, and requires expiry and closed-state refusal. These checks exercise the abstract session value rather than a ledger read service.",
       "pause": 400
     }
-  ]
+  ],
+  "assess-the-evidence": [
+    {
+      "text": "Assess the evidence.",
+      "pause": 500
+    },
+    {
+      "text": "check-model builds every model module, inventories every stored theorem including private proofs, and reports its axiom dependencies. It permits only Lean's standard propext, Classical.choice and Quot.sound; holes and custom escape axioms fail. Lean checks anonymous examples during compilation but does not retain them in the declaration inventory: strict compiler warnings and a source hole policy reject their holes. Deliberate named and anonymous sorry, admit and unused custom-axiom controls must reach the relevant rejection, rather than fail because a tool or import is missing.",
+      "pause": 400
+    },
+    {
+      "text": "The gate executes all three root scenarios and all three session scenarios, runs the permanent lifecycle check, and compiles both counterexample modules. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
+      "pause": 400
+    },
+    {
+      "text": "The session control copies the actual production acquisition definition into an isolated build directory, removes only its point-equality guard, then recompiles the session counterexample module and session simulator against that mutated module. The existing unchanged root dependencies are copied as compiled inputs; this control does not rebuild the full dependent closure. The compiled mutant executes newer-point acceptance and constructively refutes the unchanged NoSubstitution proposition. The exact unchanged acquire_no_substitution proof then fails at its point-equality conclusion, and the real newer-point simulator rejects the changed outcome. The general refutation helper applies to any operation with that acceptance witness, rather than only a separate fake acquisition copy.",
+      "pause": 400
+    },
+    {
+      "text": "Run ./lean/env lake env lean Lockness/Tests/Session.lean or ./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean for session checks and the generic refutation. Run ./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean to inspect the constructive counterexample independently. Record git rev-parse HEAD alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed.",
+      "pause": 400
+    },
+    {
+      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Ledger witness checks, application proofs, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
+      "pause": 400
+    },
+    {
+      "text": "Continue to design decisions and remaining guarantees and the project architecture.",
+      "pause": 400
+    }
+  ],
+  "_source": {
+    "file": "index.md",
+    "sha256": "acf5fe2e4abda858a510493ea27e1d3512b55109de8b6fd802563fa28cb8af69"
+  }
 }

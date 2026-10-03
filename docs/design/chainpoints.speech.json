@@ -1,42 +1,120 @@
 {
-  "_source": {
-    "file": "docs/design/chainpoints.md",
-    "sha256": "15330d1945fe0c60add691ff9f2bbd985479e6dceef695d342cd0faec0c980b0"
-  },
+  "chainpoint-sessions": [
+    {
+      "text": "Chainpoint sessions.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal, make several dependent reads and paginate results from one selected ledger state, even while the provider follows new blocks. If that state cannot be served, receive a named refusal rather than a silently newer answer.",
+      "pause": 400
+    }
+  ],
   "find-a-usable-chainpoint": [
     {
-      "text": "Before reading, the terminal intersects accepted anchor publications with the provider’s retained views and history coverage. It selects the network, chainpoint and scheme, then acquires that exact view. Availability may change, so acquisition confirms the lease or refuses. No overlap means wait, switch provider or explicitly select another acceptable point, never mix answers.",
+      "text": "Find a usable chainpoint.",
+      "pause": 500
+    },
+    {
+      "text": "The terminal first intersects accepted anchor publications with the ledger provider's advertised retained views and history coverage. It selects one network, chainpoint and compatible commitment scheme that satisfy its action policy, then asks the provider to acquire that exact view. The anchor continues publishing independently; it does not negotiate sessions.",
+      "pause": 400
+    },
+    {
+      "text": "Availability can change between discovery and acquisition. Acquisition either confirms the selected view and lease or explicitly refuses it. With no usable overlap, the terminal waits, changes provider or explicitly selects another acceptable chainpoint. It never combines answers from different points or searches combinations of already-fetched data. The discovery wire format remains open; this handshake is required. See the proof-composition sequence.",
       "pause": 400
     }
   ],
   "session-contract": [
     {
-      "text": "The state diagram starts with a selected chainpoint and either acquires a retained view or refuses. Active sessions support repeated reads, can expire or close, and can encounter rollback. The rollback branch explicitly has no decided outcome. This is separate from silently rebinding a session. Chainpoint means genesis or slot and block-header hash; the network is separate context.",
+      "text": "Session contract.",
+      "pause": 500
+    },
+    {
+      "text": "Use chainpoint throughout Lockness. This corresponds to Cardano API's ChainPoint: either genesis or a slot number paired with a block-header hash. The network is separate context and must also be bound by the protocol. A slot number alone does not identify a chainpoint across competing branches.",
+      "pause": 400
+    },
+    {
+      "text": "A session token binds reads to the network, selected chainpoint and a retained view; it is not a source of trust. A chainpoint names a chain position, a view exposes state at that position, and a session retains access under a lease. The terminal verifies results against its separately accepted commitment. Different providers may issue different tokens for the same chainpoint. Whether sessions can be acquired at genesis remains a service-contract decision.",
+      "pause": 400
+    },
+    {
+      "text": "Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block; the policy for sessions on an abandoned branch remains open. No automatic chainpoint substitution is allowed.",
       "pause": 400
     }
   ],
   "storage-separation": [
     {
-      "text": "The diagram connects a session to retained index roots, content references and immutable bytes. Stored bytes alone do not prove live membership. RocksDB snapshot handles do not survive restart; durable views need a chosen storage design, such as versioned nodes, persisted overlays or database checkpoints. A storage checkpoint is not a Cardano chainpoint.",
+      "text": "Storage separation.",
+      "pause": 500
+    },
+    {
+      "text": "Immutable content survives rollback. Chain-index membership and branch status determine which content belongs to the selected ledger state. Storing an object is not evidence that it is live or canonical.",
+      "pause": 400
+    },
+    {
+      "text": "Retained views may use persistent index nodes, shared snapshots, or an isolated overlay reconstructed using rollback information. The mechanism has not been chosen. A read-only RocksDB snapshot is not itself a writable rollback target, and snapshot handles do not survive database restarts. A restart-surviving view needs a durable design, for example versioned nodes, persisted rollback overlays or separately retained database checkpoints. A RocksDB checkpoint is a storage mechanism, distinct from a Cardano chainpoint. Storage growth, write amplification, historical-read latency and session concurrency require measurement before choosing an implementation.",
       "pause": 400
     }
   ],
   "history-coverage-before-costing": [
     {
-      "text": "The roots and reconstruction workstream owns history coverage. Choose it before sizing the provider. Declare full-chain or filtered coverage, starting point, backfill, retention, all reference dependencies and refusals. Demonstrate deterministic replay to the authenticated root before cost commitments. Complete transaction CBOR is retained for each covered transaction.",
+      "text": "History coverage before costing.",
+      "pause": 500
+    },
+    {
+      "text": "Choose archive coverage before sizing or committing to ledger-provider operating costs. Retaining every transaction and selecting transactions by generic asset or address filters are different service offers; neither is assumed here. Both preserve complete transaction CBOR for the transactions they offer.",
+      "pause": 400
+    },
+    {
+      "text": "The contract must specify the starting chainpoint, selection rules, retention, backfill, referenced and spent-output resolution, and missing-coverage responses. A filter is sufficient only if a representative MPFS or Singular replay can obtain every dependency it needs, including transactions or outputs outside that filter. Serving reconstruction material does not by itself prove completeness.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence is a declared coverage offer and a deterministic application replay that reproduces the authenticated application root. Measure that workload and its reference closure; do not assign a generic cost estimate to an unspecified archive. The roadmap makes this a prerequisite for engine sizing.",
       "pause": 400
     }
   ],
   "decisions": [
     {
-      "text": "Explicit chainpoint selection replaces mixing latest responses. Bounded views make availability commitments finite, and immutable content allows payloads to be shared across views.",
-      "pause": 400
+      "text": "Decisions.",
+      "pause": 500
     }
   ],
   "open-questions": [
     {
-      "text": "Resolve abandoned-branch sessions, leases, atomic view contents, discovery wire formats, history coverage and retry policy. The initial model must expose acquisition, reads, rollback, expiry and eviction.",
+      "text": "Open questions.",
+      "pause": 500
+    },
+    {
+      "text": "What happens to an active session after its selected block leaves the canonical chain?",
+      "pause": 300
+    },
+    {
+      "text": "What retention and lease policy bounds storage and prevents resource exhaustion?",
+      "pause": 300
+    },
+    {
+      "text": "Which roots and indexes are captured atomically in a view?",
+      "pause": 300
+    },
+    {
+      "text": "Which wire format exposes retained views and anchor publications for the required discovery handshake?",
+      "pause": 300
+    },
+    {
+      "text": "Which history/reference queries are bounded by the point, and how is incomplete archive coverage reported?",
+      "pause": 300
+    },
+    {
+      "text": "Which failures require retrying the same point, and which require explicit terminal selection of a new point?",
+      "pause": 300
+    },
+    {
+      "text": "The first formal design slice should model acquisition, reads, rollback, expiry and eviction before optimizing physical storage.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "chainpoints.md",
+    "sha256": "15330d1945fe0c60add691ff9f2bbd985479e6dceef695d342cd0faec0c980b0"
+  }
 }

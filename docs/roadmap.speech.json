@@ -1,60 +1,174 @@
 {
-  "_source": {
-    "file": "docs/roadmap.md",
-    "sha256": "06b57bd868af59990aacc4587a5eccdd2e89bc993edcf7dfbe317a73091da2b6"
-  },
+  "delivery-roadmap": [
+    {
+      "text": "Delivery roadmap.",
+      "pause": 500
+    },
+    {
+      "text": "As a project maintainer, build shared chain-following capabilities and demonstrate one complete application journey before widening the service surface.",
+      "pause": 400
+    }
+  ],
   "delivery-dependencies": [
     {
-      "text": "The dependency diagram now starts with three contracts defining the acceptance journey. Assign components and a measurement prototype against that specification, build them, measure their capacity, then pass the journey before widening the service. An existing CSMT anchor baseline feeds measurement separately. The contracts, Lean model, proofs and simulation belong in Lockness; implementation repositories are assigned before code work.",
+      "text": "Delivery dependencies.",
+      "pause": 500
+    },
+    {
+      "text": "Define the contracts and acceptance journey first, assign the components and measurement prototypes needed to satisfy them, then run the journey against those implementations. The journey is the acceptance gate for delivery.",
+      "pause": 400
+    },
+    {
+      "text": "The three contract workstreams can proceed together. Their specifications, executable Lean model, proofs and simulation belong in this repository; component code belongs in the implementation repositories selected at assignment. The existing engine can supply an early anchor baseline. Ledger-provider measurements require a new archive and retained-view prototype.",
+      "pause": 400
+    },
+    {
+      "text": "Availability defines what to measure. Measured costs then constrain advertised retention, lease and capacity limits; concrete commercial offers follow those results.",
       "pause": 400
     }
   ],
   "specify-roots-reconstruction-and-settlement": [
     {
-      "text": "The roots workstream owns proof claims, encodings, unique NFT state assumptions and nested roots. It also decides reconstruction coverage and reference dependencies before the archive is sized. Publication branch correction and evidence of continued ancestry support an explicit settlement policy. The exit contract names acceptance, deferral and refusal cases. Replay sufficiency is then demonstrated with implemented components.",
+      "text": "Specify roots, reconstruction and settlement.",
+      "pause": 500
+    },
+    {
+      "text": "The roots workstream owns the claim inventory: ledger and application root scopes, exact encodings, NFT unique-state assumptions and nested-root interpretation. It also owns the application-reconstruction requirement that determines history coverage. Select full-chain or generic filtered coverage, with starting chainpoint, backfill and the required reference dependencies, before sizing the archive. The sessions workstream makes that coverage available coherently; it does not silently decide what history an application needs.",
+      "pause": 400
+    },
+    {
+      "text": "Specify per-block publication, branch correction and how a terminal recognizes that a previously accepted chainpoint was abandoned. Define the evidence needed to establish continued ancestry and an explicit settlement condition for irreversible effects. Several anchors agreeing at one point does not supply settlement.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence: a reviewed claim and coverage contract, application replay cases covering all required inputs, and explicit acceptance, deferral and refusal rules for root publication and effects. Archive sufficiency must subsequently be demonstrated by replay in the prototype and complete journey.",
       "pause": 400
     }
   ],
   "settle-the-chainpoint-contract": [
     {
-      "text": "The Lean model covers discovery, acquisition, reads, expiry, eviction and abandoned branches under explicit cryptographic assumptions. Behavior is distinct from numerical limits. The model enforces declared leases and refusal rules; measurements choose viable windows, durations and concurrency. Reviewed counterexamples must include acquisition races and rollback.",
+      "text": "Settle the chainpoint contract.",
+      "pause": 500
+    },
+    {
+      "text": "Create a small executable Lean model, review its statements, and use proofs and a playable simulation to expose conflicting guarantees. Model discovery, acquisition, reads, expiry, eviction and abandoned branches. Cryptography remains an explicit assumption, outside the session model's proof claim.",
+      "pause": 400
+    },
+    {
+      "text": "Separate behavior from limits. The model specifies refusal, lease obligations, bounded retention and no silent chainpoint substitution for declared parameters. Measurement selects viable window sizes, lease durations and concurrency limits; a model cannot determine operating capacity.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence: reviewed statements and counterexamples showing the promised behavior, including discovery/acquisition races, rollback and expired views. Sessions bind the coverage contract from the roots workstream to one network and chainpoint.",
       "pause": 400
     }
   ],
   "specify-the-trust-and-availability-offers": [
     {
-      "text": "Own-anchor and institutional policies remain separate from purchased capacity. Define observable coverage, compatible evidence, sessions and switching. Usable-view discovery is required; marketplace discovery, billing and remedies are integration choices, with no on-chain marketplace required. Numerical offers follow measurement.",
+      "text": "Specify the trust and availability offers.",
+      "pause": 500
+    },
+    {
+      "text": "Describe own-anchor operation for maximum trust independence and chosen institutional publications for low local infrastructure under explicit institutional trust. Root acceptance and purchased data delivery remain separate. The evidence record owns current participation and implementation claims.",
+      "pause": 400
+    },
+    {
+      "text": "Turn the availability dimensions into observable contracts: compatible evidence, provider-local sessions, discoverable views, missing coverage and switching without changing anchor policy. Discovery of a usable view is required; marketplace discovery, billing and remedies are integration choices. No on-chain marketplace is needed.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence: root-acceptance and data-delivery contracts for both trust choices, with both ledger providers and application services explicitly untrusted for correctness. Define measurement methods now; set numerical service offers from the prototype results.",
       "pause": 400
     }
   ],
   "define-the-acceptance-journey": [
     {
-      "text": "Define acceptance before assigning components. The lightweight Web2 terminal applies its purpose and risk policy, authenticates an NFT output and checks reconstructed state and application claims, including nested roots. Exercise both read-only off-chain use and transaction construction. Two provider instances demonstrate switching. The diagram separates transaction policy from effect settlement and authorization; failed evidence or an abandoned point causes rejection or deferral. Independent implementation interoperability remains a later target.",
+      "text": "Define the acceptance journey.",
+      "pause": 500
+    },
+    {
+      "text": "Specify this journey before assigning implementation. Use one NFT, a selected chainpoint and independently configured test anchor keys. A lightweight Web2 terminal must apply its purpose and risk policy, authenticate the NFT output, obtain complete reconstruction inputs, match the reconstructed application root and verify the required application claims. Exercise both a read-only off-chain use and transaction construction; off-chain adoption must not require submitting a transaction. Include a nested application root with every link checked.",
+      "pause": 400
+    },
+    {
+      "text": "The first run uses two separately operated instances of one ledger-provider implementation. This tests provider-local sessions, switching, equivalent claims and refusals. It does not establish interoperability between independent implementations. That later claim requires a second implementation passing the same claim and encoding contract.",
+      "pause": 400
+    },
+    {
+      "text": "Define cases for chain advance, unavailable views, expired sessions, missing history, altered data, wrong roots, wrong NFT identity and provider root substitution. Define an effect case in which a verified chainpoint is abandoned before its settlement condition is met: the terminal must defer or refuse the effect. A verified fact alone must never bypass that policy. Residual rollback after an effect was authorized remains a risk governed by the declared settlement assumptions and application recovery policy.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence: a runnable acceptance specification with expected outcomes and required observations, including own-anchor and test institutional policies. This definition does not claim a completed run.",
       "pause": 400
     }
   ],
   "assign-implementation-work": [
     {
-      "text": "Assign repositories and deliverables for anchors, ledger providers, applications and terminals after reconciling the earlier epics. Include the experimental archive and retained-view prototype. The terminal deliverable is a lightweight Web2 integration that demonstrates both off-chain data consumption and transaction construction under its evidence and action policy.",
+      "text": "Assign implementation work.",
+      "pause": 500
+    },
+    {
+      "text": "Reconcile the internal-index epic and HTTP epic with the agreed contracts and acceptance specification. These are the canonical references to the earlier CSMT work, including their linked milestones. Updating this roadmap does not change their status.",
+      "pause": 400
+    },
+    {
+      "text": "Assign an owning implementation repository and deliverables for each role, including an explicitly scoped ledger archive/view prototype for measurement. The prototype needs working retention, reference retrieval and session operations. Treat it as experimental evidence, not a production service; decide whether to retain or replace it after measurement.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence: assigned repositories and issues for component delivery and the prototype, traceable to the acceptance cases. Existing CSMT epics are explicitly reconciled before implementation starts.",
       "pause": 400
     }
   ],
   "measure-the-ledger-engine": [
     {
-      "text": "Measure two different artifacts. The existing engine supplies a baseline for ingestion, current commitment maintenance and storage, including node cost. New archive, view and session measurements require building the assigned prototype first and showing its reconstruction inputs suffice. Bind results to revisions and workloads, then choose storage and numerical service limits. Measurements do not prove a complete publication service.",
+      "text": "Measure the ledger engine.",
+      "pause": 500
+    },
+    {
+      "text": "Produce two distinct bodies of evidence. Existing-engine baseline: benchmark CSMT-UTXO ingestion, current commitment maintenance and storage growth, including the node's costs. Existing insertion and deserialization benchmarks are starting points; KV-only baselines must remain distinguishable from commitment maintenance.",
+      "pause": 400
+    },
+    {
+      "text": "Ledger-provider prototype and benchmark: first implement the assigned archive and retained-view prototype under the chosen coverage contract. Demonstrate reconstruction-input sufficiency, then measure history/reference retrieval, chainpoint acquisition, concurrent sessions, query/proof latency, storage growth and recovery behavior. These are new prototype capabilities, not existing-engine benchmark switches.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence: working prototype source and reproducible measurements bound to revision, hardware, network or replay input, initial state size, coverage and query load. Use results to select the production storage mechanism and numerical retention, lease and capacity limits. Recheck model assumptions if the proposed limits change behavior. Cost results alone do not establish a completed anchor publication service or negligible anchor costs.",
       "pause": 400
     }
   ],
   "pass-the-acceptance-journey": [
     {
-      "text": "After components exist, run the defined journey with two separately operated provider instances, unchanged anchor policy and new provider-local sessions. Exercise all failures, nested roots and a chainpoint abandoned before effect settlement. Bind observations to component revisions and distinguish simulated authorization, transaction construction and actual on-chain validation. Independent-implementation interoperability remains a later target.",
+      "text": "Pass the acceptance journey.",
+      "pause": 500
+    },
+    {
+      "text": "Run the previously defined journey once the assigned anchor, ledger-provider, application and terminal implementations exist. Switch between the two provider instances at the same network and chainpoint, acquiring new provider-local sessions without changing root policy. Check equivalent claims; proof bytes need not be identical.",
+      "pause": 400
+    },
+    {
+      "text": "Exercise every refusal and substitution case, the nested-root case, and the abandoned-chainpoint effect case. Repeat with locally established roots and a test institutional policy; identify test anchors as such. Bind observations to component revisions and distinguish simulated effect authorization from an actual external action.",
+      "pause": 400
+    },
+    {
+      "text": "Exit evidence: the terminal accepts valid claims and rejects invalid evidence, refuses missing coverage and incompatible views, and defers or refuses the effect when settlement fails. Report locally verified transaction construction separately from actual Cardano validation. Successful switching closes the two-instance target; independent-implementation interoperability remains a later acceptance target.",
       "pause": 400
     }
   ],
   "delivery-status": [
     {
-      "text": "Lockness-specific implementation has not started. Existing CSMT-UTXO and MPFS provide starting evidence. A product release pipeline awaits a releasable artifact and its owning repository.",
+      "text": "Delivery status.",
+      "pause": 500
+    },
+    {
+      "text": "Lockness-specific implementation has not started. Existing CSMT-UTXO and MPFS code provides the starting evidence. No product release pipeline is defined until a releasable artifact and its owning repository are selected.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "roadmap.md",
+    "sha256": "06b57bd868af59990aacc4587a5eccdd2e89bc993edcf7dfbe317a73091da2b6"
+  }
 }

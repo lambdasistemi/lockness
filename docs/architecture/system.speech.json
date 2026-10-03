@@ -1,54 +1,188 @@
 {
-  "_source": {
-    "file": "docs/architecture/system.md",
-    "sha256": "75e06bc42342f132ab3f4a235099905d746873c4d4fc0236686b4b3b0dc6efba"
-  },
+  "architecture-and-operating-cost": [
+    {
+      "text": "Architecture and operating cost.",
+      "pause": 500
+    },
+    {
+      "text": "As a project maintainer, separate the cost of establishing trusted roots from the cost of serving data, so applications can buy capacity while terminals retain their verification policy.",
+      "pause": 400
+    }
+  ],
   "why-data-should-travel-with-proofs": [
     {
-      "text": "A proof connects provider data to an independently accepted ledger root at a selected chainpoint. The terminal can replace data providers while preserving its acceptance policy. In the NFT example it checks the output and its datum before checking application evidence. Signatures, ledger proofs and application proofs establish different claims. Real-world effects also require an action and settlement policy.",
+      "text": "Why data should travel with proofs.",
+      "pause": 500
+    },
+    {
+      "text": "A terminal uses ledger answers to make decisions. If an answer is merely a provider assertion, the terminal depends on that provider's correctness. With a proof, it can check the answer's stated claim against a commitment independently accepted from anchors. The proof connects the supplied data to the accepted ledger state at the selected chainpoint.",
+      "pause": 400
+    },
+    {
+      "text": "The resulting value is control over what the terminal consumes. Data providers can be replaced or cached, and proof construction can be delegated, while verification and anchor selection remain with the terminal. Applications can share the expensive work of chain following without sharing a server's unchecked interpretation of their state.",
+      "pause": 400
+    },
+    {
+      "text": "For example, a terminal preparing an MPFS or Singular transaction needs the application root in a particular NFT state output. It verifies the output's ledger witness against its accepted ledger root, binds the NFT identity and exact datum, then verifies the application proof against the application root in that datum. The ledger provider need not interpret the application, and the application proof builder need not be trusted to supply a correct proof.",
+      "pause": 400
+    },
+    {
+      "text": "For an external effect, the verified ledger fact becomes an input to the terminal's action and settlement policy. Proof verification alone does not authorize the effect.",
+      "pause": 400
+    },
+    {
+      "text": "Data should travel with the evidence needed to verify the claims a terminal relies on. This is a logical association; data and proofs can be retrieved separately if their claim, commitment and chainpoint bindings match. Raw historical transactions can remain untrusted reconstruction inputs when the resulting state is checked against an anchored root. A proof against a root supplied only by the same untrusted data server does not provide the independent trust boundary described here.",
       "pause": 400
     }
   ],
   "components-and-chain-following": [
     {
-      "text": "The diagram separates anchor and ledger infrastructure, each with its own node, from application proof construction and terminal verification. A terminal is a lightweight Web2 application with cryptographic capabilities, governed by purpose and risk. Accepted anchor publications supply chain progress without a per-application follower. Verified assets can support transaction construction or off-chain displays and integrations; irreversible effects also need an action policy.",
+      "text": "Components and chain following.",
+      "pause": 500
+    },
+    {
+      "text": "Anchors and ledger providers are plural because any number of independent instances may exist. Both roles run nodes. Anchors serve signed roots; ledger providers serve data and proofs. They can reuse the generic commitment engine without sharing a running process. Anchors establish their own commitments. Signing an untrusted provider's supplied root does not create independent assurance. The cost and trust consequences of shared node infrastructure must be explicit.",
+      "pause": 400
+    },
+    {
+      "text": "Terminals can avoid their own chain follower because accepted anchor publications supply their view of chain progress. The root-acceptance policy must cover freshness and branch changes.",
+      "pause": 400
+    },
+    {
+      "text": "A terminal is a lightweight Web2 application with cryptographic capabilities. Its application purpose and risk policy govern chainpoint selection, anchor acceptance and the claims it verifies. It enables the user to build transactions or consume verified data off-chain, including in ordinary displays and integrations. Any external effect has an additional action policy; it is not performed by the ledger provider.",
       "pause": 400
     }
   ],
   "offload-computation-while-retaining-trust-control": [
     {
-      "text": "Anchors maintain current commitments and rollback. Ledger providers additionally retain history and query views and serve evidence. These workloads can be operated separately. Follow the trust page for deployment choices and the projects page for the existing CSMT-UTXO machinery and separate cost measurements.",
+      "text": "Offload computation while retaining trust control.",
+      "pause": 500
+    },
+    {
+      "text": "An anchor maintains current commitment state and handles rollback. A ledger provider additionally retains history and query views and serves data and proofs. These workloads can be operated and paid for separately.",
+      "pause": 400
+    },
+    {
+      "text": "The trust and availability model owns the own-anchor and institutional-publication choices. The existing CSMT-UTXO engine supplies commitment machinery; its benchmarks and metrics start measurement of node and anchor costs. The ledger provider's archive, retained views and query capacity require separate design and measurement.",
       "pause": 400
     }
   ],
   "data-and-trust-are-separate": [
     {
-      "text": "Ledger providers and Lockness application services are both untrusted for correctness. An application builder may reconstruct state and generate proofs, but the terminal verifies every required claim against the root authenticated through the exact ledger output. Substitute roots, wrong applications, invalid proofs and missing evidence cannot become accepted facts. A builder checking its own inputs does not replace terminal verification.",
+      "text": "Data and trust are separate.",
+      "pause": 500
+    },
+    {
+      "text": "An anchor endorses a commitment for a network and chainpoint. A terminal owns the trusted keys and acceptance policy. A ledger provider and an application proof builder remain untrusted for correctness; valid evidence, rather than their identity, permits the terminal to use a result.",
+      "pause": 400
+    },
+    {
+      "text": "lockness-applications is an untrusted computation service, just like the ledger provider. It may interpret transactions, reconstruct a tree and generate application proofs; none of those answers is authoritative merely because the service supplies it. The terminal verifies each required application claim against a root authenticated through the ledger proof and exact state datum. A service-supplied replacement root, a proof for a different NFT or application, and evidence that fails verification must be rejected. Missing evidence does not become an accepted fact.",
+      "pause": 400
+    },
+    {
+      "text": "An application service may verify its own inputs as part of its implementation. That does not replace the terminal's verification. Delegation of construction and interpretation leaves the terminal responsible for the accepted proof contract, chain of roots and policy for acting on the result. The application validator checks the relevant redeemer proof again if a transaction is submitted.",
+      "pause": 400
+    },
+    {
+      "text": "Signed messages need an unambiguous network, slot, block hash, commitment scheme/version and root identity. Publisher agreement rules, key rotation, freshness and branch correction are unresolved protocol contracts. A signature identifies an endorsement; it does not establish the correctness of the endorsed ledger.",
       "pause": 400
     }
   ],
   "proof-composition": [
     {
-      "text": "The root-chain diagram starts with a ledger root covering the live UTxO set, then an output and datum carrying the application root, then optional further trees. Every link needs proof and interpretation. A UTxO proof establishes membership, not independent transaction validation. The sequence now starts by discovering retained views, selecting an accepted and available chainpoint and acquiring its session. A refusal stops the read path. The terminal verifies the NFT output, requests an application proof and verifies it against the authenticated root. Ledger proofs stay off-chain; application proofs can enter redeemers.",
+      "text": "Proof composition.",
+      "pause": 500
+    },
+    {
+      "text": "The first root is application-independent and chain-wide: it commits to the ledger quantities covered by its scheme. For CSMT-UTXO, that scope is the live UTxO set across the chain. It is not a commitment to every historical transaction or every possible ledger quantity.",
+      "pause": 400
+    },
+    {
+      "text": "An application root is carried inside a UTxO, in the state output's datum for the integration described here. Once the terminal proves that exact output belongs to the ledger state at the selected chainpoint, it has also authenticated the datum containing the application's root. This is where the application tree is anchored to the ledger.",
+      "pause": 400
+    },
+    {
+      "text": "The terminal can then verify application data against that root. If a proved application value contains another root, the same process can continue into another application tree. Each link requires its own proof and interpretation: the terminal binds the root's exact bytes, encoding, scheme and application identity to the parent claim. Ledger inclusion authenticates the starting datum; it does not automatically validate every descendant claim.",
+      "pause": 400
+    },
+    {
+      "text": "This chain of roots is the bridge from generic ledger evidence to application evidence. The ledger provider need not understand the application or its nested trees. Read the two root scopes and nested application roots for the terms used here.",
+      "pause": 400
+    },
+    {
+      "text": "For CSMT-UTXO, the concrete ledger claim is membership of an output in the committed UTxO set, under the scheme’s encoding. The proof does not independently rerun Cardano transaction validation or establish canonicality.",
+      "pause": 400
+    },
+    {
+      "text": "The two proof values have different temporal roles. Ledger proofs concern on-chain validity in the present, meaning the ledger state at the selected chainpoint. Application proofs concern on-chain validation in the future, when a proposed transaction executes.",
+      "pause": 400
+    },
+    {
+      "text": "“Present” is chainpoint-relative, not a promise that an old view remains the chain tip. “Future validation” describes the proof's role, not a guarantee that the submitted transaction succeeds after intervening state changes.",
+      "pause": 400
+    },
+    {
+      "text": "Before acquiring a session, the terminal finds a usable chainpoint: an accepted anchor publication and a provider offer must agree on the network, chainpoint and commitment scheme. Provider availability is a claim to confirm at acquisition, not a source of trusted roots.",
+      "pause": 400
+    },
+    {
+      "text": "Application builders may generate proofs on behalf of terminals. A terminal may instead reconstruct the tree locally. The application root comes from the verified state output; it is distinct from the ledger root. A reused proof must match the receiving context's claim, encoding and root. Valid evidence at an old chainpoint is not a promise that a future transaction will still be admissible.",
+      "pause": 400
+    },
+    {
+      "text": "Transaction boundary: ledger proofs remain off-chain and are not included in transaction redeemers. A terminal uses them to check the ledger data it builds from. Application-level proofs are included in redeemers and checked by the application validators against the on-chain application state. Cardano validates inputs, value conservation and the other applicable ledger rules against its actual state; it does not consume the terminal's CSMT witness as a substitute for those checks. Signed anchor-root publication remains separate from transaction submission.",
+      "pause": 400
+    },
+    {
+      "text": "Historical transactions may be untrusted reconstruction material. Matching the reconstructed tree to an authenticated root establishes the resulting committed state under the application's reconstruction rules; it does not automatically prove every asserted historical event or the completeness of arbitrary transaction-history queries.",
       "pause": 400
     }
   ],
   "external-effects-and-settlement": [
     {
-      "text": "An irreversible effect requires a settlement condition as well as verified facts and authorization. A signed root records observation, not future canonicality. Policy defines chain depth or settlement evidence, continued ancestry and refusal or deferral on abandonment or missing evidence. Several anchors agreeing at one point do not replace settlement. The concrete policy remains open.",
+      "text": "External effects and settlement.",
+      "pause": 500
+    },
+    {
+      "text": "Before an irreversible effect, the terminal must apply an explicit settlement condition as well as verify the fact and authorize the action. A signature records an anchor's observation; a valid proof at that chainpoint cannot establish that its block will remain on the selected chain.",
+      "pause": 400
+    },
+    {
+      "text": "The policy must define the required chain depth or settlement evidence, how later accepted publications establish continued ancestry, and what happens if the point is abandoned or evidence is unavailable. Cardano settlement is probabilistic: the threshold must reflect the network's consensus assumptions and the effect's risk tolerance. Agreement among several anchors at one chainpoint does not replace this condition. See Cardano's settlement problem statement.",
+      "pause": 400
+    },
+    {
+      "text": "Unlike a submitted transaction, a real-world effect is not rechecked by Cardano before execution. Lockness must refuse or defer the effect when its settlement policy is unsatisfied; the concrete policy and supporting publication evidence remain open contracts.",
       "pause": 400
     }
   ],
   "service-boundary": [
     {
-      "text": "The ledger provider preserves transaction CBOR and required references. Applications interpret the data. History coverage must be specified before sizing the provider. Each endpoint distinguishes authenticated claims from untrusted reconstruction inputs.",
+      "text": "Service boundary.",
+      "pause": 500
+    },
+    {
+      "text": "The ledger provider retains transaction CBOR and ledger references. It must understand enough ledger structure to index and follow the chain, but does not decide what a redeemer means for MPFS or Singular. History coverage and spent/reference-input resolution must be specified before sizing the ledger provider. Application proof builders interpret datums, redeemers and other application-relevant transaction fields.",
+      "pause": 400
+    },
+    {
+      "text": "Not every response needs a proof. Each endpoint must state its claim and whether its payload is authenticated evidence or untrusted reconstruction material. Evidence-bearing responses may bundle data and proofs. Separate retrieval can remain possible, but Koios wire compatibility is not a requirement for the stronger chainpoint contract.",
       "pause": 400
     }
   ],
   "decisions": [
     {
-      "text": "The design reuses generic chain-following capabilities instead of creating an indexer per application. Independent trust remains separate from data provision, and terminals may delegate proof construction without delegating verification.",
+      "text": "Decisions.",
+      "pause": 500
+    },
+    {
+      "text": "Continue with chainpoint sessions, the existing projects, or decisions and evidence.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "system.md",
+    "sha256": "75e06bc42342f132ab3f4a235099905d746873c4d4fc0236686b4b3b0dc6efba"
+  }
 }
