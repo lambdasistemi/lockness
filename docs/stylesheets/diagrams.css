@@ -1,5 +1,5 @@
 /* Keep diagram text at its designed size. Narrow screens scroll the figure. */
-.md-typeset .diagram {
+.diagram {
   overflow-x: auto;
   margin: 1.2rem 0 0.3rem;
   padding: 1rem;
@@ -7,13 +7,13 @@
   border-radius: 0.4rem;
   background: #fff;
 }
-.md-typeset .diagram img {
+.diagram img {
   display: block;
   max-width: none;
   height: auto;
   margin: 0 auto;
 }
-.md-typeset .diagram-links {
+.diagram-links {
   font-size: 0.75rem;
   margin-top: 0.3rem;
 }

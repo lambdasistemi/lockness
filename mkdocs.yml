@@ -3,24 +3,12 @@ site_description: Web2 scaling with explicit trust management — choose trusted
 site_url: https://lambdasistemi.github.io/lockness/
 repo_url: https://github.com/lambdasistemi/lockness
 theme:
-  name: material
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+  name: terminal
+  custom_dir: docs/overrides
+  palette: default
   features:
-    - navigation.sections
-    - navigation.expand
-    - navigation.path
-    - navigation.footer
-    - content.code.copy
+    - footer.prev_next
+    - navigation.top.cursor_animation.hide
 nav:
   - Start here:
       - Lockness: index.md
@@ -48,6 +36,7 @@ extra_javascript:
   - https://cdn.jsdelivr.net/gh/paolino/dev-assets@0328b73b71788bb83848fe407dd04136a52c3697/mkdocs/docs/js/read-aloud.js
 extra_css:
   - stylesheets/diagrams.css
+  - stylesheets/terminal.css
 validation:
   links:
     anchors: warn
