@@ -38,7 +38,7 @@ extra_javascript:
   - javascripts/narration.js?v=76776db46bd6dcce
 extra_css:
   - stylesheets/diagrams.css?v=2d9bb90e2ff068d7
-  - stylesheets/terminal.css?v=e0f37f2db50777d5
+  - stylesheets/terminal.css?v=445524ea612ee456
 validation:
   links:
     anchors: warn
