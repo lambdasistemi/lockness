@@ -39,6 +39,36 @@
       "sha256": "4d39ddefee1537b9689f6d59fc017f9e3d767d1823a1e2cebdef6da32c7c55fe",
       "bytes": 689258,
       "characters_charged": "666"
+    },
+    {
+      "name": "Lily",
+      "generated_at": "2026-10-03T13:54:26.626Z",
+      "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+      "accent": "british",
+      "file": "lily.mp3",
+      "sha256": "869c6afced5e81638c881bfc5273abbfb3fcecdec1e75bad2044607be4819186",
+      "bytes": 743175,
+      "characters_charged": "666"
+    },
+    {
+      "name": "Sarah",
+      "generated_at": "2026-10-03T13:54:31.379Z",
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "accent": "american",
+      "file": "sarah.mp3",
+      "sha256": "d5bbf138c79b9d6320df2c556b9b9094756b53ce0d1048e38cd954e3a9aa2f18",
+      "bytes": 667524,
+      "characters_charged": "666"
+    },
+    {
+      "name": "Matilda",
+      "generated_at": "2026-10-03T13:54:37.340Z",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "accent": "american",
+      "file": "matilda.mp3",
+      "sha256": "0998450c9cf499ce651072b4ca56a84f62a2c3da69f49eb71a0c9dbe0ea575e9",
+      "bytes": 704723,
+      "characters_charged": "666"
     }
   ]
 }
