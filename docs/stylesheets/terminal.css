@@ -6,10 +6,10 @@ body { padding-top: 1.5rem; }
 #terminal-mkdocs-main-content table { display: block; overflow-x: auto; }
 #lockness-navigation { margin-bottom: 1.5rem; }
 #lockness-navigation summary { cursor: pointer; padding: 0.75rem 0; }
-#lockness-palette-toggle {
+#lockness-palette-toggle, #narration-speed {
   color: var(--font-color);
   background: transparent;
-  border: 1px solid var(--secondary-color);
+  border: 0;
   padding: 0.5rem;
   cursor: pointer;
 }
@@ -23,5 +23,9 @@ body { padding-top: 1.5rem; }
   .terminal-menu ul { flex-direction: row; align-items: center; }
 }
 
-.narration-play, #narration-speed { color: var(--font-color); background: var(--background-color); border: 1px solid var(--font-color); padding: .1rem .5rem; margin-left: .75rem; font-size: .8rem; cursor: pointer; }
-#narration-speed { margin: 0 0 1rem; }
+.narration-play, #narration-speed { color: var(--font-color); background: transparent; border: 0; opacity: .55; padding: 0 .4rem; margin-left: .5rem; font-size: 1em; line-height: 1; cursor: pointer; vertical-align: middle; }
+.narration-play svg { display: block; }
+.narration-play:hover, .narration-play:focus-visible, #narration-speed:hover, .narration-play[aria-pressed="true"] { opacity: 1; }
+#lockness-palette-toggle svg, #narration-speed svg { display: block; }
+#narration-speed { display: inline-flex; align-items: center; gap: .35rem; margin: 0; opacity: 1; border: 0; font: inherit; }
+#lockness-palette-toggle:focus-visible, #narration-speed:focus-visible { outline: 2px solid var(--secondary-color); outline-offset: 2px; }

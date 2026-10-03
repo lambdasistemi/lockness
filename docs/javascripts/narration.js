@@ -3,13 +3,18 @@
   const here = window.lockness;
   if (!here) return;
   const rates = [1, 1.25, 1.5, 0.85];
+  const svg = body => '<svg viewBox="0 0 16 16" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h2.5L8 3v10L4.5 10H2z" fill="currentColor"/>' + body + '</svg>';
+  const PLAY = svg('<path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6.5 6.5 0 0 1 0 9"/>');
+  const PAUSE = svg('<path d="M11 5v6M13.5 5v6"/>');
+  const LABELS = new Map([[PLAY, 'Play narration of this section'], [PAUSE, 'Pause narration']]);
+  const show = (button, icon) => { button.innerHTML = icon; button.setAttribute('aria-label', LABELS.get(icon)); };
   let rate = 1, current = null;
 
   const stop = () => {
     if (!current) return;
     clearTimeout(current.timer);
     current.audio.pause();
-    current.button.textContent = 'Play';
+    show(current.button, PLAY);
     current.button.setAttribute('aria-pressed', 'false');
     current = null;
   };
@@ -20,7 +25,7 @@
     const audio = new Audio();
     const state = { button, audio, timer: null };
     current = state;
-    button.textContent = 'Pause';
+    show(button, PAUSE);
     button.setAttribute('aria-pressed', 'true');
     let position = 0;
     const next = () => {
@@ -31,7 +36,8 @@
       audio.playbackRate = rate;
       audio.onended = () => { state.timer = setTimeout(next, clip.pause_ms / rate); };
       audio.play().catch(error => {
-        button.textContent = 'Audio failed';
+        button.textContent = '!';
+        button.setAttribute('aria-label', 'Narration failed');
         button.title = String(error);
         current = null;
       });
@@ -52,9 +58,8 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'narration-play';
-      button.textContent = 'Play';
+      show(button, PLAY);
       button.setAttribute('aria-pressed', 'false');
-      button.setAttribute('aria-label', 'Play narration of this section');
       button.addEventListener('click', () => play(button, clips));
       heading.appendChild(button);
     });
@@ -62,13 +67,23 @@
     const speed = document.createElement('button');
     speed.type = 'button';
     speed.id = 'narration-speed';
-    speed.textContent = 'Speed 1×';
+    const GAUGE = '<svg viewBox="0 0 16 16" width="1.1em" height="1.1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12a6 6 0 1 1 12 0"/><path d="M8 12l3-4"/></svg>';
+    const label = () => { speed.innerHTML = GAUGE + '<span>' + rate + '×</span>'; speed.title = 'Narration speed ' + rate + '×'; };
+    label();
     speed.setAttribute('aria-label', 'Change narration speed');
     speed.addEventListener('click', () => {
       rate = rates[(rates.indexOf(rate) + 1) % rates.length];
-      speed.textContent = 'Speed ' + rate + '×';
+      label();
       if (current) current.audio.playbackRate = rate;
     });
-    (document.getElementById('terminal-mkdocs-main-content') || document.body).prepend(speed);
+    const toggle = document.getElementById('lockness-palette-toggle');
+    const item = toggle && toggle.closest('li');
+    if (item) {
+      const entry = document.createElement('li');
+      entry.appendChild(speed);
+      item.before(entry);
+    } else {
+      (document.getElementById('terminal-mkdocs-main-content') || document.body).prepend(speed);
+    }
   }).catch(() => { /* No narration available on this page. */ });
 })();
