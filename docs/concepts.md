@@ -2,11 +2,26 @@
 
 As a reader following the MPFS or Singular example, identify what the terminal verifies at each step and follow the links to the component that supplies it.
 
+## Standard vocabulary
+
+| Term | Meaning |
+| --- | --- |
+| Anchor | The role that follows the chain and publishes independently computed, signed ledger roots |
+| Ledger provider | The `lockness-ledgers` role that serves data and ledger proofs; distinct from the Cardano ledger |
+| Application service | The `lockness-applications` role that interprets history and constructs application proofs |
+| Terminal | The consuming role that chooses anchors, verifies evidence and authorizes actions |
+| Ledger root | An application-independent commitment to the ledger quantities covered by its scheme at a chainpoint |
+| Application root | A commitment to application state, authenticated through a ledger output or another verified application value |
+
+“Commitment” describes the cryptographic construction; “root” names its result. “Ledger proof” is the standard term here; a witness is the evidence carried by that proof.
+
 ## Assets and NFT state outputs
 
 A Cardano asset is identified by its minting policy and asset name. An NFT can identify a particular application's state output. In the Lockness integration described here, the terminal needs the exact unspent output carrying that NFT, including its datum. Finding an asset name alone does not authenticate the output or its state.
 
-[MPFS and Singular](projects.md#application-consumers) give these outputs application-specific meaning. A [ledger witness](#ledger-and-application-proofs) binds the output to an accepted ledger root; the application decides how to interpret the datum. Follow the [worked verification sequence](architecture/system.md#proof-composition).
+Using the NFT as a unique state identifier requires an application invariant: its minting policy limits this exact asset identity to one unit, and the state-transition rules preserve the authoritative state output. An inclusion proof establishes that the supplied output is present; it does not prove unique supply or authority. The terminal must know the expected policy, asset identity and state rules. If those rules permit multiple candidate outputs, the application contract must define and justify which is authoritative.
+
+[MPFS and Singular](projects.md#application-consumers) give these outputs application-specific meaning. A [ledger proof](#ledger-and-application-proofs) binds the output to an accepted ledger root; the application decides how to interpret the datum. Follow the [worked verification sequence](architecture/system.md#proof-composition).
 
 ## Two roots with different scopes
 
@@ -26,7 +41,7 @@ The [chain of application roots](#a-chain-of-application-roots) depends on exact
 
 Transaction CBOR preserves the transaction's encoded information. A datum describes application data associated with an output; a redeemer supplies data to script execution. Parsing the transaction envelope and interpreting its Plutus data are separate tasks.
 
-The [generic ledger service](architecture/system.md#service-boundary) retains transaction information and required references. Application libraries decide how those fields update application state. Historical transactions can be reconstruction inputs whose resulting tree is checked against an authenticated application root; they are not automatically proved historical claims.
+The [ledger provider](architecture/system.md#service-boundary) retains transaction information and required references. Application libraries decide how those fields update application state. Historical transactions can be reconstruction inputs whose resulting tree is checked against an authenticated application root; they are not automatically proved historical claims.
 
 ## Chainpoints, views and sessions
 
@@ -34,9 +49,7 @@ A chainpoint identifies genesis or a slot and block-header hash. A view exposes 
 
 ## A chain of application roots
 
-An application-independent ledger root authenticates ledger state within its commitment scope. In CSMT-UTXO that means the chain-wide live UTxO set. A proof for a particular UTxO authenticates the datum carrying the application root. The terminal interprets that datum under the expected application schema and uses the extracted root to verify application evidence.
-
-A verified value in an application tree can itself carry another root. This creates a potential chain of application trees beneath the ledger commitment. Every step needs a checked proof and an unambiguous interpretation of the next root; authenticity of the parent does not automatically prove all descendants. See the [root-chain diagram](architecture/system.md#proof-composition).
+A verified application value may carry a further application root. Each descendant claim requires its own proof and the expected interpretation of that root. The [architecture and root-chain diagram](architecture/system.md#proof-composition) define the verification order.
 
 ## Untrusted application services
 

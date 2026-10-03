@@ -49,7 +49,7 @@
       "name": "proof-composition",
       "source": "proof-composition.mmd",
       "image": "proof-composition.png",
-      "alt": "The terminal verifies the NFT output, asks for an application proof, and verifies that proof against the root from the output."
+      "alt": "The terminal selects an accepted and available chainpoint, acquires a session, verifies the NFT output, then checks the application proof against its authenticated root."
     },
     {
       "name": "session",

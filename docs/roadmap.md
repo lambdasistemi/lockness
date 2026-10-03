@@ -24,11 +24,11 @@ The sections below define the remaining deliverables and their exit evidence. Ea
 
 Record the remaining rulings, create a small executable Lean model, audit its statements, and use proofs and a playable simulation to expose conflicting guarantees. Model cryptography through explicit assumptions; do not claim that a session model proves cryptographic soundness. Team selection and execution are a later decision.
 
-Exit evidence: reviewed behavior for acquisition, reads, expiry, eviction and abandoned branches, including explicit refusals. A session cannot silently move to another chainpoint. History queries must declare the coverage needed for application reconstruction.
+Exit evidence: reviewed behavior for acquisition, reads, expiry, eviction and abandoned branches, including explicit refusals. A session cannot silently move to another chainpoint. History queries must declare the coverage needed for application reconstruction, including reference dependencies and backfill. Select that coverage and demonstrate replay sufficiency before sizing the ledger provider.
 
 ## Specify the trust and availability offers
 
-Describe both deployment choices: an operator runs its own anchor for maximum trust independence, or observes chosen institutional publications for low local infrastructure cost under explicit institutional trust. Define root acceptance separately from the purchased data service. No live institutional participation is assumed.
+Describe both deployment choices: an operator runs its own anchor for maximum trust independence, or observes chosen institutional publications for low local infrastructure cost under explicit institutional trust. Define root acceptance separately from the purchased data service. Current participation and implementation claims are recorded in the [evidence boundary](design/decisions.md#claims-and-evidence-boundaries).
 
 Turn the [availability dimensions](design/trust-and-availability.md#what-applications-buy) into observable service contracts. Specify compatible proof/claim encodings, provider-local session acquisition, missing-coverage responses and switching without changing anchor policy. Resolve rollback behavior before promising session availability. Discovery, billing and remedies remain integration choices, not prerequisites to invent an on-chain marketplace.
 
@@ -48,11 +48,11 @@ Exit evidence: reproducible measurements bound to the engine revision, hardware,
 <div class="diagram"><a href="diagrams/roadmap-journey.png?v=7f90550b39a7ee88"><img src="diagrams/roadmap-journey.png?v=7f90550b39a7ee88" alt="The terminal keeps one accepted chainpoint and root policy while checking ledger evidence from two providers and application proofs from an untrusted builder; failed evidence is rejected before action." width="784" loading="lazy"></a></div>
 <p class="diagram-links"><a href="diagrams/roadmap-journey.png?v=7f90550b39a7ee88">Open full size</a> · <a href="diagrams/roadmap-journey.mmd?v=ec6814596749f58c">Mermaid source</a></p>
 
-Use independently configured publisher keys, a pinned chainpoint and one NFT. Verify its ledger witness, retrieve the complete reconstruction inputs, interpret the application, match the reconstructed root and verify an application proof before transaction construction.
+Use independently configured anchor keys, a pinned chainpoint and one NFT. Verify its ledger witness, retrieve the complete reconstruction inputs, interpret the application, match the reconstructed root and verify an application proof before transaction construction.
 
 Exercise chain advance, rollback, missing history, expired sessions, altered data and mismatched roots. Preserve explicit refusals. A passing happy path is insufficient.
 
-Run the journey against two compatible providers. Switch at the same network and chainpoint with unchanged anchor policy, acquire provider-local sessions, and check equivalent claims. Exercise unavailable replacement coverage and attempted root substitution. Repeat with locally established roots and a test institutional publication policy, clearly identified as test publishers. These are the product acceptance targets behind the scaling proposition.
+Run the journey against two compatible providers. Switch at the same network and chainpoint with unchanged anchor policy, acquire provider-local sessions, and check equivalent claims. Exercise unavailable replacement coverage and attempted root substitution. Repeat with locally established roots and a test institutional publication policy, clearly identified as test anchors. These are the product acceptance targets behind the scaling proposition.
 
 Exit evidence: a terminal accepts equivalent claims from both providers, rejects invalid ledger and application evidence, and refuses unavailable history or views. Demonstrate a nested application root with each link checked. Preserve the distinction between locally verified transaction construction and actual on-chain validation; a real-world effect uses its own authorization policy.
 
@@ -60,7 +60,7 @@ Exit evidence: a terminal accepts equivalent claims from both providers, rejects
 
 Reconcile the [existing internal milestone](https://github.com/lambdasistemi/cardano-utxo-csmt/milestone/3) and [HTTP milestone](https://github.com/lambdasistemi/cardano-utxo-csmt/milestone/4) with the accepted project contracts. They currently describe an earlier architecture. No issue is moved, closed or accepted merely by creating this repository.
 
-The project-level record belongs here. Component code and repository-specific acceptance belong in their implementation repositories. Broader ledger queries, additional publisher operations and application services follow demonstrated need.
+The project-level record belongs here. Component code and repository-specific acceptance belong in their implementation repositories. Broader ledger queries, additional anchor operations and application services follow demonstrated need.
 
 | Role | Work to assign after contract agreement | Acceptance boundary |
 | --- | --- | --- |

@@ -1,23 +1,23 @@
 {
   "_source": {
     "file": "docs/architecture/system.md",
-    "sha256": "779f3479070fb1ad822c727da9cd8415a671fa70719bc4cacd4cb266e9340d6b"
+    "sha256": "ebc9922bad1f25f038299f0b3353501a84cfdee49fc246544b7213288c4fb04b"
   },
   "why-data-should-travel-with-proofs": [
     {
-      "text": "Data travels with proofs so a terminal can check the claim it relies on against an independently accepted root. For an NFT, a ledger witness authenticates the output containing the application root; the terminal then checks the application proof against that root. External actions require their own authorization policy. Signatures establish endorsements, witnesses establish stated claims, and neither alone establishes completeness or freshness. Data and proofs may be retrieved separately when their bindings match.",
+      "text": "A proof connects provider data to an independently accepted ledger root at a selected chainpoint. The terminal can replace data providers while preserving its acceptance policy. In the NFT example it checks the output and its datum before checking application evidence. Signatures, ledger proofs and application proofs establish different claims. Real-world effects also require an action and settlement policy.",
       "pause": 400
     }
   ],
   "components-and-chain-following": [
     {
-      "text": "The diagram separates anchor infrastructure, shown in green, from provider infrastructure in blue. Both have nodes. An orange application builder consumes ledger history. Purple terminal verification receives roots and both levels of proofs. Shared code does not require a shared running process.",
+      "text": "The diagram separates anchor infrastructure in green from ledger infrastructure in blue. Both run nodes. An orange application builder consumes history; purple terminals receive roots and evidence. Terminals avoid their own chain follower by using accepted anchor publications for chain progress, with explicit freshness and branch policy.",
       "pause": 400
     }
   ],
   "offload-computation-while-retaining-trust-control": [
     {
-      "text": "An own anchor preserves independent roots while ledger archives and query capacity are outsourced. Institutional publications reduce local infrastructure under explicit institutional trust. CSMT-UTXO is the existing engine; its benchmarks and metrics start the cost assessment. The remaining comparison includes the node, commitment maintenance and additional archive and serving workloads.",
+      "text": "Anchors maintain current commitments and rollback. Ledger providers additionally retain history and query views and serve evidence. These workloads can be operated separately. Follow the trust page for deployment choices and the projects page for the existing CSMT-UTXO machinery and separate cost measurements.",
       "pause": 400
     }
   ],
@@ -29,19 +29,25 @@
   ],
   "proof-composition": [
     {
-      "text": "The first diagram shows a chain-wide, application-independent ledger root authenticating a UTxO and datum. Interpreting that datum yields the application root. Application proofs authenticate values, which can carry further roots. Dashed links indicate optional nesting, not an automatic proof of descendants. CSMT-UTXO commits to the live UTxO set. The sequence then shows a terminal verifying an NFT output, requesting a proof for that verified application root, and checking the builder result. Ledger proofs concern present validity and stay off-chain; application proofs support future validation in redeemers. Every chain link must bind the expected identity, encoding and claim.",
+      "text": "The root-chain diagram starts with a ledger root covering the live UTxO set, then an output and datum carrying the application root, then optional further trees. Every link needs proof and interpretation. A UTxO proof establishes membership, not independent transaction validation. The sequence now starts by discovering retained views, selecting an accepted and available chainpoint and acquiring its session. A refusal stops the read path. The terminal verifies the NFT output, requests an application proof and verifies it against the authenticated root. Ledger proofs stay off-chain; application proofs can enter redeemers.",
+      "pause": 400
+    }
+  ],
+  "external-effects-and-settlement": [
+    {
+      "text": "An irreversible effect requires a settlement condition as well as verified facts and authorization. A signed root records observation, not future canonicality. Policy defines chain depth or settlement evidence, continued ancestry and refusal or deferral on abandonment or missing evidence. Several anchors agreeing at one point do not replace settlement. The concrete policy remains open.",
       "pause": 400
     }
   ],
   "service-boundary": [
     {
-      "text": "The ledger understands ledger structure but not application-specific meaning. It preserves transaction CBOR and resolves required references. Some responses are untrusted reconstruction material; other responses establish explicit claims through proofs.",
+      "text": "The ledger provider preserves transaction CBOR and required references. Applications interpret the data. History coverage must be specified before sizing the provider. Each endpoint distinguishes authenticated claims from untrusted reconstruction inputs.",
       "pause": 400
     }
   ],
   "decisions": [
     {
-      "text": "The design reuses generic chain-following capabilities instead of creating an indexer per application. Independent trust remains separate from data provision, and clients may delegate proof construction without delegating verification.",
+      "text": "The design reuses generic chain-following capabilities instead of creating an indexer per application. Independent trust remains separate from data provision, and terminals may delegate proof construction without delegating verification.",
       "pause": 400
     }
   ]

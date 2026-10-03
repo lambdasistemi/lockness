@@ -1,8 +1,14 @@
 {
   "_source": {
     "file": "docs/design/chainpoints.md",
-    "sha256": "8c0f8029cf3dde74636a59fbafe8ad355959521eb3258845fd4e793492a6e4f7"
+    "sha256": "3da1bb2e00148a270f6b6e53f6010d5c5c43e8016f0effd0aba9556a71ccca43"
   },
+  "find-a-usable-chainpoint": [
+    {
+      "text": "Before reading, the terminal intersects accepted anchor publications with the provider’s retained views and history coverage. It selects the network, chainpoint and scheme, then acquires that exact view. Availability may change, so acquisition confirms the lease or refuses. No overlap means wait, switch provider or explicitly select another acceptable point, never mix answers.",
+      "pause": 400
+    }
+  ],
   "session-contract": [
     {
       "text": "The state diagram starts with a selected chainpoint and either acquires a retained view or refuses. Active sessions support repeated reads, can expire or close, and can encounter rollback. The rollback branch explicitly has no decided outcome. This is separate from silently rebinding a session. Chainpoint means genesis or slot and block-header hash; the network is separate context.",
@@ -11,7 +17,13 @@
   ],
   "storage-separation": [
     {
-      "text": "The diagram follows a session into retained index roots, content references and immutable content. The index supplies the membership witness and the content store supplies exact bytes to the response. Chain membership supplies meaning; merely storing content does not prove that it is live.",
+      "text": "The diagram connects a session to retained index roots, content references and immutable bytes. Stored bytes alone do not prove live membership. RocksDB snapshot handles do not survive restart; durable views need a chosen storage design, such as versioned nodes, persisted overlays or database checkpoints. A storage checkpoint is not a Cardano chainpoint.",
+      "pause": 400
+    }
+  ],
+  "history-coverage-before-costing": [
+    {
+      "text": "Choose coverage before sizing the ledger provider. Full-chain and filtered transaction archives are different offers; both preserve complete CBOR for the transactions they serve. Declare starting point, filters, backfill, retention, reference resolution and refusals. A real application replay must obtain all dependencies and reproduce the authenticated root before the workload is costed.",
       "pause": 400
     }
   ],
@@ -23,7 +35,7 @@
   ],
   "open-questions": [
     {
-      "text": "We must decide behavior on fork abandonment, lease bounds, atomic root capture, archive coverage and failure recovery before optimizing storage.",
+      "text": "Resolve abandoned-branch sessions, leases, atomic view contents, discovery wire formats, history coverage and retry policy. The initial model must expose acquisition, reads, rollback, expiry and eviction.",
       "pause": 400
     }
   ]

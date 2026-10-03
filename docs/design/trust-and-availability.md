@@ -6,7 +6,7 @@ As an application operator, choose where your terminals obtain trusted roots and
 
 **Web2 scaling with explicit trust management.** Proofs connect provider answers to roots accepted independently of those providers. This lets data provision become a computational business: providers sell storage, indexing, reconstruction, proof generation and delivery capacity. Applications buy availability; terminals verify the claims behind their actions.
 
-The economic thesis is that interchangeable, verifiable providers enable efficient market-driven scaling. Cloud capacity, caches and replicas can serve demand under the same verification contract. The project must demonstrate interoperability and practical switching before claiming that outcome; it has no evidence of globally optimal pricing or scaling.
+The economic thesis is that interchangeable, verifiable providers enable efficient market-driven scaling. Cloud capacity, caches and replicas can serve demand under the same verification contract. Interoperability and practical switching are the acceptance targets; the [evidence boundary](decisions.md#claims-and-evidence-boundaries) distinguishes this objective from measured results.
 
 ## Two attractive trust deals
 
@@ -14,14 +14,14 @@ The economic thesis is that interchangeable, verifiable providers enable efficie
 
 An anchor is still real infrastructure; [CSMT-UTXO is the existing engine and measurement starting point](../projects.md#csmt-utxo-the-existing-engine). It follows the chain, maintains the state needed to compute current commitments and handles rollback. Outsourcing ledger services removes the need to operate their archive, retained query views and query-serving capacity; it does not eliminate the anchor's own computational cost.
 
-**Observing institutional root publications is an exceptionally attractive operational deal.** Institutions operate anchors and publish signed roots for every block. Terminals verify publications from institutions selected by their policy and consume provider data against those commitments. This avoids operating an anchor locally while making institutional trust explicit. No institution is claimed to participate today.
+**Observing institutional root publications is an exceptionally attractive operational deal.** Institutions operate anchors and publish signed roots for every block. Terminals verify publications from institutions selected by their policy and consume provider data against those commitments. This avoids operating an anchor locally while making institutional trust explicit.
 
 | Choice | Who establishes the accepted roots | Local operational burden | Trust decision |
 | --- | --- | --- | --- |
 | Run your own anchor | Your independently operated node and anchor | Chain following, validation and commitment maintenance | Retain your own source of ledger assurance |
 | Observe institutional publications | Institutions whose endorsements your terminal accepts | Publication monitoring and signature/proof verification | Accept the selected institutions under an explicit policy |
 
-Both choices use the same independent data-provider boundary. Institutional publication is a first-class deployment choice, not a promise of identical trust assumptions to running your own anchor. Which institutions, agreement rules and freshness conditions to accept remains terminal policy.
+Both choices use the same independent data-provider boundary. Institutional publication is a first-class deployment choice, not a promise of identical trust assumptions to running your own anchor. Which institutions, agreement rules and freshness conditions to accept remains terminal policy. Multiple anchors sharing an implementation, upstream node or infrastructure can fail together; agreement among them does not establish implementation diversity or remove shared software and cryptographic assumptions. This applies to institutional anchors as well as your own.
 
 <!-- diagram: market -->
 <div class="diagram"><a href="../diagrams/market.png?v=76008422a68e2c0b"><img src="../diagrams/market.png?v=76008422a68e2c0b" alt="Trust selection and the availability agreement are separate; accepted roots and purchased evidence meet at terminal verification." width="653" loading="lazy"></a></div>
@@ -63,4 +63,4 @@ The acceptance journey must show two providers serving the same accepted claims,
 
 ## Evidence and next step
 
-This page records the project proposition and design requirements. No availability contract, provider market, cost advantage or interoperable deployment has been demonstrated. Next, specify the service and proof contracts, measure anchor and ledger costs separately, and exercise the switching journey described here.
+The [decision record](decisions.md#claims-and-evidence-boundaries) owns the project’s evidence limits. Next, specify the service and proof contracts, measure anchor and ledger costs separately, and exercise the switching journey described here.

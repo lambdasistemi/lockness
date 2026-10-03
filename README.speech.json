@@ -1,23 +1,17 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "222510a707d8bbc88c617439409b4a2d82fe51ca93c7008504d6838f25b8239b"
+    "sha256": "b93146abe59a83d9186898f6f5ee1dbf94d2f25dd12e21cab6a0f5365da13c01"
   },
-  "why-terminals-should-consume-anchored-data": [
+  "user-stories": [
     {
-      "text": "Both ledger and application services are untrusted for correctness. A ledger proof authenticates an output and its datum, which carries an application root. Application proofs can establish values containing further roots, with a separate check at each step. Providers can be replaced and computation delegated while terminals keep their acceptance policy.",
+      "text": "A terminal verifies an NFT output before consuming its application root. The role diagram shows green anchors supplying roots, blue ledger providers supplying data and proofs, orange application services building proofs and purple terminals verifying before action. Providers explicitly refuse unavailable views.",
       "pause": 400
     }
   ],
   "choose-trust-and-buy-availability": [
     {
-      "text": "Running your own anchor is the optimal deal for trust independence. It validates the chain and maintains commitments while you outsource historical storage, views and queries. Observing chosen institutional publications is an exceptionally attractive operational deal under explicit institutional trust. Applications purchase availability from providers. Market-driven scaling needs interoperable evidence, practical switching and measurable delivery commitments; it is not a demonstrated optimum.",
-      "pause": 400
-    }
-  ],
-  "user-stories": [
-    {
-      "text": "The diagram uses green for anchors, blue for ledgers, orange for application builders and purple for terminals. Anchors provide roots. Ledgers provide data and proofs, plus history to builders. Builders return application proofs. Terminals verify evidence before constructing transactions or authorizing effects. Ledger proofs remain off-chain; application proofs enter redeemers.",
+      "text": "Running your own anchor is the optimal deal for trust independence. Chosen institutional publications are an exceptionally attractive operational deal under explicit institutional trust. Both let applications buy capacity. Follow the trust and availability page for the assumptions.",
       "pause": 400
     }
   ],
@@ -27,15 +21,9 @@
       "pause": 400
     }
   ],
-  "named-components": [
-    {
-      "text": "Anchors run nodes and publish roots. Ledgers run nodes and serve data and proofs. Application services interpret history and build proofs. Terminals verify evidence before building transactions or driving real-world effects. An application operator can purchase services without operating a proof builder. These are roles, not a fixed deployment count.",
-      "pause": 400
-    }
-  ],
   "repository-scope": [
     {
-      "text": "Lockness owns the project-level design and contracts. Existing CSMT component tickets describe an earlier architecture and must be reconciled before implementation.",
+      "text": "Lockness owns cross-project design and acceptance. Component repositories own implementation. CSMT-UTXO supplies commitment machinery; the ledger provider still needs substantial storage and query work.",
       "pause": 400
     }
   ],

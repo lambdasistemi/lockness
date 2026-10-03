@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/roadmap.md",
-    "sha256": "4f98a9ee1a622bb4615e992f1c59b07ab0496ea3cb4789bd522f25fe18eae1b7"
+    "sha256": "bac396539270cd2bdc65b62c5790fe63b409a2160d52047612734ad830a9839f"
   },
   "delivery-dependencies": [
     {
@@ -11,13 +11,13 @@
   ],
   "settle-the-chainpoint-contract": [
     {
-      "text": "Specify acquisition, leases, rollback, eviction and history coverage with a reviewed executable model and simulation. The exit evidence includes explicit refusals and no silent chainpoint substitution. Cryptographic assumptions remain separate.",
+      "text": "Specify acquisition, leases, rollback, eviction and history coverage with an executable model and review. Declare backfill and all reconstruction references. Select coverage and demonstrate replay sufficiency before sizing the ledger provider.",
       "pause": 400
     }
   ],
   "specify-the-trust-and-availability-offers": [
     {
-      "text": "Define both own-anchor and institutional-publication choices, with root acceptance separate from data delivery. The exit contract specifies the verification boundary for both untrusted services and observable availability promises.",
+      "text": "Define own-anchor and institutional-publication policies separately from data delivery. The decision record owns participation and implementation claims. Specify verification of both untrusted service roles and observable availability contracts.",
       "pause": 400
     }
   ],
@@ -29,7 +29,7 @@
   ],
   "demonstrate-one-complete-journey": [
     {
-      "text": "The second diagram keeps one accepted root and chainpoint while the terminal checks equivalent ledger claims from two providers and proofs from an untrusted application builder. Valid links yield an application claim; failed evidence is rejected before action. Demonstrate provider switching, nested roots, wrong roots, missing history and expired sessions, with test publishers explicitly labelled.",
+      "text": "The second diagram keeps one accepted root and chainpoint while the terminal checks equivalent ledger claims from two providers and proofs from an untrusted application builder. Valid links yield an application claim; failed evidence is rejected before action. Demonstrate provider switching, nested roots, wrong roots, missing history and expired sessions, with test anchors explicitly labelled.",
       "pause": 400
     }
   ],
