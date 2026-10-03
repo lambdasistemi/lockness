@@ -67,13 +67,23 @@
     const speed = document.createElement('button');
     speed.type = 'button';
     speed.id = 'narration-speed';
-    speed.textContent = '1×';
+    const GAUGE = '<svg viewBox="0 0 16 16" width="1.1em" height="1.1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12a6 6 0 1 1 12 0"/><path d="M8 12l3-4"/></svg>';
+    const label = () => { speed.innerHTML = GAUGE + '<span>' + rate + '×</span>'; speed.title = 'Narration speed ' + rate + '×'; };
+    label();
     speed.setAttribute('aria-label', 'Change narration speed');
     speed.addEventListener('click', () => {
       rate = rates[(rates.indexOf(rate) + 1) % rates.length];
-      speed.textContent = rate + '×';
+      label();
       if (current) current.audio.playbackRate = rate;
     });
-    (document.getElementById('terminal-mkdocs-main-content') || document.body).prepend(speed);
+    const toggle = document.getElementById('lockness-palette-toggle');
+    const item = toggle && toggle.closest('li');
+    if (item) {
+      const entry = document.createElement('li');
+      entry.appendChild(speed);
+      item.before(entry);
+    } else {
+      (document.getElementById('terminal-mkdocs-main-content') || document.body).prepend(speed);
+    }
   }).catch(() => { /* No narration available on this page. */ });
 })();
