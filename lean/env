@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+exec nix shell 'github:NixOS/nixpkgs/13043924aaa7375ce482ebe2494338e058282925#lean4' 'github:NixOS/nixpkgs/13043924aaa7375ce482ebe2494338e058282925#stdenv.cc' --command bash -euo pipefail -c '
+  expected=$(sed -n "s@leanprover/lean4:v@@p" lean-toolchain)
+  actual=$(lean --version)
+  [[ $actual == "Lean (version $expected,"* ]] || { echo "unexpected toolchain: $actual" >&2; exit 1; }
+  exec "$@"
+' bash "$@"

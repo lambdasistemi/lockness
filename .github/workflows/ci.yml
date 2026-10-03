@@ -18,6 +18,8 @@ jobs:
     runs-on: nixos
     steps:
       - uses: actions/checkout@v6
+      - name: Check model, proofs and scenarios
+        run: ./tools/check-model.sh
       - name: Check and build documentation
         run: ./tools/check-docs.sh
       - name: Upload documentation
@@ -46,6 +48,8 @@ jobs:
           test -s site/design/chainpoints/index.html
           test -s site/design/trust-and-availability/index.html
           test -s site/design/decisions/index.html
+          test -s site/model/index.html
+          cmp site/model.speech.json site/model/index.speech.json
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: [build-gate, docs-build]

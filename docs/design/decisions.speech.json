@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "b082f3f829191037d89503bcefe02740893a71a71a258394684bf485c6772d66"
+    "sha256": "fe5597a73ff4441053c8186f558f5f16a7607fde73ffc1b59cbd6a9ebc347fcf"
   },
   "recorded-direction": [
     {
@@ -23,19 +23,19 @@
   ],
   "claims-and-evidence-boundaries": [
     {
-      "text": "This table separates architecture from delivery. Lockness has no accepted formal model, verifier or end-to-end deployment. Own and institutional anchors express trust choices, not measured price rankings; no institution is claimed to participate today. CSMT machinery exists, but archive, sessions and application replay need further work. Membership alone proves neither uniqueness nor settlement.",
+      "text": "The root acceptance model makes a bounded executable contribution to the design. It establishes trusted endorsement under explicit observations, not a full system verifier or deployment. Own and institutional anchors express trust choices, not measured price rankings. Membership alone proves neither uniqueness nor settlement.",
       "pause": 400
     }
   ],
   "what-remains-unproved": [
     {
-      "text": "Open contracts cover anchor costs, interoperability, proof scopes, completeness, archive coverage and references, anchor policies, retained views, unique state assumptions and exact application bindings. Irreversible effects also need settlement evidence. Coverage must be selected before cost commitments.",
+      "text": "The root model exposes trusted keys and agreement. Concrete policy selection, key rotation, signed encodings, freshness and rollback notices remain open, together with archive coverage, application bindings and settlement. Coverage must be selected before cost commitments.",
       "pause": 400
     }
   ],
   "evidence-available-today": [
     {
-      "text": "MPFS already verifies reconstructed facts against an anchored state root. The inspected Koios and Blockfrost interfaces do not promise the required shared chainpoint sessions. Related root-signing work is not evidence that the whole publication protocol exists.",
+      "text": "Pinned Lean proofs and scenarios establish properties of root acceptance. Observation soundness and honest-root correspondence are separate hypotheses. Removing trusted-set checking has a compiled counterexample. Independent acceptance, remote CI, implementation and deployment need distinct revision-bound results. Existing MPFS verification and inspected Koios and Blockfrost interfaces remain prior, bounded evidence.",
       "pause": 400
     }
   ]

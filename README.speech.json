@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "4da88601c0b1c892086a7fc07fb27011b3e120518d906cf7d3b0416b325f44aa"
+    "sha256": "3143bab0d0320f8079330cea8d1562a2621d9a5b55d05bf6baf0d489208513c3"
   },
   "user-stories": [
     {
@@ -17,7 +17,7 @@
   ],
   "read-the-design": [
     {
-      "text": "Use concepts to understand assets and roots, and the projects page to find CSMT-UTXO, MPFS and Singular. Continue to trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
+      "text": "Start with the runnable root acceptance model to inspect trusted and untrusted publications. Continue through concepts, trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
       "pause": 400
     }
   ],
@@ -29,7 +29,7 @@
   ],
   "check-the-documentation": [
     {
-      "text": "The documentation script checks source-bound rendered diagrams, speech freshness and a strict site build. Regenerate diagrams from the manifest with the pinned renderer, then inspect every render and update narration. Source and image hashes prove freshness, not visual accuracy or protocol correctness.",
+      "text": "The model gate checks pinned Lean proofs, axiom dependencies, semantic counterexamples and simulator scenarios. The documentation gate checks diagram and speech freshness and builds the site. Just CI runs both. Model properties depend on explicit hypotheses and do not establish component implementation or deployment.",
       "pause": 400
     }
   ],

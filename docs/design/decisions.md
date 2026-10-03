@@ -51,7 +51,7 @@ Here the present is the selected chainpoint. For the UTxO commitment, the proof 
 
 | Design claim | Evidence boundary |
 | --- | --- |
-| Terminals verify data against independently accepted ledger roots | No accepted Lockness formal model, verifier or end-to-end deployment yet |
+| Terminals verify data against independently accepted ledger roots | Executable [root acceptance model](../model/index.md) with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment |
 | Own anchors preserve trust independence; institutional publications reduce local infrastructure | These are trust and operating choices, not measured price rankings; no institution is claimed to participate today |
 | Providers compete on computation and availability | No interoperable provider market or globally optimal pricing demonstrated |
 | CSMT-UTXO supplies existing commitment machinery | Retained views, history coverage, leases and publication contracts require additional work; see [existing projects](../projects.md) |
@@ -65,12 +65,14 @@ Here the present is the selected chainpoint. For the UTxO commitment, the proof 
 - The full commitment inventory: live UTxOs, asset sets and any historical indexes need separately stated proof guarantees.
 - Completeness and absence require explicit proof contracts; inclusion proofs alone do not establish a full result set.
 - [Archive coverage](chainpoints.md#history-coverage-before-costing) must be selected before cost commitments; referenced-output retrieval must cover every dependency of a real application replay.
-- Anchor policy, key rotation, signed message encodings, freshness and rollback notices remain unspecified.
+- The root model makes trusted-key membership and agreement explicit. Concrete anchor policy selection, key rotation, signed message encodings, freshness and rollback notices remain unspecified.
 - Active-session behavior on fork abandonment and bounded retention remain unresolved.
 - Application replay and proof checks need to bind NFT identity, unique-state assumptions, exact datum, root and selected state without accepting a different application or chainpoint.
 - External effects require an explicit settlement policy and evidence of continued ancestry; signatures or same-point anchor agreement alone do not establish settlement.
 
 ## Evidence available today
+
+The [root acceptance model and simulator](../model/index.md) compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.
 
 [MPFS's facts verifier](https://github.com/lambdasistemi/cardano-mpfs-offchain/blob/0f82465f5f828c2ab987a166e9e24c2368228d01/cardano-mpfs-verify/lib/Cardano/MPFS/Client/Verify/Read.hs) already anchors a state output and checks the root reconstructed from returned facts. It is useful prior implementation, not evidence that the proposed transaction-retrieval architecture is delivered.
 

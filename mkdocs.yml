@@ -34,6 +34,8 @@ nav:
       - CSMT-UTXO, MPFS and Singular: projects.md
       - Decisions and evidence: design/decisions.md
       - Delivery roadmap: roadmap.md
+  - Inspect the model:
+      - Root acceptance: model/index.md
 plugins:
   - search
 markdown_extensions:

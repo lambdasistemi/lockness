@@ -1,0 +1,12 @@
+name = "lockness"
+version = "0.1.0"
+defaultTargets = ["Lockness", "lockness-sim"]
+leanOptions = { warningAsError = true }
+
+[[lean_lib]]
+name = "Lockness"
+globs = ["Lockness.*"]
+
+[[lean_exe]]
+name = "lockness-sim"
+root = "Main"
