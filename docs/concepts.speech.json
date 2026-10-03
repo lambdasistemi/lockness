@@ -1,66 +1,156 @@
 {
-  "_source": {
-    "file": "docs/concepts.md",
-    "sha256": "8d2bc2e0273051704e245ce7ffc5a021166ec100edef0eddf79743d99c9443e7"
-  },
+  "concepts-behind-a-verified-answer": [
+    {
+      "text": "Concepts behind a verified answer.",
+      "pause": 500
+    },
+    {
+      "text": "As a reader following the MPFS or Singular example, identify what the terminal verifies at each step and follow the links to the component that supplies it.",
+      "pause": 400
+    }
+  ],
   "standard-vocabulary": [
     {
-      "text": "Anchors publish independently computed signed ledger roots. Ledger providers serve data and proofs, while application services interpret history and build application proofs. A terminal is a lightweight Web2 application with cryptographic capabilities. It checks assets before enabling transaction construction or off-chain data use. Ledger roots cover generic ledger state; application roots cover application state.",
+      "text": "Standard vocabulary.",
+      "pause": 500
+    },
+    {
+      "text": "“Commitment” describes the cryptographic construction; “root” names its result. “Ledger proof” is the standard term here; a witness is the evidence carried by that proof.",
       "pause": 400
     }
   ],
   "terminals-lightweight-web2-applications": [
     {
-      "text": "A terminal is a familiar Web2 application with cryptographic capabilities, suitable for a browser, mobile application or conventional service. Its purpose and risk policy select trusted anchors, required claims, freshness and settlement conditions. The diagram follows that policy to a usable chainpoint, then brings untrusted data and proofs together with signed roots from chosen anchors. Verification enables transaction construction or off-chain data consumption; failed checks block verified use. A report or display needs no transaction submission. Irreversible effects require settlement and authorization. Chain following and heavy data work stay with providers, while ordinary application code and verification libraries implement the terminal. Data and roots may arrive in either order, but their bindings must agree and the data provider cannot choose the terminal’s trust policy.",
+      "text": "Terminals: lightweight Web2 applications.",
+      "pause": 500
+    },
+    {
+      "text": "As an application developer, build a familiar Web2 experience that can consume blockchain data with independently checked evidence. A terminal is that lightweight application plus cryptographic capabilities. It can be a browser application, a mobile application or a conventional service integrating verified data into an existing workflow.",
+      "pause": 400
+    },
+    {
+      "text": "The terminal applies a policy suited to the application's purpose and risk: which anchors to accept, which claims to prove, how fresh the data must be and whether the intended use needs settlement. Under that policy it selects a chainpoint, retrieves untrusted data and proofs for that point, and obtains the corresponding signed ledger roots from its chosen anchors. It verifies signatures, network and chainpoint bindings, asset identity and the required ledger and application claims before enabling use.",
+      "pause": 400
+    },
+    {
+      "text": "The two outcomes are equally central: help the user build a blockchain transaction, or consume verified data off-chain, for example in a display, report or application decision. Off-chain consumption does not require submitting a transaction. An irreversible external effect additionally follows the settlement and authorization policy.",
+      "pause": 400
+    },
+    {
+      "text": "“Lightweight” describes the division of work: the terminal makes service requests and runs cryptographic verification, while ledger providers handle chain following, storage and queries, and application services may build proofs. The adoption target is ordinary Web2 development with verification libraries; developers need not implement their own cryptography or operate a chain follower for each application. An operator's own anchor remains a separate trust choice.",
+      "pause": 400
+    },
+    {
+      "text": "Data and anchor evidence may arrive in either order. They must bind to the same selected chainpoint before use. Fetching a root does not make it trusted: accepted anchor keys and policy are chosen independently of the data provider. Missing evidence, failed verification or an unsatisfied action policy keeps the data unverified and blocks the intended verified operation.",
       "pause": 400
     }
   ],
   "assets-and-nft-state-outputs": [
     {
-      "text": "An asset identity combines minting policy and asset name. Using it as a unique state identifier requires a policy limiting the asset to one unit and state rules preserving the authoritative output. Inclusion alone proves neither unique supply nor authority. If several candidates are allowed, the application contract must define which is authoritative.",
+      "text": "Assets and NFT state outputs.",
+      "pause": 500
+    },
+    {
+      "text": "A Cardano asset is identified by its minting policy and asset name. An NFT can identify a particular application's state output. In the Lockness integration described here, the terminal needs the exact unspent output carrying that NFT, including its datum. Finding an asset name alone does not authenticate the output or its state.",
+      "pause": 400
+    },
+    {
+      "text": "Using the NFT as a unique state identifier requires an application invariant: its minting policy limits this exact asset identity to one unit, and the state-transition rules preserve the authoritative state output. An inclusion proof establishes that the supplied output is present; it does not prove unique supply or authority. The terminal must know the expected policy, asset identity and state rules. If those rules permit multiple candidate outputs, the application contract must define and justify which is authoritative.",
+      "pause": 400
+    },
+    {
+      "text": "MPFS and Singular give these outputs application-specific meaning. A ledger proof binds the output to an accepted ledger root; the application decides how to interpret the datum. Follow the worked verification sequence.",
       "pause": 400
     }
   ],
   "two-roots-with-different-scopes": [
     {
-      "text": "A ledger root covers the indexed ledger quantities at a chainpoint. An application root is inside the state output datum in this integration. Verify the output first, then use its application root to verify the next claim.",
+      "text": "Two roots with different scopes.",
+      "pause": 500
+    },
+    {
+      "text": "The ledger root commits to the indexed ledger quantities at a chainpoint. An anchor establishes that root from its chain view. The terminal accepts roots according to its trust choice.",
+      "pause": 400
+    },
+    {
+      "text": "The application root commits to an application's own tree. In the NFT example it is contained in the state output's datum. The terminal first verifies that output against the ledger root, then uses the application root to check application evidence. The two roots are neither interchangeable nor endorsements of the same claim.",
       "pause": 400
     }
   ],
   "ledger-and-application-proofs": [
     {
-      "text": "Ledger proofs support checking existing indexed ledger facts off-chain. Application proofs support application validation and may enter redeemers. Inclusion alone does not prove query completeness or freshness.",
+      "text": "Ledger and application proofs.",
+      "pause": 500
+    },
+    {
+      "text": "A ledger proof establishes its stated claim about the indexed ledger at the selected chainpoint. Terminals consume it off-chain. An application proof establishes its application-specific claim against the application root; it may be included in a transaction redeemer for the application validator to check.",
+      "pause": 400
+    },
+    {
+      "text": "These are the project's present-validity and future-validation proof values. Inclusion alone does not establish completeness of a result set or the freshness required for an action.",
       "pause": 400
     }
   ],
   "transaction-cbor-datums-and-redeemers": [
     {
-      "text": "Transaction CBOR encodes the transaction. Datums carry output-associated application data and redeemers supply script-execution data. Parsing the envelope differs from interpreting Plutus data. The generic service preserves information and applications assign meaning.",
+      "text": "Transaction CBOR, datums and redeemers.",
+      "pause": 500
+    },
+    {
+      "text": "The chain of application roots depends on exact datum interpretation as well as cryptographic checks.",
+      "pause": 400
+    },
+    {
+      "text": "Transaction CBOR preserves the transaction's encoded information. A datum describes application data associated with an output; a redeemer supplies data to script execution. Parsing the transaction envelope and interpreting its Plutus data are separate tasks.",
+      "pause": 400
+    },
+    {
+      "text": "The ledger provider retains transaction information and required references. Application libraries decide how those fields update application state. Historical transactions can be reconstruction inputs whose resulting tree is checked against an authenticated application root; they are not automatically proved historical claims.",
       "pause": 400
     }
   ],
   "chainpoints-views-and-sessions": [
     {
-      "text": "Chainpoints identify positions, views expose state and sessions retain access under a lease. Follow the session page for refusal, retention and rollback behavior.",
+      "text": "Chainpoints, views and sessions.",
+      "pause": 500
+    },
+    {
+      "text": "A chainpoint identifies genesis or a slot and block-header hash. A view exposes state there; a session retains access to that view under a lease. Network is separate context. Read the session contract and lifecycle for retention, expiry and unresolved rollback behavior.",
       "pause": 400
     }
   ],
   "a-chain-of-application-roots": [
     {
-      "text": "An authenticated application value may carry another root. Every descendant claim requires a checked proof and the expected interpretation. The architecture owns the root-chain diagram and verification order.",
+      "text": "A chain of application roots.",
+      "pause": 500
+    },
+    {
+      "text": "A verified application value may carry a further application root. Each descendant claim requires its own proof and the expected interpretation of that root. The architecture and root-chain diagram define the verification order.",
       "pause": 400
     }
   ],
   "untrusted-application-services": [
     {
-      "text": "Application services are untrusted computation providers, just like ledgers. The terminal checks their results against the authenticated application root instead of accepting a service assertion. Follow the trust boundary and delegation story for rejected cases.",
+      "text": "Untrusted application services.",
+      "pause": 500
+    },
+    {
+      "text": "lockness-applications services are untrusted for correctness, just like ledger providers. They can reconstruct trees and construct proofs on behalf of terminals. Terminals accept the result by checking the required claim against the authenticated application root, not by trusting the service's interpretation or its chosen root. The trust boundary and delegation story describe what must be rejected.",
       "pause": 400
     }
   ],
   "follow-the-example": [
     {
-      "text": "Follow the project links into proof composition. CSMT-UTXO supplies the existing engine and measurement starting point. Availability obligations are explained in the market page.",
+      "text": "Follow the example.",
+      "pause": 500
+    },
+    {
+      "text": "Start with the MPFS/Singular project links, then follow proof composition. For the existing ledger engine and measurement starting point, use CSMT-UTXO. For a provider's delivery obligations, use what applications buy.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "concepts.md",
+    "sha256": "8d2bc2e0273051704e245ce7ffc5a021166ec100edef0eddf79743d99c9443e7"
+  }
 }

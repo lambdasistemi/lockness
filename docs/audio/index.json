@@ -1,0 +1,1338 @@
+{
+ "docs/architecture/system.md": {
+  "architecture-and-operating-cost": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/architecture-and-operating-cost-00",
+    "pause_ms": 400,
+    "text": "As a project maintainer, separate the cost of establishing trusted roots from the cost of serving data, so applications can buy capacity while terminals retain their verification policy."
+   }
+  ],
+  "components-and-chain-following": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/components-and-chain-following-00",
+    "pause_ms": 400,
+    "text": "Anchors and ledger providers are plural because any number of independent instances may exist. Both roles run nodes. Anchors serve signed roots; ledger providers serve data and proofs. They can reuse the generic commitment engine without sharing a running process. Anchors establish their own commitments. Signing an untrusted provider's supplied root does not create independent assurance. The cost and trust consequences of shared node infrastructure must be explicit."
+   },
+   {
+    "index": 1,
+    "name": "docs-architecture-system/components-and-chain-following-01",
+    "pause_ms": 400,
+    "text": "Terminals can avoid their own chain follower because accepted anchor publications supply their view of chain progress. The root-acceptance policy must cover freshness and branch changes."
+   },
+   {
+    "index": 2,
+    "name": "docs-architecture-system/components-and-chain-following-02",
+    "pause_ms": 400,
+    "text": "A terminal is a lightweight Web2 application with cryptographic capabilities. Its application purpose and risk policy govern chainpoint selection, anchor acceptance and the claims it verifies. It enables the user to build transactions or consume verified data off-chain, including in ordinary displays and integrations. Any external effect has an additional action policy; it is not performed by the ledger provider."
+   }
+  ],
+  "data-and-trust-are-separate": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/data-and-trust-are-separate-00",
+    "pause_ms": 400,
+    "text": "An anchor endorses a commitment for a network and chainpoint. A terminal owns the trusted keys and acceptance policy. A ledger provider and an application proof builder remain untrusted for correctness; valid evidence, rather than their identity, permits the terminal to use a result."
+   },
+   {
+    "index": 1,
+    "name": "docs-architecture-system/data-and-trust-are-separate-01",
+    "pause_ms": 400,
+    "text": "lockness-applications is an untrusted computation service, just like the ledger provider. It may interpret transactions, reconstruct a tree and generate application proofs; none of those answers is authoritative merely because the service supplies it. The terminal verifies each required application claim against a root authenticated through the ledger proof and exact state datum. A service-supplied replacement root, a proof for a different NFT or application, and evidence that fails verification must be rejected. Missing evidence does not become an accepted fact."
+   },
+   {
+    "index": 2,
+    "name": "docs-architecture-system/data-and-trust-are-separate-02",
+    "pause_ms": 400,
+    "text": "An application service may verify its own inputs as part of its implementation. That does not replace the terminal's verification. Delegation of construction and interpretation leaves the terminal responsible for the accepted proof contract, chain of roots and policy for acting on the result. The application validator checks the relevant redeemer proof again if a transaction is submitted."
+   },
+   {
+    "index": 3,
+    "name": "docs-architecture-system/data-and-trust-are-separate-03",
+    "pause_ms": 400,
+    "text": "Signed messages need an unambiguous network, slot, block hash, commitment scheme/version and root identity. Publisher agreement rules, key rotation, freshness and branch correction are unresolved protocol contracts. A signature identifies an endorsement; it does not establish the correctness of the endorsed ledger."
+   }
+  ],
+  "decisions": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/decisions-00",
+    "pause_ms": 400,
+    "text": "Continue with chainpoint sessions, the existing projects, or decisions and evidence."
+   }
+  ],
+  "external-effects-and-settlement": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/external-effects-and-settlement-00",
+    "pause_ms": 400,
+    "text": "Before an irreversible effect, the terminal must apply an explicit settlement condition as well as verify the fact and authorize the action. A signature records an anchor's observation; a valid proof at that chainpoint cannot establish that its block will remain on the selected chain."
+   },
+   {
+    "index": 1,
+    "name": "docs-architecture-system/external-effects-and-settlement-01",
+    "pause_ms": 400,
+    "text": "The policy must define the required chain depth or settlement evidence, how later accepted publications establish continued ancestry, and what happens if the point is abandoned or evidence is unavailable. Cardano settlement is probabilistic: the threshold must reflect the network's consensus assumptions and the effect's risk tolerance. Agreement among several anchors at one chainpoint does not replace this condition. See Cardano's settlement problem statement."
+   },
+   {
+    "index": 2,
+    "name": "docs-architecture-system/external-effects-and-settlement-02",
+    "pause_ms": 400,
+    "text": "Unlike a submitted transaction, a real-world effect is not rechecked by Cardano before execution. Lockness must refuse or defer the effect when its settlement policy is unsatisfied; the concrete policy and supporting publication evidence remain open contracts."
+   }
+  ],
+  "offload-computation-while-retaining-trust-control": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/offload-computation-while-retaining-trust-control-00",
+    "pause_ms": 400,
+    "text": "An anchor maintains current commitment state and handles rollback. A ledger provider additionally retains history and query views and serves data and proofs. These workloads can be operated and paid for separately."
+   },
+   {
+    "index": 1,
+    "name": "docs-architecture-system/offload-computation-while-retaining-trust-control-01",
+    "pause_ms": 400,
+    "text": "The trust and availability model owns the own-anchor and institutional-publication choices. The existing CSMT-UTXO engine supplies commitment machinery; its benchmarks and metrics start measurement of node and anchor costs. The ledger provider's archive, retained views and query capacity require separate design and measurement."
+   }
+  ],
+  "proof-composition": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/proof-composition-00",
+    "pause_ms": 400,
+    "text": "The first root is application-independent and chain-wide: it commits to the ledger quantities covered by its scheme. For CSMT-UTXO, that scope is the live UTxO set across the chain. It is not a commitment to every historical transaction or every possible ledger quantity."
+   },
+   {
+    "index": 1,
+    "name": "docs-architecture-system/proof-composition-01",
+    "pause_ms": 400,
+    "text": "An application root is carried inside a UTxO, in the state output's datum for the integration described here. Once the terminal proves that exact output belongs to the ledger state at the selected chainpoint, it has also authenticated the datum containing the application's root. This is where the application tree is anchored to the ledger."
+   },
+   {
+    "index": 2,
+    "name": "docs-architecture-system/proof-composition-02",
+    "pause_ms": 400,
+    "text": "The terminal can then verify application data against that root. If a proved application value contains another root, the same process can continue into another application tree. Each link requires its own proof and interpretation: the terminal binds the root's exact bytes, encoding, scheme and application identity to the parent claim. Ledger inclusion authenticates the starting datum; it does not automatically validate every descendant claim."
+   },
+   {
+    "index": 3,
+    "name": "docs-architecture-system/proof-composition-03",
+    "pause_ms": 400,
+    "text": "This chain of roots is the bridge from generic ledger evidence to application evidence. The ledger provider need not understand the application or its nested trees. Read the two root scopes and nested application roots for the terms used here."
+   },
+   {
+    "index": 4,
+    "name": "docs-architecture-system/proof-composition-04",
+    "pause_ms": 400,
+    "text": "For CSMT-UTXO, the concrete ledger claim is membership of an output in the committed UTxO set, under the scheme’s encoding. The proof does not independently rerun Cardano transaction validation or establish canonicality."
+   },
+   {
+    "index": 5,
+    "name": "docs-architecture-system/proof-composition-05",
+    "pause_ms": 400,
+    "text": "The two proof values have different temporal roles. Ledger proofs concern on-chain validity in the present, meaning the ledger state at the selected chainpoint. Application proofs concern on-chain validation in the future, when a proposed transaction executes."
+   },
+   {
+    "index": 6,
+    "name": "docs-architecture-system/proof-composition-06",
+    "pause_ms": 400,
+    "text": "“Present” is chainpoint-relative, not a promise that an old view remains the chain tip. “Future validation” describes the proof's role, not a guarantee that the submitted transaction succeeds after intervening state changes."
+   },
+   {
+    "index": 7,
+    "name": "docs-architecture-system/proof-composition-07",
+    "pause_ms": 400,
+    "text": "Before acquiring a session, the terminal finds a usable chainpoint: an accepted anchor publication and a provider offer must agree on the network, chainpoint and commitment scheme. Provider availability is a claim to confirm at acquisition, not a source of trusted roots."
+   },
+   {
+    "index": 8,
+    "name": "docs-architecture-system/proof-composition-08",
+    "pause_ms": 400,
+    "text": "Application builders may generate proofs on behalf of terminals. A terminal may instead reconstruct the tree locally. The application root comes from the verified state output; it is distinct from the ledger root. A reused proof must match the receiving context's claim, encoding and root. Valid evidence at an old chainpoint is not a promise that a future transaction will still be admissible."
+   },
+   {
+    "index": 9,
+    "name": "docs-architecture-system/proof-composition-09",
+    "pause_ms": 400,
+    "text": "Transaction boundary: ledger proofs remain off-chain and are not included in transaction redeemers. A terminal uses them to check the ledger data it builds from. Application-level proofs are included in redeemers and checked by the application validators against the on-chain application state. Cardano validates inputs, value conservation and the other applicable ledger rules against its actual state; it does not consume the terminal's CSMT witness as a substitute for those checks. Signed anchor-root publication remains separate from transaction submission."
+   },
+   {
+    "index": 10,
+    "name": "docs-architecture-system/proof-composition-10",
+    "pause_ms": 400,
+    "text": "Historical transactions may be untrusted reconstruction material. Matching the reconstructed tree to an authenticated root establishes the resulting committed state under the application's reconstruction rules; it does not automatically prove every asserted historical event or the completeness of arbitrary transaction-history queries."
+   }
+  ],
+  "service-boundary": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/service-boundary-00",
+    "pause_ms": 400,
+    "text": "The ledger provider retains transaction CBOR and ledger references. It must understand enough ledger structure to index and follow the chain, but does not decide what a redeemer means for MPFS or Singular. History coverage and spent/reference-input resolution must be specified before sizing the ledger provider. Application proof builders interpret datums, redeemers and other application-relevant transaction fields."
+   },
+   {
+    "index": 1,
+    "name": "docs-architecture-system/service-boundary-01",
+    "pause_ms": 400,
+    "text": "Not every response needs a proof. Each endpoint must state its claim and whether its payload is authenticated evidence or untrusted reconstruction material. Evidence-bearing responses may bundle data and proofs. Separate retrieval can remain possible, but Koios wire compatibility is not a requirement for the stronger chainpoint contract."
+   }
+  ],
+  "why-data-should-travel-with-proofs": [
+   {
+    "index": 0,
+    "name": "docs-architecture-system/why-data-should-travel-with-proofs-00",
+    "pause_ms": 400,
+    "text": "A terminal uses ledger answers to make decisions. If an answer is merely a provider assertion, the terminal depends on that provider's correctness. With a proof, it can check the answer's stated claim against a commitment independently accepted from anchors. The proof connects the supplied data to the accepted ledger state at the selected chainpoint."
+   },
+   {
+    "index": 1,
+    "name": "docs-architecture-system/why-data-should-travel-with-proofs-01",
+    "pause_ms": 400,
+    "text": "The resulting value is control over what the terminal consumes. Data providers can be replaced or cached, and proof construction can be delegated, while verification and anchor selection remain with the terminal. Applications can share the expensive work of chain following without sharing a server's unchecked interpretation of their state."
+   },
+   {
+    "index": 2,
+    "name": "docs-architecture-system/why-data-should-travel-with-proofs-02",
+    "pause_ms": 400,
+    "text": "For example, a terminal preparing an MPFS or Singular transaction needs the application root in a particular NFT state output. It verifies the output's ledger witness against its accepted ledger root, binds the NFT identity and exact datum, then verifies the application proof against the application root in that datum. The ledger provider need not interpret the application, and the application proof builder need not be trusted to supply a correct proof."
+   },
+   {
+    "index": 3,
+    "name": "docs-architecture-system/why-data-should-travel-with-proofs-03",
+    "pause_ms": 400,
+    "text": "For an external effect, the verified ledger fact becomes an input to the terminal's action and settlement policy. Proof verification alone does not authorize the effect."
+   },
+   {
+    "index": 4,
+    "name": "docs-architecture-system/why-data-should-travel-with-proofs-04",
+    "pause_ms": 400,
+    "text": "Data should travel with the evidence needed to verify the claims a terminal relies on. This is a logical association; data and proofs can be retrieved separately if their claim, commitment and chainpoint bindings match. Raw historical transactions can remain untrusted reconstruction inputs when the resulting state is checked against an anchored root. A proof against a root supplied only by the same untrusted data server does not provide the independent trust boundary described here."
+   }
+  ]
+ },
+ "docs/concepts.md": {
+  "a-chain-of-application-roots": [
+   {
+    "index": 0,
+    "name": "docs-concepts/a-chain-of-application-roots-00",
+    "pause_ms": 400,
+    "text": "A verified application value may carry a further application root. Each descendant claim requires its own proof and the expected interpretation of that root. The architecture and root-chain diagram define the verification order."
+   }
+  ],
+  "assets-and-nft-state-outputs": [
+   {
+    "index": 0,
+    "name": "docs-concepts/assets-and-nft-state-outputs-00",
+    "pause_ms": 400,
+    "text": "A Cardano asset is identified by its minting policy and asset name. An NFT can identify a particular application's state output. In the Lockness integration described here, the terminal needs the exact unspent output carrying that NFT, including its datum. Finding an asset name alone does not authenticate the output or its state."
+   },
+   {
+    "index": 1,
+    "name": "docs-concepts/assets-and-nft-state-outputs-01",
+    "pause_ms": 400,
+    "text": "Using the NFT as a unique state identifier requires an application invariant: its minting policy limits this exact asset identity to one unit, and the state-transition rules preserve the authoritative state output. An inclusion proof establishes that the supplied output is present; it does not prove unique supply or authority. The terminal must know the expected policy, asset identity and state rules. If those rules permit multiple candidate outputs, the application contract must define and justify which is authoritative."
+   },
+   {
+    "index": 2,
+    "name": "docs-concepts/assets-and-nft-state-outputs-02",
+    "pause_ms": 400,
+    "text": "MPFS and Singular give these outputs application-specific meaning. A ledger proof binds the output to an accepted ledger root; the application decides how to interpret the datum. Follow the worked verification sequence."
+   }
+  ],
+  "chainpoints-views-and-sessions": [
+   {
+    "index": 0,
+    "name": "docs-concepts/chainpoints-views-and-sessions-00",
+    "pause_ms": 400,
+    "text": "A chainpoint identifies genesis or a slot and block-header hash. A view exposes state there; a session retains access to that view under a lease. Network is separate context. Read the session contract and lifecycle for retention, expiry and unresolved rollback behavior."
+   }
+  ],
+  "concepts-behind-a-verified-answer": [
+   {
+    "index": 0,
+    "name": "docs-concepts/concepts-behind-a-verified-answer-00",
+    "pause_ms": 400,
+    "text": "As a reader following the MPFS or Singular example, identify what the terminal verifies at each step and follow the links to the component that supplies it."
+   }
+  ],
+  "follow-the-example": [
+   {
+    "index": 0,
+    "name": "docs-concepts/follow-the-example-00",
+    "pause_ms": 400,
+    "text": "Start with the MPFS/Singular project links, then follow proof composition. For the existing ledger engine and measurement starting point, use CSMT-UTXO. For a provider's delivery obligations, use what applications buy."
+   }
+  ],
+  "ledger-and-application-proofs": [
+   {
+    "index": 0,
+    "name": "docs-concepts/ledger-and-application-proofs-00",
+    "pause_ms": 400,
+    "text": "A ledger proof establishes its stated claim about the indexed ledger at the selected chainpoint. Terminals consume it off-chain. An application proof establishes its application-specific claim against the application root; it may be included in a transaction redeemer for the application validator to check."
+   },
+   {
+    "index": 1,
+    "name": "docs-concepts/ledger-and-application-proofs-01",
+    "pause_ms": 400,
+    "text": "These are the project's present-validity and future-validation proof values. Inclusion alone does not establish completeness of a result set or the freshness required for an action."
+   }
+  ],
+  "standard-vocabulary": [
+   {
+    "index": 0,
+    "name": "docs-concepts/standard-vocabulary-00",
+    "pause_ms": 400,
+    "text": "“Commitment” describes the cryptographic construction; “root” names its result. “Ledger proof” is the standard term here; a witness is the evidence carried by that proof."
+   }
+  ],
+  "terminals-lightweight-web2-applications": [
+   {
+    "index": 0,
+    "name": "docs-concepts/terminals-lightweight-web2-applications-00",
+    "pause_ms": 400,
+    "text": "As an application developer, build a familiar Web2 experience that can consume blockchain data with independently checked evidence. A terminal is that lightweight application plus cryptographic capabilities. It can be a browser application, a mobile application or a conventional service integrating verified data into an existing workflow."
+   },
+   {
+    "index": 1,
+    "name": "docs-concepts/terminals-lightweight-web2-applications-01",
+    "pause_ms": 400,
+    "text": "The terminal applies a policy suited to the application's purpose and risk: which anchors to accept, which claims to prove, how fresh the data must be and whether the intended use needs settlement. Under that policy it selects a chainpoint, retrieves untrusted data and proofs for that point, and obtains the corresponding signed ledger roots from its chosen anchors. It verifies signatures, network and chainpoint bindings, asset identity and the required ledger and application claims before enabling use."
+   },
+   {
+    "index": 2,
+    "name": "docs-concepts/terminals-lightweight-web2-applications-02",
+    "pause_ms": 400,
+    "text": "The two outcomes are equally central: help the user build a blockchain transaction, or consume verified data off-chain, for example in a display, report or application decision. Off-chain consumption does not require submitting a transaction. An irreversible external effect additionally follows the settlement and authorization policy."
+   },
+   {
+    "index": 3,
+    "name": "docs-concepts/terminals-lightweight-web2-applications-03",
+    "pause_ms": 400,
+    "text": "“Lightweight” describes the division of work: the terminal makes service requests and runs cryptographic verification, while ledger providers handle chain following, storage and queries, and application services may build proofs. The adoption target is ordinary Web2 development with verification libraries; developers need not implement their own cryptography or operate a chain follower for each application. An operator's own anchor remains a separate trust choice."
+   },
+   {
+    "index": 4,
+    "name": "docs-concepts/terminals-lightweight-web2-applications-04",
+    "pause_ms": 400,
+    "text": "Data and anchor evidence may arrive in either order. They must bind to the same selected chainpoint before use. Fetching a root does not make it trusted: accepted anchor keys and policy are chosen independently of the data provider. Missing evidence, failed verification or an unsatisfied action policy keeps the data unverified and blocks the intended verified operation."
+   }
+  ],
+  "transaction-cbor-datums-and-redeemers": [
+   {
+    "index": 0,
+    "name": "docs-concepts/transaction-cbor-datums-and-redeemers-00",
+    "pause_ms": 400,
+    "text": "The chain of application roots depends on exact datum interpretation as well as cryptographic checks."
+   },
+   {
+    "index": 1,
+    "name": "docs-concepts/transaction-cbor-datums-and-redeemers-01",
+    "pause_ms": 400,
+    "text": "Transaction CBOR preserves the transaction's encoded information. A datum describes application data associated with an output; a redeemer supplies data to script execution. Parsing the transaction envelope and interpreting its Plutus data are separate tasks."
+   },
+   {
+    "index": 2,
+    "name": "docs-concepts/transaction-cbor-datums-and-redeemers-02",
+    "pause_ms": 400,
+    "text": "The ledger provider retains transaction information and required references. Application libraries decide how those fields update application state. Historical transactions can be reconstruction inputs whose resulting tree is checked against an authenticated application root; they are not automatically proved historical claims."
+   }
+  ],
+  "two-roots-with-different-scopes": [
+   {
+    "index": 0,
+    "name": "docs-concepts/two-roots-with-different-scopes-00",
+    "pause_ms": 400,
+    "text": "The ledger root commits to the indexed ledger quantities at a chainpoint. An anchor establishes that root from its chain view. The terminal accepts roots according to its trust choice."
+   },
+   {
+    "index": 1,
+    "name": "docs-concepts/two-roots-with-different-scopes-01",
+    "pause_ms": 400,
+    "text": "The application root commits to an application's own tree. In the NFT example it is contained in the state output's datum. The terminal first verifies that output against the ledger root, then uses the application root to check application evidence. The two roots are neither interchangeable nor endorsements of the same claim."
+   }
+  ],
+  "untrusted-application-services": [
+   {
+    "index": 0,
+    "name": "docs-concepts/untrusted-application-services-00",
+    "pause_ms": 400,
+    "text": "lockness-applications services are untrusted for correctness, just like ledger providers. They can reconstruct trees and construct proofs on behalf of terminals. Terminals accept the result by checking the required claim against the authenticated application root, not by trusting the service's interpretation or its chosen root. The trust boundary and delegation story describe what must be rejected."
+   }
+  ]
+ },
+ "docs/design/chainpoints.md": {
+  "chainpoint-sessions": [
+   {
+    "index": 0,
+    "name": "docs-design-chainpoints/chainpoint-sessions-00",
+    "pause_ms": 400,
+    "text": "As a terminal, make several dependent reads and paginate results from one selected ledger state, even while the provider follows new blocks. If that state cannot be served, receive a named refusal rather than a silently newer answer."
+   }
+  ],
+  "find-a-usable-chainpoint": [
+   {
+    "index": 0,
+    "name": "docs-design-chainpoints/find-a-usable-chainpoint-00",
+    "pause_ms": 400,
+    "text": "The terminal first intersects accepted anchor publications with the ledger provider's advertised retained views and history coverage. It selects one network, chainpoint and compatible commitment scheme that satisfy its action policy, then asks the provider to acquire that exact view. The anchor continues publishing independently; it does not negotiate sessions."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-chainpoints/find-a-usable-chainpoint-01",
+    "pause_ms": 400,
+    "text": "Availability can change between discovery and acquisition. Acquisition either confirms the selected view and lease or explicitly refuses it. With no usable overlap, the terminal waits, changes provider or explicitly selects another acceptable chainpoint. It never combines answers from different points or searches combinations of already-fetched data. The discovery wire format remains open; this handshake is required. See the proof-composition sequence."
+   }
+  ],
+  "history-coverage-before-costing": [
+   {
+    "index": 0,
+    "name": "docs-design-chainpoints/history-coverage-before-costing-00",
+    "pause_ms": 400,
+    "text": "Choose archive coverage before sizing or committing to ledger-provider operating costs. Retaining every transaction and selecting transactions by generic asset or address filters are different service offers; neither is assumed here. Both preserve complete transaction CBOR for the transactions they offer."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-chainpoints/history-coverage-before-costing-01",
+    "pause_ms": 400,
+    "text": "The contract must specify the starting chainpoint, selection rules, retention, backfill, referenced and spent-output resolution, and missing-coverage responses. A filter is sufficient only if a representative MPFS or Singular replay can obtain every dependency it needs, including transactions or outputs outside that filter. Serving reconstruction material does not by itself prove completeness."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-chainpoints/history-coverage-before-costing-02",
+    "pause_ms": 400,
+    "text": "Exit evidence is a declared coverage offer and a deterministic application replay that reproduces the authenticated application root. Measure that workload and its reference closure; do not assign a generic cost estimate to an unspecified archive. The roadmap makes this a prerequisite for engine sizing."
+   }
+  ],
+  "open-questions": [
+   {
+    "index": 0,
+    "name": "docs-design-chainpoints/open-questions-00",
+    "pause_ms": 400,
+    "text": "What happens to an active session after its selected block leaves the canonical chain?"
+   },
+   {
+    "index": 1,
+    "name": "docs-design-chainpoints/open-questions-01",
+    "pause_ms": 400,
+    "text": "What retention and lease policy bounds storage and prevents resource exhaustion?"
+   },
+   {
+    "index": 2,
+    "name": "docs-design-chainpoints/open-questions-02",
+    "pause_ms": 400,
+    "text": "Which roots and indexes are captured atomically in a view?"
+   },
+   {
+    "index": 3,
+    "name": "docs-design-chainpoints/open-questions-03",
+    "pause_ms": 400,
+    "text": "Which wire format exposes retained views and anchor publications for the required discovery handshake?"
+   },
+   {
+    "index": 4,
+    "name": "docs-design-chainpoints/open-questions-04",
+    "pause_ms": 400,
+    "text": "Which history/reference queries are bounded by the point, and how is incomplete archive coverage reported?"
+   },
+   {
+    "index": 5,
+    "name": "docs-design-chainpoints/open-questions-05",
+    "pause_ms": 400,
+    "text": "Which failures require retrying the same point, and which require explicit terminal selection of a new point?"
+   },
+   {
+    "index": 6,
+    "name": "docs-design-chainpoints/open-questions-06",
+    "pause_ms": 400,
+    "text": "The first formal design slice should model acquisition, reads, rollback, expiry and eviction before optimizing physical storage."
+   }
+  ],
+  "session-contract": [
+   {
+    "index": 0,
+    "name": "docs-design-chainpoints/session-contract-00",
+    "pause_ms": 400,
+    "text": "Use chainpoint throughout Lockness. This corresponds to Cardano API's ChainPoint: either genesis or a slot number paired with a block-header hash. The network is separate context and must also be bound by the protocol. A slot number alone does not identify a chainpoint across competing branches."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-chainpoints/session-contract-01",
+    "pause_ms": 400,
+    "text": "A session token binds reads to the network, selected chainpoint and a retained view; it is not a source of trust. A chainpoint names a chain position, a view exposes state at that position, and a session retains access under a lease. The terminal verifies results against its separately accepted commitment. Different providers may issue different tokens for the same chainpoint. Whether sessions can be acquired at genesis remains a service-contract decision."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-chainpoints/session-contract-02",
+    "pause_ms": 400,
+    "text": "Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block; the policy for sessions on an abandoned branch remains open. No automatic chainpoint substitution is allowed."
+   }
+  ],
+  "storage-separation": [
+   {
+    "index": 0,
+    "name": "docs-design-chainpoints/storage-separation-00",
+    "pause_ms": 400,
+    "text": "Immutable content survives rollback. Chain-index membership and branch status determine which content belongs to the selected ledger state. Storing an object is not evidence that it is live or canonical."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-chainpoints/storage-separation-01",
+    "pause_ms": 400,
+    "text": "Retained views may use persistent index nodes, shared snapshots, or an isolated overlay reconstructed using rollback information. The mechanism has not been chosen. A read-only RocksDB snapshot is not itself a writable rollback target, and snapshot handles do not survive database restarts. A restart-surviving view needs a durable design, for example versioned nodes, persisted rollback overlays or separately retained database checkpoints. A RocksDB checkpoint is a storage mechanism, distinct from a Cardano chainpoint. Storage growth, write amplification, historical-read latency and session concurrency require measurement before choosing an implementation."
+   }
+  ]
+ },
+ "docs/design/decisions.md": {
+  "design-direction-and-unresolved-guarantees": [
+   {
+    "index": 0,
+    "name": "docs-design-decisions/design-direction-and-unresolved-guarantees-00",
+    "pause_ms": 400,
+    "text": "As a contributor, distinguish the project's agreed direction from decisions still requiring a concrete contract and evidence."
+   }
+  ],
+  "evidence-available-today": [
+   {
+    "index": 0,
+    "name": "docs-design-decisions/evidence-available-today-00",
+    "pause_ms": 400,
+    "text": "The root acceptance and session model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-decisions/evidence-available-today-01",
+    "pause_ms": 400,
+    "text": "MPFS's facts verifier already anchors a state output and checks the root reconstructed from returned facts. It is useful prior implementation, not evidence that the proposed transaction-retrieval architecture is delivered."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-decisions/evidence-available-today-02",
+    "pause_ms": 400,
+    "text": "The inspected Koios asset query and Blockfrost API do not expose the required shared chainpoint session contract for the relevant UTxO queries. This is a finding about those published interfaces, not their internal database capabilities."
+   },
+   {
+    "index": 3,
+    "name": "docs-design-decisions/evidence-available-today-03",
+    "pause_ms": 400,
+    "text": "CSMT root-signing work is related work. Its existence does not establish an accepted anchor publication protocol."
+   }
+  ],
+  "named-deployment-roles": [
+   {
+    "index": 0,
+    "name": "docs-design-decisions/named-deployment-roles-00",
+    "pause_ms": 400,
+    "text": "The project names the roles lockness-anchors and lockness-ledgers, plural because any number of instances is expected. Anchors run nodes and serve signed roots. Ledgers run nodes and serve data and proofs. The lockness-applications role serves application proofs using retrieved ledger history. The lockness-terminals role consumes roots, proofs and data, verifies them, and builds transactions or drives real-world effects from verified facts. These are component boundaries, not a command to create separate repositories now."
+   }
+  ],
+  "recorded-direction": [
+   {
+    "index": 0,
+    "name": "docs-design-decisions/recorded-direction-00",
+    "pause_ms": 400,
+    "text": "The following direction was established in the project discussion on 3 October 2026. These are design inputs, not claims of implemented or formally verified behavior."
+   }
+  ],
+  "what-remains-unproved": [
+   {
+    "index": 0,
+    "name": "docs-design-decisions/what-remains-unproved-00",
+    "pause_ms": 400,
+    "text": "Anchor operating cost and the additional cost of ledger archives, retained views and proof-serving capacity need separate measurements."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-decisions/what-remains-unproved-01",
+    "pause_ms": 400,
+    "text": "Provider switching, evidence interoperability and observable availability commitments need concrete contracts and acceptance evidence; market efficiency is a design thesis."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-decisions/what-remains-unproved-02",
+    "pause_ms": 400,
+    "text": "The full commitment inventory: live UTxOs, asset sets and any historical indexes need separately stated proof guarantees."
+   },
+   {
+    "index": 3,
+    "name": "docs-design-decisions/what-remains-unproved-03",
+    "pause_ms": 400,
+    "text": "Completeness and absence require explicit proof contracts; inclusion proofs alone do not establish a full result set."
+   },
+   {
+    "index": 4,
+    "name": "docs-design-decisions/what-remains-unproved-04",
+    "pause_ms": 400,
+    "text": "Archive coverage must be selected before cost commitments; referenced-output retrieval must cover every dependency of a real application replay."
+   },
+   {
+    "index": 5,
+    "name": "docs-design-decisions/what-remains-unproved-05",
+    "pause_ms": 400,
+    "text": "The root model makes trusted-key membership and agreement explicit. Concrete anchor policy selection, key rotation, signed message encodings, freshness and rollback notices remain unspecified."
+   },
+   {
+    "index": 6,
+    "name": "docs-design-decisions/what-remains-unproved-06",
+    "pause_ms": 400,
+    "text": "Active-session behavior on fork abandonment and bounded retention remain unresolved."
+   },
+   {
+    "index": 7,
+    "name": "docs-design-decisions/what-remains-unproved-07",
+    "pause_ms": 400,
+    "text": "Application replay and proof checks need to bind NFT identity, unique-state assumptions, exact datum, root and selected state without accepting a different application or chainpoint."
+   },
+   {
+    "index": 8,
+    "name": "docs-design-decisions/what-remains-unproved-08",
+    "pause_ms": 400,
+    "text": "External effects require an explicit settlement policy and evidence of continued ancestry; signatures or same-point anchor agreement alone do not establish settlement."
+   }
+  ],
+  "words-that-constrain-the-design": [
+   {
+    "index": 0,
+    "name": "docs-design-decisions/words-that-constrain-the-design-00",
+    "pause_ms": 400,
+    "text": "Project rulings, paraphrased for readability:"
+   },
+   {
+    "index": 1,
+    "name": "docs-design-decisions/words-that-constrain-the-design-01",
+    "pause_ms": 400,
+    "text": "Separate immutable, hash-addressed content from chainpoint indexes."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-decisions/words-that-constrain-the-design-02",
+    "pause_ms": 400,
+    "text": "Anchors publish a signed root for every block independently of query sessions."
+   },
+   {
+    "index": 3,
+    "name": "docs-design-decisions/words-that-constrain-the-design-03",
+    "pause_ms": 400,
+    "text": "The API is governed by chainpoint coherence and evidence sufficient for verification, rather than Koios response compatibility."
+   },
+   {
+    "index": 4,
+    "name": "docs-design-decisions/words-that-constrain-the-design-04",
+    "pause_ms": 400,
+    "text": "The later discussion refined the last statement: historical transactions can be untrusted reconstruction material, while claims used as authoritative ledger or application facts need verification. The precise endpoint claim inventory is still open."
+   },
+   {
+    "index": 5,
+    "name": "docs-design-decisions/words-that-constrain-the-design-05",
+    "pause_ms": 400,
+    "text": "Ledger and application proofs have distinct destinations: ledger witnesses are verified off-chain by terminals and are not carried into transactions. Application proofs are carried in redeemers and checked by application validators. Cardano enforces transaction validity against its own ledger state. This distinction does not stop anchors publishing signed roots."
+   },
+   {
+    "index": 6,
+    "name": "docs-design-decisions/words-that-constrain-the-design-06",
+    "pause_ms": 400,
+    "text": "The temporal distinction is an explicit project ruling:"
+   },
+   {
+    "index": 7,
+    "name": "docs-design-decisions/words-that-constrain-the-design-07",
+    "pause_ms": 400,
+    "text": "\"the ledger proofs are about on-chain validity (present), application proofs are about on-chain validation (future)\""
+   },
+   {
+    "index": 8,
+    "name": "docs-design-decisions/words-that-constrain-the-design-08",
+    "pause_ms": 400,
+    "text": "Here the present is the selected chainpoint. For the UTxO commitment, the proof establishes output membership under the accepted root, not an independent execution of transaction-validity rules. An application proof is intended for checking a proposed transition on-chain; its availability is not a promise of future transaction acceptance."
+   }
+  ]
+ },
+ "docs/design/trust-and-availability.md": {
+  "evidence-and-next-step": [
+   {
+    "index": 0,
+    "name": "docs-design-trust-and-availability/evidence-and-next-step-00",
+    "pause_ms": 400,
+    "text": "The decision record owns the project’s evidence limits. Next, specify the service and proof contracts, measure anchor and ledger costs separately, and exercise the switching journey described here."
+   }
+  ],
+  "switching-must-preserve-verification": [
+   {
+    "index": 0,
+    "name": "docs-design-trust-and-availability/switching-must-preserve-verification-00",
+    "pause_ms": 400,
+    "text": "A terminal moving from one provider to another keeps its accepted network, chainpoint, commitment scheme and required claims. It acquires a new provider-local session for that chainpoint; session tokens need not be portable. Compatible proof formats and unambiguous claim bindings make the evidence independently checkable."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-trust-and-availability/switching-must-preserve-verification-01",
+    "pause_ms": 400,
+    "text": "If the second provider lacks that view or the required history, it reports the limitation. Fallback must not silently choose a new chainpoint, root authority or weaker proof contract. Selecting another chainpoint requires an explicit terminal decision. Caches and replicas inherit the same bindings and freshness requirements."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-trust-and-availability/switching-must-preserve-verification-02",
+    "pause_ms": 400,
+    "text": "The acceptance journey must show two providers serving the same accepted claims, a successful switch without changing anchor policy, and a refusal when compatible coverage is absent. It must also show rejection of altered data and a provider attempting to substitute its own root. Equivalent claims need not have byte-identical proofs. The first acceptance run uses two provider instances of one implementation and demonstrates switching. Interoperability between independent implementations requires a second implementation passing the same contract."
+   }
+  ],
+  "the-project-proposition": [
+   {
+    "index": 0,
+    "name": "docs-design-trust-and-availability/the-project-proposition-00",
+    "pause_ms": 400,
+    "text": "Web2 scaling with explicit trust management. Proofs connect provider answers to roots accepted independently of those providers. This lets data provision become a computational business: providers sell storage, indexing, reconstruction, proof generation and delivery capacity. Applications buy availability; terminals verify the claims behind their actions."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-trust-and-availability/the-project-proposition-01",
+    "pause_ms": 400,
+    "text": "The economic thesis is that interchangeable, verifiable providers enable efficient market-driven scaling. Cloud capacity, caches and replicas can serve demand under the same verification contract. Interoperability and practical switching are the acceptance targets; the evidence boundary distinguishes this objective from measured results."
+   }
+  ],
+  "trust-choices-and-the-availability-market": [
+   {
+    "index": 0,
+    "name": "docs-design-trust-and-availability/trust-choices-and-the-availability-market-00",
+    "pause_ms": 400,
+    "text": "As an application operator, choose where your terminals obtain trusted roots and buy the data capacity your users need. Increase or replace that capacity without changing the evidence your terminals accept."
+   }
+  ],
+  "two-attractive-trust-deals": [
+   {
+    "index": 0,
+    "name": "docs-design-trust-and-availability/two-attractive-trust-deals-00",
+    "pause_ms": 400,
+    "text": "Running your own anchor is the optimal deal for trust independence. Your node validates the chain and your anchor establishes the roots your terminals accept. You can buy all required ledger queries and proofs from outside providers. You retain the chain-validation, software and cryptographic assumptions of your own infrastructure, without adding a provider's assertion as the authority for an answer."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-trust-and-availability/two-attractive-trust-deals-01",
+    "pause_ms": 400,
+    "text": "An anchor is still real infrastructure; CSMT-UTXO is the existing engine and measurement starting point. It follows the chain, maintains the state needed to compute current commitments and handles rollback. Outsourcing ledger services removes the need to operate their archive, retained query views and query-serving capacity; it does not eliminate the anchor's own computational cost."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-trust-and-availability/two-attractive-trust-deals-02",
+    "pause_ms": 400,
+    "text": "Observing institutional root publications is an exceptionally attractive operational deal. Institutions operate anchors and publish signed roots for every block. Terminals verify publications from institutions selected by their policy and consume provider data against those commitments. This avoids operating an anchor locally while making institutional trust explicit."
+   },
+   {
+    "index": 3,
+    "name": "docs-design-trust-and-availability/two-attractive-trust-deals-03",
+    "pause_ms": 400,
+    "text": "Both choices use the same independent data-provider boundary. Institutional publication is a first-class deployment choice, not a promise of identical trust assumptions to running your own anchor. Which institutions, agreement rules and freshness conditions to accept remains terminal policy. Multiple anchors sharing an implementation, upstream node or infrastructure can fail together; agreement among them does not establish implementation diversity or remove shared software and cryptographic assumptions. This applies to institutional anchors as well as your own."
+   }
+  ],
+  "what-applications-buy": [
+   {
+    "index": 0,
+    "name": "docs-design-trust-and-availability/what-applications-buy-00",
+    "pause_ms": 400,
+    "text": "An application operator is the buyer of service capacity. It may run or use a lockness-applications proof builder; that component role does not prescribe who signs a commercial agreement. Ledger providers sell generic data and ledger proofs. Application providers can separately sell interpretation, reconstruction and application proofs."
+   },
+   {
+    "index": 1,
+    "name": "docs-design-trust-and-availability/what-applications-buy-01",
+    "pause_ms": 400,
+    "text": "Availability is a provider's service commitment to the application. Cryptographic evidence lets the terminal check delivered claims against accepted roots; commercial terms govern whether and when the provider delivers. A proof cannot make an unavailable provider answer."
+   },
+   {
+    "index": 2,
+    "name": "docs-design-trust-and-availability/what-applications-buy-02",
+    "pause_ms": 400,
+    "text": "These are contract dimensions, not fixed tariffs or implemented guarantees. Rollback behavior must be settled in the chainpoint contract before an availability offer can promise it. Discovery, billing, measurement and remedies for missed commitments remain open design choices. The architecture does not require them to be enforced on-chain."
+   }
+  ]
+ },
+ "docs/index.md": {
+  "current-state": [
+   {
+    "index": 0,
+    "name": "docs-index/current-state-00",
+    "pause_ms": 400,
+    "text": "This is a design-stage project. The decision record states what exists, what is proposed and what remains unproved. The roadmap turns those gaps into deliverables and acceptance criteria."
+   }
+  ],
+  "find-your-path": [
+   {
+    "index": 0,
+    "name": "docs-index/find-your-path-00",
+    "pause_ms": 400,
+    "text": "Assess the proposition: trust choices and the availability market."
+   },
+   {
+    "index": 1,
+    "name": "docs-index/find-your-path-01",
+    "pause_ms": 400,
+    "text": "Build a terminal: the lightweight Web2 application → proof composition → chainpoint sessions."
+   },
+   {
+    "index": 2,
+    "name": "docs-index/find-your-path-02",
+    "pause_ms": 400,
+    "text": "Explore existing work: CSMT-UTXO, MPFS and Singular → evidence → delivery roadmap."
+   }
+  ],
+  "lockness": [
+   {
+    "index": 0,
+    "name": "docs-index/lockness-00",
+    "pause_ms": 400,
+    "text": "As an application developer, check the data behind a transaction or off-chain use without trusting its server. A terminal is a lightweight Web2 application with cryptographic capabilities. Its purpose and risk policy guide chainpoint selection; it retrieves untrusted data and anchor evidence for that point, verifies the assets, then lets the user build a blockchain transaction or consume the data off-chain."
+   }
+  ],
+  "user-stories": [
+   {
+    "index": 0,
+    "name": "docs-index/user-stories-00",
+    "pause_ms": 400,
+    "text": "Lockness separates who provides data from who endorses ledger commitments. A terminal finds a chainpoint with both an accepted root and an available provider view, acquires a session, and verifies the evidence it uses. Application-specific proof construction can happen locally or at an optional service."
+   }
+  ],
+  "web2-scaling-with-explicit-trust-management": [
+   {
+    "index": 0,
+    "name": "docs-index/web2-scaling-with-explicit-trust-management-00",
+    "pause_ms": 400,
+    "text": "Applications buy data and computation from competing providers. Terminals choose anchors that establish trusted ledger roots, then check provider answers against those roots. This separation makes data provision a computational business whose capacity can scale through ordinary servers, caches and replicas."
+   },
+   {
+    "index": 1,
+    "name": "docs-index/web2-scaling-with-explicit-trust-management-01",
+    "pause_ms": 400,
+    "text": "Running your own anchor is the optimal deal for trust independence; observing chosen institutional publications is an exceptionally attractive operational deal under explicit institutional trust. The trust and availability model owns these choices and the delivery commitments applications purchase."
+   }
+  ],
+  "why-terminals-should-consume-anchored-data": [
+   {
+    "index": 0,
+    "name": "docs-index/why-terminals-should-consume-anchored-data-00",
+    "pause_ms": 400,
+    "text": "Anchored data is data whose required claim the terminal has verified against an independently accepted root. Both ledger providers and application services remain untrusted for correctness."
+   },
+   {
+    "index": 1,
+    "name": "docs-index/why-terminals-should-consume-anchored-data-01",
+    "pause_ms": 400,
+    "text": "A ledger proof can authenticate an NFT state output and its datum. That datum carries an application root used to verify application proofs, including links to further trees. Follow proof composition for the complete chain and the verification boundary for the claims an action needs."
+   }
+  ]
+ },
+ "docs/model/index.md": {
+  "acquire-the-selected-session": [
+   {
+    "index": 0,
+    "name": "docs-model-index/acquire-the-selected-session-00",
+    "pause_ms": 400,
+    "text": "As a terminal, retain one selected ledger identity while the provider follows new blocks. The session model treats a provider as an arbitrary Chainpoint → Option Session, with no honesty restriction. Session.point is definitionally its stored selectedPoint. Acquisition checks complete network, slot and block-hash equality and returns the entire offered session unchanged; it never rewrites an offer to look like the requested point."
+   },
+   {
+    "index": 1,
+    "name": "docs-model-index/acquire-the-selected-session-01",
+    "pause_ms": 400,
+    "text": "Successful acquisition establishes point coherence and preservation of the offered root and bytes. It does not establish that the provider's acceptedRoot was independently accepted. Root acceptance remains a separate terminal operation; cryptographic observation soundness and honest-root correspondence remain separate hypotheses. The honest simulator obtains its root by executing acceptRoot before offering the session. Other arbitrary providers can offer any root at that point."
+   },
+   {
+    "index": 2,
+    "name": "docs-model-index/acquire-the-selected-session-02",
+    "pause_ms": 400,
+    "text": "The diagram preserves the session design. The executable inductive SessionState and SessionTransition model requested acquisition as active or unavailable, active reads as active again, expiry as expired, and release as closed. readSession returns the same active session; expired and closed reads return unavailablePoint at its original point. Requested and unavailable reads also refuse their selected point. Closed and unavailable states have no outgoing transitions; an expired-read observation retains the expired state. Expiry is an event, with no duration or scheduler. The diagram's unresolved branch path is deliberately absent from the transition relation and remains a separate design question. The model does not implement pagination, token encodings, leases, storage retention or physical view release."
+   },
+   {
+    "index": 3,
+    "name": "docs-model-index/acquire-the-selected-session-03",
+    "pause_ms": 400,
+    "text": "The session tests prove concrete honest, absent, newer-slot, alternate-hash and alternate-network outcomes. Their permanent executable check obtains a successful session, performs two active reads, and requires expiry and closed-state refusal. These checks exercise the abstract session value rather than a ledger read service."
+   }
+  ],
+  "assess-the-evidence": [
+   {
+    "index": 0,
+    "name": "docs-model-index/assess-the-evidence-00",
+    "pause_ms": 400,
+    "text": "check-model builds every model module, inventories every stored theorem including private proofs, and reports its axiom dependencies. It permits only Lean's standard propext, Classical.choice and Quot.sound; holes and custom escape axioms fail. Lean checks anonymous examples during compilation but does not retain them in the declaration inventory: strict compiler warnings and a source hole policy reject their holes. Deliberate named and anonymous sorry, admit and unused custom-axiom controls must reach the relevant rejection, rather than fail because a tool or import is missing."
+   },
+   {
+    "index": 1,
+    "name": "docs-model-index/assess-the-evidence-01",
+    "pause_ms": 400,
+    "text": "The gate executes all three root scenarios and all three session scenarios, runs the permanent lifecycle check, and compiles both counterexample modules. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage."
+   },
+   {
+    "index": 2,
+    "name": "docs-model-index/assess-the-evidence-02",
+    "pause_ms": 400,
+    "text": "The session control copies the actual production acquisition definition into an isolated build directory, removes only its point-equality guard, then recompiles the session counterexample module and session simulator against that mutated module. The existing unchanged root dependencies are copied as compiled inputs; this control does not rebuild the full dependent closure. The compiled mutant executes newer-point acceptance and constructively refutes the unchanged NoSubstitution proposition. The exact unchanged acquire_no_substitution proof then fails at its point-equality conclusion, and the real newer-point simulator rejects the changed outcome. The general refutation helper applies to any operation with that acceptance witness, rather than only a separate fake acquisition copy."
+   },
+   {
+    "index": 3,
+    "name": "docs-model-index/assess-the-evidence-03",
+    "pause_ms": 400,
+    "text": "Run ./lean/env lake env lean Lockness/Tests/Session.lean or ./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean for session checks and the generic refutation. Run ./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean to inspect the constructive counterexample independently. Record git rev-parse HEAD alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed."
+   },
+   {
+    "index": 4,
+    "name": "docs-model-index/assess-the-evidence-04",
+    "pause_ms": 400,
+    "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Ledger witness checks, application proofs, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work."
+   },
+   {
+    "index": 5,
+    "name": "docs-model-index/assess-the-evidence-05",
+    "pause_ms": 400,
+    "text": "Continue to design decisions and remaining guarantees and the project architecture."
+   }
+  ],
+  "follow-the-acceptance-boundary": [
+   {
+    "index": 0,
+    "name": "docs-model-index/follow-the-acceptance-boundary-00",
+    "pause_ms": 400,
+    "text": "The terminal supplies its policy and selected point. For each proposed root, acceptRoot finds publications at the exact network, slot and block hash, with that root's exact scheme and bytes. It passes the original publication, including unchanged signature and message sequences, to an arbitrary Boolean observation supplied by the policy. It deduplicates keys, keeps trusted members, and accepts the first root whose nonempty distinct endorsement satisfies the supplied agreement. Untrusted publications cannot manufacture agreement or prevent qualifying trusted publications from being considered."
+   },
+   {
+    "index": 1,
+    "name": "docs-model-index/follow-the-acceptance-boundary-01",
+    "pause_ms": 400,
+    "text": "The acceptance definition returns noRoot selectedPoint when no proposal qualifies. The shared refusal type has exactly three constructors: noRoot, unavailablePoint and evidenceFailure, each carrying the selected point. Root acceptance only emits noRoot; session acquisition emits unavailablePoint. Evidence verification remains later behavior."
+   }
+  ],
+  "inspect-root-acceptance-and-sessions": [
+   {
+    "index": 0,
+    "name": "docs-model-index/inspect-root-acceptance-and-sessions-00",
+    "pause_ms": 400,
+    "text": "As a design reviewer, run a terminal's root choice against trusted and untrusted publications. An honest scenario returns the accepted root and selected chainpoint. A publication from an untrusted key returns no-root at that same point, even when signature validity is assumed. Removing the trusted-set check demonstrates why that refusal matters."
+   },
+   {
+    "index": 1,
+    "name": "docs-model-index/inspect-root-acceptance-and-sessions-01",
+    "pause_ms": 400,
+    "text": "A terminal also acquires exactly its selected point, repeats reads from that session, and receives the original-point refusal when the provider is absent, offers another point, or the session expires."
+   },
+   {
+    "index": 2,
+    "name": "docs-model-index/inspect-root-acceptance-and-sessions-02",
+    "pause_ms": 400,
+    "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Source links below follow the session feature branch so the new modules are available to pull-request reviewers before merge. Record that branch head when assessing the model."
+   }
+  ],
+  "read-the-model-contracts": [
+   {
+    "index": 0,
+    "name": "docs-model-index/read-the-model-contracts-00",
+    "pause_ms": 400,
+    "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm."
+   },
+   {
+    "index": 1,
+    "name": "docs-model-index/read-the-model-contracts-01",
+    "pause_ms": 400,
+    "text": "SigValid publication is an uncomputed proposition supplied by an implicit, arbitrary SignatureModel. The project defines no global instance fixing validity. ObservationSound policy explicitly assumes that a true observation implies this predicate. Neither an observation nor the model simulator implements signature verification. Signature encodings, key rotation and cryptographic correctness remain external contracts."
+   },
+   {
+    "index": 2,
+    "name": "docs-model-index/read-the-model-contracts-02",
+    "pause_ms": 400,
+    "text": "The general proofs state their guarantees over arbitrary policies, publications and selected points:"
+   },
+   {
+    "index": 3,
+    "name": "docs-model-index/read-the-model-contracts-03",
+    "pause_ms": 400,
+    "text": "The counterexamples give an inhabited abstract validity hypothesis for an untrusted publication, prove its refusal, constructively refute safety after removing trusted-set checking, and show that endorsement alone does not establish an honest ledger root."
+   }
+  ],
+  "run-the-scenarios": [
+   {
+    "index": 0,
+    "name": "docs-model-index/run-the-scenarios-00",
+    "pause_ms": 400,
+    "text": "From the repository root, with Nix flakes enabled:"
+   },
+   {
+    "index": 1,
+    "name": "docs-model-index/run-the-scenarios-01",
+    "pause_ms": 400,
+    "text": "lean/env enters the lean/ directory with revision-pinned Lean 4.29.0 and its C compiler, and rejects a different Lean version. For an interactive pinned environment, run ./lean/env bash; there the commands are lake build and lake exe lockness-sim accept-root <scenario>. The toolchain file also supports standard Elan workflows. The library uses core and Std, with no mathlib or external Lake packages."
+   },
+   {
+    "index": 2,
+    "name": "docs-model-index/run-the-scenarios-02",
+    "pause_ms": 400,
+    "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root or session scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation."
+   }
+  ]
+ },
+ "docs/projects.md": {
+  "application-consumers": [
+   {
+    "index": 0,
+    "name": "docs-projects/application-consumers-00",
+    "pause_ms": 400,
+    "text": "Follow the asset and NFT concepts into the proof-composition sequence. MPFS’s linked verifier consumes backend facts; replay from transaction CBOR still needs a deterministic application interpreter and complete reconstruction inputs. The proposed history-retrieval integration still needs the complete journey; these links do not claim it is delivered."
+   }
+  ],
+  "assess-the-evidence": [
+   {
+    "index": 0,
+    "name": "docs-projects/assess-the-evidence-00",
+    "pause_ms": 400,
+    "text": "The decision record distinguishes existing MPFS verification and CSMT work from unresolved Lockness guarantees. The roadmap describes the next evidence needed. The trust and availability model explains which commitments applications would purchase."
+   }
+  ],
+  "csmt-utxo-the-existing-engine": [
+   {
+    "index": 0,
+    "name": "docs-projects/csmt-utxo-the-existing-engine-00",
+    "pause_ms": 400,
+    "text": "Cardano UTxO CSMT already follows the chain, maintains a compact sparse Merkle tree over the live UTxO set, computes roots and serves inclusion proofs. Its current-tip commitment machinery is a reuse candidate for anchors. The ledger-provider role is a substantially larger indexing and storage service that can reuse that machinery, rather than an HTTP extension alone."
+   },
+   {
+    "index": 1,
+    "name": "docs-projects/csmt-utxo-the-existing-engine-01",
+    "pause_ms": 400,
+    "text": "At revision f513705, the documented API serves inclusion proofs, historical roots and address lookup; the storage schema stores UTxOs, tree nodes and rollback operations, not a transaction-history archive."
+   },
+   {
+    "index": 2,
+    "name": "docs-projects/csmt-utxo-the-existing-engine-02",
+    "pause_ms": 400,
+    "text": "Whether this is delivered by extending the existing service or composing its libraries in a new indexer remains an implementation decision. Historical roots alone do not provide historical query views."
+   },
+   {
+    "index": 3,
+    "name": "docs-projects/csmt-utxo-the-existing-engine-03",
+    "pause_ms": 400,
+    "text": "Use its architecture, database schema, getting started guide and API reference to explore what exists."
+   },
+   {
+    "index": 4,
+    "name": "docs-projects/csmt-utxo-the-existing-engine-04",
+    "pause_ms": 400,
+    "text": "Its benchmark code covers CSMT insertion, storage and deserialization paths. Start cost assessment there and at its runtime metrics. Benchmark definitions are not a measured Lockness deployment budget: distinguish full commitment maintenance from KV-only baselines, include the node's cost, and measure the additional archive, retained-view and serving workload separately. See the measurement roadmap."
+   },
+   {
+    "index": 5,
+    "name": "docs-projects/csmt-utxo-the-existing-engine-05",
+    "pause_ms": 400,
+    "text": "The existing internal-index epic and HTTP epic need reconciliation with Lockness contracts. They describe the earlier architecture. Reconciliation is a tracked assignment prerequisite; the CSMT lane remains paused, and this documentation review does not change those tickets."
+   }
+  ],
+  "projects-and-existing-evidence": [
+   {
+    "index": 0,
+    "name": "docs-projects/projects-and-existing-evidence-00",
+    "pause_ms": 400,
+    "text": "As an integrator, move from a Lockness role to the existing project, documentation and evidence behind it. Lockness defines the cross-project contracts; these repositories own implementations."
+   }
+  ]
+ },
+ "docs/roadmap.md": {
+  "assign-implementation-work": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/assign-implementation-work-00",
+    "pause_ms": 400,
+    "text": "Reconcile the internal-index epic and HTTP epic with the agreed contracts and acceptance specification. These are the canonical references to the earlier CSMT work, including their linked milestones. Updating this roadmap does not change their status."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/assign-implementation-work-01",
+    "pause_ms": 400,
+    "text": "Assign an owning implementation repository and deliverables for each role, including an explicitly scoped ledger archive/view prototype for measurement. The prototype needs working retention, reference retrieval and session operations. Treat it as experimental evidence, not a production service; decide whether to retain or replace it after measurement."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/assign-implementation-work-02",
+    "pause_ms": 400,
+    "text": "Exit evidence: assigned repositories and issues for component delivery and the prototype, traceable to the acceptance cases. Existing CSMT epics are explicitly reconciled before implementation starts."
+   }
+  ],
+  "define-the-acceptance-journey": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/define-the-acceptance-journey-00",
+    "pause_ms": 400,
+    "text": "Specify this journey before assigning implementation. Use one NFT, a selected chainpoint and independently configured test anchor keys. A lightweight Web2 terminal must apply its purpose and risk policy, authenticate the NFT output, obtain complete reconstruction inputs, match the reconstructed application root and verify the required application claims. Exercise both a read-only off-chain use and transaction construction; off-chain adoption must not require submitting a transaction. Include a nested application root with every link checked."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/define-the-acceptance-journey-01",
+    "pause_ms": 400,
+    "text": "The first run uses two separately operated instances of one ledger-provider implementation. This tests provider-local sessions, switching, equivalent claims and refusals. It does not establish interoperability between independent implementations. That later claim requires a second implementation passing the same claim and encoding contract."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/define-the-acceptance-journey-02",
+    "pause_ms": 400,
+    "text": "Define cases for chain advance, unavailable views, expired sessions, missing history, altered data, wrong roots, wrong NFT identity and provider root substitution. Define an effect case in which a verified chainpoint is abandoned before its settlement condition is met: the terminal must defer or refuse the effect. A verified fact alone must never bypass that policy. Residual rollback after an effect was authorized remains a risk governed by the declared settlement assumptions and application recovery policy."
+   },
+   {
+    "index": 3,
+    "name": "docs-roadmap/define-the-acceptance-journey-03",
+    "pause_ms": 400,
+    "text": "Exit evidence: a runnable acceptance specification with expected outcomes and required observations, including own-anchor and test institutional policies. This definition does not claim a completed run."
+   }
+  ],
+  "delivery-dependencies": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/delivery-dependencies-00",
+    "pause_ms": 400,
+    "text": "Define the contracts and acceptance journey first, assign the components and measurement prototypes needed to satisfy them, then run the journey against those implementations. The journey is the acceptance gate for delivery."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/delivery-dependencies-01",
+    "pause_ms": 400,
+    "text": "The three contract workstreams can proceed together. Their specifications, executable Lean model, proofs and simulation belong in this repository; component code belongs in the implementation repositories selected at assignment. The existing engine can supply an early anchor baseline. Ledger-provider measurements require a new archive and retained-view prototype."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/delivery-dependencies-02",
+    "pause_ms": 400,
+    "text": "Availability defines what to measure. Measured costs then constrain advertised retention, lease and capacity limits; concrete commercial offers follow those results."
+   }
+  ],
+  "delivery-roadmap": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/delivery-roadmap-00",
+    "pause_ms": 400,
+    "text": "As a project maintainer, build shared chain-following capabilities and demonstrate one complete application journey before widening the service surface."
+   }
+  ],
+  "delivery-status": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/delivery-status-00",
+    "pause_ms": 400,
+    "text": "Lockness-specific implementation has not started. Existing CSMT-UTXO and MPFS code provides the starting evidence. No product release pipeline is defined until a releasable artifact and its owning repository are selected."
+   }
+  ],
+  "measure-the-ledger-engine": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/measure-the-ledger-engine-00",
+    "pause_ms": 400,
+    "text": "Produce two distinct bodies of evidence. Existing-engine baseline: benchmark CSMT-UTXO ingestion, current commitment maintenance and storage growth, including the node's costs. Existing insertion and deserialization benchmarks are starting points; KV-only baselines must remain distinguishable from commitment maintenance."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/measure-the-ledger-engine-01",
+    "pause_ms": 400,
+    "text": "Ledger-provider prototype and benchmark: first implement the assigned archive and retained-view prototype under the chosen coverage contract. Demonstrate reconstruction-input sufficiency, then measure history/reference retrieval, chainpoint acquisition, concurrent sessions, query/proof latency, storage growth and recovery behavior. These are new prototype capabilities, not existing-engine benchmark switches."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/measure-the-ledger-engine-02",
+    "pause_ms": 400,
+    "text": "Exit evidence: working prototype source and reproducible measurements bound to revision, hardware, network or replay input, initial state size, coverage and query load. Use results to select the production storage mechanism and numerical retention, lease and capacity limits. Recheck model assumptions if the proposed limits change behavior. Cost results alone do not establish a completed anchor publication service or negligible anchor costs."
+   }
+  ],
+  "pass-the-acceptance-journey": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/pass-the-acceptance-journey-00",
+    "pause_ms": 400,
+    "text": "Run the previously defined journey once the assigned anchor, ledger-provider, application and terminal implementations exist. Switch between the two provider instances at the same network and chainpoint, acquiring new provider-local sessions without changing root policy. Check equivalent claims; proof bytes need not be identical."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/pass-the-acceptance-journey-01",
+    "pause_ms": 400,
+    "text": "Exercise every refusal and substitution case, the nested-root case, and the abandoned-chainpoint effect case. Repeat with locally established roots and a test institutional policy; identify test anchors as such. Bind observations to component revisions and distinguish simulated effect authorization from an actual external action."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/pass-the-acceptance-journey-02",
+    "pause_ms": 400,
+    "text": "Exit evidence: the terminal accepts valid claims and rejects invalid evidence, refuses missing coverage and incompatible views, and defers or refuses the effect when settlement fails. Report locally verified transaction construction separately from actual Cardano validation. Successful switching closes the two-instance target; independent-implementation interoperability remains a later acceptance target."
+   }
+  ],
+  "settle-the-chainpoint-contract": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/settle-the-chainpoint-contract-00",
+    "pause_ms": 400,
+    "text": "Create a small executable Lean model, review its statements, and use proofs and a playable simulation to expose conflicting guarantees. Model discovery, acquisition, reads, expiry, eviction and abandoned branches. Cryptography remains an explicit assumption, outside the session model's proof claim."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/settle-the-chainpoint-contract-01",
+    "pause_ms": 400,
+    "text": "Separate behavior from limits. The model specifies refusal, lease obligations, bounded retention and no silent chainpoint substitution for declared parameters. Measurement selects viable window sizes, lease durations and concurrency limits; a model cannot determine operating capacity."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/settle-the-chainpoint-contract-02",
+    "pause_ms": 400,
+    "text": "Exit evidence: reviewed statements and counterexamples showing the promised behavior, including discovery/acquisition races, rollback and expired views. Sessions bind the coverage contract from the roots workstream to one network and chainpoint."
+   }
+  ],
+  "specify-roots-reconstruction-and-settlement": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/specify-roots-reconstruction-and-settlement-00",
+    "pause_ms": 400,
+    "text": "The roots workstream owns the claim inventory: ledger and application root scopes, exact encodings, NFT unique-state assumptions and nested-root interpretation. It also owns the application-reconstruction requirement that determines history coverage. Select full-chain or generic filtered coverage, with starting chainpoint, backfill and the required reference dependencies, before sizing the archive. The sessions workstream makes that coverage available coherently; it does not silently decide what history an application needs."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/specify-roots-reconstruction-and-settlement-01",
+    "pause_ms": 400,
+    "text": "Specify per-block publication, branch correction and how a terminal recognizes that a previously accepted chainpoint was abandoned. Define the evidence needed to establish continued ancestry and an explicit settlement condition for irreversible effects. Several anchors agreeing at one point does not supply settlement."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/specify-roots-reconstruction-and-settlement-02",
+    "pause_ms": 400,
+    "text": "Exit evidence: a reviewed claim and coverage contract, application replay cases covering all required inputs, and explicit acceptance, deferral and refusal rules for root publication and effects. Archive sufficiency must subsequently be demonstrated by replay in the prototype and complete journey."
+   }
+  ],
+  "specify-the-trust-and-availability-offers": [
+   {
+    "index": 0,
+    "name": "docs-roadmap/specify-the-trust-and-availability-offers-00",
+    "pause_ms": 400,
+    "text": "Describe own-anchor operation for maximum trust independence and chosen institutional publications for low local infrastructure under explicit institutional trust. Root acceptance and purchased data delivery remain separate. The evidence record owns current participation and implementation claims."
+   },
+   {
+    "index": 1,
+    "name": "docs-roadmap/specify-the-trust-and-availability-offers-01",
+    "pause_ms": 400,
+    "text": "Turn the availability dimensions into observable contracts: compatible evidence, provider-local sessions, discoverable views, missing coverage and switching without changing anchor policy. Discovery of a usable view is required; marketplace discovery, billing and remedies are integration choices. No on-chain marketplace is needed."
+   },
+   {
+    "index": 2,
+    "name": "docs-roadmap/specify-the-trust-and-availability-offers-02",
+    "pause_ms": 400,
+    "text": "Exit evidence: root-acceptance and data-delivery contracts for both trust choices, with both ledger providers and application services explicitly untrusted for correctness. Define measurement methods now; set numerical service offers from the prototype results."
+   }
+  ]
+ },
+ "docs/stories/index.md": {
+  "act-on-verified-facts": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/act-on-verified-facts-00",
+    "pause_ms": 400,
+    "text": "A terminal consumes roots, proofs and data, verifies the claims needed for its application and uses them to build a transaction or drive an external effect. For transaction construction, application proofs become redeemer data; ledger witnesses remain off-chain. Cardano and the application validators enforce the submitted transaction against actual ledger and application state. The terminal owns the policy that authorizes that action. An irreversible effect must wait for its settlement condition; an abandoned point or missing settlement evidence must cause refusal or deferral. Verification at a chainpoint alone does not promise the external action will succeed or remain appropriate indefinitely."
+   }
+  ],
+  "add-an-application-without-another-chain-follower": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/add-an-application-without-another-chain-follower-00",
+    "pause_ms": 400,
+    "text": "An application builder retrieves transactions and required historical inputs, interprets its protocol and reconstructs a tree. The terminal checks the result against the application root in the authenticated state output. Missing reconstruction data remains an explicit failure; a matching final state root is not proof of every historical event."
+   }
+  ],
+  "build-a-lightweight-web2-terminal": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/build-a-lightweight-web2-terminal-00",
+    "pause_ms": 400,
+    "text": "An application developer adds cryptographic verification to an ordinary Web2 application. The terminal sets its trust and action policy according to the application's purpose and risk, selects an available chainpoint, and retrieves untrusted asset data and proofs alongside signed roots from chosen anchors. Once it validates the required claims, the user can build a blockchain transaction or use the verified data off-chain."
+   },
+   {
+    "index": 1,
+    "name": "docs-stories-index/build-a-lightweight-web2-terminal-01",
+    "pause_ms": 400,
+    "text": "A read-only terminal can display verified asset state or feed a report without constructing a transaction. Missing roots, wrong chainpoints or failed proofs must not be presented as verified data. A transaction-building terminal checks the assets before construction; any irreversible external effect also waits for its required settlement and authorization conditions. Both use the same verification boundary without adding a per-application chain follower."
+   }
+  ],
+  "buy-availability-and-switch-providers": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/buy-availability-and-switch-providers-00",
+    "pause_ms": 400,
+    "text": "An application operator buys defined coverage, retention, session leases, throughput, latency and uptime. A provider reports missing coverage, expiry or overload explicitly. The commercial commitment makes delivery observable; it does not change the terminal's verification requirements."
+   },
+   {
+    "index": 1,
+    "name": "docs-stories-index/buy-availability-and-switch-providers-01",
+    "pause_ms": 400,
+    "text": "The terminal can acquire a session from another compatible provider at the same accepted chainpoint and verify the same claims without changing anchor policy. Session tokens are provider-local. If the replacement cannot serve that view, fallback reports unavailability instead of silently weakening the claim or selecting a newer chainpoint. Interoperability, refusal and switching are acceptance targets for market-driven scaling."
+   }
+  ],
+  "delegate-proof-construction": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/delegate-proof-construction-00",
+    "pause_ms": 400,
+    "text": "A terminal requests an application proof from a service and verifies it locally. It can instead construct the proof itself from checked state. Neither route changes which root is authoritative."
+   },
+   {
+    "index": 1,
+    "name": "docs-stories-index/delegate-proof-construction-01",
+    "pause_ms": 400,
+    "text": "The application service is untrusted for correctness. Replacing the application root, proving a different NFT or application claim, returning an invalid proof, or omitting required evidence must not produce an accepted result. A verified parent datum or tree value may introduce another root; the terminal verifies every subsequent application proof in that chain before consuming its claim."
+   }
+  ],
+  "evidence-status": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/evidence-status-00",
+    "pause_ms": 400,
+    "text": "All stories are proposed acceptance targets. No Lockness formal model, simulation, production conformance result or end-to-end delivery is claimed yet."
+   }
+  ],
+  "keep-dependent-reads-coherent": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/keep-dependent-reads-coherent-00",
+    "pause_ms": 400,
+    "text": "A terminal reads several assets and pages through their outputs under one session. New blocks do not change the selected view. Unavailable or expired chainpoints produce explicit refusals. Fork handling is an open ruling rather than an assumed success path."
+   }
+  ],
+  "observe-institutional-publications": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/observe-institutional-publications-00",
+    "pause_ms": 400,
+    "text": "An operator seeking low local infrastructure cost selects institutional anchors under an explicit trust policy. Its terminals verify signed publications and use the accepted roots to check provider answers. Unknown keys, wrong networks, incompatible schemes and publications that fail the chosen freshness policy must not become accepted roots. The anchor policy defines the acceptance requirements."
+   }
+  ],
+  "project-stories": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/project-stories-00",
+    "pause_ms": 400,
+    "text": "As a reader, judge Lockness by the operations it enables and the failures it exposes before judging an implementation choice."
+   }
+  ],
+  "publish-trust-without-serving-queries": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/publish-trust-without-serving-queries-00",
+    "pause_ms": 400,
+    "text": "An anchor follows a trusted ledger feed, computes commitments and signs each block's publication. It need not retain historical query views. The terminal selects trusted keys under its anchor policy."
+   }
+  ],
+  "run-an-anchor-and-buy-ledger-capacity": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/run-an-anchor-and-buy-ledger-capacity-00",
+    "pause_ms": 400,
+    "text": "An operator seeking maximum trust independence runs a node and anchor that compute the roots its terminals accept. It buys archive access, retained chainpoint views and proof generation from a provider without operating its own ledger service. The terminal rejects provider data that fails verification against the locally established root. Anchor validation and commitment maintenance remain the operator's responsibility."
+   }
+  ],
+  "verify-before-using-ledger-facts": [
+   {
+    "index": 0,
+    "name": "docs-stories-index/verify-before-using-ledger-facts-00",
+    "pause_ms": 400,
+    "text": "A terminal accepts a commitment under its own anchor policy, selects its chainpoint and verifies an NFT output before reading the application root from its datum. Altered output bytes, a wrong root, wrong asset identity or wrong network must not become accepted facts. Membership must not substitute for the application’s unique-state invariant. The exact validation contract still needs a model and executable evidence."
+   },
+   {
+    "index": 1,
+    "name": "docs-stories-index/verify-before-using-ledger-facts-01",
+    "pause_ms": 400,
+    "text": "Changing the data provider must not change the accepted claim when the commitment and evidence agree. A provider's self-selected root must not substitute for the terminal's independently accepted anchor. A membership proof must not be accepted as evidence that a result set is complete. These are acceptance targets for the core value: terminals consume anchored data while retaining control over trust."
+   }
+  ]
+ }
+}

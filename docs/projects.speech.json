@@ -1,24 +1,66 @@
 {
-  "_source": {
-    "file": "docs/projects.md",
-    "sha256": "73f139e65c56e879cba97cc206e4f1bb8da8ab057438b21cbc6a6ab6d796cea1"
-  },
+  "projects-and-existing-evidence": [
+    {
+      "text": "Projects and existing evidence.",
+      "pause": 500
+    },
+    {
+      "text": "As an integrator, move from a Lockness role to the existing project, documentation and evidence behind it. Lockness defines the cross-project contracts; these repositories own implementations.",
+      "pause": 400
+    }
+  ],
   "csmt-utxo-the-existing-engine": [
     {
-      "text": "The linked CSMT-UTXO revision already follows the chain, maintains current UTxO commitments and serves inclusion proofs, historical roots and address lookup. Its documented schema has no transaction archive. The table separates reusable machinery from additional anchor publication work and ledger-provider indexes, archive, retained views, leases and refusals. The packaging choice remains open. Measure the workloads separately; the old CSMT lane stays paused.",
+      "text": "CSMT-UTXO: the existing engine.",
+      "pause": 500
+    },
+    {
+      "text": "Cardano UTxO CSMT already follows the chain, maintains a compact sparse Merkle tree over the live UTxO set, computes roots and serves inclusion proofs. Its current-tip commitment machinery is a reuse candidate for anchors. The ledger-provider role is a substantially larger indexing and storage service that can reuse that machinery, rather than an HTTP extension alone.",
+      "pause": 400
+    },
+    {
+      "text": "At revision f513705, the documented API serves inclusion proofs, historical roots and address lookup; the storage schema stores UTxOs, tree nodes and rollback operations, not a transaction-history archive.",
+      "pause": 400
+    },
+    {
+      "text": "Whether this is delivered by extending the existing service or composing its libraries in a new indexer remains an implementation decision. Historical roots alone do not provide historical query views.",
+      "pause": 400
+    },
+    {
+      "text": "Use its architecture, database schema, getting started guide and API reference to explore what exists.",
+      "pause": 400
+    },
+    {
+      "text": "Its benchmark code covers CSMT insertion, storage and deserialization paths. Start cost assessment there and at its runtime metrics. Benchmark definitions are not a measured Lockness deployment budget: distinguish full commitment maintenance from KV-only baselines, include the node's cost, and measure the additional archive, retained-view and serving workload separately. See the measurement roadmap.",
+      "pause": 400
+    },
+    {
+      "text": "The existing internal-index epic and HTTP epic need reconciliation with Lockness contracts. They describe the earlier architecture. Reconciliation is a tracked assignment prerequisite; the CSMT lane remains paused, and this documentation review does not change those tickets.",
       "pause": 400
     }
   ],
   "application-consumers": [
     {
-      "text": "MPFS and Singular remain application consumers. The existing MPFS verifier consumes backend facts. Replay from transaction CBOR needs a deterministic interpreter and complete dependencies. The linked acceptance run will test that proposed integration after implementation.",
+      "text": "Application consumers.",
+      "pause": 500
+    },
+    {
+      "text": "Follow the asset and NFT concepts into the proof-composition sequence. MPFS’s linked verifier consumes backend facts; replay from transaction CBOR still needs a deterministic application interpreter and complete reconstruction inputs. The proposed history-retrieval integration still needs the complete journey; these links do not claim it is delivered.",
       "pause": 400
     }
   ],
   "assess-the-evidence": [
     {
-      "text": "Use the decision record for evidence boundaries, the roadmap for next demonstrations and the availability page for service commitments.",
+      "text": "Assess the evidence.",
+      "pause": 500
+    },
+    {
+      "text": "The decision record distinguishes existing MPFS verification and CSMT work from unresolved Lockness guarantees. The roadmap describes the next evidence needed. The trust and availability model explains which commitments applications would purchase.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "projects.md",
+    "sha256": "73f139e65c56e879cba97cc206e4f1bb8da8ab057438b21cbc6a6ab6d796cea1"
+  }
 }
