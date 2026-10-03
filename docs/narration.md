@@ -1,12 +1,15 @@
-# Choose a narration voice
+# Compare narration — ElevenLabs
 
-**Selected voice: Matilda.** Compare her with the other recordings below. These are AI-generated recordings from ElevenLabs. Each player has pause and seeking controls; starting another voice pauses the previous one.
+**Selected voice: Matilda.** Compare the two Matilda recordings to choose a model for the Singular, cardano-keri and Lockness documentation. Both read the same passage with the same voice settings. These are AI-generated recordings from ElevenLabs. Each player has pause and seeking controls; starting another voice pauses the previous one.
 
 <div class="voice-audition">
 <p><label for="audition-speed">Listening speed</label> <select id="audition-speed"><option value="0.85">0.85×</option><option value="1" selected>1×</option><option value="1.15">1.15×</option><option value="1.3">1.3×</option></select></p>
 
-<p id="matilda"><strong>Matilda</strong> · selected<br>American · professional, lower-pitched delivery</p>
-<audio controls preload="metadata" aria-label="Listen to Matilda" src="../audio/audition/matilda.mp3?v=0998450c9cf499ce"></audio>
+<p id="matilda"><strong>Matilda · Multilingual v2</strong> · current selection<br>American · original recording</p>
+<audio controls preload="metadata" aria-label="Listen to Matilda with Multilingual v2" src="../audio/audition/matilda.mp3?v=0998450c9cf499ce"></audio>
+
+<p id="matilda-flash"><strong>Matilda · Flash v2.5</strong> · compare<br>Same voice and passage · half the standard generation cost</p>
+<audio controls preload="metadata" aria-label="Listen to Matilda with Flash v2.5" src="../audio/audition/matilda-flash.mp3?v=71194e33c6f31490"></audio>
 
 <p id="lily"><strong>Lily</strong> · new<br>British · warm, velvety narration</p>
 <audio controls preload="metadata" aria-label="Listen to Lily" src="../audio/audition/lily.mp3?v=869c6afced5e8163"></audio>

@@ -20,7 +20,8 @@
       "file": "george.mp3",
       "sha256": "5ca6a6231b027ea87d146d447f38df707e83348bbcf093a2a7fad2277f08513d",
       "bytes": 662927,
-      "characters_charged": "666"
+      "characters_charged": "666",
+      "model": "eleven_multilingual_v2"
     },
     {
       "name": "Alice",
@@ -29,7 +30,8 @@
       "file": "alice.mp3",
       "sha256": "b184e132c0addab7e1cb2811529746a0333978aa9043f6b92908377f6329fda1",
       "bytes": 751534,
-      "characters_charged": "666"
+      "characters_charged": "666",
+      "model": "eleven_multilingual_v2"
     },
     {
       "name": "Bella",
@@ -38,7 +40,8 @@
       "file": "bella.mp3",
       "sha256": "4d39ddefee1537b9689f6d59fc017f9e3d767d1823a1e2cebdef6da32c7c55fe",
       "bytes": 689258,
-      "characters_charged": "666"
+      "characters_charged": "666",
+      "model": "eleven_multilingual_v2"
     },
     {
       "name": "Lily",
@@ -48,7 +51,8 @@
       "file": "lily.mp3",
       "sha256": "869c6afced5e81638c881bfc5273abbfb3fcecdec1e75bad2044607be4819186",
       "bytes": 743175,
-      "characters_charged": "666"
+      "characters_charged": "666",
+      "model": "eleven_multilingual_v2"
     },
     {
       "name": "Sarah",
@@ -58,7 +62,8 @@
       "file": "sarah.mp3",
       "sha256": "d5bbf138c79b9d6320df2c556b9b9094756b53ce0d1048e38cd954e3a9aa2f18",
       "bytes": 667524,
-      "characters_charged": "666"
+      "characters_charged": "666",
+      "model": "eleven_multilingual_v2"
     },
     {
       "name": "Matilda",
@@ -68,7 +73,19 @@
       "file": "matilda.mp3",
       "sha256": "0998450c9cf499ce651072b4ca56a84f62a2c3da69f49eb71a0c9dbe0ea575e9",
       "bytes": 704723,
-      "characters_charged": "666"
+      "characters_charged": "666",
+      "model": "eleven_multilingual_v2"
+    },
+    {
+      "name": "Matilda — Flash v2.5",
+      "generated_at": "2026-10-03T14:37:07.095Z",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "accent": "american",
+      "model": "eleven_flash_v2_5",
+      "file": "matilda-flash.mp3",
+      "sha256": "71194e33c6f31490c3e599bb2c733fc2717abba0814a66fe0c8751729a13869a",
+      "bytes": 669614,
+      "characters_charged": "333"
     }
   ],
   "selected_voice": "Matilda"
