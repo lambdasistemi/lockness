@@ -14,6 +14,7 @@ nav:
       - Lockness: index.md
       - Trust and availability: design/trust-and-availability.md
       - User stories: stories/index.md
+      - Try narration voices: narration.md
   - Understand the design:
       - Concepts: concepts.md
       - Architecture and proofs: architecture/system.md
@@ -33,10 +34,11 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra_javascript:
+  - javascripts/audition.js?v=548b29bad7312882
   - https://cdn.jsdelivr.net/gh/paolino/dev-assets@0328b73b71788bb83848fe407dd04136a52c3697/mkdocs/docs/js/read-aloud.js
 extra_css:
   - stylesheets/diagrams.css?v=4c4641ddc677305b
-  - stylesheets/terminal.css
+  - stylesheets/terminal.css?v=f29bc5de520d63ab
 validation:
   links:
     anchors: warn

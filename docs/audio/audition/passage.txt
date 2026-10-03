@@ -1,0 +1,5 @@
+A terminal is a lightweight web application with cryptographic capabilities. It chooses a chainpoint, retrieves data from a provider, and checks the evidence against a root from an anchor it accepts.
+
+The provider supplies the data, but does not decide what the terminal should trust. A ledger proof can authenticate an output that contains an application root. The terminal can then use that root to verify an application proof.
+
+Once the checks pass, the user can build a blockchain transaction, or use the verified information off-chain. Running your own anchor gives you independence over trust, while data providers compete on availability, capacity, and price.

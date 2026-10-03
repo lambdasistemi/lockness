@@ -1,0 +1,44 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_multilingual_v2",
+  "format": "mp3_44100_128",
+  "text": "A terminal is a lightweight web application with cryptographic capabilities. It chooses a chainpoint, retrieves data from a provider, and checks the evidence against a root from an anchor it accepts.\n\nThe provider supplies the data, but does not decide what the terminal should trust. A ledger proof can authenticate an output that contains an application root. The terminal can then use that root to verify an application proof.\n\nOnce the checks pass, the user can build a blockchain transaction, or use the verified information off-chain. Running your own anchor gives you independence over trust, while data providers compete on availability, capacity, and price.",
+  "text_sha256": "3efba572a3ecfe6f2334aa89676a983f724af9cd23952bdee9c32e3c13b5c41e",
+  "voice_settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.75,
+    "style": 0,
+    "use_speaker_boost": true,
+    "speed": 0.95
+  },
+  "generated_at": "2026-10-03T13:11:55.198Z",
+  "samples": [
+    {
+      "name": "George",
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "accent": "british",
+      "file": "george.mp3",
+      "sha256": "5ca6a6231b027ea87d146d447f38df707e83348bbcf093a2a7fad2277f08513d",
+      "bytes": 662927,
+      "characters_charged": "666"
+    },
+    {
+      "name": "Alice",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "accent": "british",
+      "file": "alice.mp3",
+      "sha256": "b184e132c0addab7e1cb2811529746a0333978aa9043f6b92908377f6329fda1",
+      "bytes": 751534,
+      "characters_charged": "666"
+    },
+    {
+      "name": "Bella",
+      "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+      "accent": "american",
+      "file": "bella.mp3",
+      "sha256": "4d39ddefee1537b9689f6d59fc017f9e3d767d1823a1e2cebdef6da32c7c55fe",
+      "bytes": 689258,
+      "characters_charged": "666"
+    }
+  ]
+}
