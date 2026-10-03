@@ -9,9 +9,10 @@ The following direction was established in the project discussion on 3 October 2
 | Direction | Earlier alternative | Why it changed |
 | --- | --- | --- |
 | Work at project level in Lockness | Extend one repository's asset endpoint in isolation | Trust publication, retained views and client verification cross component boundaries. |
+| Terminals consume anchored data before acting | Accept the data provider's answer as authoritative | Verification connects the answer to an independently accepted root; data providers and proof builders remain replaceable. |
 | Publishers emit signed commitments for every block | Publishers choose and retain client query sessions | Publication and data-serving availability are independent responsibilities. |
-| Clients use a selected published checkpoint | Clients ask publishers to coordinate each query | Signed streams supply commitments independently of data retrieval. |
-| Checkpoint-bound proof-bearing API | Duplicate Koios response shapes as the governing contract | Query compatibility alone does not establish coherent multi-query reads. |
+| Clients use a selected published chainpoint | Clients ask publishers to coordinate each query | Signed streams supply commitments independently of data retrieval. |
+| Chainpoint-bound proof-bearing API | Duplicate Koios response shapes as the governing contract | Query compatibility alone does not establish coherent multi-query reads. |
 | Serve complete transaction CBOR as reconstruction material | Define a smaller application-neutral transaction projection now | Sufficiency is application dependent; preserving information precedes optimization. |
 | Optional application proof services | Either trust an application backend or do everything locally | Proof construction can be delegated and checked locally. |
 
@@ -44,7 +45,7 @@ The temporal distinction is an explicit project ruling:
 
 > "the ledger proofs are about on-chain validity (present), application proofs are about on-chain validation (future)"
 
-Here the present is the selected checkpoint. An application proof is intended for checking a proposed transition on-chain; its availability is not a promise of future transaction acceptance.
+Here the present is the selected chainpoint. An application proof is intended for checking a proposed transition on-chain; its availability is not a promise of future transaction acceptance.
 
 ## What remains unproved
 
@@ -53,12 +54,12 @@ Here the present is the selected checkpoint. An application proof is intended fo
 - Archive coverage and referenced-output retrieval must be sufficient for a real application's replay, not merely a selected transaction sample.
 - Publisher policy, key rotation, signed message encodings, freshness and rollback notices remain unspecified.
 - Active-session behavior on fork abandonment and bounded retention remain unresolved.
-- Application replay and proof checks need to bind NFT identity, exact datum, root and selected state without accepting a different application or checkpoint.
+- Application replay and proof checks need to bind NFT identity, exact datum, root and selected state without accepting a different application or chainpoint.
 
 ## Evidence available today
 
 [MPFS's facts verifier](https://github.com/lambdasistemi/cardano-mpfs-offchain/blob/0f82465f5f828c2ab987a166e9e24c2368228d01/cardano-mpfs-verify/lib/Cardano/MPFS/Client/Verify/Read.hs) already anchors a state output and checks the root reconstructed from returned facts. It is useful prior implementation, not evidence that the proposed transaction-retrieval architecture is delivered.
 
-The inspected [Koios asset query](https://github.com/cardano-community/koios-artifacts/blob/2e2eb57933e1e2528de5ca36ee961759841cf389/files/grest/rpc/assets/asset_utxos.sql) and [Blockfrost API](https://github.com/blockfrost/openapi/blob/05c6d61311f2d4d5c701d029ba702be86d36da69/openapi.json) do not expose the required shared chain-point session contract for the relevant UTxO queries. This is a finding about those published interfaces, not their internal database capabilities.
+The inspected [Koios asset query](https://github.com/cardano-community/koios-artifacts/blob/2e2eb57933e1e2528de5ca36ee961759841cf389/files/grest/rpc/assets/asset_utxos.sql) and [Blockfrost API](https://github.com/blockfrost/openapi/blob/05c6d61311f2d4d5c701d029ba702be86d36da69/openapi.json) do not expose the required shared chainpoint session contract for the relevant UTxO queries. This is a finding about those published interfaces, not their internal database capabilities.
 
 [CSMT root-signing work](https://github.com/lambdasistemi/cardano-utxo-csmt/pull/231) is related work. Its existence does not establish an accepted publisher-stream protocol.

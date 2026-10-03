@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "704e98bac8a483e8b0e7a91818e18e346d5a02eacbbdb8dda191c02da1b92ddf"
+    "sha256": "34ebf8706fee2cdcdcf4cb20f3bdb4fd23226d2ff70aa16e9c009f65835629a9"
   },
   "recorded-direction": [
     {
-      "text": "The decisions favor project-level contracts, roots for every block, checkpoint-bound queries, raw transaction reconstruction and optional application proof services. The diagram separates design direction, reviewed models and production implementation.",
+      "text": "The decisions favor project-level contracts, roots for every block, chainpoint-bound queries, raw transaction reconstruction and optional application proof services. The diagram separates design direction, reviewed models and production implementation.",
       "pause": 400
     }
   ],
@@ -25,7 +25,7 @@
       "pause": 400
     },
     {
-      "text": "Ledger proof values concern on-chain validity in the present, at the selected checkpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
+      "text": "Ledger proof values concern on-chain validity in the present, at the selected chainpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
       "pause": 400
     }
   ],
@@ -37,7 +37,7 @@
   ],
   "evidence-available-today": [
     {
-      "text": "MPFS already verifies reconstructed facts against an anchored state root. The inspected Koios and Blockfrost interfaces do not promise the required shared chain-point sessions. Related root-signing work is not evidence that the whole publication protocol exists.",
+      "text": "MPFS already verifies reconstructed facts against an anchored state root. The inspected Koios and Blockfrost interfaces do not promise the required shared chainpoint sessions. Related root-signing work is not evidence that the whole publication protocol exists.",
       "pause": 400
     }
   ]

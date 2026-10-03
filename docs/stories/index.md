@@ -4,11 +4,13 @@ As a reader, judge Lockness by the operations it enables and the failures it exp
 
 ## Verify before using ledger facts
 
-A client accepts a commitment under its own publisher policy, selects its chain point and verifies an NFT output before reading the application root from its datum. Altered output bytes, a wrong root, wrong asset identity or wrong network must not become accepted facts. The exact validation contract still needs a model and executable evidence.
+A client accepts a commitment under its own publisher policy, selects its chainpoint and verifies an NFT output before reading the application root from its datum. Altered output bytes, a wrong root, wrong asset identity or wrong network must not become accepted facts. The exact validation contract still needs a model and executable evidence.
+
+Changing the data provider must not change the accepted claim when the commitment and evidence agree. A provider's self-selected root must not substitute for the terminal's independently accepted anchor. A membership proof must not be accepted as evidence that a result set is complete. These are acceptance targets for the core value: terminals consume anchored data while retaining control over trust.
 
 ## Keep dependent reads coherent
 
-A client reads several assets and pages through their outputs under one session. New blocks do not change the selected view. Unavailable or expired checkpoints produce explicit refusals. Fork handling is an open ruling rather than an assumed success path.
+A client reads several assets and pages through their outputs under one session. New blocks do not change the selected view. Unavailable or expired chainpoints produce explicit refusals. Fork handling is an open ruling rather than an assumed success path.
 
 ## Add an application without another chain follower
 
@@ -24,7 +26,7 @@ A publisher follows a trusted ledger feed, computes commitments and signs each b
 
 ## Act on verified facts
 
-A terminal consumes roots, proofs and data, verifies the claims needed for its application and uses them to build a transaction or drive an external effect. For transaction construction, application proofs become redeemer data; ledger witnesses remain off-chain. Cardano and the application validators enforce the submitted transaction against actual ledger and application state. The terminal owns the policy that authorizes that action. Verification at a checkpoint alone does not promise the external action will succeed or remain appropriate indefinitely.
+A terminal consumes roots, proofs and data, verifies the claims needed for its application and uses them to build a transaction or drive an external effect. For transaction construction, application proofs become redeemer data; ledger witnesses remain off-chain. Cardano and the application validators enforce the submitted transaction against actual ledger and application state. The terminal owns the policy that authorizes that action. Verification at a chainpoint alone does not promise the external action will succeed or remain appropriate indefinitely.
 
 ## Evidence status
 

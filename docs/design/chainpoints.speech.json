@@ -1,0 +1,30 @@
+{
+  "_source": {
+    "file": "docs/design/chainpoints.md",
+    "sha256": "b2b65e99f6aad7766fad78cf6bddcfeaf4323d497aa3543db77c68622c6339f8"
+  },
+  "session-contract": [
+    {
+      "text": "Chainpoint follows the Cardano API type: genesis, or a slot number and block-header hash. Network is separate context. A view exposes state at a chainpoint; a session binds access to the network and retained view under a lease. Genesis session support and abandoned-branch behavior remain open decisions.",
+      "pause": 400
+    }
+  ],
+  "storage-separation": [
+    {
+      "text": "A session selects chainpoint index roots, which resolve references into immutable content. The same view produces witnesses. Payloads survive rollback, while index membership and branch status determine their ledger meaning. The physical mechanism still needs measurement.",
+      "pause": 400
+    }
+  ],
+  "decisions": [
+    {
+      "text": "Explicit chainpoint selection replaces mixing latest responses. Bounded views make availability commitments finite, and immutable content allows payloads to be shared across views.",
+      "pause": 400
+    }
+  ],
+  "open-questions": [
+    {
+      "text": "We must decide behavior on fork abandonment, lease bounds, atomic root capture, archive coverage and failure recovery before optimizing storage.",
+      "pause": 400
+    }
+  ]
+}

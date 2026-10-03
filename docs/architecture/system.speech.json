@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/architecture/system.md",
-    "sha256": "2fc42ed53cb201417d3d97ad57833efa5260a8b6f73b3df6a4689a6d241dec64"
+    "sha256": "ae4627a13ed4d92dd1553d03c77e26a4493332308a3be6ebfe3f40932ddff9be"
   },
   "components-and-chain-following": [
     {
@@ -17,7 +17,7 @@
   ],
   "proof-composition": [
     {
-      "text": "The client accepts a signed root, acquires the named checkpoint and verifies an NFT state output. An application builder uses historical data to produce a proof against the application root in that verified output. A proof valid at an old state does not guarantee a future transaction will be accepted.",
+      "text": "The client accepts a signed root, acquires the named chainpoint and verifies an NFT state output. An application builder uses historical data to produce a proof against the application root in that verified output. A proof valid at an old state does not guarantee a future transaction will be accepted.",
       "pause": 400
     },
     {
@@ -25,7 +25,7 @@
       "pause": 400
     },
     {
-      "text": "Ledger proof values concern on-chain validity in the present, at the selected checkpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
+      "text": "Ledger proof values concern on-chain validity in the present, at the selected chainpoint. Application proof values concern on-chain validation of a proposed future transaction. This temporal distinction does not promise that an old state stays current or that a future transaction succeeds.",
       "pause": 400
     }
   ],
@@ -38,6 +38,12 @@
   "decisions": [
     {
       "text": "The design reuses generic chain-following capabilities instead of creating an indexer per application. Independent trust remains separate from data provision, and clients may delegate proof construction without delegating verification.",
+      "pause": 400
+    }
+  ],
+  "why-data-should-travel-with-proofs": [
+    {
+      "text": "Data travels with proofs so a terminal can check the claim it relies on against an independently accepted root. For an NFT, a ledger witness authenticates the output containing the application root; the terminal then checks the application proof against that root. External actions require their own authorization policy. Signatures establish endorsements, witnesses establish stated claims, and neither alone establishes completeness or freshness. Data and proofs may be retrieved separately when their bindings match.",
       "pause": 400
     }
   ]
