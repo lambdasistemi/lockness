@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "docs/model/index.md",
-    "sha256": "43769b5cb47a38e93322ec5c4350d833e5f79ac91f60481bbebd52ac88ea0563"
+    "sha256": "7032cb09cb0022ae207e10bdfb77b91815f27d63606d9c82a12e21b547183901"
   },
   "run-the-scenarios": [
     {
-      "text": "Run the three root journeys, three session journeys and three ledger journeys in the pinned Lean environment. Honest session acquisition returns the exact point and independently obtained root; two active reads retain it and expiry and release refuse at the original point. Ledger verification returns the honest datum root, refuses a provider root witness at the accepted root boundary, and accepts two honest duplicate asset answers with different datum roots to expose the missing uniqueness premise. Unknown commands and scenarios return usage code sixty four. Ledger source links follow its feature branch; inherited session links retain their source branch. Record the candidate head. Mathlib is pinned with every transitive revision and narrow finite set imports. Cache acquisition is setup rather than proof evidence.",
+      "text": "Run the three root journeys, three session journeys and three ledger journeys in the pinned Lean environment. Honest session acquisition returns the exact point and independently obtained root; two active reads retain it and expiry and release refuse at the original point. Ledger verification returns the honest datum root, refuses a provider root witness at the accepted root boundary, and accepts two honest duplicate asset answers with different datum roots to expose the missing uniqueness premise. Unknown commands and scenarios return usage code sixty four. Ledger source links reference the published model revision, whose model bytes must match the reviewed candidate. Inherited session links retain their source branch. Record the candidate head and the published model revision. Mathlib is pinned with every transitive revision and narrow finite set imports. Cache acquisition is setup rather than proof evidence.",
       "pause": 400
     }
   ],
