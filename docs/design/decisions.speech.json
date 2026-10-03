@@ -1,42 +1,172 @@
 {
-  "_source": {
-    "file": "docs/design/decisions.md",
-    "sha256": "86a93786f4117db6c6b2a028fa8d1fb68eb318922309db72bc3744573be57559"
-  },
+  "design-direction-and-unresolved-guarantees": [
+    {
+      "text": "Design direction and unresolved guarantees.",
+      "pause": 500
+    },
+    {
+      "text": "As a contributor, distinguish the project's agreed direction from decisions still requiring a concrete contract and evidence.",
+      "pause": 400
+    }
+  ],
   "recorded-direction": [
     {
-      "text": "The project treats terminals as lightweight Web2 applications with cryptographic capabilities. Purpose and risk guide verification before transaction construction or off-chain data consumption. The diagram distinguishes design inputs, executable model, reviewed contract and implementation. Own-anchor independence, chosen institutional publications and separately purchased availability remain the trust and economic direction.",
+      "text": "Recorded direction.",
+      "pause": 500
+    },
+    {
+      "text": "The following direction was established in the project discussion on 3 October 2026. These are design inputs, not claims of implemented or formally verified behavior.",
       "pause": 400
     }
   ],
   "named-deployment-roles": [
     {
-      "text": "Anchors and ledgers run nodes. Anchors serve signed roots; ledgers serve data and proofs. Applications serve application proofs. Terminals consume all three, verify them and build transactions or drive real-world effects. The names describe roles rather than a fixed deployment count.",
+      "text": "Named deployment roles.",
+      "pause": 500
+    },
+    {
+      "text": "The project names the roles lockness-anchors and lockness-ledgers, plural because any number of instances is expected. Anchors run nodes and serve signed roots. Ledgers run nodes and serve data and proofs. The lockness-applications role serves application proofs using retrieved ledger history. The lockness-terminals role consumes roots, proofs and data, verifies them, and builds transactions or drives real-world effects from verified facts. These are component boundaries, not a command to create separate repositories now.",
       "pause": 400
     }
   ],
   "words-that-constrain-the-design": [
     {
-      "text": "The rulings require immutable content separate from chainpoint indexes, independent per-block anchor publication and an API governed by coherent evidence rather than Koios compatibility. Historical CBOR can be untrusted reconstruction material. The preserved present-validity and future-validation ruling distinguishes off-chain ledger membership checks from application proofs used in redeemers.",
+      "text": "Words that constrain the design.",
+      "pause": 500
+    },
+    {
+      "text": "Project rulings, paraphrased for readability:",
+      "pause": 400
+    },
+    {
+      "text": "Separate immutable, hash-addressed content from chainpoint indexes.",
+      "pause": 300
+    },
+    {
+      "text": "Anchors publish a signed root for every block independently of query sessions.",
+      "pause": 300
+    },
+    {
+      "text": "The API is governed by chainpoint coherence and evidence sufficient for verification, rather than Koios response compatibility.",
+      "pause": 300
+    },
+    {
+      "text": "The later discussion refined the last statement: historical transactions can be untrusted reconstruction material, while claims used as authoritative ledger or application facts need verification. The precise endpoint claim inventory is still open.",
+      "pause": 400
+    },
+    {
+      "text": "Ledger and application proofs have distinct destinations: ledger witnesses are verified off-chain by terminals and are not carried into transactions. Application proofs are carried in redeemers and checked by application validators. Cardano enforces transaction validity against its own ledger state. This distinction does not stop anchors publishing signed roots.",
+      "pause": 400
+    },
+    {
+      "text": "The temporal distinction is an explicit project ruling:",
+      "pause": 400
+    },
+    {
+      "text": "\"the ledger proofs are about on-chain validity (present), application proofs are about on-chain validation (future)\"",
+      "pause": 400
+    },
+    {
+      "text": "Here the present is the selected chainpoint. For the UTxO commitment, the proof establishes output membership under the accepted root, not an independent execution of transaction-validity rules. An application proof is intended for checking a proposed transition on-chain; its availability is not a promise of future transaction acceptance.",
       "pause": 400
     }
   ],
   "claims-and-evidence-boundaries": [
     {
-      "text": "The root, session and ledger model makes a bounded executable contribution. Root acceptance establishes terminal endorsement, acquisition preserves the exact selected point and ledger verification binds the same witnessed object to the independent root and its asset and datum observations. Honest unique output and application root soundness requires separate correspondence, witness, encoding, interpretation and OneShot premises. Membership alone does not imply uniqueness, completeness, canonicality or settlement. This is model evidence rather than a full system verifier or deployment. Trust and operating choices are not measured price rankings.",
+      "text": "Claims and evidence boundaries.",
+      "pause": 500
+    },
+    {
+      "text": "Design claim: Terminals verify data against independently accepted ledger roots; Evidence boundary: Executable root acceptance, session and ledger verification model with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Own anchors preserve trust independence; institutional publications reduce local infrastructure; Evidence boundary: These are trust and operating choices, not measured price rankings; no institution is claimed to participate today.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Providers compete on computation and availability; Evidence boundary: No interoperable provider market or globally optimal pricing demonstrated.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: CSMT-UTXO supplies existing commitment machinery; Evidence boundary: Retained views, history coverage, leases and publication contracts require additional work; see existing projects.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Ledger proofs authenticate their stated claims at a chainpoint; Evidence boundary: The ledger model proves unique-output/datum-root soundness under separate honest-root, witness, encoding, asset/datum and OneShot premises; membership alone does not establish uniqueness, completeness, canonicality or settlement.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Application services can reconstruct state and build proofs; Evidence boundary: Transaction-CBOR replay and dependency coverage still need application-specific evidence.",
       "pause": 400
     }
   ],
   "what-remains-unproved": [
     {
-      "text": "Concrete anchor policy selection, key rotation, signed encodings, freshness and rollback notices remain open. The ledger model binds the witnessed asset and datum under explicit hypotheses; application replay, nested proof and transition bindings need their own evidence. Archive coverage, provider interoperability, cost commitments and settlement remain unresolved.",
-      "pause": 400
+      "text": "What remains unproved.",
+      "pause": 500
+    },
+    {
+      "text": "Anchor operating cost and the additional cost of ledger archives, retained views and proof-serving capacity need separate measurements.",
+      "pause": 300
+    },
+    {
+      "text": "Provider switching, evidence interoperability and observable availability commitments need concrete contracts and acceptance evidence; market efficiency is a design thesis.",
+      "pause": 300
+    },
+    {
+      "text": "The full commitment inventory: live UTxOs, asset sets and any historical indexes need separately stated proof guarantees.",
+      "pause": 300
+    },
+    {
+      "text": "Completeness and absence require explicit proof contracts; inclusion proofs alone do not establish a full result set.",
+      "pause": 300
+    },
+    {
+      "text": "Archive coverage must be selected before cost commitments; referenced-output retrieval must cover every dependency of a real application replay.",
+      "pause": 300
+    },
+    {
+      "text": "The root model makes trusted-key membership and agreement explicit. Concrete anchor policy selection, key rotation, signed message encodings, freshness and rollback notices remain unspecified.",
+      "pause": 300
+    },
+    {
+      "text": "Active-session behavior on fork abandonment and bounded retention remain unresolved.",
+      "pause": 300
+    },
+    {
+      "text": "The ledger model binds the asset and exact witnessed-output datum to a selected-point accepted root under explicit assumptions. Application replay and proof checks still need their own application/context, nested-proof and transition bindings.",
+      "pause": 300
+    },
+    {
+      "text": "External effects require an explicit settlement policy and evidence of continued ancestry; signatures or same-point anchor agreement alone do not establish settlement.",
+      "pause": 300
     }
   ],
   "evidence-available-today": [
     {
-      "text": "Pinned Lean proofs and scenarios establish root acceptance, exact point session behavior and ledger answer verification. The ledger soundness statement identifies an honest member, actual asset, honest datum root and unique asset bearing pair under separate selected point correspondence, witness, encoding, interpretation and OneShot hypotheses. Honest fixtures inhabit all premises with acceptance. Real production provider root substitutions accept an impostor and constructively refute the unchanged guarantee. Two honest same asset outputs with different datum roots refute the full unique output guarantee after only OneShot is removed. All three ledger scenarios exercise the verifier. Inherited repeated reads, expiry refusal, release and no substitution controls remain. Branch and lease policy, independent acceptance, remote CI, component implementation and deployment require separate evidence. Existing MPFS verification and inspected Koios and Blockfrost interfaces remain prior bounded evidence.",
+      "text": "Evidence available today.",
+      "pause": 500
+    },
+    {
+      "text": "The root acceptance, session and ledger verification model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. The ledger verifier checks the witness against the independently accepted root argument and binds the original object bytes to every asset and datum observation. Its universal proof identifies an honest member, actual asset, honest datum root and unique asset-bearing pair under separate selected-point correspondence, witness, encoding, interpretation and OneShot premises. Nontrivial honest fixtures inhabit all premises and acceptance together. A compiled provider-root substitution accepts an impostor and constructively refutes the unchanged guarantee; a two-member same-asset ledger refutes the complete unique-output guarantee when only OneShot is removed. All three ledger scenarios run through the real verifier. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.",
+      "pause": 400
+    },
+    {
+      "text": "MPFS's facts verifier already anchors a state output and checks the root reconstructed from returned facts. It is useful prior implementation, not evidence that the proposed transaction-retrieval architecture is delivered.",
+      "pause": 400
+    },
+    {
+      "text": "The inspected Koios asset query and Blockfrost API do not expose the required shared chainpoint session contract for the relevant UTxO queries. This is a finding about those published interfaces, not their internal database capabilities.",
+      "pause": 400
+    },
+    {
+      "text": "CSMT root-signing work is related work. Its existence does not establish an accepted anchor publication protocol.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "decisions.md",
+    "sha256": "86a93786f4117db6c6b2a028fa8d1fb68eb318922309db72bc3744573be57559"
+  }
 }

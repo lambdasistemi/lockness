@@ -1,36 +1,82 @@
 {
-  "_source": {
-    "file": "docs/index.md",
-    "sha256": "e195e3caefe54699474a607341b1d7abd56f3741d1b36204b8ae361c0936849f"
-  },
+  "lockness": [
+    {
+      "text": "Lockness.",
+      "pause": 500
+    },
+    {
+      "text": "As an application developer, check the data behind a transaction or off-chain use without trusting its server. A terminal is a lightweight Web2 application with cryptographic capabilities. Its purpose and risk policy guide chainpoint selection; it retrieves untrusted data and anchor evidence for that point, verifies the assets, then lets the user build a blockchain transaction or consume the data off-chain.",
+      "pause": 400
+    }
+  ],
   "web2-scaling-with-explicit-trust-management": [
     {
-      "text": "Applications buy data and computation while terminals choose anchors and verify answers. This separates correctness trust from capacity and enables competition on availability. An own anchor preserves independence; chosen institutional publications reduce local infrastructure under explicit trust. Follow the canonical trust and availability page.",
+      "text": "Web2 scaling with explicit trust management.",
+      "pause": 500
+    },
+    {
+      "text": "Applications buy data and computation from competing providers. Terminals choose anchors that establish trusted ledger roots, then check provider answers against those roots. This separation makes data provision a computational business whose capacity can scale through ordinary servers, caches and replicas.",
+      "pause": 400
+    },
+    {
+      "text": "Running your own anchor is the optimal deal for trust independence; observing chosen institutional publications is an exceptionally attractive operational deal under explicit institutional trust. The trust and availability model owns these choices and the delivery commitments applications purchase.",
       "pause": 400
     }
   ],
   "find-your-path": [
     {
-      "text": "Assess trust choices and availability, or start building a terminal by reading the lightweight Web2 application definition. Follow proof composition and chainpoint sessions for the verification flow. Explore the existing projects, evidence and roadmap for delivery status.",
-      "pause": 400
+      "text": "Find your path.",
+      "pause": 500
+    },
+    {
+      "text": "Assess the proposition: trust choices and the availability market.",
+      "pause": 300
+    },
+    {
+      "text": "Build a terminal: the lightweight Web2 application → proof composition → chainpoint sessions.",
+      "pause": 300
+    },
+    {
+      "text": "Explore existing work: CSMT-UTXO, MPFS and Singular → evidence → delivery roadmap.",
+      "pause": 300
     }
   ],
   "why-terminals-should-consume-anchored-data": [
     {
-      "text": "Anchored data is data whose required claim has been verified against an independently accepted root. Ledger providers and application services remain untrusted. A ledger proof authenticates an output datum carrying an application root. Follow proof composition for checking further links.",
+      "text": "Why terminals should consume anchored data.",
+      "pause": 500
+    },
+    {
+      "text": "Anchored data is data whose required claim the terminal has verified against an independently accepted root. Both ledger providers and application services remain untrusted for correctness.",
+      "pause": 400
+    },
+    {
+      "text": "A ledger proof can authenticate an NFT state output and its datum. That datum carries an application root used to verify application proofs, including links to further trees. Follow proof composition for the complete chain and the verification boundary for the claims an action needs.",
       "pause": 400
     }
   ],
   "user-stories": [
     {
-      "text": "The terminal selects a chainpoint with an accepted anchor root and an available provider view. In the diagram, ledger and application services remain untrusted. Roots and evidence meet at terminal verification, which enables transactions or off-chain data use. Proof construction can be delegated while verification stays in the lightweight application.",
+      "text": "User stories.",
+      "pause": 500
+    },
+    {
+      "text": "Lockness separates who provides data from who endorses ledger commitments. A terminal finds a chainpoint with both an accepted root and an available provider view, acquires a session, and verifies the evidence it uses. Application-specific proof construction can happen locally or at an optional service.",
       "pause": 400
     }
   ],
   "current-state": [
     {
-      "text": "The project remains at design stage. The decision record owns claims and evidence limits, and the roadmap defines deliverables and acceptance criteria.",
+      "text": "Current state.",
+      "pause": 500
+    },
+    {
+      "text": "This is a design-stage project. The decision record states what exists, what is proposed and what remains unproved. The roadmap turns those gaps into deliverables and acceptance criteria.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "index.md",
+    "sha256": "e195e3caefe54699474a607341b1d7abd56f3741d1b36204b8ae361c0936849f"
+  }
 }

@@ -9,4 +9,4 @@ docs:
     ./tools/check-docs.sh
 
 serve:
-    nix develop 'github:paolino/dev-assets/0328b73b71788bb83848fe407dd04136a52c3697?dir=mkdocs' --quiet -c mkdocs serve
+    nix develop 'github:paolino/dev-assets/a9d7371c1118de4026ba6ee3a9c3b54614924b82?dir=mkdocs' --quiet -c mkdocs serve

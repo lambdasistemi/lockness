@@ -1,76 +1,142 @@
 {
-  "_source": {
-    "file": "docs/stories/index.md",
-    "sha256": "bc739c06a1383b55fb7f18b3280c1f988f3d9685b14e3762bf88fc430c10847a"
-  },
+  "project-stories": [
+    {
+      "text": "Project stories.",
+      "pause": 500
+    },
+    {
+      "text": "As a reader, judge Lockness by the operations it enables and the failures it exposes before judging an implementation choice.",
+      "pause": 400
+    }
+  ],
   "build-a-lightweight-web2-terminal": [
     {
-      "text": "An ordinary Web2 application gains cryptographic verification. Its purpose and risk policy guide chainpoint selection and anchor acceptance. It retrieves untrusted asset data and proofs plus independently accepted signed roots, verifies the required claims and lets the user build a transaction or consume data off-chain. A read-only display or report requires no transaction. Wrong points, missing roots and failed proofs cannot be presented as verified data. Irreversible effects also require settlement and authorization.",
+      "text": "Build a lightweight Web2 terminal.",
+      "pause": 500
+    },
+    {
+      "text": "An application developer adds cryptographic verification to an ordinary Web2 application. The terminal sets its trust and action policy according to the application's purpose and risk, selects an available chainpoint, and retrieves untrusted asset data and proofs alongside signed roots from chosen anchors. Once it validates the required claims, the user can build a blockchain transaction or use the verified data off-chain.",
+      "pause": 400
+    },
+    {
+      "text": "A read-only terminal can display verified asset state or feed a report without constructing a transaction. Missing roots, wrong chainpoints or failed proofs must not be presented as verified data. A transaction-building terminal checks the assets before construction; any irreversible external effect also waits for its required settlement and authorization conditions. Both use the same verification boundary without adding a per-application chain follower.",
       "pause": 400
     }
   ],
   "verify-before-using-ledger-facts": [
     {
-      "text": "The terminal accepts a commitment under its own policy and checks the intended NFT state. Changed bytes, identity, root or network must never become accepted facts.",
+      "text": "Verify before using ledger facts.",
+      "pause": 500
+    },
+    {
+      "text": "A terminal accepts a commitment under its own anchor policy, selects its chainpoint and verifies an NFT output before reading the application root from its datum. Altered output bytes, a wrong root, wrong asset identity or wrong network must not become accepted facts. Membership must not substitute for the application’s unique-state invariant. The exact validation contract still needs a model and executable evidence.",
       "pause": 400
     },
     {
-      "text": "Replacing the data provider must preserve the accepted claim when evidence agrees. A provider cannot substitute its own root for the accepted anchor, and membership alone must not be treated as query completeness.",
+      "text": "Changing the data provider must not change the accepted claim when the commitment and evidence agree. A provider's self-selected root must not substitute for the terminal's independently accepted anchor. A membership proof must not be accepted as evidence that a result set is complete. These are acceptance targets for the core value: terminals consume anchored data while retaining control over trust.",
       "pause": 400
     }
   ],
   "keep-dependent-reads-coherent": [
     {
-      "text": "Reads and pagination remain at one selected state while new blocks arrive. Unavailable and expired chainpoints are refused. Fork behavior remains to be decided.",
+      "text": "Keep dependent reads coherent.",
+      "pause": 500
+    },
+    {
+      "text": "A terminal reads several assets and pages through their outputs under one session. New blocks do not change the selected view. Unavailable or expired chainpoints produce explicit refusals. Fork handling is an open ruling rather than an assumed success path.",
       "pause": 400
     }
   ],
   "run-an-anchor-and-buy-ledger-capacity": [
     {
-      "text": "An operator runs its own node and anchor for maximum trust independence, then buys archive access, retained views and proof generation. The terminal rejects evidence that does not verify against locally established roots. Validation and commitment maintenance remain local responsibilities.",
+      "text": "Run an anchor and buy ledger capacity.",
+      "pause": 500
+    },
+    {
+      "text": "An operator seeking maximum trust independence runs a node and anchor that compute the roots its terminals accept. It buys archive access, retained chainpoint views and proof generation from a provider without operating its own ledger service. The terminal rejects provider data that fails verification against the locally established root. Anchor validation and commitment maintenance remain the operator's responsibility.",
       "pause": 400
     }
   ],
   "observe-institutional-publications": [
     {
-      "text": "The operator selects institutional anchors under explicit trust policy. The terminal rejects unknown keys, wrong networks, incompatible schemes and stale publications. Follow the trust page for the acceptance requirements.",
+      "text": "Observe institutional publications.",
+      "pause": 500
+    },
+    {
+      "text": "An operator seeking low local infrastructure cost selects institutional anchors under an explicit trust policy. Its terminals verify signed publications and use the accepted roots to check provider answers. Unknown keys, wrong networks, incompatible schemes and publications that fail the chosen freshness policy must not become accepted roots. The anchor policy defines the acceptance requirements.",
       "pause": 400
     }
   ],
   "buy-availability-and-switch-providers": [
     {
-      "text": "An application buys observable coverage, retention, throughput, latency and uptime. It can switch to a compatible provider at the same chainpoint without changing anchor policy, using a new provider-local session. Unavailable views and history must be reported. Fallback must not silently change the root, chainpoint or strength of evidence.",
+      "text": "Buy availability and switch providers.",
+      "pause": 500
+    },
+    {
+      "text": "An application operator buys defined coverage, retention, session leases, throughput, latency and uptime. A provider reports missing coverage, expiry or overload explicitly. The commercial commitment makes delivery observable; it does not change the terminal's verification requirements.",
+      "pause": 400
+    },
+    {
+      "text": "The terminal can acquire a session from another compatible provider at the same accepted chainpoint and verify the same claims without changing anchor policy. Session tokens are provider-local. If the replacement cannot serve that view, fallback reports unavailability instead of silently weakening the claim or selecting a newer chainpoint. Interoperability, refusal and switching are acceptance targets for market-driven scaling.",
       "pause": 400
     }
   ],
   "add-an-application-without-another-chain-follower": [
     {
-      "text": "An application reconstructs state from transactions and historical inputs. Its result must match the authenticated application root. Missing history is a failure, not an empty successful answer.",
+      "text": "Add an application without another chain follower.",
+      "pause": 500
+    },
+    {
+      "text": "An application builder retrieves transactions and required historical inputs, interprets its protocol and reconstructs a tree. The terminal checks the result against the application root in the authenticated state output. Missing reconstruction data remains an explicit failure; a matching final state root is not proof of every historical event.",
       "pause": 400
     }
   ],
   "delegate-proof-construction": [
     {
-      "text": "The terminal may delegate proof construction to an untrusted application service or construct locally. Either way it checks the required claim against the authenticated application root. Wrong NFTs, substitute roots, invalid proofs and missing evidence must not be accepted. Nested root chains require a separate verified link at each step.",
+      "text": "Delegate proof construction.",
+      "pause": 500
+    },
+    {
+      "text": "A terminal requests an application proof from a service and verifies it locally. It can instead construct the proof itself from checked state. Neither route changes which root is authoritative.",
+      "pause": 400
+    },
+    {
+      "text": "The application service is untrusted for correctness. Replacing the application root, proving a different NFT or application claim, returning an invalid proof, or omitting required evidence must not produce an accepted result. A verified parent datum or tree value may introduce another root; the terminal verifies every subsequent application proof in that chain before consuming its claim.",
       "pause": 400
     }
   ],
   "publish-trust-without-serving-queries": [
     {
-      "text": "An anchor computes commitments from a trusted chain feed and signs each block’s publication without serving historical query views. The terminal chooses trusted keys.",
+      "text": "Publish trust without serving queries.",
+      "pause": 500
+    },
+    {
+      "text": "An anchor follows a trusted ledger feed, computes commitments and signs each block's publication. It need not retain historical query views. The terminal selects trusted keys under its anchor policy.",
       "pause": 400
     }
   ],
   "act-on-verified-facts": [
     {
-      "text": "A terminal checks data before constructing transactions or authorizing external effects. Ledger proofs stay off-chain; application proofs can enter redeemers. Irreversible effects additionally wait for settlement. An abandoned point or missing settlement evidence causes refusal or deferral.",
+      "text": "Act on verified facts.",
+      "pause": 500
+    },
+    {
+      "text": "A terminal consumes roots, proofs and data, verifies the claims needed for its application and uses them to build a transaction or drive an external effect. For transaction construction, application proofs become redeemer data; ledger witnesses remain off-chain. Cardano and the application validators enforce the submitted transaction against actual ledger and application state. The terminal owns the policy that authorizes that action. An irreversible effect must wait for its settlement condition; an abandoned point or missing settlement evidence must cause refusal or deferral. Verification at a chainpoint alone does not promise the external action will succeed or remain appropriate indefinitely.",
       "pause": 400
     }
   ],
   "evidence-status": [
     {
-      "text": "These stories are acceptance targets. No formal model, simulator or production conformance result has yet been delivered.",
+      "text": "Evidence status.",
+      "pause": 500
+    },
+    {
+      "text": "All stories are proposed acceptance targets. No Lockness formal model, simulation, production conformance result or end-to-end delivery is claimed yet.",
       "pause": 400
     }
-  ]
+  ],
+  "_source": {
+    "file": "index.md",
+    "sha256": "bc739c06a1383b55fb7f18b3280c1f988f3d9685b14e3762bf88fc430c10847a"
+  }
 }
