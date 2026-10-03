@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "fe5597a73ff4441053c8186f558f5f16a7607fde73ffc1b59cbd6a9ebc347fcf"
+    "sha256": "9bdf76716f301bd13ec810753897cf23c2b23558395ab81cac68a6288fdc306d"
   },
   "recorded-direction": [
     {
@@ -23,7 +23,7 @@
   ],
   "claims-and-evidence-boundaries": [
     {
-      "text": "The root acceptance model makes a bounded executable contribution to the design. It establishes trusted endorsement under explicit observations, not a full system verifier or deployment. Own and institutional anchors express trust choices, not measured price rankings. Membership alone proves neither uniqueness nor settlement.",
+      "text": "The root and session model makes a bounded executable contribution to the design. Root acceptance establishes trusted endorsement under explicit observations. Session acquisition preserves the exact selected point for arbitrary providers; it does not establish root trust. Neither provides a full system verifier or deployment. Own and institutional anchors express trust choices, not measured price rankings. Membership alone proves neither uniqueness nor settlement.",
       "pause": 400
     }
   ],
@@ -35,7 +35,7 @@
   ],
   "evidence-available-today": [
     {
-      "text": "Pinned Lean proofs and scenarios establish properties of root acceptance. Observation soundness and honest-root correspondence are separate hypotheses. Removing trusted-set checking has a compiled counterexample. Independent acceptance, remote CI, implementation and deployment need distinct revision-bound results. Existing MPFS verification and inspected Koios and Blockfrost interfaces remain prior, bounded evidence.",
+      "text": "Pinned Lean proofs and scenarios establish root acceptance and selected point session properties. Observation soundness and honest root correspondence are separate hypotheses. Repeated reads, expiry refusal and release are observable. Removing the actual acquisition guard accepts a newer session and constructively refutes the unchanged guarantee. Branch abandonment and lease policy remain open. Independent acceptance, remote CI, implementation and deployment need distinct revision bound results. Existing MPFS verification and inspected Koios and Blockfrost interfaces remain prior, bounded evidence.",
       "pause": 400
     }
   ]

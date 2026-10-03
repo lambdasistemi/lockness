@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "docs/model/index.md",
-    "sha256": "13e34344299719cb713e873e6344869116abdb30d7a2b208b8d9722779cdf27e"
+    "sha256": "acf5fe2e4abda858a510493ea27e1d3512b55109de8b6fd802563fa28cb8af69"
   },
   "run-the-scenarios": [
     {
-      "text": "A reviewer runs the honest, untrusted key and subset mutation scenarios in the pinned Lean environment. Honest publications accept the exact root with two distinct endorsers. An untrusted key refuses at the selected point even with assumed signature validity. Removing the trust check accepts that root and falsifies the same safety statement. Unexpected outcomes and unknown scenarios exit with errors.",
+      "text": "Run the three root journeys and the honest, absent point and newer point session journeys in the pinned Lean environment. Honest session acquisition returns the exact point and the root obtained from independent root acceptance. Two active reads retain it; expiry and release refuse further reads at the original point. Absent and newer offers refuse; alternate network and same slot hash also refuse. Unknown commands and scenarios return usage code sixty four. Source links follow the session feature branch for review before merge; record its head when assessing a candidate.",
       "pause": 400
     }
   ],
@@ -17,13 +17,19 @@
   ],
   "read-the-model-contracts": [
     {
-      "text": "Shared types preserve exact bytes, the full chainpoint and root identity. Session and answer types define later interfaces without implementing their behavior. Signature validity is an arbitrary proposition, supplied implicitly with no global instance. The proofs establish trusted endorsement and selected point refusal. Signature validity requires observation soundness; honest root equality separately requires correspondence. Counterexamples make both boundaries concrete.",
+      "text": "Shared types preserve exact bytes and the full chainpoint and root identity. Session acquisition and lifecycle now have executable behavior; answer verification remains later work. Signature validity is an arbitrary proposition, with no global instance. Root proofs establish trusted endorsement. Signature validity requires observation soundness; honest root equality separately requires correspondence. Session acquisition assumes neither provider honesty nor root trust.",
       "pause": 400
     }
   ],
   "assess-the-evidence": [
     {
-      "text": "The gate builds all modules and inventories every stored theorem, including private proofs. Lean checks anonymous examples during compilation; strict warnings and source policy reject their holes. Deliberate holes and custom escape axioms must be rejected for their actual axiom dependency. Compiled production mutations change outcomes before unchanged proofs fail. The diagram and scenarios show model evidence. Documentation, independent review, remote CI, implementation and live deployment remain different evidence layers. Kernel trust and external soundness hypotheses remain explicit. These finite controls do not claim exhaustive coverage. The guard and theorem share a candidate definition; these controls do not independently establish specification fidelity.",
+      "text": "The gate builds all modules and inventories every stored theorem, including private proofs. It executes all root and session journeys and the permanent lifecycle check. Deliberate holes and custom escape axioms must reach the relevant rejection. Production root mutations remain checked. The session mutation removes the actual acquisition guard, compiles, accepts a newer session and constructively refutes the unchanged universal statement. The control recompiles the session counterexample and simulator against the mutation, while copying unchanged root dependencies as compiled inputs. It does not rebuild the full dependent closure. The exact unchanged acquisition proof then fails, and the real simulator rejects the changed outcome. These finite controls establish model evidence, without exhaustive mutation coverage. Kernel trust, cryptographic observation soundness and honest root correspondence remain explicit limits. Independent acceptance, remote CI, component implementation and deployment each need separate evidence.",
+      "pause": 400
+    }
+  ],
+  "acquire-the-selected-session": [
+    {
+      "text": "The terminal selects a full chainpoint before acquisition. An arbitrary provider can offer any session. The model checks network, slot and block hash, then returns the entire offer unchanged. This proves point coherence and preserves bytes, but does not establish that the offered root was independently accepted. The lifecycle diagram shows acquisition to active or unavailable, repeated active reads, expiry refusal and release to closed. Its abandoned branch path remains unresolved and is omitted from the executable relation. Expiry has no chosen duration or scheduler. The declarations table explains universal acquisition, refusal and transition inversions. The choices table rejects slot only equality, relabelled offers and premature lease policy.",
       "pause": 400
     }
   ]
