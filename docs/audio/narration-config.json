@@ -1,0 +1,16 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_multilingual_v2",
+  "format": "mp3_44100_128",
+  "voice": {
+    "name": "Matilda",
+    "id": "XrExE9yKIg1WjnnlVkGX"
+  },
+  "voice_settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.75,
+    "style": 0,
+    "use_speaker_boost": true,
+    "speed": 0.95
+  }
+}
