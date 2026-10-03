@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/architecture/system.md",
-    "sha256": "8a4c10f2b60e087e1298ecdd7da650d627e37d51f7b75dfde1ffcb6007204d16"
+    "sha256": "779f3479070fb1ad822c727da9cd8415a671fa70719bc4cacd4cb266e9340d6b"
   },
   "why-data-should-travel-with-proofs": [
     {

@@ -35,8 +35,8 @@ The proof must establish the claim the action needs. A membership proof alone ca
 Lockness separates who provides data from who endorses ledger commitments. A client selects a commitment at a chainpoint, obtains a read session for that point, and verifies the evidence it uses. Application-specific proof construction can happen locally or at an optional service.
 
 <!-- diagram: overview -->
-<div class="diagram"><a href="diagrams/overview.png"><img src="diagrams/overview.png" alt="Chosen roots and untrusted ledger and application services meet at terminal verification; both services remain outside the trust boundary." width="620" loading="lazy"></a></div>
-<p class="diagram-links"><a href="diagrams/overview.png">Open full size</a> · <a href="diagrams/overview.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="diagrams/overview.png?v=189c40ed30a0b328"><img src="diagrams/overview.png?v=189c40ed30a0b328" alt="Chosen roots and untrusted ledger and application services meet at terminal verification; both services remain outside the trust boundary." width="620" loading="lazy"></a></div>
+<p class="diagram-links"><a href="diagrams/overview.png?v=189c40ed30a0b328">Open full size</a> · <a href="diagrams/overview.mmd?v=148080a8eee80d0e">Mermaid source</a></p>
 
 ## Current state
 

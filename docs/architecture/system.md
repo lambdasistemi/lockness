@@ -30,8 +30,8 @@ Data should travel with the evidence needed to verify the claims a terminal reli
 | `lockness-terminals` | Not required | Consume and verify roots, data and proofs; build transactions or drive real-world effects from verified facts. |
 
 <!-- diagram: infrastructure -->
-<div class="diagram"><a href="../diagrams/infrastructure.png"><img src="../diagrams/infrastructure.png" alt="Anchor and provider operate separate nodes; terminals combine roots with evidence, and application builders consume ledger history." width="632" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/infrastructure.png">Open full size</a> · <a href="../diagrams/infrastructure.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/infrastructure.png?v=c2f7334c98e52a39"><img src="../diagrams/infrastructure.png?v=c2f7334c98e52a39" alt="Anchor and provider operate separate nodes; terminals combine roots with evidence, and application builders consume ledger history." width="632" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/infrastructure.png?v=c2f7334c98e52a39">Open full size</a> · <a href="../diagrams/infrastructure.mmd?v=c8ccd06fe2d3ef6b">Mermaid source</a></p>
 
 Anchors and ledgers are plural because any number of independent instances may exist. Both roles run nodes. Anchors serve signed roots; ledgers serve data and proofs. They can reuse the generic commitment engine without sharing a running process. Independent publishers establish their own commitments. Signing an untrusted provider's supplied root does not create independent assurance. The cost and trust consequences of shared node infrastructure must be explicit.
 
@@ -66,8 +66,8 @@ An **application root is carried inside a UTxO**, in the state output's datum fo
 The terminal can then verify application data against that root. If a proved application value contains another root, the same process can continue into another application tree. Each link requires its own proof and interpretation: the terminal binds the root's exact bytes, encoding, scheme and application identity to the parent claim. Ledger inclusion authenticates the starting datum; it does not automatically validate every descendant claim.
 
 <!-- diagram: root-chain -->
-<div class="diagram"><a href="../diagrams/root-chain.png"><img src="../diagrams/root-chain.png" alt="The ledger root authenticates a UTxO and datum, which carries an application root. Application proofs can authenticate further roots, with a separate check at every link." width="267" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/root-chain.png">Open full size</a> · <a href="../diagrams/root-chain.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/root-chain.png?v=7098983bec3bc069"><img src="../diagrams/root-chain.png?v=7098983bec3bc069" alt="The ledger root authenticates a UTxO and datum, which carries an application root. Application proofs can authenticate further roots, with a separate check at every link." width="267" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/root-chain.png?v=7098983bec3bc069">Open full size</a> · <a href="../diagrams/root-chain.mmd?v=bf3e8ea6f206cf6f">Mermaid source</a></p>
 
 This **chain of roots** is the bridge from generic ledger evidence to application evidence. The generic ledger provider need not understand the application or its nested trees. Read [the two root scopes](../concepts.md#two-roots-with-different-scopes) and [nested application roots](../concepts.md#a-chain-of-application-roots) for the terms used here.
 
@@ -81,8 +81,8 @@ The two proof values have different temporal roles. **Ledger proofs concern on-c
 “Present” is chainpoint-relative, not a promise that an old view remains the chain tip. “Future validation” describes the proof's role, not a guarantee that the submitted transaction succeeds after intervening state changes.
 
 <!-- diagram: proof-composition -->
-<div class="diagram"><a href="../diagrams/proof-composition.png"><img src="../diagrams/proof-composition.png" alt="The terminal verifies the NFT output, asks for an application proof, and verifies that proof against the root from the output." width="624" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/proof-composition.png">Open full size</a> · <a href="../diagrams/proof-composition.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/proof-composition.png?v=94670c4fcf7b47ed"><img src="../diagrams/proof-composition.png?v=94670c4fcf7b47ed" alt="The terminal verifies the NFT output, asks for an application proof, and verifies that proof against the root from the output." width="624" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/proof-composition.png?v=94670c4fcf7b47ed">Open full size</a> · <a href="../diagrams/proof-composition.mmd?v=cff1f983d3e6e715">Mermaid source</a></p>
 
 Application builders may generate proofs on behalf of clients. A client may instead reconstruct the tree locally. The application root comes from the verified state output; it is distinct from the ledger-index root. A reused proof must match the receiving context's claim, encoding and root. Valid evidence at an old chainpoint is not a promise that a future transaction will still be admissible.
 

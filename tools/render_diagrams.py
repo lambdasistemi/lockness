@@ -31,6 +31,8 @@ def dimensions(path):
 def embed(page, base, diagram, width):
     image = os.path.relpath(base / diagram['image'], page.parent)
     source = os.path.relpath(base / diagram['source'], page.parent)
+    image += '?v=' + digest((base / diagram['image']).read_bytes())[:16]
+    source += '?v=' + digest((base / diagram['source']).read_bytes())[:16]
     image, source, alt = map(lambda s: html.escape(s, quote=True), (image, source, diagram['alt']))
     return (f'<div class="diagram"><a href="{image}"><img src="{image}" alt="{alt}" width="{width}" loading="lazy"></a></div>\n'
             f'<p class="diagram-links"><a href="{image}">Open full size</a> · <a href="{source}">Mermaid source</a></p>')

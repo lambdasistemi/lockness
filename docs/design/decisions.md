@@ -21,8 +21,8 @@ The following direction was established in the project discussion on 3 October 2
 | Optional application proof services | Either trust an application backend or do everything locally | Proof construction can be delegated and checked locally. |
 
 <!-- diagram: decisions -->
-<div class="diagram"><a href="../diagrams/decisions.png"><img src="../diagrams/decisions.png" alt="Design inputs lead through model and review to implementation; later stages remain uncompleted." width="276" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/decisions.png">Open full size</a> · <a href="../diagrams/decisions.mmd">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/decisions.png?v=36575202590b3327"><img src="../diagrams/decisions.png?v=36575202590b3327" alt="Design inputs lead through model and review to implementation; later stages remain uncompleted." width="276" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/decisions.png?v=36575202590b3327">Open full size</a> · <a href="../diagrams/decisions.mmd?v=ff6e120929c51800">Mermaid source</a></p>
 
 ## Named deployment roles
 
