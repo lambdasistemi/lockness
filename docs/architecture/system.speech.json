@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/architecture/system.md",
-    "sha256": "bb3c20ac49fafe376e3051df9f20340f127949d7cd05436bfd798a40af58850c"
+    "sha256": "75e06bc42342f132ab3f4a235099905d746873c4d4fc0236686b4b3b0dc6efba"
   },
   "why-data-should-travel-with-proofs": [
     {
@@ -11,7 +11,7 @@
   ],
   "components-and-chain-following": [
     {
-      "text": "The diagram separates anchor infrastructure in green from ledger infrastructure in blue. Both run nodes. An orange application builder consumes history; purple terminals receive roots and evidence. Terminals avoid their own chain follower by using accepted anchor publications for chain progress, with explicit freshness and branch policy.",
+      "text": "The diagram separates anchor and ledger infrastructure, each with its own node, from application proof construction and terminal verification. A terminal is a lightweight Web2 application with cryptographic capabilities, governed by purpose and risk. Accepted anchor publications supply chain progress without a per-application follower. Verified assets can support transaction construction or off-chain displays and integrations; irreversible effects also need an action policy.",
       "pause": 400
     }
   ],

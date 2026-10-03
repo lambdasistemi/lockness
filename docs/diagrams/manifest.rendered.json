@@ -1,15 +1,15 @@
 {
   "roles": {
-    "inputs": "a4e2b95193237fcea8deca9aac7bb40b4d20828c6040e8b3bc5145c8ebbfd3b8",
-    "image": "535c716f291a926b0f5271dcafd33d20909dd3d98ff588adbf4d8ebbf0ab3c8b",
+    "inputs": "a262695cbb7ae2f21d9695030d4da1e535ee546be02a40a34ce44cdc4449d253",
+    "image": "6037a7ad1f213151e521d711a70555e45cc1bc0a2d8b6076666e50b9971a9996",
     "width": 1046,
-    "height": 1004
+    "height": 1050
   },
   "overview": {
-    "inputs": "7944b23251d06fd5c4b400d8179a886b4fb80cf6733bf76247961c9f339ea4f5",
-    "image": "189c40ed30a0b3284e41584bd284fd5ac67b4ead9545868aa5caf7815bb8d6ab",
+    "inputs": "8456db3ca4cb6cfc07052f6942cd679fdb950b98f7986815e2b6d636b1cc0e50",
+    "image": "1bfbbb4803ee07083cfbad9200764c4421bd5b7cafc65cb1318bfddc7efed8bf",
     "width": 1240,
-    "height": 1144
+    "height": 1188
   },
   "infrastructure": {
     "inputs": "873e250ae80a125a9369843d2ea96998b18516bf1b350e6cbbd865f507e92ad4",
@@ -64,5 +64,11 @@
     "image": "e7d7917fc7c4b93f644e542fc1637d1f8a75e8bbb00a0238044d20f411bcfa3b",
     "width": 1540,
     "height": 1892
+  },
+  "terminal": {
+    "inputs": "91ae3e494dd8c6bb4f16576726cf6ec37dabc059415943287b13fe814cce3729",
+    "image": "59f92a8d96b59278d246cc15b752f4027e73eaea6685612c949f7841843972ec",
+    "width": 1284,
+    "height": 1554
   }
 }

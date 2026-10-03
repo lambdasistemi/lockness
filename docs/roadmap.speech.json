@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/roadmap.md",
-    "sha256": "eae3ef416da09f7d8a333d48b47d347a5168158bf39c30c7283805b44d681072"
+    "sha256": "06b57bd868af59990aacc4587a5eccdd2e89bc993edcf7dfbe317a73091da2b6"
   },
   "delivery-dependencies": [
     {
@@ -29,13 +29,13 @@
   ],
   "define-the-acceptance-journey": [
     {
-      "text": "Define the acceptance cases before assigning components. The journey authenticates an NFT output, reconstructs application state and verifies proofs, including a nested root. The diagram checks two instances of the same provider implementation, plus an untrusted application builder. Valid claims feed transaction construction or a separate settlement and authorization decision for an effect. Failed evidence, an abandoned point or unsatisfied settlement causes rejection or deferral. Two instances establish switching, not independent-implementation interoperability.",
+      "text": "Define acceptance before assigning components. The lightweight Web2 terminal applies its purpose and risk policy, authenticates an NFT output and checks reconstructed state and application claims, including nested roots. Exercise both read-only off-chain use and transaction construction. Two provider instances demonstrate switching. The diagram separates transaction policy from effect settlement and authorization; failed evidence or an abandoned point causes rejection or deferral. Independent implementation interoperability remains a later target.",
       "pause": 400
     }
   ],
   "assign-implementation-work": [
     {
-      "text": "Reconcile the internal-index and HTTP epics with the accepted contracts and cases. Assign each role an implementation repository, including the experimental archive and retained-view prototype. The role table gives anchors, ledger providers, applications and terminals distinct deliverables and acceptance boundaries. Decide whether to retain or replace the prototype after measurement.",
+      "text": "Assign repositories and deliverables for anchors, ledger providers, applications and terminals after reconciling the earlier epics. Include the experimental archive and retained-view prototype. The terminal deliverable is a lightweight Web2 integration that demonstrates both off-chain data consumption and transaction construction under its evidence and action policy.",
       "pause": 400
     }
   ],

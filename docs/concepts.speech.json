@@ -1,11 +1,17 @@
 {
   "_source": {
     "file": "docs/concepts.md",
-    "sha256": "46cbe720534beda299406cc311a68440a880f7dad0f53fea66cb7bd7afe2ec2e"
+    "sha256": "8d2bc2e0273051704e245ce7ffc5a021166ec100edef0eddf79743d99c9443e7"
   },
   "standard-vocabulary": [
     {
-      "text": "An anchor establishes and publishes signed ledger roots. A ledger provider serves data and ledger proofs; it is distinct from the Cardano ledger. An application service interprets history and builds application proofs. A terminal chooses anchors and checks the evidence. Ledger roots commit to generic ledger quantities; application roots commit to application state.",
+      "text": "Anchors publish independently computed signed ledger roots. Ledger providers serve data and proofs, while application services interpret history and build application proofs. A terminal is a lightweight Web2 application with cryptographic capabilities. It checks assets before enabling transaction construction or off-chain data use. Ledger roots cover generic ledger state; application roots cover application state.",
+      "pause": 400
+    }
+  ],
+  "terminals-lightweight-web2-applications": [
+    {
+      "text": "A terminal is a familiar Web2 application with cryptographic capabilities, suitable for a browser, mobile application or conventional service. Its purpose and risk policy select trusted anchors, required claims, freshness and settlement conditions. The diagram follows that policy to a usable chainpoint, then brings untrusted data and proofs together with signed roots from chosen anchors. Verification enables transaction construction or off-chain data consumption; failed checks block verified use. A report or display needs no transaction submission. Irreversible effects require settlement and authorization. Chain following and heavy data work stay with providers, while ordinary application code and verification libraries implement the terminal. Data and roots may arrive in either order, but their bindings must agree and the data provider cannot choose the terminal’s trust policy.",
       "pause": 400
     }
   ],

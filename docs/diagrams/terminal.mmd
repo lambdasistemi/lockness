@@ -17,12 +17,14 @@ config:
     mergeEdges: false
 ---
 flowchart TB
-    A[Anchors]:::anchor -->|Accepted roots| T[Terminal verification]:::terminal
-    L[Ledgers]:::ledger -->|Data + proofs| T
-    L -->|History| P[Application builders]:::app
-    P -->|Application proofs| T
-    T -->|Verified claims| E[Transactions or<br/>off-chain use]:::terminal
-
+    P[Application purpose<br/>and risk policy]:::terminal -->|Trust and freshness| C[Select usable<br/>chainpoint]:::terminal
+    C -->|Pinned requests| D[Untrusted data<br/>and proofs]:::ledger
+    C -->|Chosen anchor policy| A[Signed roots<br/>for that chainpoint]:::anchor
+    D -->|Required claims| V[Terminal verifies<br/>assets and evidence]:::terminal
+    A -->|Accepted commitment| V
+    V -->|Verified assets| T[Build blockchain<br/>transaction]:::terminal
+    V -->|Verified data| O[Consume data<br/>off-chain]:::terminal
+    V -->|Checks fail| R[Refuse verified use]:::neutral
     classDef anchor fill:#e1f3eb,stroke:#2c7155,stroke-width:1.5px,color:#163d2e
     classDef ledger fill:#e6effc,stroke:#416dad,stroke-width:1.5px,color:#203a63
     classDef app fill:#fff0dd,stroke:#a46b25,stroke-width:1.5px,color:#644317

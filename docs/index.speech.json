@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "docs/index.md",
-    "sha256": "cbf889cec12c72532f5e376a3375edf0c41360aa2664d853e1704b5699078b4e"
+    "sha256": "e195e3caefe54699474a607341b1d7abd56f3741d1b36204b8ae361c0936849f"
   },
   "web2-scaling-with-explicit-trust-management": [
     {
@@ -11,7 +11,7 @@
   ],
   "find-your-path": [
     {
-      "text": "For the proposition, follow trust choices and availability. For verification, follow concepts, proof composition and chainpoint sessions. For existing work, follow the projects page, evidence and roadmap.",
+      "text": "Assess trust choices and availability, or start building a terminal by reading the lightweight Web2 application definition. Follow proof composition and chainpoint sessions for the verification flow. Explore the existing projects, evidence and roadmap for delivery status.",
       "pause": 400
     }
   ],
@@ -23,7 +23,7 @@
   ],
   "user-stories": [
     {
-      "text": "The terminal finds a chainpoint with an accepted anchor root and an available provider view, acquires a session and verifies its evidence. The diagram keeps both ledger and application services outside the trust boundary. Their answers meet independently accepted roots at terminal verification.",
+      "text": "The terminal selects a chainpoint with an accepted anchor root and an available provider view. In the diagram, ledger and application services remain untrusted. Roots and evidence meet at terminal verification, which enables transactions or off-chain data use. Proof construction can be delegated while verification stays in the lightweight application.",
       "pause": 400
     }
   ],

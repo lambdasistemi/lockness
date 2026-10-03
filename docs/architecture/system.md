@@ -37,7 +37,7 @@ Anchors and ledger providers are plural because any number of independent instan
 
 Terminals can avoid their own chain follower because accepted anchor publications supply their view of chain progress. The root-acceptance policy must cover freshness and branch changes.
 
-A terminal is the consuming role, including wallets, applications and integrations with external systems. It verifies the roots, proofs and data it uses, then builds transactions or uses the verified facts to drive real-world effects. The authorization and execution of those effects are application policy, not an action performed by the ledger provider.
+A [terminal](../concepts.md#terminals-lightweight-web2-applications) is a lightweight Web2 application with cryptographic capabilities. Its application purpose and risk policy govern chainpoint selection, anchor acceptance and the claims it verifies. It enables the user to build transactions or consume verified data off-chain, including in ordinary displays and integrations. Any external effect has an additional action policy; it is not performed by the ledger provider.
 
 ## Offload computation while retaining trust control
 

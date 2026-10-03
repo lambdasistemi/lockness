@@ -9,6 +9,7 @@ The following direction was established in the project discussion on 3 October 2
 | Direction | Earlier alternative | Why it changed |
 | --- | --- | --- |
 | Work at project level in Lockness | Extend one repository's asset endpoint in isolation | Trust publication, retained views and terminal verification cross component boundaries. |
+| Terminals are lightweight Web2 applications with cryptographic capabilities | Require application adoption to include operating chain infrastructure | Purpose and risk guide verification policy; the user can build transactions or consume verified data off-chain. |
 | Terminals consume anchored data before acting | Accept the data provider's answer as authoritative | Verification connects the answer to an independently accepted root; data providers and proof builders remain replaceable. |
 | Own anchor is the optimal deal for trust independence | Equate independent verification with running every data service locally | Keep local root establishment while outsourcing ledger capacity. |
 | Institutional publications are a first-class operational offer | Require each terminal operator to maintain an anchor | Obtain roots at low local operating cost under explicit institutional trust. |

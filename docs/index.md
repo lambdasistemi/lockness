@@ -1,6 +1,6 @@
 # Lockness
 
-As an application developer, check the data behind a transaction or real-world action without trusting its server. Lockness calls the consuming wallet or integration a **terminal**: it verifies evidence before using an answer.
+As an application developer, check the data behind a transaction or off-chain use without trusting its server. A [**terminal**](concepts.md#terminals-lightweight-web2-applications) is a lightweight Web2 application with cryptographic capabilities. Its purpose and risk policy guide chainpoint selection; it retrieves untrusted data and anchor evidence for that point, verifies the assets, then lets the user build a blockchain transaction or consume the data off-chain.
 
 ## Web2 scaling with explicit trust management
 
@@ -11,7 +11,7 @@ Running your own anchor is the optimal deal for trust independence; observing ch
 ## Find your path
 
 - **Assess the proposition:** [trust choices and the availability market](design/trust-and-availability.md).
-- **Follow a verified answer:** [concepts](concepts.md) → [proof composition](architecture/system.md#proof-composition) → [chainpoint sessions](design/chainpoints.md).
+- **Build a terminal:** [the lightweight Web2 application](concepts.md#terminals-lightweight-web2-applications) → [proof composition](architecture/system.md#proof-composition) → [chainpoint sessions](design/chainpoints.md).
 - **Explore existing work:** [CSMT-UTXO, MPFS and Singular](projects.md) → [evidence](design/decisions.md#evidence-available-today) → [delivery roadmap](roadmap.md).
 
 ## Why terminals should consume anchored data
@@ -25,8 +25,8 @@ A ledger proof can authenticate an NFT state output and its datum. That datum ca
 Lockness separates who provides data from who endorses ledger commitments. A terminal finds a chainpoint with both an accepted root and an available provider view, acquires a session, and verifies the evidence it uses. Application-specific proof construction can happen locally or at an optional service.
 
 <!-- diagram: overview -->
-<div class="diagram"><a href="diagrams/overview.png?v=189c40ed30a0b328"><img src="diagrams/overview.png?v=189c40ed30a0b328" alt="Chosen roots and untrusted ledger and application services meet at terminal verification; both services remain outside the trust boundary." width="620" loading="lazy"></a></div>
-<p class="diagram-links"><a href="diagrams/overview.png?v=189c40ed30a0b328">Open full size</a> · <a href="diagrams/overview.mmd?v=148080a8eee80d0e">Mermaid source</a></p>
+<div class="diagram"><a href="diagrams/overview.png?v=1bfbbb4803ee0708"><img src="diagrams/overview.png?v=1bfbbb4803ee0708" alt="Chosen roots and untrusted ledger and application services meet at terminal verification; both services remain outside the trust boundary." width="620" loading="lazy"></a></div>
+<p class="diagram-links"><a href="diagrams/overview.png?v=1bfbbb4803ee0708">Open full size</a> · <a href="diagrams/overview.mmd?v=f245f91dd708b05b">Mermaid source</a></p>
 
 ## Current state
 
