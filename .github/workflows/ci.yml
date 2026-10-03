@@ -1,0 +1,13 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build-gate:
+    name: Build Gate
+    runs-on: nixos
+    steps:
+      - name: Bootstrap
+        run: echo 'Repository bootstrap only; design checks follow.'
