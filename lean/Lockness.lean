@@ -5,3 +5,7 @@ import Lockness.Counterexamples.SubsetMutation
 import Lockness.Tests.Types
 import Lockness.Tests.Observation
 import Lockness.Tests.RootAcceptance
+import Lockness.Session
+import Lockness.Counterexamples.SessionMutation
+import Lockness.Tests.Session
+import Lockness.Sim.Session

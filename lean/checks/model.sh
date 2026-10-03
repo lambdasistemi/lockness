@@ -51,10 +51,29 @@ stage lake exe lockness-sim accept-root untrusted-key
 stage lake exe lockness-sim accept-root subset-mutation
 stage lake env lean Lockness/Counterexamples/SubsetMutation.lean
 stage bash checks/mutations.sh
+stage lake env lean Lockness/Tests/Session.lean
+stage lake env lean Lockness/Counterexamples/SessionMutation.lean
+stage lake exe lockness-sim session honest
+stage lake exe lockness-sim session absent-point
+stage lake exe lockness-sim session newer-point
+stage bash checks/session-mutations.sh
+usage_failure() {
+  local diagnostic=$1 result=0
+  shift
+  stage lake exe lockness-sim "$@" > "$scratch/usage.log" 2>&1 || result=$?
+  cat "$scratch/usage.log"
+  [[ $result = 64 ]] || { echo "expected usage64, got $result" >&2; exit 1; }
+  grep -qF "$diagnostic" "$scratch/usage.log"
+  echo "USAGE-CONTROL exit=$result args=$*"
+}
+usage_failure 'unknown session scenario' session unknown
+usage_failure 'usage: lockness-sim' unknown
+usage_failure 'usage: lockness-sim' session
+usage_failure 'unknown accept-root scenario' accept-root unknown
 # An unknown scenario must be a usage failure, never an accepted root outcome.
 if stage lake exe lockness-sim accept-root unknown > "$scratch/scenario.log" 2>&1; then
   echo 'unknown scenario accepted' >&2; exit 1
 fi
 cat "$scratch/scenario.log"
 grep -qF 'unknown accept-root scenario' "$scratch/scenario.log"
-echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked signatures=abstract deployment=unestablished"
+echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-and-session lifecycle=repeated-expiry-release signatures=abstract deployment=unestablished"

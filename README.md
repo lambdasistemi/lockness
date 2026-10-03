@@ -4,7 +4,7 @@ As an application developer, verify the data behind a transaction or real-world 
 
 **Web2 scaling with explicit trust management.** Applications buy data and computation; terminals choose their anchors and verify provider answers. Removing correctness trust from data provision lets providers compete on availability, capacity, speed and price.
 
-**Status: project design with an executable root acceptance model.** Start at the [published design](https://lambdasistemi.github.io/lockness/) or the [evidence and open contracts](docs/design/decisions.md).
+**Status: project design with an executable root acceptance and session model.** Start at the [published design](https://lambdasistemi.github.io/lockness/) or the [evidence and open contracts](docs/design/decisions.md).
 
 ## User stories
 
@@ -25,7 +25,7 @@ Running your own anchor is the optimal deal for trust independence. Observing ch
 
 ## Read the design
 
-- [Executable root acceptance model and scenarios](docs/model/index.md)
+- [Executable root acceptance and session scenarios](docs/model/index.md)
 - [Concepts and standard vocabulary](docs/concepts.md)
 - [Trust choices and availability](docs/design/trust-and-availability.md)
 - [Architecture and proof composition](docs/architecture/system.md)
@@ -43,7 +43,7 @@ Install Nix with flakes enabled, then run `./tools/check-docs.sh`. It checks pre
 
 Diagrams use source-bound rendered assets. Run the documentation environment with `python3 tools/render_diagrams.py --render docs/diagrams/manifest.json` to regenerate them, then review every render and refresh the affected speech companions before running the gate. The checker verifies source, renderer, image and embed freshness; visual and semantic review remain necessary.
 
-Run the [model scenarios](docs/model/index.md) with `./lean/env lake exe lockness-sim accept-root honest` or `untrusted-key`. Model checks establish properties of the model under explicit hypotheses. Documentation checks establish only that the design record builds. They do not establish the correctness or delivery of the proposed system.
+Run the [model scenarios](docs/model/index.md) with `./lean/env lake exe lockness-sim accept-root honest` or `untrusted-key`. Session journeys are `./lean/env lake exe lockness-sim session honest`, `absent-point` and `newer-point`: acquisition preserves the selected point, repeated reads retain it, and expiry or unavailable offers refuse at that point. Model checks establish properties of the model under explicit hypotheses. Documentation checks establish only that the design record builds. They do not establish the correctness or delivery of the proposed system.
 
 ## License
 

@@ -51,7 +51,7 @@ Here the present is the selected chainpoint. For the UTxO commitment, the proof 
 
 | Design claim | Evidence boundary |
 | --- | --- |
-| Terminals verify data against independently accepted ledger roots | Executable [root acceptance model](../model/index.md) with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment |
+| Terminals verify data against independently accepted ledger roots | Executable [root acceptance and session model](../model/index.md) with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment |
 | Own anchors preserve trust independence; institutional publications reduce local infrastructure | These are trust and operating choices, not measured price rankings; no institution is claimed to participate today |
 | Providers compete on computation and availability | No interoperable provider market or globally optimal pricing demonstrated |
 | CSMT-UTXO supplies existing commitment machinery | Retained views, history coverage, leases and publication contracts require additional work; see [existing projects](../projects.md) |
@@ -72,7 +72,7 @@ Here the present is the selected chainpoint. For the UTxO commitment, the proof 
 
 ## Evidence available today
 
-The [root acceptance model and simulator](../model/index.md) compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.
+The [root acceptance and session model and simulator](../model/index.md) compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.
 
 [MPFS's facts verifier](https://github.com/lambdasistemi/cardano-mpfs-offchain/blob/0f82465f5f828c2ab987a166e9e24c2368228d01/cardano-mpfs-verify/lib/Cardano/MPFS/Client/Verify/Read.hs) already anchors a state output and checks the root reconstructed from returned facts. It is useful prior implementation, not evidence that the proposed transaction-retrieval architecture is delivered.
 

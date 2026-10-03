@@ -1,7 +1,7 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "3143bab0d0320f8079330cea8d1562a2621d9a5b55d05bf6baf0d489208513c3"
+    "sha256": "9505528559338b47d2790af80af5572aad6a28e501773494d530d103a9406f39"
   },
   "user-stories": [
     {
@@ -17,7 +17,7 @@
   ],
   "read-the-design": [
     {
-      "text": "Start with the runnable root acceptance model to inspect trusted and untrusted publications. Continue through concepts, trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
+      "text": "Start with runnable root acceptance and selected point session journeys. Inspect trusted and untrusted publications, exact session acquisition, absence and newer point refusal. Continue through concepts, trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
       "pause": 400
     }
   ],
@@ -29,7 +29,7 @@
   ],
   "check-the-documentation": [
     {
-      "text": "The model gate checks pinned Lean proofs, axiom dependencies, semantic counterexamples and simulator scenarios. The documentation gate checks diagram and speech freshness and builds the site. Just CI runs both. Model properties depend on explicit hypotheses and do not establish component implementation or deployment.",
+      "text": "The model gate checks pinned Lean proofs, axiom dependencies, production semantic counterexamples, root and session scenarios, repeated reads and expiry refusal. Session acquisition preserves arbitrary provider offers at the exact point; it does not prove root trust. The documentation gate checks diagram and speech freshness and builds the site. Just CI runs both. Model properties do not establish component implementation or deployment.",
       "pause": 400
     }
   ],
