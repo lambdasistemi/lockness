@@ -26,8 +26,10 @@
       apply();
     });
     const navigation = document.getElementById('lockness-navigation');
-    const wide = window.matchMedia('(min-width: 70em)');
-    navigation.open = wide.matches;
-    wide.addEventListener('change', () => { navigation.open = wide.matches; });
+    if (navigation) {
+      const wide = window.matchMedia('(min-width: 70em)');
+      navigation.open = wide.matches;
+      wide.addEventListener('change', () => { navigation.open = wide.matches; });
+    }
   });
 })();
