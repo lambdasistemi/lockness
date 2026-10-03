@@ -1,8 +1,14 @@
 {
   "_source": {
     "file": "docs/stories/index.md",
-    "sha256": "7cd9ece0e2dae7c389c7afa87a3f18d29987e4384968f115657f6f34e3992748"
+    "sha256": "bc739c06a1383b55fb7f18b3280c1f988f3d9685b14e3762bf88fc430c10847a"
   },
+  "build-a-lightweight-web2-terminal": [
+    {
+      "text": "An ordinary Web2 application gains cryptographic verification. Its purpose and risk policy guide chainpoint selection and anchor acceptance. It retrieves untrusted asset data and proofs plus independently accepted signed roots, verifies the required claims and lets the user build a transaction or consume data off-chain. A read-only display or report requires no transaction. Wrong points, missing roots and failed proofs cannot be presented as verified data. Irreversible effects also require settlement and authorization.",
+      "pause": 400
+    }
+  ],
   "verify-before-using-ledger-facts": [
     {
       "text": "The terminal accepts a commitment under its own policy and checks the intended NFT state. Changed bytes, identity, root or network must never become accepted facts.",

@@ -74,6 +74,12 @@
       "source": "roadmap-journey.mmd",
       "image": "roadmap-journey.png",
       "alt": "The terminal verifies claims from two provider instances and an untrusted application builder. Transaction construction and external effects have separate policies; effects require settlement and authorization."
+    },
+    {
+      "name": "terminal",
+      "source": "terminal.mmd",
+      "image": "terminal.png",
+      "alt": "A lightweight terminal applies its purpose and risk policy, selects a chainpoint, combines untrusted data with chosen anchor evidence, verifies assets, and enables transactions or off-chain data use. Failed checks block verified use."
     }
   ],
   "pages": [
@@ -83,6 +89,7 @@
     "../../docs/design/chainpoints.md",
     "../../docs/design/decisions.md",
     "../../docs/design/trust-and-availability.md",
-    "../../docs/roadmap.md"
+    "../../docs/roadmap.md",
+    "../../docs/concepts.md"
   ]
 }

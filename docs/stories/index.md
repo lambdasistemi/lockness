@@ -2,6 +2,12 @@
 
 As a reader, judge Lockness by the operations it enables and the failures it exposes before judging an implementation choice.
 
+## Build a lightweight Web2 terminal
+
+An application developer adds cryptographic verification to an ordinary Web2 application. The [terminal](../concepts.md#terminals-lightweight-web2-applications) sets its trust and action policy according to the application's purpose and risk, selects an available chainpoint, and retrieves untrusted asset data and proofs alongside signed roots from chosen anchors. Once it validates the required claims, the user can build a blockchain transaction or use the verified data off-chain.
+
+A read-only terminal can display verified asset state or feed a report without constructing a transaction. Missing roots, wrong chainpoints or failed proofs must not be presented as verified data. A transaction-building terminal checks the assets before construction; any irreversible external effect also waits for its required settlement and authorization conditions. Both use the same verification boundary without adding a per-application chain follower.
+
 ## Verify before using ledger facts
 
 A terminal accepts a commitment under its own anchor policy, selects its chainpoint and verifies an NFT output before reading the application root from its datum. Altered output bytes, a wrong root, wrong asset identity or wrong network must not become accepted facts. Membership must not substitute for the application’s [unique-state invariant](../concepts.md#assets-and-nft-state-outputs). The exact validation contract still needs a model and executable evidence.

@@ -9,11 +9,27 @@ As a reader following the MPFS or Singular example, identify what the terminal v
 | Anchor | The role that follows the chain and publishes independently computed, signed ledger roots |
 | Ledger provider | The `lockness-ledgers` role that serves data and ledger proofs; distinct from the Cardano ledger |
 | Application service | The `lockness-applications` role that interprets history and constructs application proofs |
-| Terminal | The consuming role that chooses anchors, verifies evidence and authorizes actions |
+| Terminal | A lightweight Web2 application with cryptographic capabilities that verifies assets before enabling transactions or off-chain data use |
 | Ledger root | An application-independent commitment to the ledger quantities covered by its scheme at a chainpoint |
 | Application root | A commitment to application state, authenticated through a ledger output or another verified application value |
 
 “Commitment” describes the cryptographic construction; “root” names its result. “Ledger proof” is the standard term here; a witness is the evidence carried by that proof.
+
+## Terminals: lightweight Web2 applications
+
+As an application developer, build a familiar Web2 experience that can consume blockchain data with independently checked evidence. A **terminal** is that lightweight application plus cryptographic capabilities. It can be a browser application, a mobile application or a conventional service integrating verified data into an existing workflow.
+
+The terminal applies a policy suited to the application's purpose and risk: which anchors to accept, which claims to prove, how fresh the data must be and whether the intended use needs settlement. Under that policy it selects a [chainpoint](design/chainpoints.md#find-a-usable-chainpoint), retrieves untrusted data and proofs for that point, and obtains the corresponding signed ledger roots from its chosen anchors. It verifies signatures, network and chainpoint bindings, asset identity and the required ledger and application claims before enabling use.
+
+<!-- diagram: terminal -->
+<div class="diagram"><a href="diagrams/terminal.png?v=59f92a8d96b59278"><img src="diagrams/terminal.png?v=59f92a8d96b59278" alt="A lightweight terminal applies its purpose and risk policy, selects a chainpoint, combines untrusted data with chosen anchor evidence, verifies assets, and enables transactions or off-chain data use. Failed checks block verified use." width="642" loading="lazy"></a></div>
+<p class="diagram-links"><a href="diagrams/terminal.png?v=59f92a8d96b59278">Open full size</a> · <a href="diagrams/terminal.mmd?v=65fdb6ca5a83cf69">Mermaid source</a></p>
+
+The two outcomes are equally central: help the user **build a blockchain transaction**, or **consume verified data off-chain**, for example in a display, report or application decision. Off-chain consumption does not require submitting a transaction. An irreversible external effect additionally follows the [settlement and authorization policy](architecture/system.md#external-effects-and-settlement).
+
+“Lightweight” describes the division of work: the terminal makes service requests and runs cryptographic verification, while ledger providers handle chain following, storage and queries, and application services may build proofs. The adoption target is ordinary Web2 development with verification libraries; developers need not implement their own cryptography or operate a chain follower for each application. An operator's own anchor remains a separate [trust choice](design/trust-and-availability.md#two-attractive-trust-deals).
+
+Data and anchor evidence may arrive in either order. They must bind to the same selected chainpoint before use. Fetching a root does not make it trusted: accepted anchor keys and policy are chosen independently of the data provider. Missing evidence, failed verification or an unsatisfied action policy keeps the data unverified and blocks the intended verified operation.
 
 ## Assets and NFT state outputs
 

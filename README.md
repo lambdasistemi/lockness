@@ -1,6 +1,6 @@
 # Lockness
 
-As an application developer, verify the data behind a transaction or real-world action without trusting the server that supplies it or running a chain follower for every application. Wallets and other consuming software are called **terminals** in Lockness.
+As an application developer, verify the data behind a transaction or real-world action without trusting the server that supplies it or running a chain follower for every application. A [**terminal**](docs/concepts.md#terminals-lightweight-web2-applications) is a lightweight Web2 application with cryptographic capabilities: it chooses a chainpoint according to the application's purpose and risk, retrieves untrusted data and independently accepted anchor evidence, verifies the assets, then lets the user build a blockchain transaction or consume the verified data off-chain.
 
 **Web2 scaling with explicit trust management.** Applications buy data and computation; terminals choose their anchors and verify provider answers. Removing correctness trust from data provision lets providers compete on availability, capacity, speed and price.
 
@@ -14,8 +14,8 @@ As an application developer, verify the data behind a transaction or real-world 
 - An anchor runs a node and publishes signed roots for every block, without hosting the ledger provider's archive or query capacity.
 
 <!-- diagram: roles -->
-<div class="diagram"><a href="docs/diagrams/roles.png?v=535c716f291a926b"><img src="docs/diagrams/roles.png?v=535c716f291a926b" alt="Anchors supply accepted roots; ledgers and application builders supply evidence to terminals." width="523" loading="lazy"></a></div>
-<p class="diagram-links"><a href="docs/diagrams/roles.png?v=535c716f291a926b">Open full size</a> · <a href="docs/diagrams/roles.mmd?v=4837eed6f241e496">Mermaid source</a></p>
+<div class="diagram"><a href="docs/diagrams/roles.png?v=6037a7ad1f213151"><img src="docs/diagrams/roles.png?v=6037a7ad1f213151" alt="Anchors supply accepted roots; ledgers and application builders supply evidence to terminals." width="523" loading="lazy"></a></div>
+<p class="diagram-links"><a href="docs/diagrams/roles.png?v=6037a7ad1f213151">Open full size</a> · <a href="docs/diagrams/roles.mmd?v=2cd71c9403daeccb">Mermaid source</a></p>
 
 The [architecture](docs/architecture/system.md) owns proof composition and the trust boundary. Ledger proofs stay off-chain; application proofs can enter transaction redeemers.
 

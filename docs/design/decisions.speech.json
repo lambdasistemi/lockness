@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "docs/design/decisions.md",
-    "sha256": "c7cd1a07bcad194328d7b8a84e7acde10daed9e34d8037fd37da85485a5d5660"
+    "sha256": "b082f3f829191037d89503bcefe02740893a71a71a258394684bf485c6772d66"
   },
   "recorded-direction": [
     {
-      "text": "The diagram draws design direction, executable model, reviewed contract and production implementation vertically as distinct stages. The later stages remain unproved. Decisions preserve own-anchor independence, institutional publication as an explicit trust option, and availability purchased separately from authority.",
+      "text": "The project treats terminals as lightweight Web2 applications with cryptographic capabilities. Purpose and risk guide verification before transaction construction or off-chain data consumption. The diagram distinguishes design inputs, executable model, reviewed contract and implementation. Own-anchor independence, chosen institutional publications and separately purchased availability remain the trust and economic direction.",
       "pause": 400
     }
   ],

@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "b93146abe59a83d9186898f6f5ee1dbf94d2f25dd12e21cab6a0f5365da13c01"
+    "sha256": "4da88601c0b1c892086a7fc07fb27011b3e120518d906cf7d3b0416b325f44aa"
   },
   "user-stories": [
     {
-      "text": "A terminal verifies an NFT output before consuming its application root. The role diagram shows green anchors supplying roots, blue ledger providers supplying data and proofs, orange application services building proofs and purple terminals verifying before action. Providers explicitly refuse unavailable views.",
+      "text": "A terminal is a lightweight Web2 application with cryptographic capabilities. Its purpose and risk policy guide chainpoint selection, anchor acceptance and asset verification. The user can then build a transaction or consume verified data off-chain. The role diagram shows anchors providing roots, untrusted ledger providers serving data and proofs, application services constructing proofs and terminals verifying before use.",
       "pause": 400
     }
   ],

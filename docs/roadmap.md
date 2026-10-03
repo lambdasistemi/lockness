@@ -48,7 +48,7 @@ Exit evidence: root-acceptance and data-delivery contracts for both trust choice
 
 ## Define the acceptance journey
 
-Specify this journey before assigning implementation. Use one NFT, a selected chainpoint and independently configured test anchor keys. The terminal must authenticate the NFT output, obtain complete reconstruction inputs, match the reconstructed application root and verify an application proof before constructing a transaction. Include a nested application root with every link checked.
+Specify this journey before assigning implementation. Use one NFT, a selected chainpoint and independently configured test anchor keys. A lightweight Web2 terminal must apply its purpose and risk policy, authenticate the NFT output, obtain complete reconstruction inputs, match the reconstructed application root and verify the required application claims. Exercise both a read-only off-chain use and transaction construction; off-chain adoption must not require submitting a transaction. Include a nested application root with every link checked.
 
 <!-- diagram: roadmap-journey -->
 <div class="diagram"><a href="diagrams/roadmap-journey.png?v=e7d7917fc7c4b93f"><img src="diagrams/roadmap-journey.png?v=e7d7917fc7c4b93f" alt="The terminal verifies claims from two provider instances and an untrusted application builder. Transaction construction and external effects have separate policies; effects require settlement and authorization." width="770" loading="lazy"></a></div>
@@ -71,7 +71,7 @@ Assign an owning implementation repository and deliverables for each role, inclu
 | Anchors | Independent commitment computation and signed publication, including branch corrections | Network, chainpoint, scheme and root bindings match terminal policy |
 | Ledger providers | Archive/view prototype, then retained views, references, indexes, sessions and proofs | Coverage and session behavior satisfy the contract at measured limits |
 | Applications | Deterministic replay and proof construction | Reconstructed state and proofs match the authenticated application root |
-| Terminals | Root policy, discovery, verification, switching and effect settlement | Required evidence and action conditions are checked before use |
+| Terminals | Lightweight Web2 integration, risk-based policy, discovery, verification, switching and effect settlement | Verified assets support both off-chain consumption and transaction construction; required evidence and action conditions are checked before use |
 
 Exit evidence: assigned repositories and issues for component delivery and the prototype, traceable to the acceptance cases. Existing CSMT epics are explicitly reconciled before implementation starts.
 

@@ -4,6 +4,8 @@
 
 Lockness enables terminals to consume anchored data: verify the claims behind transactions and real-world actions while choosing trust independently of data provision. It owns the project-level design for independently endorsed Cardano ledger commitments, evidence at selected chainpoints, and application verification. Component implementation remains separately owned.
 
+A terminal is a lightweight Web2 application with cryptographic capabilities. Its application purpose and risk determine trust, freshness and action policy. It selects a chainpoint, retrieves untrusted data and independently accepted anchor evidence, verifies the required asset claims, then enables blockchain transaction construction or off-chain data consumption. It does not require a per-application chain follower.
+
 The project proposition is Web2 scaling with explicit trust management: applications purchase availability and computation from competing providers while terminals retain control over accepted evidence.
 
 ## Core principles
