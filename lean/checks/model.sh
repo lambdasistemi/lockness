@@ -85,4 +85,14 @@ if stage lake exe lockness-sim accept-root unknown > "$scratch/scenario.log" 2>&
 fi
 cat "$scratch/scenario.log"
 grep -qF 'unknown accept-root scenario' "$scratch/scenario.log"
-echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger lifecycle=repeated-expiry-release signatures=abstract deployment=unestablished"
+stage lake env lean Lockness/Tests/App.lean
+stage lake env lean Lockness/Counterexamples/AppRootMutation.lean
+stage lake env lean Lockness/Counterexamples/AppAmbiguity.lean
+stage lake exe lockness-sim app honest
+stage lake exe lockness-sim app replaced-root
+stage lake exe lockness-sim app nested
+stage lake exe lockness-sim app ambiguous-value
+stage lake env bash checks/app-mutations.sh
+usage_failure 'unknown app scenario' app unknown
+usage_failure 'app <honest|replaced-root|nested|ambiguous-value>' app
+echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app lifecycle=repeated-expiry-release signatures=abstract app-proofs=abstract deployment=unestablished"

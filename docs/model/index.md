@@ -1,4 +1,4 @@
-# Inspect roots, sessions and ledger answers
+# Inspect roots, sessions, ledger answers and application claims
 
 As a design reviewer, run a terminal's root choice against trusted and untrusted publications. An honest scenario returns the accepted root and selected chainpoint. A publication from an untrusted key returns `no-root` at that same point, even when signature validity is assumed. Removing the trusted-set check demonstrates why that refusal matters.
 
@@ -6,7 +6,9 @@ A terminal also acquires exactly its selected point, repeats reads from that ses
 
 A terminal then verifies the ledger answer against its independently accepted root. An honest answer returns the application root in the witnessed output's datum. A witness valid only under a provider root refuses at the selected point. Two honest outputs carrying the same asset show why a separate uniqueness assumption is needed.
 
-This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.
+Finally, a terminal accepts an application claim only after root acceptance, exact-point acquisition, ledger verification and every application link have succeeded. An honest builder yields a verified claim. A builder that claims another root is refused at the selected point, even with a proof valid under that root. A two-link chain is checked link by link, and a failure at the second link rejects the whole claim. Under the stated root, ledger and application soundness premises plus functional application content, two providers and two builders cannot make the terminal accept two different claims for the same policy, publications and point; without functional content they can.
+
+This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, and application source links reference the published application model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.
 
 ## Run the scenarios
 
@@ -23,6 +25,10 @@ From the repository root, with Nix flakes enabled:
 ./lean/env lake exe lockness-sim ledger honest
 ./lean/env lake exe lockness-sim ledger substituted-root
 ./lean/env lake exe lockness-sim ledger duplicate-asset
+./lean/env lake exe lockness-sim app honest
+./lean/env lake exe lockness-sim app replaced-root
+./lean/env lake exe lockness-sim app nested
+./lean/env lake exe lockness-sim app ambiguous-value
 ./tools/check-model.sh
 ./tools/check-docs.sh
 just ci
@@ -41,8 +47,12 @@ just ci
 | Honest ledger answer | Application root of the authenticated output; independent root acceptance is executed first, provider root fields are ignored |
 | Substituted root | Witness succeeds under the answer's root and fails under the independent accepted root; verifier returns selected-point `evidenceFailure` |
 | Duplicate asset | Two distinct finite honest members carrying the same asset both verify, returning different datum roots; OneShot and the unique-output conclusion are false |
+| Honest application claim | Claim at the selected point with the accepted ledger root, the application root and the final value; two providers with different untrusted roots and two builders with different proof bytes yield the same claim in a fixture that satisfies every premise |
+| Replaced application root | The answer claims another root with a proof valid there and passes every other check; the proof fails under the trusted root, and accept returns selected-point `evidenceFailure` |
+| Nested application root | Both links are checked and the inner root is reported; a bad proof, replaced root or missing answer at the second link, or fuel 1 or 0, refuses the whole claim |
+| Ambiguous value | Two values are committed for one query under one root; two builders make accept return two different claims, so invariance needs the separate functional premise |
 
-An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session or ledger scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.
+An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger or app scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.
 
 ## Follow the acceptance boundary
 
@@ -62,7 +72,7 @@ The terminal supplies its policy and selected point. For each proposed root, `ac
 acceptRoot : Policy → List Publication → Chainpoint → Except Refusal Root
 ```
 
-The [acceptance definition](https://github.com/lambdasistemi/lockness/blob/feat/7-session-acquisition/lean/Lockness/Root.lean) returns `noRoot selectedPoint` when no proposal qualifies. The shared refusal type has exactly three constructors: `noRoot`, `unavailablePoint` and `evidenceFailure`, each carrying the selected point. Root acceptance only emits `noRoot`; session acquisition emits `unavailablePoint`. Ledger verification emits `evidenceFailure`; all three retain the selected point.
+The [acceptance definition](https://github.com/lambdasistemi/lockness/blob/feat/7-session-acquisition/lean/Lockness/Root.lean) returns `noRoot selectedPoint` when no proposal qualifies. The shared refusal type has exactly three constructors: `noRoot`, `unavailablePoint` and `evidenceFailure`, each carrying the selected point. Root acceptance only emits `noRoot`; session acquisition emits `unavailablePoint`. Ledger and application verification emit `evidenceFailure`; all three retain the selected point.
 
 | Design choice | Alternative | Reason |
 | --- | --- | --- |
@@ -74,16 +84,18 @@ The [acceptance definition](https://github.com/lambdasistemi/lockness/blob/feat/
 
 ## Read the model contracts
 
-The [shared types](https://github.com/lambdasistemi/lockness/blob/3b88416def14c9d2da0d04ab0d595e5de7b91493/lean/Lockness/Types.lean) preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm.
+The [shared types](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Types.lean) preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm.
 
 | Surface | Contract in this slice |
 | --- | --- |
 | `Bytes`, `Chainpoint`, `Root`, `Publication` | Original byte sequences, exact point/root identities and original message/signature evidence |
-| `Policy` | Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations |
+| `Policy` | Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations; the fixed application query, application proof check, nested-root reading and link fuel |
 | `Refusal` | Exactly the three selected-point refusals |
-| `Session` | Selected point and root; acquisition and lifecycle in the session module, described below |
+| `Session` | Selected point, provider root and the provider's untrusted answer to the policy's ledger query; acquisition and lifecycle in the session module, described below |
 | `LedgerAnswer` | Point, exact object/witness bytes and untrusted provider root; verification is described below |
-| `AppAnswer` | Application identity, context, point, root, claim, exact value and proof; no application verification behavior |
+| `AppAnswer` | Application identity, context, point, claimed root, claim, exact value and proof bytes; untrusted until application verification, described below |
+| `AppQuery`, `AppProof`, `AppValue` | The terminal's fixed application, context and claim bytes; uninterpreted proof bytes; exact value bytes |
+| `Claim` | Selected point, accepted ledger root, query, application root, checked nested roots and final value; no proof bytes or provider roots |
 
 `SigValid publication` is an uncomputed proposition supplied by an implicit, arbitrary `SignatureModel`. The project defines no global instance fixing validity. `ObservationSound policy` explicitly assumes that a true observation implies this predicate. Neither an observation nor the model simulator implements signature verification. Signature encodings, key rotation and cryptographic correctness remain external contracts.
 
@@ -167,7 +179,7 @@ The [soundness proof](https://github.com/lambdasistemi/lockness/blob/3b88416def1
 | `DatumObservationSound` | Extraction and parsing of that same output's bytes under the selected schema agree with its honest datum root |
 | `OneShot` | At every point, any two member pairs carrying the selected asset are equal |
 
-`verifyLedger_observations` exposes the full successful path, including exact bytes and every interpretation observation. `verifyLedger_refusal` proves the selected-point evidence refusal for every error. `verifyLedger_sound : LedgerSoundness verifyLedger` proves the complete member, asset, honest datum-root and unique-pair conclusion. Encoding injectivity remains an explicit premise of the frozen contract; byte binding itself uses the executable re-encoding equality. These predicates do not implement cryptography, a datum format, CSMT internals or Cardano serialization.
+`verifyLedger_observations` exposes the full successful path, including exact bytes and every interpretation observation. `verifyLedger_refusal` proves the selected-point evidence refusal for every error. `verifyLedger_sound : LedgerSoundness verifyLedger` proves the complete member, asset, honest datum-root and unique-pair conclusion under those premises. Encoding injectivity remains an explicit premise of the frozen contract; byte binding itself uses the executable re-encoding equality. These predicates do not implement cryptography, a datum format, CSMT internals or Cardano serialization.
 
 The [honest fixtures](https://github.com/lambdasistemi/lockness/blob/3b88416def14c9d2da0d04ab0d595e5de7b91493/lean/Lockness/Counterexamples/LedgerFixtures.lean) inhabit all premises together with selected-point correspondence and acceptance. Their reversible framing preserves zero bytes, order and `255`, and its injectivity is proved for arbitrary byte pairs. This framing is only an example of an abstract representation. The honest ledger has one member; the unrestricted ledger type also admits two different outputs carrying the same asset. No uniqueness restriction is hidden in its type.
 
@@ -183,24 +195,72 @@ The [duplicate-asset refutation](https://github.com/lambdasistemi/lockness/blob/
 | Explicit executable callbacks and soundness predicates | Treat Boolean success as semantic truth | Witness correctness and interpretation correspondence remain separately assumed |
 | Separate OneShot premise | Forbid duplicate assets in every ledger value | Membership and unique state are different claims; the counterexample stays reachable |
 
+## Verify application claims
+
+As a terminal, accept an application claim only when every root it rests on has been checked by you. The ledger step yields an application root; an application answer then binds a value under that root, and the value may carry a further root that needs its own answer. Providers and builders are arbitrary functions: a builder answers `Root → Option AppAnswer` with no honesty restriction. The [application step](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/App.lean) and the [whole fold](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Accept.lean) are:
+
+```lean
+verifyApp : Policy → Chainpoint → Root → AppAnswer → Except Refusal AppValue
+verifyChain : Policy → Chainpoint → Builder → Nat → Root → Except Refusal (List Root × AppValue)
+accept : Policy → List Publication → Chainpoint → Provider → Builder → Except Refusal Claim
+```
+
+The issue promised `verifyApp : Root → AppAnswer → Except Refusal AppValue`. The model takes the policy and the selected point first, so `verifyApp policy selectedPoint` has exactly that type. This is a stated deviation: with only a root and an answer, the proof checker would have to be a hidden global, and a refusal could carry only the answer's untrusted point. Passing both explicitly keeps the checker visible and makes every refusal carry the caller's selected point.
+
+`verifyApp` checks, in this order, that the answer's claimed root equals the trusted root, that its point is the selected point, that its application, context and claim equal the policy's fixed query, and that the policy's proof check succeeds for the answer's proof, the trusted root, the policy query and the value. The claimed root is compared and never adopted, and the proof is never checked under the answer's root or query fields. Every failure is `evidenceFailure` at the selected point. `verifyChain` counts checked links with its fuel: when the policy reads no further root from a value, that value is final; otherwise the next root is checked with one less fuel. Running out of fuel with a root still pending, a missing answer, or a failure at any link refuses the whole claim. No partial claim is ever returned.
+
+`accept` runs root acceptance, acquisition at the selected point, ledger verification of the session's ledger answer under the root returned by root acceptance, and then the chain from the ledger's application root with the policy's fuel. The provider's session root, its ledger answer root and every answer's claimed root are data, never checking authority. The accepted `Claim` holds the selected point, the accepted ledger root, the query, the application root, the nested roots in order and the final value.
+
+The [proofs](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/AcceptProofs.lean) state their conclusions over arbitrary policies, publications, points, providers and builders. `holds` is the semantic claim: the claim's query is the policy query, a unique asset-bearing member of the selected point's ledger has the claim's application root as its honest datum root, and the claimed chain holds in the honest application content. It is defined from that content, never from `accept` or a guard.
+
+| Explicit premise | What it supplies | Used by |
+| --- | --- | --- |
+| Honest-root correspondence and the five ledger premises | The ledger guarantee described above | Soundness and invariance |
+| `AppSound` | A successful proof check under a root implies that the query and value pair is committed under that root | Soundness and invariance |
+| `NestingInterpretationFaithful` | The policy reads a further root from a value exactly when the value honestly carries it, so a final value is honestly final | Soundness |
+| `AppFunctional` | One root commits at most one value for one query | Invariance only |
+
+| Declaration | Established model guarantee |
+| --- | --- |
+| `accept_sound : AcceptSoundness accept` | Under honest-root correspondence, the five ledger premises, `AppSound` and faithful nesting, an accepted claim is at the selected point, its ledger root is the honest root, and `holds` its claim over the selected point's ledger |
+| `accept_provider_invariant : ProviderInvariance accept` | Under honest-root correspondence, the five ledger premises, `AppSound` and `AppFunctional`, two successful accepts with arbitrary providers and builders return equal claims; availability and refusals may still differ |
+| `accept_refusal` | Every refusal from any step carries the selected point; root, acquisition and evidence refusals keep their constructors |
+| `verifyApp_claimed_root_first` | For every policy and proof check, a claimed root other than the trusted root is refused |
+
+The [application fixture](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Counterexamples/AppFixtures.lean) inhabits every premise of both statements together with successful one-link and two-link acceptance. Two providers offer different untrusted session and ledger answer roots, and two builders return different valid proof bytes; both yield the identical claim. Every expected claim is evaluated from the honest content, never typed in or read from `accept`.
+
+The [root counterexamples](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Counterexamples/AppRootMutation.lean) are parameterized by the operation. The gate compiles a copy of the real verifier with the claimed-root comparison removed and the proof checked under the claimed root. That mutant accepts a value committed only under another root and constructively refutes the unchanged soundness statement; the original proofs then fail, and the real replaced-root scenario rejects the changed outcome. A second compiled mutant checks the ledger answer under the session's own root. It accepts the substituted ledger answer and refutes the same statement, and the real honest scenario fails because untrusted provider roots become authority. The [ambiguity refutation](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Counterexamples/AppAmbiguity.lean) keeps every invariance premise except `AppFunctional` and shows two different accepted claims. That statement is copied by hand from `ProviderInvariance`; its faithfulness is a residual for review in issue #11.
+
+| Choice | Alternative | Why |
+| --- | --- | --- |
+| Policy and selected point before root and answer | The literal two-argument verifier | No hidden checker, and refusals carry the selected point |
+| Compare the claimed root first | Check the proof under the answer's root | A builder cannot choose the root its own proof is judged against |
+| Count links with fuel and refuse on exhaustion | Return the links checked so far | A partial chain is not the claim the terminal asked for |
+| Separate `AppFunctional` premise | Assume soundness implies a unique value | Membership alone admits two values for one query; the counterexample stays reachable |
+| Session carries the provider's ledger answer | A second provider operation or builder-supplied ledger evidence | Keeps acquisition and its proofs unchanged and the ledger and application roles separate |
+
+Two limits are deliberate. Every link is checked against the same policy query; per-link queries, or different queries in nested trees, are not modelled and are reviewed in issue #11. A session carries one answer, to the policy's single ledger query; several ledger queries per session belong to later wire contracts. Proof formats, application validators, transition binding and transaction construction are not modelled.
+
 ## Assess the evidence
 
 `check-model` builds every model module, inventories every stored theorem including private proofs, and reports its axiom dependencies. It permits only Lean's standard `propext`, `Classical.choice` and `Quot.sound`; holes and custom escape axioms fail. Lean checks anonymous examples during compilation but does not retain them in the declaration inventory: strict compiler warnings and a source hole policy reject their holes. Deliberate named and anonymous `sorry`, `admit` and unused custom-axiom controls must reach the relevant rejection, rather than fail because a tool or import is missing.
 
-The gate executes all three root, session and ledger scenarios, runs the permanent lifecycle check, and compiles the root, session and ledger counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.
+The gate executes the root, session, ledger and application scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger and application counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.
 
 The session control copies the actual production acquisition definition into an isolated build directory, removes only its point-equality guard, then recompiles the session counterexample module and session simulator against that mutated module. The existing unchanged root dependencies are copied as compiled inputs; this control does not rebuild the full dependent closure. The compiled mutant executes newer-point acceptance and constructively refutes the unchanged `NoSubstitution` proposition. The exact unchanged `acquire_no_substitution` proof then fails at its point-equality conclusion, and the real newer-point simulator rejects the changed outcome. The general refutation helper applies to any operation with that acceptance witness, rather than only a separate fake acquisition copy.
+
+The application controls work the same way. The [application tests](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Tests/App.lean) check each first-link point, application, context, claim and proof refusal, each second-link failure, fuel exhaustion, and the root, acquisition and ledger refusals of the fold. The [mutation script](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/checks/app-mutations.sh) verifies that each edit to the production source applied, recompiles the dependent fixtures and simulator, executes the mutant's acceptance by evaluation, applies the refutation, and requires the unchanged proofs to fail on the trusted-root or accepted-root observation rather than on a setup error.
 
 Run `./lean/env lake env lean Lockness/Tests/Session.lean` or `./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean` for session checks and the [generic refutation](https://github.com/lambdasistemi/lockness/blob/feat/7-session-acquisition/lean/Lockness/Counterexamples/SessionMutation.lean). Run `./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean` to inspect the constructive counterexample independently. Record `git rev-parse HEAD` alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed.
 
 | Evidence layer | Limit |
 | --- | --- |
 | Design | Records the project trust boundary and open contracts |
-| Model and simulator | Kernel-checked properties of this root and session model and concrete executable paths |
+| Model and simulator | Kernel-checked properties of this root, session, ledger and application model and concrete executable paths |
 | Documentation checks | Presentation, speech freshness and strict site construction |
 | Independent acceptance and remote CI | Require revision-bound review and actual successful workflow results |
 | Component implementation, deployment and live chain | Not established by this model |
 
-The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof verification, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; no model proof establishes these for a deployed system. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.
+The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds `AppSound` and faithful nesting, and invariance adds `AppFunctional`. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.
 
 Continue to [design decisions and remaining guarantees](../design/decisions.md) and the [project architecture](../architecture/system.md).
