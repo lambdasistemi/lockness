@@ -16,11 +16,13 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Application docs slice
 
-- [ ] application-docs-and-speech: model index, decisions and README with curated speech, stated verifyApp deviation, uniform-query limit and immutable source links.
+- [x] application-docs-and-speech: model index, decisions and README with curated speech, stated verifyApp deviation, uniform-query limit and immutable source links.
 
-## Outward delivery conditions (closed only by receipts)
+## Outward delivery conditions
 
-- [ ] final-head-local-checks: check-model and check-docs on the final head with clean tree before and after.
-- [ ] exact-head-remote-ci: Build Gate, Docs build and preview success on the pushed head.
-- [ ] live-preview-evidence: model page source links resolve and match model bytes; speech companions served.
-- [ ] audited-ready-handoff: every checkpoint approved, final handoff, seats retired, PR ready for review.
+These are not task markers. Each stays open until the final handoff records its real receipt: the final head, remote CI, the live preview and readiness.
+
+- final-head-local-checks: check-model and check-docs on the final head with clean tree before and after.
+- exact-head-remote-ci: Build Gate, Docs build and preview success on the pushed head.
+- live-preview-evidence: model page source links resolve and match model bytes; speech companions served.
+- audited-ready-handoff: every checkpoint approved, final handoff, seats retired, PR ready for review.

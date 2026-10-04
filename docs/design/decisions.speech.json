@@ -77,7 +77,11 @@
       "pause": 500
     },
     {
-      "text": "Design claim: Terminals verify data against independently accepted ledger roots; Evidence boundary: Executable root acceptance, session and ledger verification model with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment.",
+      "text": "Design claim: Terminals verify data against independently accepted ledger roots; Evidence boundary: Executable root acceptance, session, ledger and application verification model with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Terminals accept application claims only through checked nested roots; Evidence boundary: The model proves claim soundness for the whole fold under honest-root correspondence, the ledger premises, application proof soundness and faithful nesting, and provider invariance under the same root, ledger and application proof premises plus functional application content; without functional content two builders can yield different accepted claims; no proof format, validator or implemented terminal.",
       "pause": 400
     },
     {
@@ -135,8 +139,16 @@
       "pause": 300
     },
     {
-      "text": "The ledger model binds the asset and exact witnessed-output datum to a selected-point accepted root under explicit assumptions. Application replay and proof checks still need their own application/context, nested-proof and transition bindings.",
+      "text": "The ledger model binds the asset and exact witnessed-output datum to a selected-point accepted root under explicit assumptions. The application model binds the application, context, claim, point and nested roots abstractly; concrete proof formats, application replay and transition bindings still need their own contracts.",
       "pause": 300
+    },
+    {
+      "text": "Every application link is checked against one fixed query, and a session carries one ledger answer. Per-link queries are reviewed in issue 11; several ledger queries per session belong to later wire contracts.",
+      "pause": 400
+    },
+    {
+      "text": "The invariance statement with the functional-content premise removed is copied by hand for its counterexample; its faithfulness is reviewed in issue 11.",
+      "pause": 400
     },
     {
       "text": "External effects require an explicit settlement policy and evidence of continued ancestry; signatures or same-point anchor agreement alone do not establish settlement.",
@@ -149,7 +161,7 @@
       "pause": 500
     },
     {
-      "text": "The root acceptance, session and ledger verification model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. The ledger verifier checks the witness against the independently accepted root argument and binds the original object bytes to every asset and datum observation. Its universal proof identifies an honest member, actual asset, honest datum root and unique asset-bearing pair under separate selected-point correspondence, witness, encoding, interpretation and OneShot premises. Nontrivial honest fixtures inhabit all premises and acceptance together. A compiled provider-root substitution accepts an impostor and constructively refutes the unchanged guarantee; a two-member same-asset ledger refutes the complete unique-output guarantee when only OneShot is removed. All three ledger scenarios run through the real verifier. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.",
+      "text": "The root acceptance, session, ledger and application verification model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. The ledger verifier checks the witness against the independently accepted root argument and binds the original object bytes to every asset and datum observation. Its universal proof identifies an honest member, actual asset, honest datum root and unique asset-bearing pair under separate selected-point correspondence, witness, encoding, interpretation and OneShot premises. Nontrivial honest fixtures inhabit all premises and acceptance together. A compiled provider-root substitution accepts an impostor and constructively refutes the unchanged guarantee; a two-member same-asset ledger refutes the complete unique-output guarantee when only OneShot is removed. All three ledger scenarios run through the real verifier. The application fold accepts a claim only after root acceptance, acquisition, ledger verification under the accepted root and every nested application link; the claimed root is compared before the proof is checked under the trusted root. Under honest-root correspondence, the ledger premises, application proof soundness and faithful nesting, its proofs show an accepted claim holds over the selected point's ledger; under the same root, ledger and application proof premises plus functional content, two providers and two builders cannot yield different claims. Compiled mutants that trust the claimed root or the session's root refute the unchanged soundness statement, and two values for one query refute invariance without the functional premise. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.",
       "pause": 400
     },
     {
@@ -167,6 +179,6 @@
   ],
   "_source": {
     "file": "decisions.md",
-    "sha256": "86a93786f4117db6c6b2a028fa8d1fb68eb318922309db72bc3744573be57559"
+    "sha256": "ef6b39ab8e8481c0f450769bfb37b9511fc74e47620242b4e27c9fba023421b0"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "inspect-roots-sessions-and-ledger-answers": [
+  "inspect-roots-sessions-ledger-answers-and-application-claims": [
     {
-      "text": "Inspect roots, sessions and ledger answers.",
+      "text": "Inspect roots, sessions, ledger answers and application claims.",
       "pause": 500
     },
     {
@@ -17,7 +17,11 @@
       "pause": 400
     },
     {
-      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
+      "text": "Finally, a terminal accepts an application claim only after root acceptance, exact-point acquisition, ledger verification and every application link have succeeded. An honest builder yields a verified claim. A builder that claims another root is refused at the selected point, even with a proof valid under that root. A two-link chain is checked link by link, and a failure at the second link rejects the whole claim. Under the stated root, ledger and application soundness premises plus functional application content, two providers and two builders cannot make the terminal accept two different claims for the same policy, publications and point; without functional content they can.",
+      "pause": 400
+    },
+    {
+      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, and application source links reference the published application model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
       "pause": 400
     }
   ],
@@ -71,7 +75,23 @@
       "pause": 400
     },
     {
-      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session or ledger scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.",
+      "text": "Scenario: Honest application claim; Observable result: Claim at the selected point with the accepted ledger root, the application root and the final value; two providers with different untrusted roots and two builders with different proof bytes yield the same claim in a fixture that satisfies every premise.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Replaced application root; Observable result: The answer claims another root with a proof valid there and passes every other check; the proof fails under the trusted root, and accept returns selected-point evidenceFailure.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Nested application root; Observable result: Both links are checked and the inner root is reported; a bad proof, replaced root or missing answer at the second link, or fuel 1 or 0, refuses the whole claim.",
+      "pause": 400
+    },
+    {
+      "text": "Scenario: Ambiguous value; Observable result: Two values are committed for one query under one root; two builders make accept return two different claims, so invariance needs the separate functional premise.",
+      "pause": 400
+    },
+    {
+      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger or app scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.",
       "pause": 400
     }
   ],
@@ -85,7 +105,7 @@
       "pause": 400
     },
     {
-      "text": "The acceptance definition returns noRoot selectedPoint when no proposal qualifies. The shared refusal type has exactly three constructors: noRoot, unavailablePoint and evidenceFailure, each carrying the selected point. Root acceptance only emits noRoot; session acquisition emits unavailablePoint. Ledger verification emits evidenceFailure; all three retain the selected point.",
+      "text": "The acceptance definition returns noRoot selectedPoint when no proposal qualifies. The shared refusal type has exactly three constructors: noRoot, unavailablePoint and evidenceFailure, each carrying the selected point. Root acceptance only emits noRoot; session acquisition emits unavailablePoint. Ledger and application verification emit evidenceFailure; all three retain the selected point.",
       "pause": 400
     }
   ],
@@ -103,7 +123,7 @@
       "pause": 400
     },
     {
-      "text": "Surface: Policy; Contract in this slice: Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations.",
+      "text": "Surface: Policy; Contract in this slice: Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations; the fixed application query, application proof check, nested-root reading and link fuel.",
       "pause": 400
     },
     {
@@ -111,7 +131,7 @@
       "pause": 400
     },
     {
-      "text": "Surface: Session; Contract in this slice: Selected point and root; acquisition and lifecycle in the session module, described below.",
+      "text": "Surface: Session; Contract in this slice: Selected point, provider root and the provider's untrusted answer to the policy's ledger query; acquisition and lifecycle in the session module, described below.",
       "pause": 400
     },
     {
@@ -119,7 +139,15 @@
       "pause": 400
     },
     {
-      "text": "Surface: AppAnswer; Contract in this slice: Application identity, context, point, root, claim, exact value and proof; no application verification behavior.",
+      "text": "Surface: AppAnswer; Contract in this slice: Application identity, context, point, claimed root, claim, exact value and proof bytes; untrusted until application verification, described below.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: AppQuery, AppProof, AppValue; Contract in this slice: The terminal's fixed application, context and claim bytes; uninterpreted proof bytes; exact value bytes.",
+      "pause": 400
+    },
+    {
+      "text": "Surface: Claim; Contract in this slice: Selected point, accepted ledger root, query, application root, checked nested roots and final value; no proof bytes or provider roots.",
       "pause": 400
     },
     {
@@ -199,7 +227,7 @@
       "pause": 400
     },
     {
-      "text": "verifyLedger_observations exposes the full successful path, including exact bytes and every interpretation observation. verifyLedger_refusal proves the selected-point evidence refusal for every error. verifyLedger_sound : LedgerSoundness verifyLedger proves the complete member, asset, honest datum-root and unique-pair conclusion. Encoding injectivity remains an explicit premise of the frozen contract; byte binding itself uses the executable re-encoding equality. These predicates do not implement cryptography, a datum format, CSMT internals or Cardano serialization.",
+      "text": "verifyLedger_observations exposes the full successful path, including exact bytes and every interpretation observation. verifyLedger_refusal proves the selected-point evidence refusal for every error. verifyLedger_sound : LedgerSoundness verifyLedger proves the complete member, asset, honest datum-root and unique-pair conclusion under those premises. Encoding injectivity remains an explicit premise of the frozen contract; byte binding itself uses the executable re-encoding equality. These predicates do not implement cryptography, a datum format, CSMT internals or Cardano serialization.",
       "pause": 400
     },
     {
@@ -235,6 +263,96 @@
       "pause": 400
     }
   ],
+  "verify-application-claims": [
+    {
+      "text": "Verify application claims.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal, accept an application claim only when every root it rests on has been checked by you. The ledger step yields an application root; an application answer then binds a value under that root, and the value may carry a further root that needs its own answer. Providers and builders are arbitrary functions: a builder answers a root with an optional application answer, with no honesty restriction. The application step and the whole fold are verifyApp, verifyChain and accept.",
+      "pause": 400
+    },
+    {
+      "text": "The issue promised verifyApp from a root and an answer to a refusal or a value. The model takes the policy and the selected point first, so verifyApp applied to a policy and a selected point has exactly that type. This is a stated deviation: with only a root and an answer, the proof checker would have to be a hidden global, and a refusal could carry only the answer's untrusted point. Passing both explicitly keeps the checker visible and makes every refusal carry the caller's selected point.",
+      "pause": 400
+    },
+    {
+      "text": "verifyApp checks, in this order, that the answer's claimed root equals the trusted root, that its point is the selected point, that its application, context and claim equal the policy's fixed query, and that the policy's proof check succeeds for the answer's proof, the trusted root, the policy query and the value. The claimed root is compared and never adopted, and the proof is never checked under the answer's root or query fields. Every failure is evidenceFailure at the selected point. verifyChain counts checked links with its fuel: when the policy reads no further root from a value, that value is final; otherwise the next root is checked with one less fuel. Running out of fuel with a root still pending, a missing answer, or a failure at any link refuses the whole claim. No partial claim is ever returned.",
+      "pause": 400
+    },
+    {
+      "text": "accept runs root acceptance, acquisition at the selected point, ledger verification of the session's ledger answer under the root returned by root acceptance, and then the chain from the ledger's application root with the policy's fuel. The provider's session root, its ledger answer root and every answer's claimed root are data, never checking authority. The accepted claim holds the selected point, the accepted ledger root, the query, the application root, the nested roots in order and the final value.",
+      "pause": 400
+    },
+    {
+      "text": "The proofs state their conclusions over arbitrary policies, publications, points, providers and builders. holds is the semantic claim: the claim's query is the policy query, a unique asset-bearing member of the selected point's ledger has the claim's application root as its honest datum root, and the claimed chain holds in the honest application content. It is defined from that content, never from accept or a guard.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: Honest-root correspondence and the five ledger premises; What it supplies: The ledger guarantee described above; Used by: Soundness and invariance.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: AppSound; What it supplies: A successful proof check under a root implies that the query and value pair is committed under that root; Used by: Soundness and invariance.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: NestingInterpretationFaithful; What it supplies: The policy reads a further root from a value exactly when the value honestly carries it, so a final value is honestly final; Used by: Soundness.",
+      "pause": 400
+    },
+    {
+      "text": "Explicit premise: AppFunctional; What it supplies: One root commits at most one value for one query; Used by: Invariance only.",
+      "pause": 400
+    },
+    {
+      "text": "Declaration: accept_sound; Established model guarantee: Under honest-root correspondence, the five ledger premises, AppSound and faithful nesting, an accepted claim is at the selected point, its ledger root is the honest root, and holds its claim over the selected point's ledger.",
+      "pause": 400
+    },
+    {
+      "text": "Declaration: accept_provider_invariant; Established model guarantee: Under honest-root correspondence, the five ledger premises, AppSound and AppFunctional, two successful accepts with arbitrary providers and builders return equal claims; availability and refusals may still differ.",
+      "pause": 400
+    },
+    {
+      "text": "Declaration: accept_refusal; Established model guarantee: Every refusal from any step carries the selected point; root, acquisition and evidence refusals keep their constructors.",
+      "pause": 400
+    },
+    {
+      "text": "Declaration: verifyApp_claimed_root_first; Established model guarantee: For every policy and proof check, a claimed root other than the trusted root is refused.",
+      "pause": 400
+    },
+    {
+      "text": "The application fixture inhabits every premise of both statements together with successful one-link and two-link acceptance. Two providers offer different untrusted session and ledger answer roots, and two builders return different valid proof bytes; both yield the identical claim. Every expected claim is evaluated from the honest content, never typed in or read from accept.",
+      "pause": 400
+    },
+    {
+      "text": "The root counterexamples are parameterized by the operation. The gate compiles a copy of the real verifier with the claimed-root comparison removed and the proof checked under the claimed root. That mutant accepts a value committed only under another root and constructively refutes the unchanged soundness statement; the original proofs then fail, and the real replaced-root scenario rejects the changed outcome. A second compiled mutant checks the ledger answer under the session's own root. It accepts the substituted ledger answer and refutes the same statement, and the real honest scenario fails because untrusted provider roots become authority. The ambiguity refutation keeps every invariance premise except AppFunctional and shows two different accepted claims. That statement is copied by hand from ProviderInvariance; its faithfulness is a residual for review in issue 11.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Policy and selected point before root and answer; Alternative: The literal two-argument verifier; Why: No hidden checker, and refusals carry the selected point.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Compare the claimed root first; Alternative: Check the proof under the answer's root; Why: A builder cannot choose the root its own proof is judged against.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Count links with fuel and refuse on exhaustion; Alternative: Return the links checked so far; Why: A partial chain is not the claim the terminal asked for.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Separate AppFunctional premise; Alternative: Assume soundness implies a unique value; Why: Membership alone admits two values for one query; the counterexample stays reachable.",
+      "pause": 400
+    },
+    {
+      "text": "Choice: Session carries the provider's ledger answer; Alternative: A second provider operation or builder-supplied ledger evidence; Why: Keeps acquisition and its proofs unchanged and the ledger and application roles separate.",
+      "pause": 400
+    },
+    {
+      "text": "Two limits are deliberate. Every link is checked against the same policy query; per-link queries, or different queries in nested trees, are not modelled and are reviewed in issue 11. A session carries one answer, to the policy's single ledger query; several ledger queries per session belong to later wire contracts. Proof formats, application validators, transition binding and transaction construction are not modelled.",
+      "pause": 400
+    }
+  ],
   "assess-the-evidence": [
     {
       "text": "Assess the evidence.",
@@ -245,7 +363,7 @@
       "pause": 400
     },
     {
-      "text": "The gate executes all three root, session and ledger scenarios, runs the permanent lifecycle check, and compiles the root, session and ledger counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
+      "text": "The gate executes the root, session, ledger and application scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger and application counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
       "pause": 400
     },
     {
@@ -253,11 +371,15 @@
       "pause": 400
     },
     {
+      "text": "The application controls work the same way. The application tests check each first-link point, application, context, claim and proof refusal, each second-link failure, fuel exhaustion, and the root, acquisition and ledger refusals of the fold. The mutation script verifies that each edit to the production source applied, recompiles the dependent fixtures and simulator, executes the mutant's acceptance by evaluation, applies the refutation, and requires the unchanged proofs to fail on the trusted-root or accepted-root observation rather than on a setup error.",
+      "pause": 400
+    },
+    {
       "text": "Run ./lean/env lake env lean Lockness/Tests/Session.lean or ./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean for session checks and the generic refutation. Run ./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean to inspect the constructive counterexample independently. Record git rev-parse HEAD alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed.",
       "pause": 400
     },
     {
-      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof verification, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; no model proof establishes these for a deployed system. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
+      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds AppSound and faithful nesting, and invariance adds AppFunctional. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
       "pause": 400
     },
     {
@@ -267,6 +389,6 @@
   ],
   "_source": {
     "file": "index.md",
-    "sha256": "7032cb09cb0022ae207e10bdfb77b91815f27d63606d9c82a12e21b547183901"
+    "sha256": "b8e965fe2745de4bace8812c7512c51b6889409d001df08edd663a020340ca2a"
   }
 }
