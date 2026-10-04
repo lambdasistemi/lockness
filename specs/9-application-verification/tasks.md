@@ -4,15 +4,15 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Application model slice
 
-- [ ] application-interface: released Types successor and neutral inherited adaptations with unchanged inherited outcomes.
-- [ ] claimed-root-first-verification: verifyApp guard order, trusted-root and policy-query proof check, link binding and selected-point refusal.
-- [ ] fueled-nested-chain: verifyChain fuel, absent-builder and exhaustion refusals, second-link rejection.
-- [ ] whole-fold-acceptance: accept composition with the independently accepted ledger root and refusal theorem for every branch.
-- [ ] claim-soundness: holds semantics, AcceptSoundness statement and proof with jointly inhabited honest premises.
-- [ ] provider-invariance: ProviderInvariance statement and proof with AppFunctional as its only added premise.
-- [ ] replaced-root-and-session-root-counterexamples: real verifier refusal, compiled claimed-root and session-root mutants refuting unchanged soundness and the real scenario.
-- [ ] ambiguous-value-counterexample: two builders, two claims, invariance without AppFunctional constructively false.
-- [ ] app-simulator-and-gates: four app scenarios, usage text, model-gate stages, inherited controls and all-source axiom inventory.
+- [x] application-interface: released Types successor and neutral inherited adaptations with unchanged inherited outcomes.
+- [x] claimed-root-first-verification: verifyApp guard order, trusted-root and policy-query proof check, link binding and selected-point refusal.
+- [x] fueled-nested-chain: verifyChain fuel, absent-builder and exhaustion refusals, second-link rejection.
+- [x] whole-fold-acceptance: accept composition with the independently accepted ledger root and refusal theorem for every branch.
+- [x] claim-soundness: holds semantics, AcceptSoundness statement and proof with jointly inhabited honest premises.
+- [x] provider-invariance: ProviderInvariance statement and proof with AppFunctional as its only added premise.
+- [x] replaced-root-and-session-root-counterexamples: real verifier refusal, compiled claimed-root and session-root mutants refuting unchanged soundness and the real scenario.
+- [x] ambiguous-value-counterexample: two builders, two claims, invariance without AppFunctional constructively false.
+- [x] app-simulator-and-gates: four app scenarios, usage text, model-gate stages, inherited controls and all-source axiom inventory.
 
 ## Application docs slice
 

@@ -11,6 +11,8 @@ abbrev TxOut := Bytes
 abbrev Asset := Bytes
 abbrev Schema := Bytes
 abbrev Witness := Bytes
+abbrev AppProof := Bytes
+abbrev AppValue := Bytes
 
 structure Chainpoint where
   network : Bytes
@@ -31,6 +33,12 @@ structure Publication where
   message : Bytes
   deriving DecidableEq, Repr
 
+structure AppQuery where
+  application : Bytes
+  context : Bytes
+  claim : Bytes
+  deriving DecidableEq, Repr
+
 structure Policy where
   trustedKeys : List Key
   agreement : List Key → Bool
@@ -43,6 +51,10 @@ structure Policy where
   assetOf : TxOut → Option Asset
   datumOf : TxOut → Option Bytes
   parseDatum : Schema → Bytes → Option Root
+  query : AppQuery
+  checkApp : AppProof → Root → AppQuery → AppValue → Bool
+  nextRoot : AppValue → Option Root
+  fuel : Nat
 
 -- Each instance is an arbitrary hypothesis, not an implementation of signatures.
 class SignatureModel where
@@ -63,16 +75,17 @@ inductive Refusal where
 def Refusal.selectedPoint : Refusal → Chainpoint
   | .noRoot point | .unavailablePoint point | .evidenceFailure point => point
 
-structure Session where
-  selectedPoint : Chainpoint
-  acceptedRoot : Root
-  deriving DecidableEq, Repr
-
 structure LedgerAnswer where
   point : Chainpoint
   object : Bytes
   witness : Bytes
   root : Root
+  deriving DecidableEq, Repr
+
+structure Session where
+  selectedPoint : Chainpoint
+  acceptedRoot : Root
+  ledger : LedgerAnswer
   deriving DecidableEq, Repr
 
 structure AppAnswer where
@@ -83,6 +96,15 @@ structure AppAnswer where
   claim : Bytes
   value : Bytes
   proof : Bytes
+  deriving DecidableEq, Repr
+
+structure Claim where
+  point : Chainpoint
+  ledgerRoot : Root
+  query : AppQuery
+  appRoot : Root
+  links : List Root
+  value : AppValue
   deriving DecidableEq, Repr
 
 end Lockness

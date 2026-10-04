@@ -90,7 +90,7 @@ def policyFor (duplicate : Bool) : Policy :=
     datumOf := outputDatum
     parseDatum := parse }
 
-def session : Session := ⟨point, providerRoot⟩
+def session : Session := ⟨point, providerRoot, ⟨point, [], [], providerRoot⟩⟩
 def answer₁ : LedgerAnswer := ⟨point, objectBytes entry₁, witness, providerRoot⟩
 def answer₂ : LedgerAnswer := ⟨point, objectBytes entry₂, witness, providerRoot⟩
 def substitutedAnswer : LedgerAnswer := ⟨point, objectBytes impostor, witness, providerRoot⟩
