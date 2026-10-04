@@ -18,13 +18,13 @@ theorem replaced_root_surrounding_conditions :
 -- The ledger answer is valid only under the provider's own root.
 theorem substituted_ledger_conditions :
     substitutingProvider selected =
-      some ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer⟩ ∧
+      some ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer, .bound selected⟩ ∧
     LedgerExamples.providerRoot ≠ LedgerExamples.acceptedRoot ∧
     verifyLedger (appPolicy false finalQuery) LedgerExamples.providerRoot
-      ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer⟩
+      ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer, .bound selected⟩
       LedgerExamples.substitutedAnswer = .ok LedgerExamples.appRoot₃ ∧
     verifyLedger (appPolicy false finalQuery) LedgerExamples.acceptedRoot
-      ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer⟩
+      ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer, .bound selected⟩
       LedgerExamples.substitutedAnswer = .error (.evidenceFailure selected) := by decide
 
 -- Parameterized by the real compiled production mutant, preserving AcceptSoundness.

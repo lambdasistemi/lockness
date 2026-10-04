@@ -5,14 +5,16 @@ namespace Lockness.Counterexamples.LedgerExamples
 -- Every surrounding observation succeeds. Only the checking-root choice discriminates.
 theorem substituted_surrounding_conditions :
     substitutedAnswer.point = session.selectedPoint ∧
+    session.binding = .bound session.selectedPoint ∧
     (policyFor false).decodeObject substitutedAnswer.object = some impostor ∧
     (policyFor false).objectBytes impostor = substitutedAnswer.object ∧
     (policyFor false).assetOf impostor.2 = some asset ∧
     (policyFor false).datumOf impostor.2 = some appRoot₃.bytes ∧
     (policyFor false).parseDatum schema appRoot₃.bytes = some appRoot₃ ∧
-    (policyFor false).checkWitness substitutedAnswer.witness
+    substitutedAnswer.witness = some witness ∧
+    (policyFor false).checkWitness witness
       substitutedAnswer.root substitutedAnswer.object = true ∧
-    (policyFor false).checkWitness substitutedAnswer.witness
+    (policyFor false).checkWitness witness
       acceptedRoot substitutedAnswer.object = false := by decide
 
 -- Parameterized by the real compiled production mutant, preserving LedgerSoundness.

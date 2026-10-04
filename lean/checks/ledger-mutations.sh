@@ -13,13 +13,13 @@ stage() {
   printf 'STAGE exit=%s\n' "$result"
   return "$result"
 }
-original='policy.checkWitness answer.witness acceptedRoot answer.object'
+original='policy.checkWitness · acceptedRoot answer.object'
 [[ $(grep -cF "$original" Lockness/Ledger.lean) = 1 ]]
 for checkingRoot in answer.root session.acceptedRoot; do
-  sed "s/$original/policy.checkWitness answer.witness $checkingRoot answer.object/" \
+  sed "s/$original/policy.checkWitness · $checkingRoot answer.object/" \
     Lockness/Ledger.lean > "$scratch/Ledger.lean"
   ! cmp -s Lockness/Ledger.lean "$scratch/Ledger.lean" || { echo 'ledger mutation did not apply'; exit 1; }
-  [[ $(grep -cF "policy.checkWitness answer.witness $checkingRoot answer.object" "$scratch/Ledger.lean") = 1 ]]
+  [[ $(grep -cF "policy.checkWitness · $checkingRoot answer.object" "$scratch/Ledger.lean") = 1 ]]
   sha256sum Lockness/Ledger.lean "$scratch/Ledger.lean"
   stage lean -o "$scratch/Lockness/Ledger.olean" "$scratch/Ledger.lean"
   stage lean -o "$scratch/Lockness/Counterexamples/LedgerFixtures.olean" Lockness/Counterexamples/LedgerFixtures.lean
@@ -39,7 +39,7 @@ LEAN
     echo 'unchanged ledger proof survived root substitution'; exit 1
   fi
   cat "$scratch/failed-proof.log"
-  grep -qF 'policy.checkWitness answer.witness acceptedRoot answer.object = true' "$scratch/failed-proof.log" || {
+  grep -qF 'policy.checkWitness witness acceptedRoot answer.object = true' "$scratch/failed-proof.log" || {
     echo 'ledger proof failed without accepted-root observation contradiction'; exit 1;
   }
   # Scenario code checks the actual executable result, even under production substitution.

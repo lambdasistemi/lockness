@@ -38,24 +38,28 @@ def LedgerSoundness
       ∀ other ∈ ledger session.selectedPoint, carries other.2 policy.asset → other = entry
 
 -- Provider roots are data; the terminal supplies the checking root independently.
+-- Only a session bound to its own selected point is evidence, and only a present witness
+-- checked under the accepted root passes.
 def verifyLedger (policy : Policy) (acceptedRoot : Root) (session : Session)
     (answer : LedgerAnswer) : Except Refusal Root :=
   if answer.point = session.selectedPoint then
-    match policy.decodeObject answer.object with
-    | none => .error (.evidenceFailure session.selectedPoint)
-    | some entry =>
-      if policy.objectBytes entry = answer.object then
-        if policy.checkWitness answer.witness acceptedRoot answer.object = true then
-          if policy.assetOf entry.2 = some policy.asset then
-            match policy.datumOf entry.2 with
-            | none => .error (.evidenceFailure session.selectedPoint)
-            | some datum =>
-              match policy.parseDatum policy.schema datum with
+    if session.binding = .bound session.selectedPoint then
+      match policy.decodeObject answer.object with
+      | none => .error (.evidenceFailure session.selectedPoint)
+      | some entry =>
+        if policy.objectBytes entry = answer.object then
+          if answer.witness.any (policy.checkWitness · acceptedRoot answer.object) = true then
+            if policy.assetOf entry.2 = some policy.asset then
+              match policy.datumOf entry.2 with
               | none => .error (.evidenceFailure session.selectedPoint)
-              | some root => .ok root
+              | some datum =>
+                match policy.parseDatum policy.schema datum with
+                | none => .error (.evidenceFailure session.selectedPoint)
+                | some root => .ok root
+            else .error (.evidenceFailure session.selectedPoint)
           else .error (.evidenceFailure session.selectedPoint)
         else .error (.evidenceFailure session.selectedPoint)
-      else .error (.evidenceFailure session.selectedPoint)
+    else .error (.evidenceFailure session.selectedPoint)
   else .error (.evidenceFailure session.selectedPoint)
 
 end Lockness

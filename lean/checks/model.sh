@@ -95,4 +95,16 @@ stage lake exe lockness-sim app ambiguous-value
 stage lake env bash checks/app-mutations.sh
 usage_failure 'unknown app scenario' app unknown
 usage_failure 'app <honest|replaced-root|nested|ambiguous-value>' app
-echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app lifecycle=repeated-expiry-release signatures=abstract app-proofs=abstract deployment=unestablished"
+stage lake env lean Lockness/Tests/Verdict.lean
+stage lake env lean Lockness/Counterexamples/VerdictPromotion.lean
+stage lake exe lockness-sim verdict verified
+stage lake exe lockness-sim verdict no-witness
+stage lake exe lockness-sim verdict unbound-session
+stage lake exe lockness-sim verdict no-verifier
+stage lake exe lockness-sim verdict wrong-witness
+stage lake exe lockness-sim verdict misbound
+stage lake exe lockness-sim verdict promoted
+stage lake env bash checks/verdict-mutations.sh
+usage_failure 'unknown verdict scenario' verdict unknown
+usage_failure 'verdict <verified|no-witness|unbound-session|no-verifier|wrong-witness|misbound|promoted>' verdict
+echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict verdict=no-promotion lifecycle=repeated-expiry-release signatures=abstract app-proofs=abstract deployment=unestablished"

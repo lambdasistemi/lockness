@@ -1,6 +1,6 @@
 # Verdict layer functions
 
-As a reviewer, see every new or changed signature with explicit argument names. Statements are as ruled in verdict-interface-v1 (answers/A-001, C1 applied).
+As a reviewer, see every new or changed signature with explicit argument names. Statements are as ruled in verdict-interface-v1.2 (answers/A-001 with C1, A-002, A-003).
 
 ## Changed
 
@@ -19,6 +19,6 @@ As a reviewer, see every new or changed signature with explicit argument names. 
 | `VerdictSoundness`, `VerdictProviderInvariance` | same operation type `→ Prop` | AcceptSoundness and ProviderInvariance with the verified premise |
 | `Session.withReconstruction` | `(reconstruction : Option Reconstruction) (session : Session) → Session` | Replaces only the answer's reconstruction |
 | `verdict_no_promotion` | `: NoPromotion verdict` | — |
-| `verdict_verified_iff`, `accept_bound_witnessed`, `verdict_refused`, `verdict_refusal`, `verdict_unverified`, `witnessed_never_unverified`, `unbound_only_unverified`, `misbound_refused`, `verdict_sound`, `verdict_provider_invariant`, `verdict_reconstruction_irrelevant` | ruled statements | Axioms limited to propext, Classical.choice and Quot.sound |
+| `verdict_verified_iff`, `accept_bound_witnessed`, `verdict_refused`, `verdict_refusal`, `verdict_unverified`, `witnessed_never_unverified`, `unbound_only_unverified`, `misbound_refused` (with the root-acceptance premise), `misbound_never_unverified`, `verdict_sound`, `verdict_provider_invariant`, `verdict_reconstruction_irrelevant` | ruled statements | Axioms limited to propext, Classical.choice and Quot.sound |
 | `promoted_refutes_no_promotion`, `promoted_refutes_soundness`, `verifier_refutes_no_promotion` | `(operation) (promoted : operation <promotion fixture> = .verified substitutedClaim) → ¬ …` | Parameterized by the compiled mutant |
 | `Lockness.Sim.verdictScenario` | `(scenario : String) → IO UInt32` | Unknown scenario exits 64 |

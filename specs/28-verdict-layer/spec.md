@@ -25,7 +25,7 @@ The verdict is the terminal's classification around `accept`, never a wire objec
 | unverified-only-from-declared-absence | `unverified` arises only from a declared absence (no verifier, `unbound`, no witness). It never hides a claim that accept made. Anything present and wrong is `refused`. |
 | wrong-witness-refused | A present but wrong witness on a bound session with a verifier is `refused evidenceFailure`, never `unverified`. |
 | unbound-only-unverified | A session offered at the selected point and declared `unbound` yields only `unverified`. |
-| misbound-refused | A session declaring a binding to another point is `refused evidenceFailure` at the selected point, never `unverified`: only a declared absence is unverified. |
+| misbound-refused | A session declaring a binding to another point is never `unverified`: it is refused with accept's refusal at the selected point, and with `evidenceFailure` whenever root acceptance succeeds. Only a declared absence is unverified. |
 | no-promotion | `verdict … = .verified c` implies the verifier is configured, the offered session is bound to the selected point, its answer carries a witness and `accept … = .ok c`. |
 | verified-claims-sound-and-invariant | Soundness and provider invariance hold for every verified claim under exactly the inherited hypotheses. |
 | promotion-refutation | A compiled mutant treating an absent witness as checked promotes a witness-less answer whose datum root is absent from the honest ledger. It constructively refutes the unchanged no-promotion and verified-soundness statements, the unchanged proofs fail, and the real `verdict promoted` scenario fails. |
@@ -44,4 +44,4 @@ The `act` step and the action policy belong to #10. The wire encoding of the bin
 
 ## Shared-interface authority
 
-Epic ruling verdict-interface-v1 (answers/A-001, correction C1) releases the Types successor, the ledger guards and restatements, the classification order and the file fence.
+Epic ruling verdict-interface-v1.2 (answers/A-001 with correction C1, A-002, A-003) releases the Types successor, the ledger guards and restatements, the classification order and the file fence.
