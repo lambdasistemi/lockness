@@ -1,4 +1,38 @@
 {
+  "inspect-roots-sessions-ledger-answers-application-claims-verdicts-and-the-operating-context": [
+    {
+      "text": "Inspect roots, sessions, ledger answers, application claims, verdicts and the operating context.",
+      "pause": 500
+    },
+    {
+      "text": "As a design reviewer, run a terminal's root choice against trusted and untrusted publications. An honest scenario returns the accepted root and selected chainpoint. A publication from an untrusted key returns no-root at that same point, even when signature validity is assumed. Removing the trusted-set check demonstrates why that refusal matters.",
+      "pause": 400
+    },
+    {
+      "text": "A terminal also acquires exactly its selected point, repeats reads from that session, and receives the original-point refusal when the provider is absent, offers another point, or the session expires.",
+      "pause": 400
+    },
+    {
+      "text": "A terminal then verifies the ledger answer against its independently accepted root. An honest answer returns the application root in the witnessed output's datum. A witness valid only under a provider root refuses at the selected point. Two honest outputs carrying the same asset show why a separate uniqueness assumption is needed.",
+      "pause": 400
+    },
+    {
+      "text": "Finally, a terminal accepts an application claim only after root acceptance, exact-point acquisition, ledger verification and every application link have succeeded. An honest builder yields a verified claim. A builder that claims another root is refused at the selected point, even with a proof valid under that root. A two-link chain is checked link by link, and a failure at the second link rejects the whole claim. Under the stated root, ledger and application soundness premises plus functional application content, two providers and two builders cannot make the terminal accept two different claims for the same policy, publications and point; without functional content they can.",
+      "pause": 400
+    },
+    {
+      "text": "Around all of this, the terminal classifies every outcome as verified, refused or unverified. A verified verdict carries exactly the claim that acceptance returned. A refused verdict carries acceptance's own refusal at the selected point. Unverified traffic is a first-class case for a declared absence only: no verifier configured, a session declared unbound, or a session bound to the selected point offering no witness. With a verifier configured, a present but wrong witness, or a session bound to another point, is refused, and in every case an answer without a witness can never be promoted to verified.",
+      "pause": 400
+    },
+    {
+      "text": "All of it happens inside one declared operating context: the network the terminal runs on and the commitment schemes it accepts. A selected point on another network, or a root under a scheme the terminal does not accept, is refused at the selected point, never reported as unverified. A publication from another network is ignored: it neither endorses a root here nor blocks one.",
+      "pause": 400
+    },
+    {
+      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, application source links reference the published application model revision, verdict source links reference the published verdict model revision, and operating context source links reference the published context model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
+      "pause": 400
+    }
+  ],
   "run-the-scenarios": [
     {
       "text": "Run the scenarios.",
@@ -13,87 +47,7 @@
       "pause": 400
     },
     {
-      "text": "Scenario: Honest publications; Observable result: accepted-root, full selected point, exact root scheme and bytes, two distinct endorsers despite a duplicate publication.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Untrusted key; Observable result: no-root, full selected point, signature validity explicitly labelled an abstract assumption.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Removed trusted-set check; Observable result: Production refuses; the mutation accepts the untrusted root and has a compiled refutation of the unchanged safety statement.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Honest session; Observable result: Exact point and independently obtained root; two unchanged active reads, expiry refusal and release to closed.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Absent point; Observable result: unavailablePoint at the selected point.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Newer point; Observable result: unavailablePoint at the selected point; same-slot alternate hash and alternate network also refuse.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Honest ledger answer; Observable result: Application root of the authenticated output; independent root acceptance is executed first, provider root fields are ignored.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Substituted root; Observable result: Witness succeeds under the answer's root and fails under the independent accepted root; verifier returns selected-point evidenceFailure.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Duplicate asset; Observable result: Two distinct finite honest members carrying the same asset both verify, returning different datum roots; OneShot and the unique-output conclusion are false.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Honest application claim; Observable result: Claim at the selected point with the accepted ledger root, the application root and the final value; two providers with different untrusted roots and two builders with different proof bytes yield the same claim in a fixture that satisfies every premise.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Replaced application root; Observable result: The answer claims another root with a proof valid there and passes every other check; the proof fails under the trusted root, and accept returns selected-point evidenceFailure.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Nested application root; Observable result: Both links are checked and the inner root is reported; a bad proof, replaced root or missing answer at the second link, or fuel 1 or 0, refuses the whole claim.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Ambiguous value; Observable result: Two values are committed for one query under one root; two builders make accept return two different claims, so invariance needs the separate functional premise.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Verified verdict; Observable result: A session bound to the selected point offers the honest witness and carries reconstruction material; the verdict is verified with exactly the claim accept returns.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: No witness; Observable result: The bound session offers the honest object without a witness; the verdict is unverified with reason no witness, and accept refuses with selected-point evidenceFailure.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Unbound session; Observable result: The session declares no binding while offering a valid witness; the verdict is unverified with reason unbound session, accept refuses, and the terminal adopts no point.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: No verifier; Observable result: The policy declares no verifier; the verdict is unverified with reason no verifier, although accept on the same offer would succeed.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Wrong witness; Observable result: The bound session offers a witness that fails under the accepted root; the verdict is refused with selected-point evidenceFailure, never unverified.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Misbound session; Observable result: The session declares a binding to another point and is otherwise honest; the verdict is refused with selected-point evidenceFailure, never unverified.",
-      "pause": 400
-    },
-    {
-      "text": "Scenario: Promotion attempt; Observable result: The impostor object from the root-substitution witness is offered bound but without a witness; the verdict stays unverified with reason no witness and accept refuses.",
-      "pause": 400
-    },
-    {
-      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger, app or verdict scenarios exit with usage code 64. Each verdict scenario prints the verdict, accept's own outcome and the selected point. These are executable model observations, without a network, ledger provider or signature implementation.",
+      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger, app, verdict or context scenarios exit with usage code 64. Each verdict scenario prints the verdict, accept's own outcome and the selected point; each context scenario also prints the terminal's context, and the two-observation scenarios print their second verdict and accept beside the first. These are executable model observations, without a network, ledger provider or signature implementation.",
       "pause": 400
     }
   ],
@@ -117,51 +71,7 @@
       "pause": 500
     },
     {
-      "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm. The verdict successor of the shared types adds the declared binding, the optional witness, reconstruction material, the declared verifier and the verdict itself.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Bytes, Chainpoint, Root, Publication; Contract in this slice: Original byte sequences, exact point/root identities and original message/signature evidence.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Policy; Contract in this slice: Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations; the fixed application query, application proof check, nested-root reading and link fuel; whether the terminal has a verifier, read only by the verdict.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Refusal; Contract in this slice: Exactly the three selected-point refusals.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Session; Contract in this slice: Selected point, provider root, the provider's untrusted answer to the policy's ledger query and the provider's declared binding; acquisition and lifecycle in the session module, described below.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: LedgerAnswer; Contract in this slice: Point, exact object bytes, an optional witness, untrusted provider root and optional reconstruction material; verification is described below.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Binding; Contract in this slice: Either bound to a chainpoint or unbound, as the provider declares for its session.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Reconstruction; Contract in this slice: Transaction bytes and resolved spent outputs, its own type distinct from every evidence type; carried, never read as evidence.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Reason, Verdict; Contract in this slice: The terminal's classification: verified with a claim, refused with a refusal, or unverified with one of three payload-free reasons, no witness, unbound session or no verifier; never a wire object.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: AppAnswer; Contract in this slice: Application identity, context, point, claimed root, claim, exact value and proof bytes; untrusted until application verification, described below.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: AppQuery, AppProof, AppValue; Contract in this slice: The terminal's fixed application, context and claim bytes; uninterpreted proof bytes; exact value bytes.",
-      "pause": 400
-    },
-    {
-      "text": "Surface: Claim; Contract in this slice: Selected point, accepted ledger root, query, application root, checked nested roots and final value; no proof bytes or provider roots.",
+      "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm. The verdict successor of the shared types adds the declared binding, the optional witness, reconstruction material, the declared verifier and the verdict itself. The operating context successor adds the terminal's declared context to the policy and the abstract message model with its binding hypothesis.",
       "pause": 400
     },
     {
@@ -221,30 +131,6 @@
       "pause": 400
     },
     {
-      "text": "Explicit premise: Selected-point honest-root correspondence; What it supplies: Independent accepted root equals the honest commitment for this exact selected point.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: WitnessSound; What it supplies: A successful witness check under the honest root implies membership of the exact input/output pair.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: ObjectEncodingFaithful; What it supplies: The policy's representation is injective on exact input/output byte pairs; this is an external representation assumption.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: AssetObservationSound; What it supplies: A successful asset observation implies that the same output actually carries that asset.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: DatumObservationSound; What it supplies: Extraction and parsing of that same output's bytes under the selected schema agree with its honest datum root.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: OneShot; What it supplies: At every point, any two member pairs carrying the selected asset are equal.",
-      "pause": 400
-    },
-    {
       "text": "verifyLedger_observations exposes the full successful path, including exact bytes and every interpretation observation. verifyLedger_refusal proves the selected-point evidence refusal for every error. verifyLedger_sound : LedgerSoundness verifyLedger proves the complete member, asset, honest datum-root and unique-pair conclusion under those premises. Encoding injectivity remains an explicit premise of the frozen contract; byte binding itself uses the executable re-encoding equality. These predicates do not implement cryptography, a datum format, CSMT internals or Cardano serialization.",
       "pause": 400
     },
@@ -259,26 +145,6 @@
     {
       "text": "The duplicate-asset refutation has two distinct honest finite members, the same asset, different datum roots and two successful answers under one independent root. Witness, encoding, asset and datum assumptions and selected-point correspondence all hold. Only OneShot is false. Removing exactly that premise from the universal statement leaves its complete conclusion unchanged; a constructive proof negates the resulting guarantee. A failed tactic is not used as the counterexample.",
       "pause": 400
-    },
-    {
-      "text": "Choice: Genuine finite sets; Alternative: Unrestricted lists; Why: Ground truth has finite-set membership and equality semantics.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: Independently accepted root argument; Alternative: Check under provider answer/session root; Why: A provider cannot endorse its own evidence.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: Preserve and bind the same object bytes; Alternative: Observe a separately decoded or normalized output; Why: Membership must authenticate the output whose asset and datum are interpreted.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: Explicit executable callbacks and soundness predicates; Alternative: Treat Boolean success as semantic truth; Why: Witness correctness and interpretation correspondence remain separately assumed.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: Separate OneShot premise; Alternative: Forbid duplicate assets in every ledger value; Why: Membership and unique state are different claims; the counterexample stays reachable.",
-      "pause": 400
     }
   ],
   "verify-application-claims": [
@@ -287,11 +153,11 @@
       "pause": 500
     },
     {
-      "text": "As a terminal, accept an application claim only when every root it rests on has been checked by you. The ledger step yields an application root; an application answer then binds a value under that root, and the value may carry a further root that needs its own answer. Providers and builders are arbitrary functions: a builder answers a root with an optional application answer, with no honesty restriction. The application step and the whole fold are verifyApp, verifyChain and accept.",
+      "text": "As a terminal, accept an application claim only when every root it rests on has been checked by you. The ledger step yields an application root; an application answer then binds a value under that root, and the value may carry a further root that needs its own answer. Providers and builders are arbitrary functions: a builder answers Root → Option AppAnswer with no honesty restriction. The application step and the whole fold are:",
       "pause": 400
     },
     {
-      "text": "The issue promised verifyApp from a root and an answer to a refusal or a value. The model takes the policy and the selected point first, so verifyApp applied to a policy and a selected point has exactly that type. This is a stated deviation: with only a root and an answer, the proof checker would have to be a hidden global, and a refusal could carry only the answer's untrusted point. Passing both explicitly keeps the checker visible and makes every refusal carry the caller's selected point.",
+      "text": "The issue promised verifyApp : Root → AppAnswer → Except Refusal AppValue. The model takes the policy and the selected point first, so verifyApp policy selectedPoint has exactly that type. This is a stated deviation: with only a root and an answer, the proof checker would have to be a hidden global, and a refusal could carry only the answer's untrusted point. Passing both explicitly keeps the checker visible and makes every refusal carry the caller's selected point.",
       "pause": 400
     },
     {
@@ -299,7 +165,7 @@
       "pause": 400
     },
     {
-      "text": "accept runs root acceptance, acquisition at the selected point, ledger verification of the session's ledger answer under the root returned by root acceptance, and then the chain from the ledger's application root with the policy's fuel. The provider's session root, its ledger answer root and every answer's claimed root are data, never checking authority. The accepted claim holds the selected point, the accepted ledger root, the query, the application root, the nested roots in order and the final value.",
+      "text": "accept runs root acceptance, acquisition at the selected point, ledger verification of the session's ledger answer under the root returned by root acceptance, and then the chain from the ledger's application root with the policy's fuel. The provider's session root, its ledger answer root and every answer's claimed root are data, never checking authority. The accepted Claim holds the selected point, the accepted ledger root, the query, the application root, the nested roots in order and the final value.",
       "pause": 400
     },
     {
@@ -307,67 +173,103 @@
       "pause": 400
     },
     {
-      "text": "Explicit premise: Honest-root correspondence and the five ledger premises; What it supplies: The ledger guarantee described above; Used by: Soundness and invariance.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: AppSound; What it supplies: A successful proof check under a root implies that the query and value pair is committed under that root; Used by: Soundness and invariance.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: NestingInterpretationFaithful; What it supplies: The policy reads a further root from a value exactly when the value honestly carries it, so a final value is honestly final; Used by: Soundness.",
-      "pause": 400
-    },
-    {
-      "text": "Explicit premise: AppFunctional; What it supplies: One root commits at most one value for one query; Used by: Invariance only.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: accept_sound; Established model guarantee: Under honest-root correspondence, the five ledger premises, AppSound and faithful nesting, an accepted claim is at the selected point, its ledger root is the honest root, and holds its claim over the selected point's ledger.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: accept_provider_invariant; Established model guarantee: Under honest-root correspondence, the five ledger premises, AppSound and AppFunctional, two successful accepts with arbitrary providers and builders return equal claims; availability and refusals may still differ.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: accept_refusal; Established model guarantee: Every refusal from any step carries the selected point; root, acquisition and evidence refusals keep their constructors.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: verifyApp_claimed_root_first; Established model guarantee: For every policy and proof check, a claimed root other than the trusted root is refused.",
-      "pause": 400
-    },
-    {
       "text": "The application fixture inhabits every premise of both statements together with successful one-link and two-link acceptance. Two providers offer different untrusted session and ledger answer roots, and two builders return different valid proof bytes; both yield the identical claim. Every expected claim is evaluated from the honest content, never typed in or read from accept.",
       "pause": 400
     },
     {
-      "text": "The root counterexamples are parameterized by the operation. The gate compiles a copy of the real verifier with the claimed-root comparison removed and the proof checked under the claimed root. That mutant accepts a value committed only under another root and constructively refutes the unchanged soundness statement; the original proofs then fail, and the real replaced-root scenario rejects the changed outcome. A second compiled mutant checks the ledger answer under the session's own root. It accepts the substituted ledger answer and refutes the same statement, and the real honest scenario fails because untrusted provider roots become authority. The ambiguity refutation keeps every invariance premise except AppFunctional and shows two different accepted claims. That statement is copied by hand from ProviderInvariance; its faithfulness is a residual for review in issue 11.",
+      "text": "The root counterexamples are parameterized by the operation. The gate compiles a copy of the real verifier with the claimed-root comparison removed and the proof checked under the claimed root. That mutant accepts a value committed only under another root and constructively refutes the unchanged soundness statement; the original proofs then fail, and the real replaced-root scenario rejects the changed outcome. A second compiled mutant checks the ledger answer under the session's own root. It accepts the substituted ledger answer and refutes the same statement, and the real honest scenario fails because untrusted provider roots become authority. The ambiguity refutation keeps every invariance premise except AppFunctional and shows two different accepted claims. That statement is copied by hand from ProviderInvariance; its faithfulness is a residual for review in issue #11.",
       "pause": 400
     },
     {
-      "text": "Choice: Policy and selected point before root and answer; Alternative: The literal two-argument verifier; Why: No hidden checker, and refusals carry the selected point.",
+      "text": "Two limits are deliberate. Every link is checked against the same policy query; per-link queries, or different queries in nested trees, are not modelled and are reviewed in issue #11. A session carries one answer, to the policy's single ledger query; several ledger queries per session belong to later wire contracts. Proof formats, application validators, transition binding and transaction construction are not modelled.",
+      "pause": 400
+    }
+  ],
+  "classify-verdicts": [
+    {
+      "text": "Classify verdicts.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal, tell apart three situations that look alike from outside: data you verified, data you checked and found wrong, and data nobody offered evidence for. A provider without witnesses, or a terminal without a verifier, is still useful traffic, but it must never be mistaken for a verified fact. The verdict layer wraps the unchanged accept:",
       "pause": 400
     },
     {
-      "text": "Choice: Compare the claimed root first; Alternative: Check the proof under the answer's root; Why: A builder cannot choose the root its own proof is judged against.",
+      "text": "The verdict is decided in a fixed order. First, a policy that declares no verifier gives unverified with reason no verifier, and nothing else is consulted. Next, when accept returns a claim, the verdict is verified with that same claim. When accept refuses a selection outside the terminal's operating context, described below, the verdict is refused. Otherwise, when accept refuses, the verdict is unverified only if the offered session declares an absence: unbound gives reason unbound session, and bound to the selected point without a witness gives reason no witness. Every other refusal is passed on unchanged as refused. The reason reads only the session that acquisition accepts, so a provider offering another point is refused by acquisition exactly as before.",
       "pause": 400
     },
     {
-      "text": "Choice: Count links with fuel and refuse on exhaustion; Alternative: Return the links checked so far; Why: A partial chain is not the claim the terminal asked for.",
+      "text": "With a verifier configured, root acceptance succeeding and a session offered at the selected point, the outcomes are:",
       "pause": 400
     },
     {
-      "text": "Choice: Separate AppFunctional premise; Alternative: Assume soundness implies a unique value; Why: Membership alone admits two values for one query; the counterexample stays reachable.",
+      "text": "When root acceptance refuses, accept returns that no-root refusal before reading the provider. The verdict is then unverified if the offered session declares an absence, and otherwise refused with the no-root refusal. With no verifier configured, every row is unverified with reason no verifier.",
       "pause": 400
     },
     {
-      "text": "Choice: Session carries the provider's ledger answer; Alternative: A second provider operation or builder-supplied ledger evidence; Why: Keeps acquisition and its proofs unchanged and the ledger and application roles separate.",
+      "text": "The verdict proofs hold for every policy, provider and builder unless a premise is named:",
       "pause": 400
     },
     {
-      "text": "Two limits are deliberate. Every link is checked against the same policy query; per-link queries, or different queries in nested trees, are not modelled and are reviewed in issue 11. A session carries one answer, to the policy's single ledger query; several ledger queries per session belong to later wire contracts. Proof formats, application validators, transition binding and transaction construction are not modelled.",
+      "text": "The verdict fixtures reuse the application fixture's policy, publications, selected point and honest builder. One jointly inhabited input proves every acceptance soundness premise together with a verified verdict and the no-promotion conclusion at that input. Every expected claim is evaluated from the honest content, never typed in or read from accept.",
+      "pause": 400
+    },
+    {
+      "text": "The promotion refutations are parameterized by the operation. The gate compiles a copy of the real ledger verifier that lets an absent witness pass. That mutant verifies the witness-less impostor, whose datum root is absent from the honest ledger, and constructively refutes both the unchanged no-promotion and the unchanged verified-soundness statements; the unchanged ledger observation proof then fails, and the real promotion scenario rejects the changed outcome. Three more compiled mutants alter the verdict itself. Ignoring the declared verifier refutes no promotion and breaks the verified-iff proof and the no-verifier scenario. Reading a present wrong witness as absent breaks the wrong-witness proof and scenario. Reading any other binding as unbound breaks both misbound proofs and the misbound scenario.",
+      "pause": 400
+    },
+    {
+      "text": "The limits are named. With the verifier off the verdict is unverified with reason no verifier even when the provider offers nothing. A reason carries no payload, so any material an unverified offer might supply must be taken from the offer itself by a later step. A witness on an unbound session is never checked. Reconstruction is carried and never checked or used as evidence. A session still carries one ledger answer. The exact evidence-failure refusal for a misbound session depends on root acceptance succeeding; without it the refusal is root acceptance's own. The verified soundness and invariance statements are hand copies of the acceptance statements with only the success premise changed, and their faithfulness is reviewed in issue #11. The action step and its policy belong to issue #10, and the wire encoding of the binding, witness and reconstruction to issue #17.",
+      "pause": 400
+    }
+  ],
+  "bind-the-operating-context": [
+    {
+      "text": "Bind the operating context.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal operator, run the terminal on one network and accept roots only under the commitment schemes you chose. Evidence from elsewhere must never pass, and it must never be softened into unverified traffic: a selected point on another network is present and wrong. A provider cannot change this, because the context is the terminal's own policy, not something the provider declares.",
+      "pause": 400
+    },
+    {
+      "text": "The context guard reads only the terminal's facts: the selected point's network and the scheme of the root that root acceptance would select. It never reads a publication's network, a provider or a builder.",
+      "pause": 400
+    },
+    {
+      "text": "A selection is out of context when the selected point's network differs from the context network, or when the root that root acceptance selects has a scheme outside the accepted schemes. Root acceptance in context refuses an out-of-context selection with evidenceFailure at the selected point and otherwise returns exactly what root acceptance returns. The whole fold binds its root through it, so the context is checked before acquisition and every later step is unchanged. The verdict keeps the verifier switch first; after accept refuses, an out-of-context selection is refused before any declared absence is considered.",
+      "pause": 400
+    },
+    {
+      "text": "Trust in keys is exercised only inside the context. A policy carries one context, so its trusted keys are trusted for that network and those schemes. A publication on another network cannot endorse a point on this one, because root acceptance compares the whole point. It cannot veto either: the publication list is untrusted input, and refusing a selection because of one foreign entry would let anyone able to add such an entry refuse every selection.",
+      "pause": 400
+    },
+    {
+      "text": "That a signature's message says which point and root it is about is a separate hypothesis. MessageBinding assumes that a valid signature's message encodes its publication's point and root, and that a message encodes at most one point and root. Without its second half, a model that lets every message encode everything would satisfy it vacuously. Nothing computes it, exactly as nothing computes signature validity; its concrete encoding belongs to issue #17.",
+      "pause": 400
+    },
+    {
+      "text": "The context proofs hold for every policy, publication list, point, provider and builder, with the statements as written. Root acceptance in context refuses only as root acceptance does, with noRoot, or as the guard does, with evidenceFailure; a root it accepts is the root acceptance root, on the context network and under an accepted scheme, and so is every claim accept returns. An out-of-context selection makes accept refuse with selected-point evidenceFailure, and with a verifier configured the verdict is that refusal, whatever the provider offers; this holds in particular for a selected point on another network and for a selected root under an unaccepted scheme. Appending publications whose points are on another network changes neither root acceptance in context, nor accept, nor the verdict. Under ObservationSound and MessageBinding, a verified claim is on the context network, under an accepted scheme, and endorsed by a nonempty agreeing set of trusted keys, each with a publication at the claim's point and root whose signature is valid and whose message encodes exactly that point and root.",
+      "pause": 400
+    },
+    {
+      "text": "The five context scenarios show these guarantees on the real verdict and accept. In the honest scenario the terminal runs on network [0] with scheme [0] accepted, and the honest offer is verified with the claim accept returns. In the wrong-network-point scenario the terminal is configured for network [1] while the selected point is on network [0]; both a bound, witnessed session and an unbound one are refused with selected-point evidenceFailure. In the wrong-network-publication scenario a trusted key's verified publication on network [1], appended to the honest ones, leaves the same verified claim, and endorsements on network [1] alone give noRoot at the selected point. In the unaccepted-scheme scenario a terminal accepting only scheme [1] refuses the honest root under scheme [0]. In the unbound-message scenario signatures over messages naming network [1] make the verdict verified under a policy that checks signatures only, which is exactly what the message-binding hypothesis excludes.",
+      "pause": 400
+    },
+    {
+      "text": "The context fixtures reuse the verdict fixture's publications, selected point, provider and builder. A finite decoder table gives each fixture message one point and root, and a signature table gives each trusted key's signature; both are fixture framing, not an encoding. One policy observes exactly the signatures that are valid in this honest model, so observation soundness, message binding, a verified verdict and the context conclusion are inhabited together by one input. The refutations are parameterized by the operation. Without the network guard, the terminal configured for network [1] verifies the honest root endorsed on network [0] and refutes the unchanged context soundness; without the scheme guard, a root under scheme [0] is verified by a terminal accepting only scheme [1], which refutes the unchanged context soundness as well. The statement with the message-binding premise removed is false on the real verdict, while the unchanged statement, which keeps the premise, is not refuted: signatures checked against the table alone, over messages naming network [1], endorse the selected point on network [0], and the unbound-message scenario reproduces that verified outcome on the real model.",
+      "pause": 400
+    },
+    {
+      "text": "Each choice keeps the inherited model intact. The guard wraps root acceptance instead of changing it, and an out-of-context selection reuses the selected-point evidenceFailure refusal rather than adding a constructor. The verifier switch stays first, because a terminal without a verifier consults nothing. One context per policy scopes the trusted keys without moving them, and a scheme identifier carries its version, so no inherited root changes shape.",
+      "pause": 400
+    },
+    {
+      "text": "The limits are named. With no verifier configured, an out-of-context selection is unverified with reason no verifier, like every other outcome; what an unverified fact may drive is issue #10's action policy. Foreign publications are proved ignored when appended; the order of the untrusted publication list can still decide which of several roots endorsed inside the context is selected, an inherited root acceptance property reviewed in issue #11. MessageBinding is assumed, never checked.",
+      "pause": 400
+    },
+    {
+      "text": "The model does not cover genesis or era identity: concrete network identifiers belong to issue #17. Protocol parameters are not modelled; transaction construction belongs to issue #10 and every other use to the implementation milestones. Validator script hashes belong to the implementation milestones.",
       "pause": 400
     }
   ],
@@ -381,7 +283,7 @@
       "pause": 400
     },
     {
-      "text": "The gate executes the root, session, ledger, application and verdict scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger, application and verdict counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
+      "text": "The gate executes the root, session, ledger, application, verdict and context scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger, application, verdict and context counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
       "pause": 400
     },
     {
@@ -397,11 +299,15 @@
       "pause": 400
     },
     {
+      "text": "The context tests restate every context definition and guarantee in full, including the restated unbound_only_unverified, and evaluate the verdict and accept outcome of each context offer, including the unverified no-verifier outcome out of context. The context mutation script removes the network guard, the scheme guard and the verdict's context branch from compiled copies of the production modules, and the message-binding premise from a copy of the soundness statement. Without the network guard, the compiled witness verifies the honest root for a terminal configured for another network and refutes the unchanged context soundness; the unchanged context soundness and wrong-network proofs fail inside their own lines, and the wrong-network-point scenario rejects the changed outcome. Without the scheme guard, the witness verifies a root under an unaccepted scheme and refutes the unchanged context soundness; the unchanged context soundness and unaccepted-scheme proofs fail, and the unaccepted-scheme scenario rejects the changed outcome. Without the verdict's context branch, an unbound offer at a selected point on another network is classified unverified; the unchanged never-unverified proof fails, and the wrong-network-point scenario rejects the changed outcome. Removing the message-binding premise changes the statement, not an executable: the binding-free witness refutes only the statement without the premise, it is first compiled against the unchanged statement and must fail there, and the unchanged context soundness proof fails once the premise is gone; no scenario can change, and the unbound-message scenario reproduces the endorsement on the real model.",
+      "pause": 400
+    },
+    {
       "text": "Run ./lean/env lake env lean Lockness/Tests/Session.lean or ./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean for session checks and the generic refutation. Run ./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean to inspect the constructive counterexample independently. Record git rev-parse HEAD alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed.",
       "pause": 400
     },
     {
-      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds AppSound and faithful nesting, and invariance adds AppFunctional. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
+      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds AppSound and faithful nesting, invariance adds AppFunctional, and context soundness adds MessageBinding. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
       "pause": 400
     },
     {
@@ -411,158 +317,6 @@
   ],
   "_source": {
     "file": "index.md",
-    "sha256": "de906d341227703d1978b8c1f830ac219967c1f0d177276e5e884eb828a93827"
-  },
-  "inspect-roots-sessions-ledger-answers-application-claims-and-verdicts": [
-    {
-      "text": "Inspect roots, sessions, ledger answers, application claims and verdicts.",
-      "pause": 500
-    },
-    {
-      "text": "As a design reviewer, run a terminal's root choice against trusted and untrusted publications. An honest scenario returns the accepted root and selected chainpoint. A publication from an untrusted key returns no-root at that same point, even when signature validity is assumed. Removing the trusted-set check demonstrates why that refusal matters.",
-      "pause": 400
-    },
-    {
-      "text": "A terminal also acquires exactly its selected point, repeats reads from that session, and receives the original-point refusal when the provider is absent, offers another point, or the session expires.",
-      "pause": 400
-    },
-    {
-      "text": "A terminal then verifies the ledger answer against its independently accepted root. An honest answer returns the application root in the witnessed output's datum. A witness valid only under a provider root refuses at the selected point. Two honest outputs carrying the same asset show why a separate uniqueness assumption is needed.",
-      "pause": 400
-    },
-    {
-      "text": "Finally, a terminal accepts an application claim only after root acceptance, exact-point acquisition, ledger verification and every application link have succeeded. An honest builder yields a verified claim. A builder that claims another root is refused at the selected point, even with a proof valid under that root. A two-link chain is checked link by link, and a failure at the second link rejects the whole claim. Under the stated root, ledger and application soundness premises plus functional application content, two providers and two builders cannot make the terminal accept two different claims for the same policy, publications and point; without functional content they can.",
-      "pause": 400
-    },
-    {
-      "text": "Around all of this, the terminal classifies every outcome as verified, refused or unverified. A verified verdict carries exactly the claim that acceptance returned. A refused verdict carries acceptance's own refusal at the selected point. Unverified traffic is a first-class case for a declared absence only: no verifier configured, a session declared unbound, or a session bound to the selected point offering no witness. With a verifier configured, a present but wrong witness, or a session bound to another point, is refused, and in every case an answer without a witness can never be promoted to verified.",
-      "pause": 400
-    },
-    {
-      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, application source links reference the published application model revision, and verdict source links reference the published verdict model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
-      "pause": 400
-    }
-  ],
-  "classify-verdicts": [
-    {
-      "text": "Classify verdicts.",
-      "pause": 500
-    },
-    {
-      "text": "As a terminal, tell apart three situations that look alike from outside: data you verified, data you checked and found wrong, and data nobody offered evidence for. A provider without witnesses, or a terminal without a verifier, is still useful traffic, but it must never be mistaken for a verified fact. The verdict layer wraps the unchanged accept with two functions: unverifiedReason, from a chainpoint and a provider to an optional reason, and verdict, from a policy, publications, a chainpoint, a provider and a builder to a verdict.",
-      "pause": 400
-    },
-    {
-      "text": "The verdict is decided in a fixed order. First, a policy that declares no verifier gives unverified with reason no verifier, and nothing else is consulted. Next, when accept returns a claim, the verdict is verified with that same claim. When accept refuses, the verdict is unverified only if the offered session declares an absence: unbound gives reason unbound session, and bound to the selected point without a witness gives reason no witness. Every other refusal is passed on unchanged as refused. The reason reads only the session that acquisition accepts, so a provider offering another point is refused by acquisition exactly as before.",
-      "pause": 400
-    },
-    {
-      "text": "With a verifier configured, root acceptance succeeding and a session offered at the selected point, the outcomes are:",
-      "pause": 400
-    },
-    {
-      "text": "Offered session: Bound to the selected point, witness passes under the accepted root, every other check passes; Accept: the claim; Verdict: verified, same claim.",
-      "pause": 400
-    },
-    {
-      "text": "Offered session: Bound to the selected point, no witness; Accept: evidence failure; Verdict: unverified, no witness.",
-      "pause": 400
-    },
-    {
-      "text": "Offered session: Declared unbound, witness present or not; Accept: evidence failure; Verdict: unverified, unbound session.",
-      "pause": 400
-    },
-    {
-      "text": "Offered session: Bound to the selected point, witness present but wrong; Accept: evidence failure; Verdict: refused, evidence failure.",
-      "pause": 400
-    },
-    {
-      "text": "Offered session: Bound to a different point; Accept: evidence failure; Verdict: refused, evidence failure.",
-      "pause": 400
-    },
-    {
-      "text": "When root acceptance refuses, accept returns that no-root refusal before reading the provider. The verdict is then unverified if the offered session declares an absence, and otherwise refused with the no-root refusal. With no verifier configured, every row is unverified with reason no verifier.",
-      "pause": 400
-    },
-    {
-      "text": "The verdict proofs hold for every policy, provider and builder unless a premise is named:",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: verdict_no_promotion, proving NoPromotion of verdict; Established model guarantee: With no hypothesis, a verified claim implies a configured verifier, a session offered at and bound to the selected point, a present witness, and accept returning that exact claim.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: verdict_verified_iff; Established model guarantee: The verdict is verified with a claim exactly when the verifier is configured and accept returns that claim.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: accept_bound_witnessed; Established model guarantee: Accept itself never succeeds without a session offered at the selected point, bound to it, whose answer carries a witness.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: verdict_sound and verdict_provider_invariant; Established model guarantee: Soundness and provider invariance hold for every verified claim under exactly the premises of the acceptance statements, proved from no promotion and the unchanged acceptance proofs.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: verdict_refused and verdict_refusal; Established model guarantee: A refused verdict implies a configured verifier and that accept returned that same refusal, so it carries the selected point.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: verdict_unverified; Established model guarantee: An unverified verdict comes either from no verifier configured, or, with a verifier configured, from accept refusing while the session offered at the selected point is declared unbound or is bound to that point without a witness.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: witnessed_never_unverified; Established model guarantee: With a verifier configured, a session offered at the selected point, bound to it and carrying a witness is never unverified: wrong evidence is refused.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: unbound_only_unverified; Established model guarantee: Whether or not a verifier is configured, a session offered at the selected point and declared unbound yields only unverified, and accept never succeeds on it.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: misbound_refused and misbound_never_unverified; Established model guarantee: With a verifier configured, a session offered at the selected point but bound to a different point is refused, never unverified, with accept's own refusal; when root acceptance also succeeds, that refusal is exactly evidence failure at the selected point.",
-      "pause": 400
-    },
-    {
-      "text": "Declaration: verdict_reconstruction_irrelevant; Established model guarantee: Replacing every offered reconstruction never changes the verdict.",
-      "pause": 400
-    },
-    {
-      "text": "The verdict fixtures reuse the application fixture's policy, publications, selected point and honest builder. One jointly inhabited input proves every acceptance soundness premise together with a verified verdict and the no-promotion conclusion at that input. Every expected claim is evaluated from the honest content, never typed in or read from accept.",
-      "pause": 400
-    },
-    {
-      "text": "The promotion refutations are parameterized by the operation. The gate compiles a copy of the real ledger verifier that lets an absent witness pass. That mutant verifies the witness-less impostor, whose datum root is absent from the honest ledger, and constructively refutes both the unchanged no-promotion and the unchanged verified-soundness statements; the unchanged ledger observation proof then fails, and the real promotion scenario rejects the changed outcome. Three more compiled mutants alter the verdict itself. Ignoring the declared verifier refutes no promotion and breaks the verified-iff proof and the no-verifier scenario. Reading a present wrong witness as absent breaks the wrong-witness proof and scenario. Reading any other binding as unbound breaks both misbound proofs and the misbound scenario.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: The verdict is a terminal classification around an unchanged accept; Alternative: Put a verdict on the wire, or change accept's result type; Why: Acceptance and its proofs stay intact; the verdict is the terminal's judgement, not a provider claim.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: Unverified only for a declared absence; Alternative: Treat any refusal caused by missing or contradictory evidence as unverified; Why: A provider could otherwise downgrade a refusal by lying, for example by declaring a binding to another point.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: Both new guards inside the ledger verifier; Alternative: Guard binding in acquisition, or wrap the witness in a second offer type; Why: Acquisition, acceptance and their statements stay byte-identical; only the ledger step changes.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: An absent witness always fails the witness check; Alternative: Let a policy accept an absent witness; Why: That would be promotion by configuration.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: No verifier is decided first, consulting nothing; Alternative: Refuse an unavailable point before reporting no verifier; Why: A terminal without a verifier makes no evidence claim at all, so nothing is refused on evidence grounds.",
-      "pause": 400
-    },
-    {
-      "text": "Choice: Reconstruction is its own optional type; Alternative: Reuse witness or proof bytes; Why: It cannot be mistaken for evidence, and irrelevance is proved.",
-      "pause": 400
-    },
-    {
-      "text": "The limits are named. With the verifier off the verdict is unverified with reason no verifier even when the provider offers nothing. A reason carries no payload, so any material an unverified offer might supply must be taken from the offer itself by a later step. A witness on an unbound session is never checked. Reconstruction is carried and never checked or used as evidence. A session still carries one ledger answer. The exact evidence-failure refusal for a misbound session depends on root acceptance succeeding; without it the refusal is root acceptance's own. The verified soundness and invariance statements are hand copies of the acceptance statements with only the success premise changed, and their faithfulness is reviewed in issue 11. The action step and its policy belong to issue 10, and the wire encoding of the binding, witness and reconstruction to issue 17.",
-      "pause": 400
-    }
-  ]
+    "sha256": "dd7241c31b0d1b38f25240eedefc41cb69a9d4f6069cbfa63eaf176a18fedd04"
+  }
 }

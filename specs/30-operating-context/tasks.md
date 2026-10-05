@@ -14,7 +14,7 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Context docs slice
 
-- [ ] context-docs-and-speech: decisions, model index and README where needed, with curated speech, the out-of-model list with owners, and immutable source links.
+- [x] context-docs-and-speech: decisions, model index and README where needed, with curated speech, the out-of-model list with owners, and immutable source links.
 
 ## Outward delivery conditions
 
