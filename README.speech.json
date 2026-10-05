@@ -1,11 +1,11 @@
 {
   "_source": {
     "file": "README.md",
-    "sha256": "f07973acb61183ae30359acbea6ff8b965604be3257af1838c3a034d7d62f1e2"
+    "sha256": "a56dff5670c9aaea70ce84015ed36d9ba308aadfb2411cccc980f42e52357e7f"
   },
   "user-stories": [
     {
-      "text": "A terminal is a lightweight Web2 application with cryptographic capabilities. Its purpose and risk policy guide chainpoint selection, anchor acceptance and asset verification. The user can then build a transaction or consume verified data off-chain. The role diagram shows anchors providing roots, untrusted ledger providers serving data and proofs, application services constructing proofs and terminals verifying before use.",
+      "text": "A terminal is a lightweight Web2 application with cryptographic capabilities. Its purpose and risk policy guide chainpoint selection, anchor acceptance and asset verification. The user can then build a transaction or consume verified data off-chain. Data is labelled unverified only for a declared absence: no verifier, a session declared unbound, or no witness on a session bound to the selected point. With a verifier configured, a session that declares a binding to another point is refused. In every case unverified data is never presented as verified. The role diagram shows anchors providing roots, untrusted ledger providers serving data and proofs, application services constructing proofs and terminals verifying before use.",
       "pause": 400
     }
   ],
@@ -17,7 +17,7 @@
   ],
   "read-the-design": [
     {
-      "text": "Start with runnable root acceptance, selected point session journeys, ledger answer verification and application claim verification. Inspect trusted endorsement, exact acquisition, honest ledger answers, provider root substitution refusal, two same asset outputs with different datum roots, refused replaced application roots, nested links and two values for one query. Continue through concepts, trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
+      "text": "Start with runnable root acceptance, selected point session journeys, ledger answer verification, application claim verification and verdict classification. Inspect trusted endorsement, exact acquisition, honest ledger answers, provider root substitution refusal, two same asset outputs with different datum roots, refused replaced application roots, nested links, two values for one query, and verified, refused and unverified verdicts, including a witness-less impostor that is never promoted. Continue through concepts, trust choices, architecture, chainpoint sessions, evidence and the roadmap.",
       "pause": 400
     }
   ],
@@ -29,7 +29,7 @@
   ],
   "check-the-documentation": [
     {
-      "text": "The model gate checks pinned Lean proofs, all named declaration types and axiom dependencies, production semantic counterexamples and all root, session, ledger and application journeys. Sessions preserve arbitrary provider offers at the exact point and retain the inherited repeated read and expiry behavior. Ledger verification uses the independent root and exact witnessed object bytes. Its honest unique output and datum root guarantee requires explicit commitment, witness, encoding, interpretation and OneShot premises. Two honest same asset members show why membership alone is insufficient. Application claims are accepted only after every nested root is checked under the trusted root; two values for one query show why provider invariance needs a separate functional premise. Pinned Mathlib finite sets and transitive revisions support the model; dependency acquisition is setup. The documentation gate checks diagram and speech freshness and builds the site. Just CI runs both. Independent review, remote CI, component implementation and deployment remain distinct evidence.",
+      "text": "The model gate checks pinned Lean proofs, all named declaration types and axiom dependencies, production semantic counterexamples and all root, session, ledger, application and verdict journeys. Sessions preserve arbitrary provider offers at the exact point and retain the inherited repeated read and expiry behavior. Ledger verification uses the independent root and exact witnessed object bytes. Its honest unique output and datum root guarantee requires explicit commitment, witness, encoding, interpretation and OneShot premises. Two honest same asset members show why membership alone is insufficient. Application claims are accepted only after every nested root is checked under the trusted root; two values for one query show why provider invariance needs a separate functional premise. Verdict journeys, on a fixture whose root acceptance succeeds, show a checked witness verified with the same claim as acceptance; a missing witness, an unbound session or a missing verifier unverified with that reason; with the verifier configured, a wrong witness or a binding to another point refused at the selected point; and a witness-less impostor never promoted. Pinned Mathlib finite sets and transitive revisions support the model; dependency acquisition is setup. The documentation gate checks diagram and speech freshness and builds the site. Just CI runs both. Independent review, remote CI, component implementation and deployment remain distinct evidence.",
       "pause": 400
     }
   ],

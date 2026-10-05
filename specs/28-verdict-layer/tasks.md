@@ -15,7 +15,7 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Verdict docs slice
 
-- [ ] verdict-docs-and-speech: decisions, model index and README with curated speech and immutable source links.
+- [x] verdict-docs-and-speech: decisions, model index and README with curated speech and immutable source links.
 
 ## Outward delivery conditions
 
