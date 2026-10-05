@@ -1,4 +1,5 @@
 import Lockness.Types
+import Lockness.Chain
 
 namespace Lockness
 
@@ -22,12 +23,13 @@ inductive SessionState where
   | expired (session : Session)
   | closed (session : Session)
   | unavailable (point : Chainpoint)
+  | abandoned (session : Session)
   deriving DecidableEq, Repr
 
 def readSession : SessionState → Except Refusal Session
   | .active session => .ok session
   | .requested point | .unavailable point => .error (.unavailablePoint point)
-  | .expired session | .closed session => .error (.unavailablePoint session.point)
+  | .expired session | .closed session | .abandoned session => .error (.unavailablePoint session.point)
 
 -- The relation names observations without choosing a clock, lease or branch policy.
 inductive SessionTransition : SessionState → SessionState → Prop where
@@ -41,6 +43,8 @@ inductive SessionTransition : SessionState → SessionState → Prop where
   | expire (session : Session) : SessionTransition (.active session) (.expired session)
   | release (session : Session) : SessionTransition (.active session) (.closed session)
   | expiredRead (session : Session) : SessionTransition (.expired session) (.expired session)
+  | abandon (session : Session) (chain : Chain) (gone : ¬ canonical session.point chain) :
+      SessionTransition (.active session) (.abandoned session)
 
 -- Acquisition proofs
 
@@ -106,11 +110,13 @@ theorem requested_transition (point : Chainpoint) (after : SessionState)
 
 theorem active_transition (session : Session) (after : SessionState)
     (transition : SessionTransition (.active session) after) :
-    after = .active session ∨ after = .expired session ∨ after = .closed session := by
+    after = .active session ∨ after = .expired session ∨ after = .closed session ∨
+      after = .abandoned session := by
   cases transition with
   | read => exact Or.inl rfl
   | expire => exact Or.inr (Or.inl rfl)
-  | release => exact Or.inr (Or.inr rfl)
+  | release => exact Or.inr (Or.inr (Or.inl rfl))
+  | abandon => exact Or.inr (Or.inr (Or.inr rfl))
 
 theorem expired_transition (session : Session) (after : SessionState)
     (transition : SessionTransition (.expired session) after) : after = .expired session := by
@@ -124,6 +130,14 @@ theorem closed_terminal (session : Session) (after : SessionState) :
 
 theorem unavailable_terminal (point : Chainpoint) (after : SessionState) :
     ¬ SessionTransition (.unavailable point) after := by
+  intro transition
+  cases transition
+
+theorem abandoned_read (session : Session) :
+    readSession (.abandoned session) = .error (.unavailablePoint session.point) := rfl
+
+theorem abandoned_terminal (session : Session) (after : SessionState) :
+    ¬ SessionTransition (.abandoned session) after := by
   intro transition
   cases transition
 

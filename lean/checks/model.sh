@@ -117,4 +117,14 @@ stage lake exe lockness-sim context unbound-message
 stage lake env bash checks/context-mutations.sh
 usage_failure 'unknown context scenario' context unknown
 usage_failure 'context <honest|wrong-network-point|wrong-network-publication|unaccepted-scheme|unbound-message>' context
-echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict-context verdict=no-promotion context=network-and-scheme-refused messages=abstract-binding lifecycle=repeated-expiry-release signatures=abstract app-proofs=abstract deployment=unestablished"
+stage lake env lean Lockness/Tests/Act.lean
+stage lake env lean Lockness/Counterexamples/SettlementRollback.lean
+stage lake exe lockness-sim effect construct
+stage lake exe lockness-sim effect settled-effect
+stage lake exe lockness-sim effect rolled-back
+stage lake exe lockness-sim effect unverified-construct
+stage lake exe lockness-sim effect unverified-effect
+stage lake env bash checks/effect-mutations.sh
+usage_failure 'unknown effect scenario' effect unknown
+usage_failure 'effect <construct|settled-effect|rolled-back|unverified-construct|unverified-effect>' effect
+echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict-context-effect verdict=no-promotion context=network-and-scheme-refused effect=verified-bound-and-settled-only settlement=conditional-on-continued-ancestry-and-consensus messages=abstract-binding lifecycle=repeated-expiry-release-abandon signatures=abstract app-proofs=abstract deployment=unestablished"

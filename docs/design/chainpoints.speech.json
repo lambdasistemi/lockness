@@ -37,7 +37,7 @@
       "pause": 400
     },
     {
-      "text": "Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block; the policy for sessions on an abandoned branch remains open. No automatic chainpoint substitution is allowed.",
+      "text": "Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block. When the selected block leaves the canonical branch of the terminal's chain view, the session becomes abandoned. Every further read is refused at the session's own chainpoint, never answered from another point, and an abandoned session has no outgoing transition. Only an active session is abandoned; an expired or closed session already refuses its reads. Under the continued-ancestry hypothesis, with the consensus model admitting the present view, a point that is not canonical in that view never carries an external effect. Transaction construction does not read the chain, so a claim verified while the point was canonical may still be used to build a transaction, which Cardano revalidates against its actual ledger state; no new material is read from the abandoned session. No automatic chainpoint substitution is allowed.",
       "pause": 400
     }
   ],
@@ -85,10 +85,6 @@
       "pause": 500
     },
     {
-      "text": "What happens to an active session after its selected block leaves the canonical chain?",
-      "pause": 300
-    },
-    {
       "text": "What retention and lease policy bounds storage and prevents resource exhaustion?",
       "pause": 300
     },
@@ -115,6 +111,6 @@
   ],
   "_source": {
     "file": "chainpoints.md",
-    "sha256": "15330d1945fe0c60add691ff9f2bbd985479e6dceef695d342cd0faec0c980b0"
+    "sha256": "1b48678eeb6563ba11361ef122bd18f24f9a88a42b307a07b5497a777175ed28"
   }
 }

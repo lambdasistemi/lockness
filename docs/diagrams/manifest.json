@@ -55,7 +55,7 @@
       "name": "session",
       "source": "session.mmd",
       "image": "session.png",
-      "alt": "A retained session supports repeated reads; expiry and missing views refuse, and rollback policy is explicitly unresolved."
+      "alt": "A retained session supports repeated reads; expiry and missing views refuse, release closes it, and a session whose selected block is rolled back is abandoned with further reads refused at the same point."
     },
     {
       "name": "root-chain",
