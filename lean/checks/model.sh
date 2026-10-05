@@ -107,4 +107,14 @@ stage lake exe lockness-sim verdict promoted
 stage lake env bash checks/verdict-mutations.sh
 usage_failure 'unknown verdict scenario' verdict unknown
 usage_failure 'verdict <verified|no-witness|unbound-session|no-verifier|wrong-witness|misbound|promoted>' verdict
-echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict verdict=no-promotion lifecycle=repeated-expiry-release signatures=abstract app-proofs=abstract deployment=unestablished"
+stage lake env lean Lockness/Tests/Context.lean
+stage lake env lean Lockness/Counterexamples/ContextRefutation.lean
+stage lake exe lockness-sim context honest
+stage lake exe lockness-sim context wrong-network-point
+stage lake exe lockness-sim context wrong-network-publication
+stage lake exe lockness-sim context unaccepted-scheme
+stage lake exe lockness-sim context unbound-message
+stage lake env bash checks/context-mutations.sh
+usage_failure 'unknown context scenario' context unknown
+usage_failure 'context <honest|wrong-network-point|wrong-network-publication|unaccepted-scheme|unbound-message>' context
+echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict-context verdict=no-promotion context=network-and-scheme-refused messages=abstract-binding lifecycle=repeated-expiry-release signatures=abstract app-proofs=abstract deployment=unestablished"

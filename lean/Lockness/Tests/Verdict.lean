@@ -69,11 +69,12 @@ example (policy : Policy) (publications : List Publication) (selectedPoint : Cha
 example (policy : Policy) (publications : List Publication) (selectedPoint : Chainpoint)
     (provider : Provider) (builder : Builder) (session : Session)
     (offered : provider selectedPoint = some session)
-    (samePoint : session.selectedPoint = selectedPoint) (unbound : session.binding = .unbound) :
+    (samePoint : session.selectedPoint = selectedPoint) (unbound : session.binding = .unbound)
+    (inContext : outOfContext policy publications selectedPoint = false) :
     (∃ reason, verdict policy publications selectedPoint provider builder = .unverified reason) ∧
       ∀ claim, accept policy publications selectedPoint provider builder ≠ .ok claim :=
   unbound_only_unverified policy publications selectedPoint provider builder session offered
-    samePoint unbound
+    samePoint unbound inContext
 example (policy : Policy) (publications : List Publication) (selectedPoint : Chainpoint)
     (provider : Provider) (builder : Builder) (session : Session) (point : Chainpoint) (root : Root)
     (configured : policy.verifier = true) (offered : provider selectedPoint = some session)

@@ -22,7 +22,8 @@ def verdict (policy : Policy) (publications : List Publication) (selectedPoint :
     match accept policy publications selectedPoint provider builder with
     | .ok claim => .verified claim
     | .error refusal =>
-      match unverifiedReason selectedPoint provider with
+      if outOfContext policy publications selectedPoint then .refused refusal
+      else match unverifiedReason selectedPoint provider with
       | some reason => .unverified reason
       | none => .refused refusal
   else .unverified .noVerifier

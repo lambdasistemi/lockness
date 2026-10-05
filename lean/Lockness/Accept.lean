@@ -1,4 +1,5 @@
 import Lockness.Root
+import Lockness.Context
 import Lockness.Session
 import Lockness.Ledger
 import Lockness.App
@@ -9,7 +10,7 @@ namespace Lockness
 -- roots are provider data and are never read as authority.
 def accept (policy : Policy) (publications : List Publication) (selectedPoint : Chainpoint)
     (provider : Provider) (builder : Builder) : Except Refusal Claim :=
-  match acceptRoot policy publications selectedPoint with
+  match acceptContextRoot policy publications selectedPoint with
   | .error refusal => .error refusal
   | .ok root =>
     match acquire selectedPoint provider with

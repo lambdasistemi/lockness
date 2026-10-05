@@ -39,6 +39,12 @@ structure AppQuery where
   claim : Bytes
   deriving DecidableEq, Repr
 
+-- The terminal's declared operating context; a scheme identifier carries its version.
+structure Context where
+  network : Bytes
+  schemes : List Bytes
+  deriving DecidableEq, Repr
+
 structure Policy where
   trustedKeys : List Key
   agreement : List Key → Bool
@@ -56,6 +62,7 @@ structure Policy where
   nextRoot : AppValue → Option Root
   fuel : Nat
   verifier : Bool
+  context : Context
 
 -- Each instance is an arbitrary hypothesis, not an implementation of signatures.
 class SignatureModel where
@@ -66,6 +73,17 @@ def SigValid [SignatureModel] (publication : Publication) : Prop :=
 
 def ObservationSound [SignatureModel] (policy : Policy) : Prop :=
   ∀ publication, policy.verify publication = true → SigValid publication
+
+-- Each instance is an arbitrary hypothesis, not a message encoding.
+class MessageModel where
+  encodes : Bytes → Chainpoint → Root → Prop
+
+-- A valid signature's message encodes its publication's point and root, and nothing else.
+def MessageBinding [SignatureModel] [MessageModel] : Prop :=
+  (∀ publication, SigValid publication →
+    MessageModel.encodes publication.message publication.point publication.root) ∧
+  ∀ message point root point' root', MessageModel.encodes message point root →
+    MessageModel.encodes message point' root' → point = point' ∧ root = root'
 
 inductive Refusal where
   | noRoot (selectedPoint : Chainpoint)

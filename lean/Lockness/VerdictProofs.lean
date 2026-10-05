@@ -28,7 +28,9 @@ theorem verdict_verified_iff (policy : Policy) (publications : List Publication)
   · simp
   · cases accept policy publications selectedPoint provider builder with
     | ok found => simp
-    | error refusal => cases unverifiedReason selectedPoint provider <;> simp
+    | error refusal =>
+      cases outOfContext policy publications selectedPoint <;>
+        cases unverifiedReason selectedPoint provider <;> simp
 
 theorem verdict_no_promotion : NoPromotion verdict := by
   intro policy publications selectedPoint provider builder claim verified
@@ -75,8 +77,11 @@ theorem verdict_refused (policy : Policy) (publications : List Publication)
     · rename_i failure accepted
       split at refused
       · cases refused
-      · cases refused
         exact ⟨configured, accepted⟩
+      · split at refused
+        · cases refused
+        · cases refused
+          exact ⟨configured, accepted⟩
   · cases refused
 
 theorem verdict_refusal (policy : Policy) (publications : List Publication)
@@ -104,28 +109,30 @@ theorem verdict_unverified (policy : Policy) (publications : List Publication)
     · cases unverified
     · rename_i failure accepted
       split at unverified
-      · rename_i found reasonEq
-        cases unverified
-        refine Or.inr ⟨configured, ⟨failure, accepted⟩, ?_⟩
-        unfold unverifiedReason at reasonEq
-        split at reasonEq
-        · cases reasonEq
-        · rename_i session acquired
-          refine ⟨session, acquire_preserves_offer selectedPoint provider session acquired,
-            acquire_no_substitution selectedPoint provider session acquired, ?_⟩
-          split at reasonEq
-          · rename_i unbound
-            cases reasonEq
-            exact Or.inl ⟨rfl, unbound⟩
-          · split at reasonEq
-            · rename_i bound
-              split at reasonEq
-              · rename_i absent
-                cases reasonEq
-                exact Or.inr ⟨rfl, bound, absent⟩
-              · cases reasonEq
-            · cases reasonEq
       · cases unverified
+      · split at unverified
+        · rename_i found reasonEq
+          cases unverified
+          refine Or.inr ⟨configured, ⟨failure, accepted⟩, ?_⟩
+          unfold unverifiedReason at reasonEq
+          split at reasonEq
+          · cases reasonEq
+          · rename_i session acquired
+            refine ⟨session, acquire_preserves_offer selectedPoint provider session acquired,
+              acquire_no_substitution selectedPoint provider session acquired, ?_⟩
+            split at reasonEq
+            · rename_i unbound
+              cases reasonEq
+              exact Or.inl ⟨rfl, unbound⟩
+            · split at reasonEq
+              · rename_i bound
+                split at reasonEq
+                · rename_i absent
+                  cases reasonEq
+                  exact Or.inr ⟨rfl, bound, absent⟩
+                · cases reasonEq
+              · cases reasonEq
+        · cases unverified
   · rename_i unconfigured
     cases unverified
     exact Or.inl ⟨rfl, by simpa using unconfigured⟩
@@ -150,11 +157,12 @@ theorem witnessed_never_unverified (policy : Policy) (publications : List Public
   · cases unverified
   · simp [noReason] at unverified
 
--- A session offered at the selected point and declared unbound yields only unverified.
+-- In context, a session offered at the selected point and declared unbound yields only unverified.
 theorem unbound_only_unverified (policy : Policy) (publications : List Publication)
     (selectedPoint : Chainpoint) (provider : Provider) (builder : Builder) (session : Session)
     (offered : provider selectedPoint = some session)
-    (samePoint : session.selectedPoint = selectedPoint) (unbound : session.binding = .unbound) :
+    (samePoint : session.selectedPoint = selectedPoint) (unbound : session.binding = .unbound)
+    (inContext : outOfContext policy publications selectedPoint = false) :
     (∃ reason, verdict policy publications selectedPoint provider builder = .unverified reason) ∧
       ∀ claim, accept policy publications selectedPoint provider builder ≠ .ok claim := by
   have acquired : acquire selectedPoint provider = .ok session := by
@@ -174,7 +182,7 @@ theorem unbound_only_unverified (policy : Policy) (publications : List Publicati
   · exact ⟨.noVerifier, by simp⟩
   · cases accepted : accept policy publications selectedPoint provider builder with
     | ok claim => exact absurd accepted (neverOk claim)
-    | error refusal => exact ⟨.unboundSession, by simp [reasonUnbound]⟩
+    | error refusal => exact ⟨.unboundSession, by simp [reasonUnbound, inContext]⟩
 
 -- With the root accepted, a session bound to another point is refused as evidence failure.
 theorem misbound_refused (policy : Policy) (publications : List Publication)
@@ -202,7 +210,10 @@ theorem misbound_refused (policy : Policy) (publications : List Publication)
       rw [verifyLedger_refusal policy root session session.ledger refusal verified, samePoint]
   have accepted : accept policy publications selectedPoint provider builder =
       .error (.evidenceFailure selectedPoint) := by
-    simp [accept, rootAccepted, acquired, ledgerRefused]
+    -- Out of context, the guard refuses with the same evidenceFailure before acquisition.
+    cases outside : outOfContext policy publications selectedPoint
+    · simp [accept, acceptContextRoot, outside, rootAccepted, acquired, ledgerRefused]
+    · simp [accept, acceptContextRoot, outside]
   simp [verdict, configured, accepted, noReason]
 
 -- Without a root premise, a misbound session is still refused, never unverified.
@@ -254,7 +265,7 @@ theorem verdict_reconstruction_irrelevant (policy : Policy) (publications : List
   have sameAccept : accept policy publications selectedPoint
       (fun point => (provider point).map (Session.withReconstruction reconstruction)) builder =
       accept policy publications selectedPoint provider builder := by
-    cases rooted : acceptRoot policy publications selectedPoint with
+    cases rooted : acceptContextRoot policy publications selectedPoint with
     | error refusal => simp [accept, rooted]
     | ok root =>
       cases offered : provider selectedPoint with
