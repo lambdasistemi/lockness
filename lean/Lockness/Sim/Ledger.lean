@@ -26,14 +26,15 @@ def ledgerScenario (scenario : String) : IO UInt32 := do
     return 0
   | "substituted-root" =>
     let policy := policyFor false
-    unless policy.checkWitness substitutedAnswer.witness substitutedAnswer.root
+    let some offeredWitness := substitutedAnswer.witness | return 1
+    unless policy.checkWitness offeredWitness substitutedAnswer.root
         substitutedAnswer.object do return 1
     unless decide (policy.decodeObject substitutedAnswer.object = some impostor ∧
         policy.objectBytes impostor = substitutedAnswer.object ∧
         policy.assetOf impostor.2 = some asset ∧
         policy.datumOf impostor.2 = some appRoot₃.bytes ∧
         policy.parseDatum schema appRoot₃.bytes = some appRoot₃) do return 1
-    if policy.checkWitness substitutedAnswer.witness independentRoot substitutedAnswer.object then return 1
+    if policy.checkWitness offeredWitness independentRoot substitutedAnswer.object then return 1
     unless ← expectLedger (verifyLedger policy independentRoot offered substitutedAnswer)
         (.error (.evidenceFailure point)) do return 1
     IO.println s!"evidence-failure point={reprStr point} provider-root-witness=true accepted-root-witness=false surrounding-checks=true"

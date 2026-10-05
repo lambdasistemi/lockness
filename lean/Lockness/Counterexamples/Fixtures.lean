@@ -9,13 +9,13 @@ def secondPublication : Publication := { honestPublication with key := [2] }
 def untrustedPublication : Publication := { honestPublication with key := [9] }
 def honestPolicy : Policy := ⟨[[1]], fun keys => keys.length >= 1, fun _ => true, [], [], fun _ => none, fun _ => [],
   fun _ _ _ => false, fun _ => none, fun _ => none, fun _ _ => none, ⟨[], [], []⟩, fun _ _ _ _ => false,
-  fun _ => none, 0⟩
+  fun _ => none, 0, true⟩
 def twoKeyPolicy : Policy := ⟨[[1], [2]], fun keys => keys.length >= 2, fun _ => true, [], [], fun _ => none, fun _ => [],
   fun _ _ _ => false, fun _ => none, fun _ => none, fun _ _ => none, ⟨[], [], []⟩, fun _ _ _ _ => false,
-  fun _ => none, 0⟩
+  fun _ => none, 0, true⟩
 def untrustedPolicy : Policy := ⟨[], fun keys => keys.length >= 1, fun _ => true, [], [], fun _ => none, fun _ => [],
   fun _ _ _ => false, fun _ => none, fun _ => none, fun _ _ => none, ⟨[], [], []⟩, fun _ _ _ _ => false,
-  fun _ => none, 0⟩
+  fun _ => none, 0, true⟩
 
 -- Same search and agreement: remove only trusted-set filtering.
 def acceptRootWithoutSubsetCheck (policy : Policy) (publications : List Publication)

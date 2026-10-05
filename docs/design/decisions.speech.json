@@ -77,11 +77,15 @@
       "pause": 500
     },
     {
-      "text": "Design claim: Terminals verify data against independently accepted ledger roots; Evidence boundary: Executable root acceptance, session, ledger and application verification model with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment.",
+      "text": "Design claim: Terminals verify data against independently accepted ledger roots; Evidence boundary: Executable root acceptance, session, ledger, application verification and verdict model with explicit verification and correspondence hypotheses; no full-system verifier or end-to-end deployment.",
       "pause": 400
     },
     {
       "text": "Design claim: Terminals accept application claims only through checked nested roots; Evidence boundary: The model proves claim soundness for the whole fold under honest-root correspondence, the ledger premises, application proof soundness and faithful nesting, and provider invariance under the same root, ledger and application proof premises plus functional application content; without functional content two builders can yield different accepted claims; no proof format, validator or implemented terminal.",
+      "pause": 400
+    },
+    {
+      "text": "Design claim: Terminals never present unverified data as verified; Evidence boundary: The model proves no promotion without hypotheses and soundness and provider invariance of verified claims under the acceptance premises; a compiled absent-witness mutant refutes both; no implemented terminal, verifier or witness format.",
       "pause": 400
     },
     {
@@ -151,6 +155,10 @@
       "pause": 400
     },
     {
+      "text": "The verdict carries no payload, and acting on verified or unverified data is issue 10's action step and policy. A witness offered on an unbound session is never checked, and a terminal without a verifier reports unverified even when nothing is offered. The verified soundness and invariance statements are hand copies of the acceptance statements, reviewed in issue 11.",
+      "pause": 400
+    },
+    {
       "text": "External effects require an explicit settlement policy and evidence of continued ancestry; signatures or same-point anchor agreement alone do not establish settlement.",
       "pause": 300
     }
@@ -161,7 +169,7 @@
       "pause": 500
     },
     {
-      "text": "The root acceptance, session, ledger and application verification model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. The ledger verifier checks the witness against the independently accepted root argument and binds the original object bytes to every asset and datum observation. Its universal proof identifies an honest member, actual asset, honest datum root and unique asset-bearing pair under separate selected-point correspondence, witness, encoding, interpretation and OneShot premises. Nontrivial honest fixtures inhabit all premises and acceptance together. A compiled provider-root substitution accepts an impostor and constructively refutes the unchanged guarantee; a two-member same-asset ledger refutes the complete unique-output guarantee when only OneShot is removed. All three ledger scenarios run through the real verifier. The application fold accepts a claim only after root acceptance, acquisition, ledger verification under the accepted root and every nested application link; the claimed root is compared before the proof is checked under the trusted root. Under honest-root correspondence, the ledger premises, application proof soundness and faithful nesting, its proofs show an accepted claim holds over the selected point's ledger; under the same root, ledger and application proof premises plus functional content, two providers and two builders cannot yield different claims. Compiled mutants that trust the claimed root or the session's root refute the unchanged soundness statement, and two values for one query refute invariance without the functional premise. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.",
+      "text": "The root acceptance, session, ledger, application verification and verdict model and simulator compile with a pinned Lean toolchain. Their proofs establish nonempty distinct trusted endorsement, exact point/root binding and selected-point refusal. Signature validity requires an explicit observation-soundness hypothesis; honest-ledger-root equality separately requires correspondence. Compiled counterexamples show untrusted-key refusal and failure of the general safety theorem after removing trusted-set checking. Session acquisition separately proves full-point no substitution for arbitrary providers and preserves the offered session unchanged; lifecycle scenarios show repeated reads, expiry refusal and release. A compiled production substitution mutation accepts a newer session and refutes the unchanged guarantee. Root trust is not established by acquisition. The ledger verifier checks the witness against the independently accepted root argument and binds the original object bytes to every asset and datum observation. Its universal proof identifies an honest member, actual asset, honest datum root and unique asset-bearing pair under separate selected-point correspondence, witness, encoding, interpretation and OneShot premises. Nontrivial honest fixtures inhabit all premises and acceptance together. A compiled provider-root substitution accepts an impostor and constructively refutes the unchanged guarantee; a two-member same-asset ledger refutes the complete unique-output guarantee when only OneShot is removed. All three ledger scenarios run through the real verifier. The application fold accepts a claim only after root acceptance, acquisition, ledger verification under the accepted root and every nested application link; the claimed root is compared before the proof is checked under the trusted root. Under honest-root correspondence, the ledger premises, application proof soundness and faithful nesting, its proofs show an accepted claim holds over the selected point's ledger; under the same root, ledger and application proof premises plus functional content, two providers and two builders cannot yield different claims. Compiled mutants that trust the claimed root or the session's root refute the unchanged soundness statement, and two values for one query refute invariance without the functional premise. The verdict layer classifies every outcome as verified, refused or unverified around that fold: a verified verdict requires a configured verifier, a session bound to the selected point, a present witness and acceptance's own claim, proved without hypotheses; unverified arises only from a declared absence; with a verifier configured, wrong evidence and misdeclared bindings are refused. A compiled mutant that lets an absent witness pass promotes an impostor and refutes the unchanged no-promotion and verified-soundness statements, and three further mutants each break an unchanged proof and a scenario. All seven verdict scenarios run through the real verdict and acceptance. Branch abandonment and lease/retention policy remain open. This is model evidence; independent acceptance, remote CI, implementation and deployment need their own revision-bound results.",
       "pause": 400
     },
     {
@@ -179,6 +187,40 @@
   ],
   "_source": {
     "file": "decisions.md",
-    "sha256": "ef6b39ab8e8481c0f450769bfb37b9511fc74e47620242b4e27c9fba023421b0"
-  }
+    "sha256": "0c9ed4f0062bfeef06e419a20eff21098fad8cbb2351ba7ac22173743f9998bf"
+  },
+  "the-verdict-layer": [
+    {
+      "text": "The verdict layer.",
+      "pause": 500
+    },
+    {
+      "text": "The terminal classifies each outcome as verified, refused or unverified. The verdict is the terminal's own classification around acceptance, never a wire object, and it carries no payload of its own. Verified carries exactly the claim acceptance returned. Refused carries acceptance's own refusal at the selected point. Unverified carries only a reason.",
+      "pause": 400
+    },
+    {
+      "text": "The weakest and the strongest deployments are instances of the same types. At the weakest end, an unbound provider offers data without witnesses, and the terminal labels everything it receives unverified. At the strongest end, a session bound to the selected point offers witnesses that the terminal checks against independently accepted anchors, and only then is a claim verified. Nothing in between needs a different interface: the provider declares its binding and whether it offers a witness, and the policy declares whether the terminal has a verifier.",
+      "pause": 400
+    },
+    {
+      "text": "Unverified arises only from a declared absence: no verifier configured, a session declared unbound, or a session bound to the selected point without a witness. With a verifier configured, anything present and wrong is refused, including a witness that fails under the accepted root and a session declaring a binding to a point other than the one it offers. Otherwise a provider could turn a refusal into a softer outcome by misdeclaring. An answer without a witness is never promoted to verified; the model proves this for every policy, provider and builder, and a compiled mutant that lets an absent witness pass refutes it.",
+      "pause": 400
+    },
+    {
+      "text": "Decision: Classify around the unchanged acceptance; Alternative: Change acceptance's result or put the verdict on the wire; Why: Acceptance and its guarantees stay intact; providers make offers, terminals judge them.",
+      "pause": 400
+    },
+    {
+      "text": "Decision: Unverified only for a declared absence; Alternative: Treat every evidence failure as unverified; Why: A misdeclared binding or a wrong witness must not soften a refusal.",
+      "pause": 400
+    },
+    {
+      "text": "Decision: Reconstruction material is its own type, carried and never evidence; Alternative: Reuse witness bytes or check reconstruction; Why: It cannot be confused with evidence, and replacing it never changes a verdict.",
+      "pause": 400
+    },
+    {
+      "text": "The action step and its action policy belong to issue 10, which consumes the verdict. The wire encoding of the binding, the witness and the reconstruction belongs to issue 17. The verdict model page lists the guarantees, the seven scenarios and the named limits.",
+      "pause": 400
+    }
+  ]
 }

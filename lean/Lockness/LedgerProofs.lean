@@ -7,9 +7,11 @@ theorem verifyLedger_observations (policy : Policy) (acceptedRoot : Root) (sessi
     (answer : LedgerAnswer) (appRoot : Root)
     (success : verifyLedger policy acceptedRoot session answer = .ok appRoot) :
     answer.point = session.selectedPoint ∧
+    session.binding = .bound session.selectedPoint ∧
     ∃ entry datum, policy.decodeObject answer.object = some entry ∧
       policy.objectBytes entry = answer.object ∧
-      policy.checkWitness answer.witness acceptedRoot answer.object = true ∧
+      (∃ witness, answer.witness = some witness ∧
+        policy.checkWitness witness acceptedRoot answer.object = true) ∧
       policy.assetOf entry.2 = some policy.asset ∧
       policy.datumOf entry.2 = some datum ∧
       policy.parseDatum policy.schema datum = some appRoot := by
@@ -17,35 +19,45 @@ theorem verifyLedger_observations (policy : Policy) (acceptedRoot : Root) (sessi
   split at success
   · rename_i pointEq
     split at success
-    · cases success
-    · rename_i entry decoded
+    · rename_i bound
       split at success
-      · rename_i binding
+      · cases success
+      · rename_i entry decoded
         split at success
-        · rename_i witness
+        · rename_i binding
           split at success
-          · rename_i asset
+          · rename_i present
             split at success
-            · cases success
-            · rename_i datum observed
+            · rename_i asset
               split at success
               · cases success
-              · rename_i root parsed
-                cases success
-                exact ⟨pointEq, entry, datum, decoded, binding, witness, asset, observed, parsed⟩
+              · rename_i datum observed
+                split at success
+                · cases success
+                · rename_i root parsed
+                  cases success
+                  cases offered : answer.witness with
+                  | none => rw [offered] at present; exact nomatch present
+                  | some witness =>
+                    rw [offered] at present
+                    have checked : policy.checkWitness witness acceptedRoot answer.object = true :=
+                      present
+                    exact ⟨pointEq, bound, entry, datum, decoded, binding, ⟨witness, rfl, checked⟩,
+                      asset, observed, parsed⟩
+            · cases success
           · cases success
         · cases success
-      · cases success
+    · cases success
   · cases success
 
 theorem verifyLedger_sound : LedgerSoundness verifyLedger := by
   intro policy ledger honestRoot carries honestDatumRoot acceptedRoot session answer appRoot
     witnessSound _encodingFaithful assetSound datumSound oneShot correspondence accepted
-  obtain ⟨_, entry, datum, _decoded, binding, witness, asset, observed, parsed⟩ :=
-    verifyLedger_observations policy acceptedRoot session answer appRoot accepted
-  have checked : checks policy answer.witness acceptedRoot entry := by
-    simpa [checks, binding] using witness
-  have member := witnessSound session.selectedPoint answer.witness acceptedRoot entry
+  obtain ⟨_, _, entry, datum, _decoded, binding, ⟨witness, _, checkedBytes⟩, asset, observed,
+    parsed⟩ := verifyLedger_observations policy acceptedRoot session answer appRoot accepted
+  have checked : checks policy witness acceptedRoot entry := by
+    simpa [checks, binding] using checkedBytes
+  have member := witnessSound session.selectedPoint witness acceptedRoot entry
     correspondence checked
   have actualAsset := assetSound entry.2 policy.asset asset
   refine ⟨entry, member, actualAsset, datumSound _ _ _ _ observed parsed, ?_⟩
@@ -59,18 +71,20 @@ theorem verifyLedger_refusal (policy : Policy) (acceptedRoot : Root) (session : 
   unfold verifyLedger at failure
   split at failure
   · split at failure
-    · cases failure; rfl
     · split at failure
+      · cases failure; rfl
       · split at failure
         · split at failure
           · split at failure
-            · cases failure; rfl
             · split at failure
               · cases failure; rfl
-              · cases failure
+              · split at failure
+                · cases failure; rfl
+                · cases failure
+            · cases failure; rfl
           · cases failure; rfl
         · cases failure; rfl
-      · cases failure; rfl
+    · cases failure; rfl
   · cases failure; rfl
 
 end Lockness

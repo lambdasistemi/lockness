@@ -1,4 +1,4 @@
-# Inspect roots, sessions, ledger answers and application claims
+# Inspect roots, sessions, ledger answers, application claims and verdicts
 
 As a design reviewer, run a terminal's root choice against trusted and untrusted publications. An honest scenario returns the accepted root and selected chainpoint. A publication from an untrusted key returns `no-root` at that same point, even when signature validity is assumed. Removing the trusted-set check demonstrates why that refusal matters.
 
@@ -8,7 +8,9 @@ A terminal then verifies the ledger answer against its independently accepted ro
 
 Finally, a terminal accepts an application claim only after root acceptance, exact-point acquisition, ledger verification and every application link have succeeded. An honest builder yields a verified claim. A builder that claims another root is refused at the selected point, even with a proof valid under that root. A two-link chain is checked link by link, and a failure at the second link rejects the whole claim. Under the stated root, ledger and application soundness premises plus functional application content, two providers and two builders cannot make the terminal accept two different claims for the same policy, publications and point; without functional content they can.
 
-This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, and application source links reference the published application model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.
+Around all of this, the terminal classifies every outcome as verified, refused or unverified. A verified verdict carries exactly the claim that acceptance returned. A refused verdict carries acceptance's own refusal at the selected point. Unverified traffic is a first-class case for a declared absence only: no verifier configured, a session declared unbound, or a session bound to the selected point offering no witness. With a verifier configured, a present but wrong witness, or a session bound to another point, is refused, and in every case an answer without a witness can never be promoted to verified.
+
+This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, application source links reference the published application model revision, and verdict source links reference the published verdict model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.
 
 ## Run the scenarios
 
@@ -29,6 +31,13 @@ From the repository root, with Nix flakes enabled:
 ./lean/env lake exe lockness-sim app replaced-root
 ./lean/env lake exe lockness-sim app nested
 ./lean/env lake exe lockness-sim app ambiguous-value
+./lean/env lake exe lockness-sim verdict verified
+./lean/env lake exe lockness-sim verdict no-witness
+./lean/env lake exe lockness-sim verdict unbound-session
+./lean/env lake exe lockness-sim verdict no-verifier
+./lean/env lake exe lockness-sim verdict wrong-witness
+./lean/env lake exe lockness-sim verdict misbound
+./lean/env lake exe lockness-sim verdict promoted
 ./tools/check-model.sh
 ./tools/check-docs.sh
 just ci
@@ -51,8 +60,15 @@ just ci
 | Replaced application root | The answer claims another root with a proof valid there and passes every other check; the proof fails under the trusted root, and accept returns selected-point `evidenceFailure` |
 | Nested application root | Both links are checked and the inner root is reported; a bad proof, replaced root or missing answer at the second link, or fuel 1 or 0, refuses the whole claim |
 | Ambiguous value | Two values are committed for one query under one root; two builders make accept return two different claims, so invariance needs the separate functional premise |
+| Verified verdict | A session bound to the selected point offers the honest witness and carries reconstruction material; the verdict is verified with exactly the claim accept returns |
+| No witness | The bound session offers the honest object without a witness; the verdict is unverified with reason no witness, and accept refuses with selected-point `evidenceFailure` |
+| Unbound session | The session declares no binding while offering a valid witness; the verdict is unverified with reason unbound session, accept refuses, and the terminal adopts no point |
+| No verifier | The policy declares no verifier; the verdict is unverified with reason no verifier, although accept on the same offer would succeed |
+| Wrong witness | The bound session offers a witness that fails under the accepted root; the verdict is refused with selected-point `evidenceFailure`, never unverified |
+| Misbound session | The session declares a binding to another point and is otherwise honest; the verdict is refused with selected-point `evidenceFailure`, never unverified |
+| Promotion attempt | The impostor object from the root-substitution witness is offered bound but without a witness; the verdict stays unverified with reason no witness and accept refuses |
 
-An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger or app scenarios exit with usage code 64. These are executable model observations, without a network, ledger provider or signature implementation.
+An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger, app or verdict scenarios exit with usage code 64. Each verdict scenario prints the verdict, accept's own outcome and the selected point. These are executable model observations, without a network, ledger provider or signature implementation.
 
 ## Follow the acceptance boundary
 
@@ -84,15 +100,18 @@ The [acceptance definition](https://github.com/lambdasistemi/lockness/blob/feat/
 
 ## Read the model contracts
 
-The [shared types](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Types.lean) preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm.
+The [shared types](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Types.lean) preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm. The [verdict successor of the shared types](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/Lockness/Types.lean) adds the declared binding, the optional witness, reconstruction material, the declared verifier and the verdict itself.
 
 | Surface | Contract in this slice |
 | --- | --- |
 | `Bytes`, `Chainpoint`, `Root`, `Publication` | Original byte sequences, exact point/root identities and original message/signature evidence |
-| `Policy` | Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations; the fixed application query, application proof check, nested-root reading and link fuel |
+| `Policy` | Trusted keys, agreement and publication observations; selected asset/schema and explicit byte decoding, witness, asset and datum observations; the fixed application query, application proof check, nested-root reading and link fuel; whether the terminal has a verifier, read only by the verdict |
 | `Refusal` | Exactly the three selected-point refusals |
-| `Session` | Selected point, provider root and the provider's untrusted answer to the policy's ledger query; acquisition and lifecycle in the session module, described below |
-| `LedgerAnswer` | Point, exact object/witness bytes and untrusted provider root; verification is described below |
+| `Session` | Selected point, provider root, the provider's untrusted answer to the policy's ledger query and the provider's declared binding; acquisition and lifecycle in the session module, described below |
+| `LedgerAnswer` | Point, exact object bytes, an optional witness, untrusted provider root and optional reconstruction material; verification is described below |
+| `Binding` | Either bound to a chainpoint or unbound, as the provider declares for its session |
+| `Reconstruction` | Transaction bytes and resolved spent outputs, its own type distinct from every evidence type; carried, never read as evidence |
+| `Reason`, `Verdict` | The terminal's classification: verified with a claim, refused with a refusal, or unverified with one of three payload-free reasons, no witness, unbound session or no verifier; never a wire object |
 | `AppAnswer` | Application identity, context, point, claimed root, claim, exact value and proof bytes; untrusted until application verification, described below |
 | `AppQuery`, `AppProof`, `AppValue` | The terminal's fixed application, context and claim bytes; uninterpreted proof bytes; exact value bytes |
 | `Claim` | Selected point, accepted ledger root, query, application root, checked nested roots and final value; no proof bytes or provider roots |
@@ -148,6 +167,8 @@ The [session tests](https://github.com/lambdasistemi/lockness/blob/feat/7-sessio
 ## Verify ledger answers
 
 As a terminal, use a provider's answer to identify the application root carried by an asset's honest ledger output. Supply the root independently accepted for the selected network, slot and block hash. The [ledger verifier](https://github.com/lambdasistemi/lockness/blob/3b88416def14c9d2da0d04ab0d595e5de7b91493/lean/Lockness/Ledger.lean) checks answer-point equality, decodes the object to exact input/output bytes, and requires re-encoding to reproduce the witnessed object unchanged. It checks the witness against the independent root argument and those original object bytes. It then checks the asset on that same decoded output, extracts its datum, and parses those bytes under the policy schema. Every failed observation returns `evidenceFailure session.selectedPoint`.
+
+The [verdict revision of the verifier](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/Lockness/Ledger.lean) adds two refusals, also at the selected point. Right after the point check, it refuses a session whose declared binding is not its own selected point. And the witness check now fails when the answer offers no witness; a present witness is still checked only under the independently accepted root. The observation lemma records both: a successful answer comes from a session bound to its selected point and carries a witness that passed under the accepted root. Every other ledger statement on this page is unchanged.
 
 ```lean
 verifyLedger : Policy → Root → Session → LedgerAnswer → Except Refusal Root
@@ -241,22 +262,77 @@ The [root counterexamples](https://github.com/lambdasistemi/lockness/blob/c341bd
 
 Two limits are deliberate. Every link is checked against the same policy query; per-link queries, or different queries in nested trees, are not modelled and are reviewed in issue #11. A session carries one answer, to the policy's single ledger query; several ledger queries per session belong to later wire contracts. Proof formats, application validators, transition binding and transaction construction are not modelled.
 
+## Classify verdicts
+
+As a terminal, tell apart three situations that look alike from outside: data you verified, data you checked and found wrong, and data nobody offered evidence for. A provider without witnesses, or a terminal without a verifier, is still useful traffic, but it must never be mistaken for a verified fact. The [verdict layer](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/Lockness/Verdict.lean) wraps the unchanged `accept`:
+
+```lean
+unverifiedReason : Chainpoint → Provider → Option Reason
+verdict : Policy → List Publication → Chainpoint → Provider → Builder → Verdict
+```
+
+The verdict is decided in a fixed order. First, a policy that declares no verifier gives unverified with reason no verifier, and nothing else is consulted. Next, when accept returns a claim, the verdict is verified with that same claim. When accept refuses, the verdict is unverified only if the offered session declares an absence: unbound gives reason unbound session, and bound to the selected point without a witness gives reason no witness. Every other refusal is passed on unchanged as refused. The reason reads only the session that acquisition accepts, so a provider offering another point is refused by acquisition exactly as before.
+
+With a verifier configured, root acceptance succeeding and a session offered at the selected point, the outcomes are:
+
+| Offered session | Accept | Verdict |
+| --- | --- | --- |
+| Bound to the selected point, witness passes under the accepted root, every other check passes | the claim | verified, same claim |
+| Bound to the selected point, no witness | evidence failure | unverified, no witness |
+| Declared unbound, witness present or not | evidence failure | unverified, unbound session |
+| Bound to the selected point, witness present but wrong | evidence failure | refused, evidence failure |
+| Bound to a different point | evidence failure | refused, evidence failure |
+
+When root acceptance refuses, accept returns that no-root refusal before reading the provider. The verdict is then unverified if the offered session declares an absence, and otherwise refused with the no-root refusal. With no verifier configured, every row is unverified with reason no verifier.
+
+The [verdict proofs](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/Lockness/VerdictProofs.lean) hold for every policy, provider and builder unless a premise is named:
+
+| Declaration | Established model guarantee |
+| --- | --- |
+| `verdict_no_promotion : NoPromotion verdict` | With no hypothesis, a verified claim implies a configured verifier, a session offered at and bound to the selected point, a present witness, and accept returning that exact claim |
+| `verdict_verified_iff` | The verdict is verified with a claim exactly when the verifier is configured and accept returns that claim |
+| `accept_bound_witnessed` | Accept itself never succeeds without a session offered at the selected point, bound to it, whose answer carries a witness |
+| `verdict_sound`, `verdict_provider_invariant` | Soundness and provider invariance hold for every verified claim under exactly the premises of the acceptance statements, proved from no promotion and the unchanged acceptance proofs |
+| `verdict_refused`, `verdict_refusal` | A refused verdict implies a configured verifier and that accept returned that same refusal, so it carries the selected point |
+| `verdict_unverified` | An unverified verdict comes either from no verifier configured, or, with a verifier configured, from accept refusing while the session offered at the selected point is declared unbound or is bound to that point without a witness |
+| `witnessed_never_unverified` | With a verifier configured, a session offered at the selected point, bound to it and carrying a witness is never unverified: wrong evidence is refused |
+| `unbound_only_unverified` | Whether or not a verifier is configured, a session offered at the selected point and declared unbound yields only unverified, and accept never succeeds on it |
+| `misbound_refused`, `misbound_never_unverified` | With a verifier configured, a session offered at the selected point but bound to a different point is refused, never unverified, with accept's own refusal; when root acceptance also succeeds, that refusal is exactly evidence failure at the selected point |
+| `verdict_reconstruction_irrelevant` | Replacing every offered reconstruction never changes the verdict |
+
+The [verdict fixtures](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/Lockness/Counterexamples/VerdictFixtures.lean) reuse the application fixture's policy, publications, selected point and honest builder. One jointly inhabited input proves every acceptance soundness premise together with a verified verdict and the no-promotion conclusion at that input. Every expected claim is evaluated from the honest content, never typed in or read from accept.
+
+The [promotion refutations](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/Lockness/Counterexamples/VerdictPromotion.lean) are parameterized by the operation. The gate compiles a copy of the real ledger verifier that lets an absent witness pass. That mutant verifies the witness-less impostor, whose datum root is absent from the honest ledger, and constructively refutes both the unchanged no-promotion and the unchanged verified-soundness statements; the unchanged ledger observation proof then fails, and the real promotion scenario rejects the changed outcome. Three more compiled mutants alter the verdict itself. Ignoring the declared verifier refutes no promotion and breaks the verified-iff proof and the no-verifier scenario. Reading a present wrong witness as absent breaks the wrong-witness proof and scenario. Reading any other binding as unbound breaks both misbound proofs and the misbound scenario.
+
+| Choice | Alternative | Why |
+| --- | --- | --- |
+| The verdict is a terminal classification around an unchanged accept | Put a verdict on the wire, or change accept's result type | Acceptance and its proofs stay intact; the verdict is the terminal's judgement, not a provider claim |
+| Unverified only for a declared absence | Treat any refusal caused by missing or contradictory evidence as unverified | A provider could otherwise downgrade a refusal by lying, for example by declaring a binding to another point |
+| Both new guards inside the ledger verifier | Guard binding in acquisition, or wrap the witness in a second offer type | Acquisition, acceptance and their statements stay byte-identical; only the ledger step changes |
+| An absent witness always fails the witness check | Let a policy accept an absent witness | That would be promotion by configuration |
+| No verifier is decided first, consulting nothing | Refuse an unavailable point before reporting no verifier | A terminal without a verifier makes no evidence claim at all, so nothing is refused on evidence grounds |
+| Reconstruction is its own optional type | Reuse witness or proof bytes | It cannot be mistaken for evidence, and irrelevance is proved |
+
+The limits are named. With the verifier off the verdict is unverified with reason no verifier even when the provider offers nothing. A reason carries no payload, so any material an unverified offer might supply must be taken from the offer itself by a later step. A witness on an unbound session is never checked. Reconstruction is carried and never checked or used as evidence. A session still carries one ledger answer. The exact evidence-failure refusal for a misbound session depends on root acceptance succeeding; without it the refusal is root acceptance's own. The verified soundness and invariance statements are hand copies of the acceptance statements with only the success premise changed, and their faithfulness is reviewed in issue #11. The action step and its policy belong to issue #10, and the wire encoding of the binding, witness and reconstruction to issue #17.
+
 ## Assess the evidence
 
 `check-model` builds every model module, inventories every stored theorem including private proofs, and reports its axiom dependencies. It permits only Lean's standard `propext`, `Classical.choice` and `Quot.sound`; holes and custom escape axioms fail. Lean checks anonymous examples during compilation but does not retain them in the declaration inventory: strict compiler warnings and a source hole policy reject their holes. Deliberate named and anonymous `sorry`, `admit` and unused custom-axiom controls must reach the relevant rejection, rather than fail because a tool or import is missing.
 
-The gate executes the root, session, ledger and application scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger and application counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.
+The gate executes the root, session, ledger, application and verdict scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger, application and verdict counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.
 
 The session control copies the actual production acquisition definition into an isolated build directory, removes only its point-equality guard, then recompiles the session counterexample module and session simulator against that mutated module. The existing unchanged root dependencies are copied as compiled inputs; this control does not rebuild the full dependent closure. The compiled mutant executes newer-point acceptance and constructively refutes the unchanged `NoSubstitution` proposition. The exact unchanged `acquire_no_substitution` proof then fails at its point-equality conclusion, and the real newer-point simulator rejects the changed outcome. The general refutation helper applies to any operation with that acceptance witness, rather than only a separate fake acquisition copy.
 
 The application controls work the same way. The [application tests](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/Lockness/Tests/App.lean) check each first-link point, application, context, claim and proof refusal, each second-link failure, fuel exhaustion, and the root, acquisition and ledger refusals of the fold. The [mutation script](https://github.com/lambdasistemi/lockness/blob/c341bd9e77c0a7586826597429bcadb50da4d77e/lean/checks/app-mutations.sh) verifies that each edit to the production source applied, recompiles the dependent fixtures and simulator, executes the mutant's acceptance by evaluation, applies the refutation, and requires the unchanged proofs to fail on the trusted-root or accepted-root observation rather than on a setup error.
+
+The [verdict tests](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/Lockness/Tests/Verdict.lean) restate every verdict guarantee in full, so a changed statement fails to compile, and evaluate the verdict and accept outcome of each of the seven offers. The [verdict mutation script](https://github.com/lambdasistemi/lockness/blob/6dfe20f49d7133019d0758fb2327e427b8a8d535/lean/checks/verdict-mutations.sh) applies each production edit once and proves it applied, recompiles the modules on the witness path, evaluates the mutant's changed verdict, applies the refutation where one exists, and requires each unchanged proof to fail inside that proof's own lines rather than at an import or setup step.
 
 Run `./lean/env lake env lean Lockness/Tests/Session.lean` or `./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean` for session checks and the [generic refutation](https://github.com/lambdasistemi/lockness/blob/feat/7-session-acquisition/lean/Lockness/Counterexamples/SessionMutation.lean). Run `./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean` to inspect the constructive counterexample independently. Record `git rev-parse HEAD` alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed.
 
 | Evidence layer | Limit |
 | --- | --- |
 | Design | Records the project trust boundary and open contracts |
-| Model and simulator | Kernel-checked properties of this root, session, ledger and application model and concrete executable paths |
+| Model and simulator | Kernel-checked properties of this root, session, ledger, application and verdict model and concrete executable paths |
 | Documentation checks | Presentation, speech freshness and strict site construction |
 | Independent acceptance and remote CI | Require revision-bound review and actual successful workflow results |
 | Component implementation, deployment and live chain | Not established by this model |

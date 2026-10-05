@@ -37,7 +37,7 @@ theorem binding_refusal : verifyLedger
     acceptedRoot session answer₁ = .error (.evidenceFailure point) := by decide
 
 theorem witness_refusal : verifyLedger (policyFor false) acceptedRoot session
-    { answer₁ with witness := [99] } = .error (.evidenceFailure point) := by decide
+    { answer₁ with witness := some [99] } = .error (.evidenceFailure point) := by decide
 
 theorem asset_refusal : verifyLedger { policyFor false with asset := [99] }
     acceptedRoot session answer₁ = .error (.evidenceFailure point) := by decide

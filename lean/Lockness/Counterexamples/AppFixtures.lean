@@ -64,12 +64,12 @@ def honestBuilder (ambiguous : Bool) (proof : AppProof) (query : AppQuery) : Bui
 def providerRootA : Root := LedgerExamples.providerRoot
 def providerRootB : Root := ⟨[0], [8, 0, 255]⟩
 def offerVia (untrusted : Root) : Session :=
-  ⟨selected, untrusted, { LedgerExamples.answer₁ with root := untrusted }⟩
+  ⟨selected, untrusted, { LedgerExamples.answer₁ with root := untrusted }, .bound selected⟩
 def providerA : Provider := fun _ => some (offerVia providerRootA)
 def providerB : Provider := fun _ => some (offerVia providerRootB)
 -- The #8 substituted ledger answer, offered with the provider's own root.
 def substitutingProvider : Provider := fun _ =>
-  some ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer⟩
+  some ⟨selected, LedgerExamples.providerRoot, LedgerExamples.substitutedAnswer, .bound selected⟩
 
 -- Claims another root with a proof valid there; every other guard passes.
 def replacedAnswer : AppAnswer := answerFor proofA finalQuery otherRoot forgedValue
