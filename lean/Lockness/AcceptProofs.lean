@@ -18,7 +18,13 @@ theorem accept_observations (policy : Policy) (publications : List Publication)
   unfold accept at success
   split at success
   · cases success
-  · rename_i root accepted
+  · rename_i root inContext
+    -- Root acceptance in context returns acceptRoot's own root.
+    have accepted : acceptRoot policy publications selectedPoint = .ok root := by
+      unfold acceptContextRoot at inContext
+      split at inContext
+      · cases inContext
+      · exact inContext
     split at success
     · cases success
     · rename_i session acquired
@@ -41,7 +47,12 @@ theorem accept_refusal_cases (policy : Policy) (publications : List Publication)
   split at failure
   · rename_i rejected
     cases failure
-    exact Or.inl (acceptRoot_refusal policy publications selectedPoint _ rejected)
+    -- The context guard refuses with evidenceFailure; acceptRoot only with noRoot.
+    unfold acceptContextRoot at rejected
+    split at rejected
+    · cases rejected
+      exact Or.inr (Or.inr rfl)
+    · exact Or.inl (acceptRoot_refusal policy publications selectedPoint _ rejected)
   · split at failure
     · rename_i unavailable
       cases failure

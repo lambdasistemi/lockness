@@ -4,13 +4,13 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Context model slice
 
-- [ ] context-interface: released Types successor and neutral inherited adaptations with unchanged inherited outcomes.
-- [ ] context-guard: the guard and context-checked root acceptance before acquisition; accept statements unchanged.
-- [ ] context-classification: out-of-context refusals classified `refused` before declared absences; the ruled restatement.
-- [ ] context-guard-theorems: refusal and in-context inversions, the guard theorems, out-of-context-never-unverified and foreign-publication-ignored.
-- [ ] context-soundness: ContextSoundness statement and proof under ObservationSound and MessageBinding; jointly inhabited honest witness.
-- [ ] context-counterexamples: guard-removal and binding-removal refutations, with the ruled further mutants; unchanged proofs rejected; real scenarios fail where the mutant is executable.
-- [ ] context-simulator-and-gates: five context scenarios, usage text, model-gate stages, inherited controls and all-source axiom inventory.
+- [x] context-interface: released Types successor and neutral inherited adaptations with unchanged inherited outcomes.
+- [x] context-guard: the guard and context-checked root acceptance before acquisition; accept statements unchanged.
+- [x] context-classification: out-of-context refusals classified `refused` before declared absences; the ruled restatement.
+- [x] context-guard-theorems: refusal and in-context inversions, the guard theorems, out-of-context-never-unverified and foreign-publication-ignored.
+- [x] context-soundness: ContextSoundness statement and proof under ObservationSound and MessageBinding; jointly inhabited honest witness.
+- [x] context-counterexamples: guard-removal and binding-removal refutations, with the ruled further mutants; unchanged proofs rejected; real scenarios fail where the mutant is executable.
+- [x] context-simulator-and-gates: five context scenarios, usage text, model-gate stages, inherited controls and all-source axiom inventory.
 
 ## Context docs slice
 
