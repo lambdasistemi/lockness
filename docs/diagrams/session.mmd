@@ -17,11 +17,8 @@ stateDiagram-v2
     Active --> Active: Read or paginate
     Active --> Expired: Lease expires
     Active --> Closed: Release session
-    Active --> BranchDecision: Block rolled back
-    state "Branch policy unresolved" as BranchDecision
+    Active --> Abandoned: Selected block rolled back
     Unavailable --> [*]: Explicit refusal
     Expired --> [*]: Further reads refused
     Closed --> [*]: Release view
-    note right of BranchDecision
-      No outcome chosen yet
-    end note
+    Abandoned --> [*]: Further reads refused at the same point

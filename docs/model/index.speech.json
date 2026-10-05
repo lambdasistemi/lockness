@@ -1,7 +1,7 @@
 {
-  "inspect-roots-sessions-ledger-answers-application-claims-verdicts-and-the-operating-context": [
+  "inspect-roots-sessions-ledger-answers-application-claims-verdicts-the-operating-context-and-the-act-step": [
     {
-      "text": "Inspect roots, sessions, ledger answers, application claims, verdicts and the operating context.",
+      "text": "Inspect roots, sessions, ledger answers, application claims, verdicts, the operating context and the act step.",
       "pause": 500
     },
     {
@@ -25,11 +25,15 @@
       "pause": 400
     },
     {
-      "text": "All of it happens inside one declared operating context: the network the terminal runs on and the commitment schemes it accepts. A selected point on another network, or a root under a scheme the terminal does not accept, is refused at the selected point, never reported as unverified. A publication from another network is ignored: it neither endorses a root here nor blocks one.",
+      "text": "All of it happens inside one declared operating context: the network the terminal runs on and the commitment schemes it accepts. With a verifier configured, a selected point on another network, or a root under a scheme the terminal does not accept, is refused at the selected point, never reported as unverified; a terminal without a verifier reports every outcome, this one included, as unverified with reason no verifier. A publication from another network is ignored: it neither endorses a root here nor blocks one.",
       "pause": 400
     },
     {
-      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, application source links reference the published application model revision, verdict source links reference the published verdict model revision, and operating context source links reference the published context model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
+      "text": "Last, the terminal acts. It may build a transaction from a verified claim before any settlement, but it drives an external effect only on a verified claim, with an offer bound to the selected point and the policy's settlement observation holding on its own chain view. Settlement is a guarantee conditional on stated hypotheses about which futures consensus admits, never an unconditional promise. After the selected block is rolled back, the session is abandoned, its reads are refused at the same point, and the effect stays refused. An unverified verdict never drives an effect, and it allows construction only when the policy's action rule admits its reason.",
+      "pause": 400
+    },
+    {
+      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, application source links reference the published application model revision, verdict source links reference the published verdict model revision, operating context source links reference the published context model revision, and act source links reference the published act model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
       "pause": 400
     }
   ],
@@ -47,7 +51,7 @@
       "pause": 400
     },
     {
-      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger, app, verdict or context scenarios exit with usage code 64. Each verdict scenario prints the verdict, accept's own outcome and the selected point; each context scenario also prints the terminal's context, and the two-observation scenarios print their second verdict and accept beside the first. These are executable model observations, without a network, ledger provider or signature implementation.",
+      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger, app, verdict, context or effect scenarios exit with usage code 64. Each verdict scenario prints the verdict, accept's own outcome and the selected point; each context scenario also prints the terminal's context, and the two-observation scenarios print their second verdict and accept beside the first. Each effect scenario prints the act outcomes it observes and the selected point. These are executable model observations, without a network, ledger provider or signature implementation.",
       "pause": 400
     }
   ],
@@ -71,7 +75,7 @@
       "pause": 500
     },
     {
-      "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm. The verdict successor of the shared types adds the declared binding, the optional witness, reconstruction material, the declared verifier and the verdict itself. The operating context successor adds the terminal's declared context to the policy and the abstract message model with its binding hypothesis.",
+      "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm. The verdict successor of the shared types adds the declared binding, the optional witness, reconstruction material, the declared verifier and the verdict itself. The operating context successor adds the terminal's declared context to the policy and the abstract message model with its binding hypothesis. The act successor adds branches and the chain, moves the reason type before the policy unchanged, and adds the settlement observation and the action rule to the policy.",
       "pause": 400
     },
     {
@@ -101,7 +105,7 @@
       "pause": 400
     },
     {
-      "text": "The diagram preserves the session design. The executable inductive SessionState and SessionTransition model requested acquisition as active or unavailable, active reads as active again, expiry as expired, and release as closed. readSession returns the same active session; expired and closed reads return unavailablePoint at its original point. Requested and unavailable reads also refuse their selected point. Closed and unavailable states have no outgoing transitions; an expired-read observation retains the expired state. Expiry is an event, with no duration or scheduler. The diagram's unresolved branch path is deliberately absent from the transition relation and remains a separate design question. The model does not implement pagination, token encodings, leases, storage retention or physical view release.",
+      "text": "The diagram preserves the session design. The executable inductive SessionState and SessionTransition model requested acquisition as active or unavailable, active reads as active again, expiry as expired, and release as closed. readSession returns the same active session; expired and closed reads return unavailablePoint at its original point. Requested and unavailable reads also refuse their selected point. Closed and unavailable states have no outgoing transitions; an expired-read observation retains the expired state. Expiry is an event, with no duration or scheduler. The abandoned state follows a rollback: an active session moves to abandoned when its point is not canonical in the terminal's chain view, its reads return unavailablePoint at its own point, never an answer from another point, and it has no outgoing transition. Only an active session is abandoned; expired and closed sessions already refuse their reads. The model does not implement pagination, token encodings, leases, storage retention or physical view release.",
       "pause": 400
     },
     {
@@ -219,7 +223,7 @@
       "pause": 400
     },
     {
-      "text": "The limits are named. With the verifier off the verdict is unverified with reason no verifier even when the provider offers nothing. A reason carries no payload, so any material an unverified offer might supply must be taken from the offer itself by a later step. A witness on an unbound session is never checked. Reconstruction is carried and never checked or used as evidence. A session still carries one ledger answer. The exact evidence-failure refusal for a misbound session depends on root acceptance succeeding; without it the refusal is root acceptance's own. The verified soundness and invariance statements are hand copies of the acceptance statements with only the success premise changed, and their faithfulness is reviewed in issue #11. The action step and its policy belong to issue #10, and the wire encoding of the binding, witness and reconstruction to issue #17.",
+      "text": "The limits are named. With the verifier off the verdict is unverified with reason no verifier even when the provider offers nothing. A reason carries no payload, so any material an unverified offer might supply must be taken from the offer itself by a later step. A witness on an unbound session is never checked. Reconstruction is carried and never checked or used as evidence. A session still carries one ledger answer. The exact evidence-failure refusal for a misbound session depends on root acceptance succeeding; without it the refusal is root acceptance's own. The verified soundness and invariance statements are hand copies of the acceptance statements with only the success premise changed, and their faithfulness is reviewed in issue #11. The act step consumes the verdict, as described below, and the wire encoding of the binding, witness and reconstruction belongs to issue #17.",
       "pause": 400
     }
   ],
@@ -229,7 +233,7 @@
       "pause": 500
     },
     {
-      "text": "As a terminal operator, run the terminal on one network and accept roots only under the commitment schemes you chose. Evidence from elsewhere must never pass, and it must never be softened into unverified traffic: a selected point on another network is present and wrong. A provider cannot change this, because the context is the terminal's own policy, not something the provider declares.",
+      "text": "As a terminal operator, run the terminal on one network and accept roots only under the commitment schemes you chose. Evidence from elsewhere must never pass, and with a verifier configured it must never be softened into unverified traffic: a selected point on another network is present and wrong. A terminal without a verifier makes no evidence claim, so every outcome, this one included, is unverified with reason no verifier. A provider cannot change this, because the context is the terminal's own policy, not something the provider declares.",
       "pause": 400
     },
     {
@@ -237,7 +241,7 @@
       "pause": 400
     },
     {
-      "text": "A selection is out of context when the selected point's network differs from the context network, or when the root that root acceptance selects has a scheme outside the accepted schemes. Root acceptance in context refuses an out-of-context selection with evidenceFailure at the selected point and otherwise returns exactly what root acceptance returns. The whole fold binds its root through it, so the context is checked before acquisition and every later step is unchanged. The verdict keeps the verifier switch first; after accept refuses, an out-of-context selection is refused before any declared absence is considered.",
+      "text": "A selection is out of context when the selected point's network differs from the context network, or when the root that root acceptance selects has a scheme outside the accepted schemes. Root acceptance in context refuses an out-of-context selection with evidenceFailure at the selected point and otherwise returns exactly what root acceptance returns. The whole fold binds its root through it, so the context is checked before acquisition and every later step is unchanged. The verdict keeps the verifier switch first; with a verifier configured, after accept refuses, an out-of-context selection is refused before any declared absence is considered.",
       "pause": 400
     },
     {
@@ -265,11 +269,53 @@
       "pause": 400
     },
     {
-      "text": "The limits are named. With no verifier configured, an out-of-context selection is unverified with reason no verifier, like every other outcome; what an unverified fact may drive is issue #10's action policy. Foreign publications are proved ignored when appended; the order of the untrusted publication list can still decide which of several roots endorsed inside the context is selected, an inherited root acceptance property reviewed in issue #11. MessageBinding is assumed, never checked.",
+      "text": "The limits are named. With no verifier configured, an out-of-context selection is unverified with reason no verifier, like every other outcome; the act step refuses every effect on it and allows construction only when the policy's action rule admits that reason. Foreign publications are proved ignored when appended; the order of the untrusted publication list can still decide which of several roots endorsed inside the context is selected, an inherited root acceptance property reviewed in issue #11. MessageBinding is assumed, never checked.",
       "pause": 400
     },
     {
-      "text": "The model does not cover genesis or era identity: concrete network identifiers belong to issue #17. Protocol parameters are not modelled; transaction construction belongs to issue #10 and every other use to the implementation milestones. Validator script hashes belong to the implementation milestones.",
+      "text": "The model does not cover genesis or era identity: concrete network identifiers belong to issue #17. Protocol parameters are not modelled; every use, including transaction construction, belongs to the implementation milestones. Validator script hashes belong to the implementation milestones.",
+      "pause": 400
+    }
+  ],
+  "act-on-verdicts-and-settlement": [
+    {
+      "text": "Act on verdicts and settlement.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal, build a transaction from a verified claim before any settlement, but drive an external effect only when the selected point is settled on your chain view; after a rollback, see the effect still refused at the same point. An unverified verdict never drives an effect; it allows construction only when your policy's action rule admits its reason.",
+      "pause": 400
+    },
+    {
+      "text": "The act step runs after the verdict and receives the provider's offer separately, never from the verdict. The chain module gives the chain as the terminal's own view: the canonical branch first, then the branches it replaced. A rollback replaces the newest points of the canonical branch with a fork and keeps the replaced branch, and growth is a rollback of depth zero. The possible futures of a chain are every chain reached by rollbacks of any depth.",
+      "pause": 400
+    },
+    {
+      "text": "The policy carries two new observations. The settlement observation is executable and reads only the point and the terminal's chain view. The action rule decides which unverified reasons still allow construction. Two hypotheses connect the observation to the chain, and neither is computed. A consensus model states which possible futures the network's consensus admits; it is arbitrary and fixes no depth. Continued ancestry states that a point the observation accepts stays canonical in every possible future the consensus model admits. The settlement guarantee is conditional on both.",
+      "pause": 400
+    },
+    {
+      "text": "The chain view is an input. For a light terminal, which runs no chain follower, it is derived from accepted anchor publications: later points endorsed under the terminal's policy and context, establishing continued ancestry. How that derivation is encoded and checked is an open contract owned by issue #17 and the implementation milestones. Nothing a provider returns enters the view or the settlement observation, so no provider, builder or publication can make a point settled, and nothing fetched from a third party can veto settlement.",
+      "pause": 400
+    },
+    {
+      "text": "The act proofs hold for every policy, verdict, provider, point and chain unless a premise is named, and the chain lemmas hold for every chain:",
+      "pause": 400
+    },
+    {
+      "text": "The five act scenarios show these on the real verdict and act step. In the construct scenario the honest claim is verified, construction is authorized at the unsettled tip and gives the same outcome on a settled chain, and the effect at the tip is refused. In the settled-effect scenario newer blocks are built on the selected point, the settlement observation holds, and the effect is authorized; the same verdict handed to the act step with an unbound offer is refused. In the rolled-back scenario the effect at the tip is refused, the selected block is then rolled back in a future the fixture consensus admits, the point leaves the canonical branch, the session is abandoned with its read refused at its own point, and the effect stays refused on the rolled-back and the regrown chains. In the unverified-construct scenario a verdict without a witness allows construction on the offer, whose reconstruction material is printed, while verdicts with no verifier or an unbound session are refused construction by the action rule. In the unverified-effect scenario every unverified verdict, including no verifier on a terminal configured for another network, is refused an effect on a settled chain.",
+      "pause": 400
+    },
+    {
+      "text": "The act fixtures instantiate the hypotheses once. Their consensus model admits a future when it keeps every point buried under a fixed number of newer blocks, and their settlement observation accepts exactly those buried points; that number is a witness of the hypotheses, never a parameter of the model. One theorem holds continued ancestry for that pair together with the real verified verdict, the settled effect and the refused effect at the unsettled tip. Every expected claim is evaluated from the honest content, never typed in or read from the act step. The refutations are parameterized by the operation. An operation that authorizes an effect at the unsettled tip refutes settlement stability through the admitted rollback of the selected block. Without the consensus premise, settlement stability is false on the real act step: a settled point is rolled back deeper than it is buried, which is a possible future the fixture consensus does not admit.",
+      "pause": 400
+    },
+    {
+      "text": "The effect mutation script compiles changed copies of the act step. Without the settlement guard, the compiled witness authorizes an effect at the unsettled tip and refutes the unchanged settlement stability; the unchanged settlement and effect-requirement proofs fail inside their own lines, the fixture's jointly inhabited theorem fails at its unsettled tip, and the rolled-back scenario rejects the changed outcome. Allowing an unverified effect breaks the unchanged unverified-effect and no-verifier proofs and the unverified-effect scenario. Removing the binding check breaks the unchanged effect-requirement proof and the settled-effect scenario. Ignoring the action rule breaks the unchanged construction proof and the unverified-construct scenario. Removing the consensus premise changes the statement, not an executable: the counterexample is first compiled against the unchanged statement and must fail there, it typechecks against the statement without the premise, and the unchanged settlement proof then fails; no scenario can change.",
+      "pause": 400
+    },
+    {
+      "text": "The limits are named. An unsettled effect and wrong evidence share the evidence-failure refusal, so a terminal cannot tell \"not settled yet, retry later\" from \"wrong evidence\" by the refusal alone; issue #11 may propose an outcome distinction, and issue #17 owns any wire reason code. The chain view is an input: the model does not show that a terminal's view matches the chain. The settlement guarantee is conditional on continued ancestry and the consensus model, and the fixture is one inhabitant of them. No numeric depth or anchor count is part of the model. The model authorizes construction; it computes no fees, sizes or parameter-dependent validity, which belong with protocol parameters to the implementation milestones.",
       "pause": 400
     }
   ],
@@ -283,7 +329,7 @@
       "pause": 400
     },
     {
-      "text": "The gate executes the root, session, ledger, application, verdict and context scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger, application, verdict and context counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
+      "text": "The gate executes the root, session, ledger, application, verdict, context and effect scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger, application, verdict, context and act counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
       "pause": 400
     },
     {
@@ -303,11 +349,15 @@
       "pause": 400
     },
     {
+      "text": "The act tests restate every chain, act and settlement definition and guarantee in full, including the restated active_transition and the full act definition, and evaluate the outcomes of the five act scenarios, the refusals at the selected point, the neutral settlement and action-rule values of the inherited policies and the abandon transition at the fixture rollback. The effect mutation script applies each edit once and proves it applied, recompiles the fixtures and refutations, and requires each unchanged proof to fail inside its own lines rather than at an import or setup step, as described in the act section above.",
+      "pause": 400
+    },
+    {
       "text": "Run ./lean/env lake env lean Lockness/Tests/Session.lean or ./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean for session checks and the generic refutation. Run ./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean to inspect the constructive counterexample independently. Record git rev-parse HEAD alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed.",
       "pause": 400
     },
     {
-      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, effects, canonicality, freshness, settlement and abandoned-branch session policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds AppSound and faithful nesting, invariance adds AppFunctional, and context soundness adds MessageBinding. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
+      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, the derivation of the chain view from accepted anchor publications, a settlement depth, freshness, and lease and retention policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds AppSound and faithful nesting, invariance adds AppFunctional, context soundness adds MessageBinding, and settlement adds continued ancestry and the consensus model. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
       "pause": 400
     },
     {
@@ -317,6 +367,6 @@
   ],
   "_source": {
     "file": "index.md",
-    "sha256": "dd7241c31b0d1b38f25240eedefc41cb69a9d4f6069cbfa63eaf176a18fedd04"
+    "sha256": "4ae90c9de4e6ba35628cc4208e10cc3670f0e39fd8aff309edff5e403376d5de"
   }
 }

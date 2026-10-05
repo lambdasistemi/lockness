@@ -15,10 +15,10 @@ Use **chainpoint** throughout Lockness. This corresponds to Cardano API's [`Chai
 A session token binds reads to the network, selected chainpoint and a retained view; it is not a source of trust. A chainpoint names a chain position, a view exposes state at that position, and a session retains access under a lease. The terminal verifies results against its separately accepted commitment. Different providers may issue different tokens for the same chainpoint. Whether sessions can be acquired at genesis remains a service-contract decision.
 
 <!-- diagram: session -->
-<div class="diagram"><a href="../diagrams/session.png?v=42c240417184fe73"><img src="../diagrams/session.png?v=42c240417184fe73" alt="A retained session supports repeated reads; expiry and missing views refuse, and rollback policy is explicitly unresolved." width="784" loading="lazy"></a></div>
-<p class="diagram-links"><a href="../diagrams/session.png?v=42c240417184fe73">Open full size</a> · <a href="../diagrams/session.mmd?v=814064504407234d">Mermaid source</a></p>
+<div class="diagram"><a href="../diagrams/session.png?v=d3dae3e736f9b8c5"><img src="../diagrams/session.png?v=d3dae3e736f9b8c5" alt="A retained session supports repeated reads; expiry and missing views refuse, release closes it, and a session whose selected block is rolled back is abandoned with further reads refused at the same point." width="784" loading="lazy"></a></div>
+<p class="diagram-links"><a href="../diagrams/session.png?v=d3dae3e736f9b8c5">Open full size</a> · <a href="../diagrams/session.mmd?v=320b7b22e98125db">Mermaid source</a></p>
 
-Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block; the policy for sessions on an abandoned branch remains open. No automatic chainpoint substitution is allowed.
+Retention and lease limits are not yet fixed. The design must bound resource use without evicting an active view contrary to its advertised contract. A rollback does not turn a block hash into a different block. When the selected block leaves the canonical branch of the terminal's chain view, the session becomes abandoned. Every further read is refused at the session's own chainpoint, never answered from another point, and an abandoned session has no outgoing transition. Only an active session is abandoned; an expired or closed session already refuses its reads. Under the continued-ancestry hypothesis, with the consensus model admitting the present view, a point that is not canonical in that view never carries an external effect. Transaction construction does not read the chain, so a claim verified while the point was canonical may still be used to build a transaction, which Cardano revalidates against its actual ledger state; no new material is read from the abandoned session. No automatic chainpoint substitution is allowed.
 
 ## Storage separation
 
@@ -45,10 +45,12 @@ Exit evidence is a declared coverage offer and a deterministic application repla
 | Select a chainpoint before reading | Combine independently fetched latest responses | Avoid mixed chainpoints and trial-and-error matching. |
 | Bounded retained views and sessions | Promise arbitrary historical views indefinitely | Make availability and storage commitments explicit. |
 | Immutable content separate from chainpoint indexes | Roll payload storage backward for every query | Share content while restoring only references and commitments. |
+| Abandon a session whose block leaves the canonical branch and refuse its reads at its own point | Answer from the new branch, or leave the outcome open | Point identity is kept, and a rolled-back point never becomes a different one. |
+| Abandon only an active session | Also abandon an expired session | An expired session already refuses its reads. |
+| Construction ignores whether the point is still canonical | Refuse construction at a point no longer canonical | Construction is allowed at any accepted point and asserts nothing about finality; Cardano revalidates the transaction. |
 
 ## Open questions
 
-- What happens to an active session after its selected block leaves the canonical chain?
 - What retention and lease policy bounds storage and prevents resource exhaustion?
 - Which roots and indexes are captured atomically in a view?
 - Which wire format exposes retained views and anchor publications for the required discovery handshake?

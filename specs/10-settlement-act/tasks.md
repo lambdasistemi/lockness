@@ -14,7 +14,7 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Settlement docs slice
 
-- [ ] settlement-docs-and-speech: chainpoints with the abandoned state and the re-rendered session diagram, decisions and model index with curated speech, the chain-view source, the named limits and owners, and immutable source links.
+- [x] settlement-docs-and-speech: chainpoints with the abandoned state and the re-rendered session diagram, decisions and model index with curated speech, the chain-view source, the named limits and owners, and immutable source links.
 
 ## Outward delivery conditions
 
