@@ -4,13 +4,13 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Settlement model slice
 
-- [ ] settlement-interface: ruled Types successor and neutral inherited adaptations with unchanged inherited outcomes.
-- [ ] chain-ground-truth: tip, canonical, rollback keeping replaced branches, Extends admitting any rollback, the consensus model, ContinuedAncestry and the chain lemmas.
-- [ ] act-step: Action, Basis, Authorized and act with the ruled evaluation and refusals.
-- [ ] abandoned-session: the abandoned state, its read refusal, the abandon transition from active and the single restatement.
-- [ ] act-theorems: the act theorems, settlement theorem, composition with no promotion, verifier-off refusal and abandoned-point refusal.
-- [ ] settlement-counterexamples: jointly inhabited witness; mutants M1–M5 with constructive witnesses, unchanged proofs rejected inside their extent and scenario controls.
-- [ ] effect-simulator-and-gates: five effect scenarios, usage text, model-gate stages, inherited controls and the all-source axiom inventory.
+- [x] settlement-interface: ruled Types successor and neutral inherited adaptations with unchanged inherited outcomes.
+- [x] chain-ground-truth: tip, canonical, rollback keeping replaced branches, Extends admitting any rollback, the consensus model, ContinuedAncestry and the chain lemmas.
+- [x] act-step: Action, Basis, Authorized and act with the ruled evaluation and refusals.
+- [x] abandoned-session: the abandoned state, its read refusal, the abandon transition from active and the single restatement.
+- [x] act-theorems: the act theorems, settlement theorem, composition with no promotion, verifier-off refusal and abandoned-point refusal.
+- [x] settlement-counterexamples: jointly inhabited witness; mutants M1–M5 with constructive witnesses, unchanged proofs rejected inside their extent and scenario controls.
+- [x] effect-simulator-and-gates: five effect scenarios, usage text, model-gate stages, inherited controls and the all-source axiom inventory.
 
 ## Settlement docs slice
 

@@ -20,6 +20,12 @@ structure Chainpoint where
   blockHash : Bytes
   deriving DecidableEq, Repr
 
+-- One branch of the chain: its points, oldest first.
+abbrev Branch := List Chainpoint
+
+-- Ground truth: the canonical branch first, then the branches it replaced, most recent first.
+abbrev Chain := List Branch
+
 structure Root where
   scheme : Bytes
   bytes : Bytes
@@ -45,6 +51,12 @@ structure Context where
   schemes : List Bytes
   deriving DecidableEq, Repr
 
+inductive Reason where
+  | noWitness
+  | unboundSession
+  | noVerifier
+  deriving DecidableEq, Repr
+
 structure Policy where
   trustedKeys : List Key
   agreement : List Key → Bool
@@ -63,6 +75,10 @@ structure Policy where
   fuel : Nat
   verifier : Bool
   context : Context
+  -- The executable settlement observation on the terminal's chain view.
+  settlement : Chainpoint → Chain → Bool
+  -- The action rule: which unverified reasons still allow construction.
+  constructUnverified : Reason → Bool
 
 -- Each instance is an arbitrary hypothesis, not an implementation of signatures.
 class SignatureModel where
@@ -137,12 +153,6 @@ structure Claim where
   appRoot : Root
   links : List Root
   value : AppValue
-  deriving DecidableEq, Repr
-
-inductive Reason where
-  | noWitness
-  | unboundSession
-  | noVerifier
   deriving DecidableEq, Repr
 
 -- The terminal classification of an outcome; never a wire object.
