@@ -13,7 +13,7 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Completeness docs slice
 
-- [ ] completeness-docs-and-speech: decisions and model index with curated speech, the key-layout and one-root assumptions, the proof-size limit, the named owners and immutable source links.
+- [x] completeness-docs-and-speech: decisions and model index with curated speech, the key-layout and one-root assumptions, the proof-size limit, the named owners and immutable source links.
 
 ## Outward delivery conditions
 
