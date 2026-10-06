@@ -3,15 +3,18 @@ import Lockness.Accept
 namespace Lockness
 
 -- Reads only the session acquire accepts. Only a declared absence is a reason: an unbound
--- session, or a session bound to the selected point without a witness. A session bound to
--- another point is a contradiction in the offer, not an absence.
+-- session, or a session bound to the selected point whose answer carries neither a witness nor a
+-- completeness answer. A session bound to another point is a contradiction in the offer, not an
+-- absence.
 def unverifiedReason (selectedPoint : Chainpoint) (provider : Provider) : Option Reason :=
   match acquire selectedPoint provider with
   | .error _ => none
   | .ok session =>
     if session.binding = .unbound then some .unboundSession
     else if session.binding = .bound selectedPoint then
-      if session.ledger.witness = none then some .noWitness else none
+      if session.ledger.witness = none then
+        if session.ledger.completeness = none then some .noWitness else none
+      else none
     else none
 
 -- The terminal's classification around the unchanged accept: a missing verifier first,

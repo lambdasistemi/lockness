@@ -21,7 +21,7 @@
       "pause": 400
     },
     {
-      "text": "Around all of this, the terminal classifies every outcome as verified, refused or unverified. A verified verdict carries exactly the claim that acceptance returned. A refused verdict carries acceptance's own refusal at the selected point. Unverified traffic is a first-class case for a declared absence only: no verifier configured, a session declared unbound, or a session bound to the selected point offering no witness. With a verifier configured, a present but wrong witness, or a session bound to another point, is refused, and in every case an answer without a witness can never be promoted to verified.",
+      "text": "Around all of this, the terminal classifies every outcome as verified, refused or unverified. A verified verdict carries exactly the claim that acceptance returned. A refused verdict carries acceptance's own refusal at the selected point. Unverified traffic is a first-class case for a declared absence only: no verifier configured, a session declared unbound, or a session bound to the selected point offering neither a witness nor a completeness answer. With a verifier configured, a present but wrong witness, a completeness answer on a session bound to the selected point that fails its check, or a session bound to another point, is refused, and in every case an answer without a witness can never be promoted to verified.",
       "pause": 400
     },
     {
@@ -29,11 +29,15 @@
       "pause": 400
     },
     {
+      "text": "A ledger answer can also carry a completeness proof: the object bytes stored under a key prefix and a proof checked under the accepted root. A terminal can then accept every entry under an address prefix, or the one output carrying its asset without assuming the minting policy is one-shot, under the completeness and key-layout hypotheses together with the honest-root, encoding and observation premises the completeness section names. A terminal that requires completeness refuses an answer without it; one that does not keeps the one-shot path.",
+      "pause": 400
+    },
+    {
       "text": "Last, the terminal acts. It may build a transaction from a verified claim before any settlement, but it drives an external effect only on a verified claim, with an offer bound to the selected point and the policy's settlement observation holding on its own chain view. Settlement is a guarantee conditional on stated hypotheses about which futures consensus admits, never an unconditional promise. After the selected block is rolled back, the session is abandoned, its reads are refused at the same point, and the effect stays refused. An unverified verdict never drives an effect, and it allows construction only when the policy's action rule admits its reason.",
       "pause": 400
     },
     {
-      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, application source links reference the published application model revision, verdict source links reference the published verdict model revision, operating context source links reference the published context model revision, and act source links reference the published act model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
+      "text": "This is an executable project model and simulator. Component implementations, cryptography, deployment and live-chain behavior require separate evidence. Review the model and this page from the same Git revision. Inherited session links retain their published source branch. Ledger source links reference the published ledger model revision, application source links reference the published application model revision, verdict source links reference the published verdict model revision, operating context source links reference the published context model revision, act source links reference the published act model revision, and completeness source links reference the published completeness model revision. Its model bytes must match the reviewed candidate. Acceptance and source publication are separate evidence.",
       "pause": 400
     }
   ],
@@ -51,7 +55,7 @@
       "pause": 400
     },
     {
-      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger, app, verdict, context or effect scenarios exit with usage code 64. Each verdict scenario prints the verdict, accept's own outcome and the selected point; each context scenario also prints the terminal's context, and the two-observation scenarios print their second verdict and accept beside the first. Each effect scenario prints the act outcomes it observes and the selected point. These are executable model observations, without a network, ledger provider or signature implementation.",
+      "text": "An unexpected scenario outcome exits nonzero. Unknown commands, missing scenario arguments and unknown root, session, ledger, app, verdict, context, effect or completeness scenarios exit with usage code 64. Each verdict scenario prints the verdict, accept's own outcome and the selected point; each context scenario also prints the terminal's context, and the two-observation scenarios print their second verdict and accept beside the first. Each effect scenario prints the act outcomes it observes and the selected point. Each completeness scenario prints the acceptance or verdict outcomes it observes and the selected point; its expected entries come from the fixture ledger and key layout, and its expected claims from the honest application content. These are executable model observations, without a network, ledger provider or signature implementation.",
       "pause": 400
     }
   ],
@@ -75,7 +79,7 @@
       "pause": 500
     },
     {
-      "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm. The verdict successor of the shared types adds the declared binding, the optional witness, reconstruction material, the declared verifier and the verdict itself. The operating context successor adds the terminal's declared context to the policy and the abstract message model with its binding hypothesis. The act successor adds branches and the chain, moves the reason type before the policy unchanged, and adds the settlement observation and the action rule to the policy.",
+      "text": "The shared types preserve exact byte sequences. Network and root scheme are explicit byte identities, slot is a natural number, and every equality includes all fields. There is no normalization, serialization, hashing or signing algorithm. The verdict successor of the shared types adds the declared binding, the optional witness, reconstruction material, the declared verifier and the verdict itself. The operating context successor adds the terminal's declared context to the policy and the abstract message model with its binding hypothesis. The act successor adds branches and the chain, moves the reason type before the policy unchanged, and adds the settlement observation and the action rule to the policy. The completeness successor adds the completeness answer to the ledger answer and three completeness observations to the policy; inherited policies and answers take neutral values: a check that accepts nothing, an empty asset prefix, completeness not required and no answer.",
       "pause": 400
     },
     {
@@ -124,6 +128,10 @@
     },
     {
       "text": "The verdict revision of the verifier adds two refusals, also at the selected point. Right after the point check, it refuses a session whose declared binding is not its own selected point. And the witness check now fails when the answer offers no witness; a present witness is still checked only under the independently accepted root. The observation lemma records both: a successful answer comes from a session bound to its selected point and carries a witness that passed under the accepted root. Every other ledger statement on this page is unchanged.",
+      "pause": 400
+    },
+    {
+      "text": "The completeness revision of the verifier adds one guard right after the witness check. When the answer carries a completeness answer, or the policy requires one, the step refuses with evidence failure at the selected point unless that answer is present, is for the policy's asset prefix, lists exactly the offered object and checks under the independently accepted root. With no completeness answer and completeness not required, the step behaves as before, and the uniqueness of the state output rests on the OneShot premise below: that is the choice of a terminal that trusts the minting policy. The guard is described with its guarantees in the completeness section. The ledger statements on this page keep their text and are still proved.",
       "pause": 400
     },
     {
@@ -199,7 +207,7 @@
       "pause": 400
     },
     {
-      "text": "The verdict is decided in a fixed order. First, a policy that declares no verifier gives unverified with reason no verifier, and nothing else is consulted. Next, when accept returns a claim, the verdict is verified with that same claim. When accept refuses a selection outside the terminal's operating context, described below, the verdict is refused. Otherwise, when accept refuses, the verdict is unverified only if the offered session declares an absence: unbound gives reason unbound session, and bound to the selected point without a witness gives reason no witness. Every other refusal is passed on unchanged as refused. The reason reads only the session that acquisition accepts, so a provider offering another point is refused by acquisition exactly as before.",
+      "text": "The verdict is decided in a fixed order. First, a policy that declares no verifier gives unverified with reason no verifier, and nothing else is consulted. Next, when accept returns a claim, the verdict is verified with that same claim. When accept refuses a selection outside the terminal's operating context, described below, the verdict is refused. Otherwise, when accept refuses, the verdict is unverified only if the offered session declares an absence: unbound gives reason unbound session, and bound to the selected point with an answer carrying neither a witness nor a completeness answer gives reason no witness. An answer bound to the selected point that carries any evidence, a witness or a completeness answer, is never unverified on this path. Every other refusal is passed on unchanged as refused. The reason reads only the session that acquisition accepts, so a provider offering another point is refused by acquisition exactly as before.",
       "pause": 400
     },
     {
@@ -212,6 +220,10 @@
     },
     {
       "text": "The verdict proofs hold for every policy, provider and builder unless a premise is named:",
+      "pause": 400
+    },
+    {
+      "text": "The completeness rows of the table are theorems of the completeness proofs: completeness_never_unverified, completeness_wrong_refused and required_absent_refused.",
       "pause": 400
     },
     {
@@ -329,7 +341,7 @@
       "pause": 400
     },
     {
-      "text": "The gate executes the root, session, ledger, application, verdict, context and effect scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger, application, verdict, context and act counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
+      "text": "The gate executes the root, session, ledger, application, verdict, context, effect and completeness scenarios, runs the permanent lifecycle check, and compiles the root, session, ledger, application, verdict, context, act and completeness counterexamples. It also records the types and axiom dependencies of every stored named model declaration, rather than selecting only the main proofs. Ledger tests cover each network/slot/hash mismatch, decode and byte-binding failures, witness/asset/schema/datum refusals, ignored provider roots and jointly inhabited acceptance premises. In temporary build directories it removes the production trust filter, compiles the mutated definition, proves the unchanged universal safety statement false, and separately retains the failed unchanged proof output. It also checks compiled changed outcomes and proof rejection for observation, point/root binding, nonempty endorsement, agreement and refusal-point faults. The untrusted-key simulator must reject the unexpected result of the production subset mutation. This is a finite collection of negative controls, not a claim of exhaustive mutation coverage.",
       "pause": 400
     },
     {
@@ -353,11 +365,15 @@
       "pause": 400
     },
     {
+      "text": "The completeness tests restate every completeness definition and guarantee in full, including the bodies of entries verification, all-entries acceptance and the changed classification, and evaluate the outcomes of the six completeness scenarios, the refusal of every entries guard, the neutral completeness values of the inherited policies and answers, and an accepting input for each soundness theorem at the fixture. They print the axiom dependencies of every new theorem and refutation. The completeness mutation script is described in the completeness section above.",
+      "pause": 400
+    },
+    {
       "text": "Run ./lean/env lake env lean Lockness/Tests/Session.lean or ./lean/env lake env lean Lockness/Counterexamples/SessionMutation.lean for session checks and the generic refutation. Run ./lean/env lake env lean Lockness/Counterexamples/SubsetMutation.lean to inspect the constructive counterexample independently. Record git rev-parse HEAD alongside command output when assessing a candidate. CI invokes the same model and documentation commands; the source workflow alone is not evidence that remote CI has passed.",
       "pause": 400
     },
     {
-      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, the derivation of the chain view from accepted anchor publications, a settlement depth, freshness, and lease and retention policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds AppSound and faithful nesting, invariance adds AppFunctional, context soundness adds MessageBinding, and settlement adds continued ancestry and the consensus model. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
+      "text": "The Lean kernel remains part of the trust base. Observation soundness and honest-root correspondence are external assumptions. The executable guard and statement share the definition of a qualifying candidate; the mutation checks preserve that statement while altering execution, and do not independently prove specification fidelity. Concrete ledger witness construction, application proof formats and validators, the derivation of the chain view from accepted anchor publications, a settlement depth, a completeness proof format, key encoding and listing bound, freshness, and lease and retention policy remain later work. Ledger soundness additionally assumes honest commitment correspondence, witness and interpretation soundness, faithful representation and OneShot; application soundness adds AppSound and faithful nesting, invariance adds AppFunctional, context soundness adds MessageBinding, settlement adds continued ancestry and the consensus model, and completeness soundness assumes CompletenessSound, faithful representation and, for the state output, AssetKeyLayout with the asset and datum observation premises in place of witness soundness and OneShot. No model proof establishes these for a deployed system, and no implementation of a terminal, builder or proof checker is evidenced by this model. Consume model and documentation by reviewed revision; a tagged binary distribution pipeline remains future implementation work.",
       "pause": 400
     },
     {
@@ -365,8 +381,54 @@
       "pause": 400
     }
   ],
+  "check-completeness-proofs": [
+    {
+      "text": "Check completeness proofs.",
+      "pause": 500
+    },
+    {
+      "text": "As a terminal, learn not only that an output is in the ledger at the selected point but what else is stored under a key prefix: every entry under an address prefix, or that the output carrying your asset is the only one, without assuming the minting policy is one-shot. A completeness answer lists the object bytes stored under a prefix and carries a proof. The terminal checks it only under the root bound by root acceptance, never a provider root, and only for the prefix the terminal chose, never the answer's own.",
+      "pause": 400
+    },
+    {
+      "text": "The completeness module adds the proof kind and the all-entries acceptance: a key layout, the relation saying an entry is under a prefix, the completeness and asset key-layout hypotheses, entries verification and all-entries acceptance.",
+      "pause": 400
+    },
+    {
+      "text": "The completeness answer travels inside the ledger answer that the provider offers at the selected point, so it is acquired with the session and cannot come from another point. The key layout is a parameter: an entry is under a prefix when some key the index stores it under has that prefix as a byte prefix. One statement covers the address layout that cardano-utxo-csmt has today and the asset layout proposed in cardano-utxo-csmt pull request 242, where an output is stored under one key per asset it carries; issue #35 chooses between them. Two hypotheses are abstract and never computed. CompletenessSound, beside WitnessSound, says that a proof which checks under the honest root at a point lists exactly the object bytes of that point's ledger entries under the prefix. AssetKeyLayout says that every output carrying the policy's asset is stored under the policy's asset prefix. The model chooses no key encoding, proof format or size bound.",
+      "pause": 400
+    },
+    {
+      "text": "There are two acceptance paths. For the state output, the guard in the ledger step refuses unless a present or required completeness answer is for the policy's asset prefix, lists exactly the offered object and checks under the accepted root. For all entries under a prefix, all-entries acceptance runs context root acceptance, acquisition and then entries verification. That requires the answer point to be the selected point, the session to be bound to it, a completeness answer for exactly the requested prefix that checks under the accepted root, and listed bytes that decode to entries and re-encode to themselves. Every failure is evidence failure at the selected point. The all-entries path has no application, verdict or act step.",
+      "pause": 400
+    },
+    {
+      "text": "A terminal chooses which hypothesis it relies on, and the provider never does. A terminal that trusts the minting policy leaves completeness not required; when no completeness answer is offered, the uniqueness of its state output rests on OneShot. A terminal that does not trust the minting policy requires completeness; an answer without one is then refused, so the guarantee rests on completeness whatever the provider sends.",
+      "pause": 400
+    },
+    {
+      "text": "The completeness proofs hold for every policy, ledger, layout, provider and builder under the premises named. Under honest-root correspondence, CompletenessSound and faithful object encoding, an accepted all-entries claim is at the selected point, under the honest root, for the requested prefix, and lists exactly the selected point's ledger entries under that prefix. Under faithful object encoding, sound asset and datum observations, CompletenessSound, AssetKeyLayout and an accepted root equal to the honest root, a successful ledger step whose answer carries a completeness answer, or whose policy requires one, returns the honest datum root of the only member carrying the asset, with no witness-soundness or OneShot premise. With a verifier configured and a session offered at and bound to the selected point, an answer carrying a completeness answer is never unverified; with root acceptance also succeeding, a wrong one, or a witnessed answer missing a completeness answer the policy requires, is refused with evidence failure at the selected point.",
+      "pause": 400
+    },
+    {
+      "text": "ObjectEncodingFaithful is load-bearing in both soundness statements: it turns a listed byte string back into the one entry it encodes. verifyLedger_sound, accept_sound and verdict_sound keep their text and are still proved on the one-shot path. A session still carries one ledger answer, so an all-entries request and a state-output request are separate offers.",
+      "pause": 400
+    },
+    {
+      "text": "The completeness fixture extends the verdict fixture with two outputs that carry no asset, one ledger with one holder of the asset and one with two, and an example layout with address keys under zero and asset keys under one; that layout is a fixture, not a proposed key encoding. Its check accepts, under the accepted root, exactly the honest listing of a prefix, and under the provider root also a listing that omits an honest member. Two theorems inhabit every premise of the three soundness theorems together, one for the policy that leaves completeness optional and one for the policy that requires it, and expected entries are computed from the fixture ledger and layout, never read from acceptance. The refutations are parameterized by the operation: any operation that accepts the listing omitting an honest member, or a proof for a narrower prefix, as all of the requested prefix refutes the all-entries statement; one that accepts a listing omitting a holder of the asset refutes the uniqueness statement; one that accepts an answer without completeness under a policy requiring it, on the two-holder ledger, refutes the required form. Without CompletenessSound, the all-entries statement is false on the real acceptance.",
+      "pause": 400
+    },
+    {
+      "text": "The completeness mutation script compiles changed copies of the production modules, applies each edit once and proves it applied. For each executable mutant a compiled witness shows the changed outcome on the compiled mutated production code, and for the five that change an acceptance or ledger step it refutes the unchanged statement the gate names; for the mutant that removes CompletenessSound, the witness refutes only the changed statement, and the unchanged statement rejects it. The proofs the gate names fail inside their own lines rather than at an import or setup step, and an executable mutant makes its scenario reject the changed outcome. Removing the completeness check from entries verification, taking the prefix from the answer, or checking entries under the provider's answer root breaks the all-entries soundness proof. Removing the completeness proof check from the ledger guard breaks the uniqueness proof; ignoring the requirement breaks the required form; a classification that ignores the completeness answer breaks the never-unverified and wrong-refused proofs. Removing CompletenessSound from the all-entries statement changes no executable: the counterexample is first rejected by the unchanged statement, then the unchanged proof and the unchanged entries refutations fail on the changed statement.",
+      "pause": 400
+    },
+    {
+      "text": "The limits are named. All-entries claims have no verdict arm; they are accepted at the acceptance level only, and a verdict for them is owned by issue #35 and issue #17. The completeness proof is assumed to check under the same accepted root as the witness: whether an asset index is committed under that root or under a second anchored root, one root or several per publication, is open in issue #35. The model bounds no listing; a large prefix needs a large proof, and pagination or summarised counts are issue #35's. Exclusion proofs, absence beyond an empty listing for a prefix, and asset completeness in the index itself are not modelled.",
+      "pause": 400
+    }
+  ],
   "_source": {
     "file": "index.md",
-    "sha256": "4ae90c9de4e6ba35628cc4208e10cc3670f0e39fd8aff309edff5e403376d5de"
+    "sha256": "07737605026d0825ea407ef4dfedb66905d6753ef71f43f0fb2cc96ec75143a7"
   }
 }

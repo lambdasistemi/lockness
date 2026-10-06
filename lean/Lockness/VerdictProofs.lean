@@ -128,8 +128,10 @@ theorem verdict_unverified (policy : Policy) (publications : List Publication)
               · rename_i bound
                 split at reasonEq
                 · rename_i absent
-                  cases reasonEq
-                  exact Or.inr ⟨rfl, bound, absent⟩
+                  split at reasonEq
+                  · cases reasonEq
+                    exact Or.inr ⟨rfl, bound, absent⟩
+                  · cases reasonEq
                 · cases reasonEq
               · cases reasonEq
         · cases unverified
@@ -262,6 +264,9 @@ theorem verdict_reconstruction_irrelevant (policy : Policy) (publications : List
   have sameWitness : ∀ session : Session,
       (session.withReconstruction reconstruction).ledger.witness = session.ledger.witness :=
     fun _ => rfl
+  have sameCompleteness : ∀ session : Session,
+      (session.withReconstruction reconstruction).ledger.completeness =
+        session.ledger.completeness := fun _ => rfl
   have sameAccept : accept policy publications selectedPoint
       (fun point => (provider point).map (Session.withReconstruction reconstruction)) builder =
       accept policy publications selectedPoint provider builder := by
@@ -283,7 +288,7 @@ theorem verdict_reconstruction_irrelevant (policy : Policy) (publications : List
     | some session =>
       by_cases same : session.selectedPoint = selectedPoint
       · simp [unverifiedReason, acquire, offered, Session.point, samePointField, same,
-          sameBinding, sameWitness]
+          sameBinding, sameWitness, sameCompleteness]
       · simp [unverifiedReason, acquire, offered, Session.point, samePointField, same]
   simp only [verdict, sameAccept, sameReason]
 

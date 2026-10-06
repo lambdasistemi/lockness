@@ -28,22 +28,25 @@ theorem verifyLedger_observations (policy : Policy) (acceptedRoot : Root) (sessi
           split at success
           · rename_i present
             split at success
-            · rename_i asset
+            · rename_i complete
               split at success
-              · cases success
-              · rename_i datum observed
+              · rename_i asset
                 split at success
                 · cases success
-                · rename_i root parsed
-                  cases success
-                  cases offered : answer.witness with
-                  | none => rw [offered] at present; exact nomatch present
-                  | some witness =>
-                    rw [offered] at present
-                    have checked : policy.checkWitness witness acceptedRoot answer.object = true :=
-                      present
-                    exact ⟨pointEq, bound, entry, datum, decoded, binding, ⟨witness, rfl, checked⟩,
-                      asset, observed, parsed⟩
+                · rename_i datum observed
+                  split at success
+                  · cases success
+                  · rename_i root parsed
+                    cases success
+                    cases offered : answer.witness with
+                    | none => rw [offered] at present; exact nomatch present
+                    | some witness =>
+                      rw [offered] at present
+                      have checked : policy.checkWitness witness acceptedRoot answer.object = true :=
+                        present
+                      exact ⟨pointEq, bound, entry, datum, decoded, binding, ⟨witness, rfl, checked⟩,
+                        asset, observed, parsed⟩
+              · cases success
             · cases success
           · cases success
         · cases success
@@ -69,22 +72,7 @@ theorem verifyLedger_refusal (policy : Policy) (acceptedRoot : Root) (session : 
     (failure : verifyLedger policy acceptedRoot session answer = .error refusal) :
     refusal = .evidenceFailure session.selectedPoint := by
   unfold verifyLedger at failure
-  split at failure
-  · split at failure
-    · split at failure
-      · cases failure; rfl
-      · split at failure
-        · split at failure
-          · split at failure
-            · split at failure
-              · cases failure; rfl
-              · split at failure
-                · cases failure; rfl
-                · cases failure
-            · cases failure; rfl
-          · cases failure; rfl
-        · cases failure; rfl
-    · cases failure; rfl
-  · cases failure; rfl
+  repeat' split at failure
+  all_goals first | (cases failure; rfl) | cases failure
 
 end Lockness

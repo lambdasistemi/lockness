@@ -79,6 +79,12 @@ structure Policy where
   settlement : Chainpoint → Chain → Bool
   -- The action rule: which unverified reasons still allow construction.
   constructUnverified : Reason → Bool
+  -- The executable completeness observation: proof, checking root, key prefix, listed objects.
+  checkCompleteness : Bytes → Root → Bytes → List Bytes → Bool
+  -- The index key prefix of an asset; the key layout is the index's, never chosen here.
+  assetPrefix : Asset → Bytes
+  -- Whether the terminal requires completeness for the state output instead of trusting OneShot.
+  requireCompleteness : Bool
 
 -- Each instance is an arbitrary hypothesis, not an implementation of signatures.
 class SignatureModel where
@@ -121,12 +127,20 @@ structure Reconstruction where
   spent : List (TxIn × TxOut)
   deriving DecidableEq, Repr
 
+-- Every object stored under a key with this prefix, as the provider lists it, and the proof.
+structure CompletenessAnswer where
+  keyPrefix : Bytes
+  entries : List Bytes
+  proof : Bytes
+  deriving DecidableEq, Repr
+
 structure LedgerAnswer where
   point : Chainpoint
   object : Bytes
   witness : Option Witness
   root : Root
   reconstruction : Option Reconstruction
+  completeness : Option CompletenessAnswer
   deriving DecidableEq, Repr
 
 structure Session where
