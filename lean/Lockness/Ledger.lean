@@ -39,7 +39,9 @@ def LedgerSoundness
 
 -- Provider roots are data; the terminal supplies the checking root independently.
 -- Only a session bound to its own selected point is evidence, and only a present witness
--- checked under the accepted root passes.
+-- checked under the accepted root passes. A completeness answer, present or required by the
+-- policy, must list exactly the offered object under the policy's asset prefix and check under
+-- the accepted root; when absent and not required, the state output rests on OneShot.
 def verifyLedger (policy : Policy) (acceptedRoot : Root) (session : Session)
     (answer : LedgerAnswer) : Except Refusal Root :=
   if answer.point = session.selectedPoint then
@@ -49,13 +51,20 @@ def verifyLedger (policy : Policy) (acceptedRoot : Root) (session : Session)
       | some entry =>
         if policy.objectBytes entry = answer.object then
           if answer.witness.any (policy.checkWitness · acceptedRoot answer.object) = true then
-            if policy.assetOf entry.2 = some policy.asset then
-              match policy.datumOf entry.2 with
-              | none => .error (.evidenceFailure session.selectedPoint)
-              | some datum =>
-                match policy.parseDatum policy.schema datum with
+            if ((answer.completeness.isSome || !policy.requireCompleteness) &&
+                answer.completeness.all (fun completeness =>
+                  decide (completeness.keyPrefix = policy.assetPrefix policy.asset) &&
+                  decide (completeness.entries = [answer.object]) &&
+                  policy.checkCompleteness completeness.proof acceptedRoot completeness.keyPrefix
+                    completeness.entries)) = true then
+              if policy.assetOf entry.2 = some policy.asset then
+                match policy.datumOf entry.2 with
                 | none => .error (.evidenceFailure session.selectedPoint)
-                | some root => .ok root
+                | some datum =>
+                  match policy.parseDatum policy.schema datum with
+                  | none => .error (.evidenceFailure session.selectedPoint)
+                  | some root => .ok root
+              else .error (.evidenceFailure session.selectedPoint)
             else .error (.evidenceFailure session.selectedPoint)
           else .error (.evidenceFailure session.selectedPoint)
         else .error (.evidenceFailure session.selectedPoint)

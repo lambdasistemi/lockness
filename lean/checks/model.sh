@@ -127,4 +127,15 @@ stage lake exe lockness-sim effect unverified-effect
 stage lake env bash checks/effect-mutations.sh
 usage_failure 'unknown effect scenario' effect unknown
 usage_failure 'effect <construct|settled-effect|rolled-back|unverified-construct|unverified-effect>' effect
-echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict-context-effect verdict=no-promotion context=network-and-scheme-refused effect=verified-bound-and-settled-only settlement=conditional-on-continued-ancestry-and-consensus messages=abstract-binding lifecycle=repeated-expiry-release-abandon signatures=abstract app-proofs=abstract deployment=unestablished"
+stage lake env lean Lockness/Tests/Completeness.lean
+stage lake env lean Lockness/Counterexamples/CompletenessRefutation.lean
+stage lake exe lockness-sim completeness address-prefix
+stage lake exe lockness-sim completeness asset-unique
+stage lake exe lockness-sim completeness omitted-entry
+stage lake exe lockness-sim completeness extra-entry
+stage lake exe lockness-sim completeness empty-prefix
+stage lake exe lockness-sim completeness unsound-proof
+stage lake env bash checks/completeness-mutations.sh
+usage_failure 'unknown completeness scenario' completeness unknown
+usage_failure 'completeness <address-prefix|asset-unique|omitted-entry|extra-entry|empty-prefix|unsound-proof>' completeness
+echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict-context-effect-completeness completeness=accepted-root-and-requested-prefix-only verdict=no-promotion context=network-and-scheme-refused effect=verified-bound-and-settled-only settlement=conditional-on-continued-ancestry-and-consensus messages=abstract-binding lifecycle=repeated-expiry-release-abandon signatures=abstract app-proofs=abstract completeness-proofs=abstract deployment=unestablished"

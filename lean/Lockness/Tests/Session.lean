@@ -8,7 +8,7 @@ theorem root_from_acceptance :
 
 theorem honest_acquisition : acquire point honestProvider = .ok offered := by decide
 theorem root_and_bytes_unchanged :
-    (acquire point honestProvider).toOption = some ⟨point, acceptedRoot, ⟨point, [], some [], acceptedRoot, none⟩, .bound point⟩ := by decide
+    (acquire point honestProvider).toOption = some ⟨point, acceptedRoot, ⟨point, [], some [], acceptedRoot, none, none⟩, .bound point⟩ := by decide
 
 theorem absent_acquisition :
     acquire point absentProvider = .error (.unavailablePoint point) := by decide

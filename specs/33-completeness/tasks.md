@@ -4,12 +4,12 @@ As a reviewer, trace each deliverable to its commit and evidence. Repository-art
 
 ## Completeness model slice
 
-- [ ] completeness-interface: ruled Types successor and neutral inherited adaptations with unchanged inherited outcomes.
-- [ ] completeness-proof-kind: key layout, prefix relation, CompletenessSound, AssetKeyLayout, EntriesClaim, verifyEntries and acceptEntries.
-- [ ] ledger-completeness-guard: the verifyLedger guard, the classification change and the inherited proof bodies they touch.
-- [ ] completeness-theorems: inversions, refusals, the all-entries theorem, uniqueness without OneShot and the classification theorems.
-- [ ] completeness-counterexamples: jointly inhabited witness; the ruled mutants with constructive witnesses, unchanged proofs rejected inside their extent and scenario controls.
-- [ ] completeness-simulator-and-gates: the completeness scenarios, usage text, model-gate stages, inherited controls and the all-source axiom inventory.
+- [x] completeness-interface: ruled Types successor and neutral inherited adaptations with unchanged inherited outcomes.
+- [x] completeness-proof-kind: key layout, prefix relation, CompletenessSound, AssetKeyLayout, EntriesClaim, verifyEntries and acceptEntries.
+- [x] ledger-completeness-guard: the verifyLedger guard, the classification change and the inherited proof bodies they touch.
+- [x] completeness-theorems: inversions, refusals, the all-entries theorem, uniqueness without OneShot and the classification theorems.
+- [x] completeness-counterexamples: jointly inhabited witness; the ruled mutants with constructive witnesses, unchanged proofs rejected inside their extent and scenario controls.
+- [x] completeness-simulator-and-gates: the completeness scenarios, usage text, model-gate stages, inherited controls and the all-source axiom inventory.
 
 ## Completeness docs slice
 

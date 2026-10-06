@@ -7,7 +7,8 @@ def root : Root := ⟨[0], [0, 255, 0]⟩
 def publication : Publication := ⟨[1], point, root, [0, 255, 0], [255, 0, 255]⟩
 def policy : Policy := ⟨[[1]], fun keys => keys.length >= 1, fun _ => true, [], [], fun _ => none, fun _ => [],
   fun _ _ _ => false, fun _ => none, fun _ => none, fun _ _ => none, ⟨[], [], []⟩, fun _ _ _ _ => false,
-  fun _ => none, 0, true, ⟨[0], [[0]]⟩, fun _ _ => false, fun _ => false⟩
+  fun _ => none, 0, true, ⟨[0], [[0]]⟩, fun _ _ => false, fun _ => false,
+  fun _ _ _ _ => false, fun _ => [], false⟩
 
 example : acceptRoot policy [publication] point = .ok root := by decide
 example : acceptRoot { policy with verify := fun _ => false } [publication] point =

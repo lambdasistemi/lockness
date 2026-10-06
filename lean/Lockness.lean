@@ -45,3 +45,9 @@ import Lockness.Counterexamples.ActFixtures
 import Lockness.Counterexamples.SettlementRollback
 import Lockness.Tests.Act
 import Lockness.Sim.Effect
+import Lockness.Completeness
+import Lockness.CompletenessProofs
+import Lockness.Counterexamples.CompletenessFixtures
+import Lockness.Counterexamples.CompletenessRefutation
+import Lockness.Tests.Completeness
+import Lockness.Sim.Completeness

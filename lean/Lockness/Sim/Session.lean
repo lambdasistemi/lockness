@@ -14,7 +14,7 @@ def sessionScenario (scenario : String) : IO UInt32 := do
     -- Independently obtain the root before offering any session to acquisition.
     let rootResult := acceptRoot twoKeyPolicy [honestPublication, secondPublication] point
     let .ok chosenRoot := rootResult | return 1
-    let offer : Session := ⟨point, chosenRoot, ⟨point, [], some [], chosenRoot, none⟩, .bound point⟩
+    let offer : Session := ⟨point, chosenRoot, ⟨point, [], some [], chosenRoot, none, none⟩, .bound point⟩
     let result := acquire point (fun _ => some offer)
     unless ← expectSession result (.ok offer) do return 1
     let .ok session := result | return 1
