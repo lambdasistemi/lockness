@@ -51,3 +51,9 @@ import Lockness.Counterexamples.CompletenessFixtures
 import Lockness.Counterexamples.CompletenessRefutation
 import Lockness.Tests.Completeness
 import Lockness.Sim.Completeness
+import Lockness.History
+import Lockness.HistoryProofs
+import Lockness.Counterexamples.HistoryFixtures
+import Lockness.Counterexamples.HistoryRefutation
+import Lockness.Tests.History
+import Lockness.Sim.History

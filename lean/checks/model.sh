@@ -138,4 +138,17 @@ stage lake exe lockness-sim completeness unsound-proof
 stage lake env bash checks/completeness-mutations.sh
 usage_failure 'unknown completeness scenario' completeness unknown
 usage_failure 'completeness <address-prefix|asset-unique|omitted-entry|extra-entry|empty-prefix|unsound-proof>' completeness
+stage lake env lean Lockness/Tests/History.lean
+stage lake env lean Lockness/Counterexamples/HistoryRefutation.lean
+stage lake exe lockness-sim history accepted
+stage lake exe lockness-sim history forged-transaction
+stage lake exe lockness-sim history missing-relevant
+stage lake exe lockness-sim history irrelevant-extras
+stage lake exe lockness-sim history root-comparison-removed
+stage lake exe lockness-sim history context-dependent-relevance
+stage lake exe lockness-sim history cancelling-pair
+stage lake env bash checks/history-mutations.sh
+usage_failure 'unknown history scenario' history unknown
+usage_failure 'history <accepted|forged-transaction|missing-relevant|irrelevant-extras|root-comparison-removed|context-dependent-relevance|cancelling-pair>' history
+echo "HISTORY-GATE passed journeys=7 state=primary-under-state-root-collision-resistance sequence=conditional-on-history-commitment-injectivity mutations=root-comparison-removed,context-dependent-relevance,state-root-projection"
 echo "MODEL-GATE passed sources=${#modules[@]} proofs=kernel-checked scenarios=root-session-ledger-app-verdict-context-effect-completeness completeness=accepted-root-and-requested-prefix-only verdict=no-promotion context=network-and-scheme-refused effect=verified-bound-and-settled-only settlement=conditional-on-continued-ancestry-and-consensus messages=abstract-binding lifecycle=repeated-expiry-release-abandon signatures=abstract app-proofs=abstract completeness-proofs=abstract deployment=unestablished"
