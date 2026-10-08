@@ -1,6 +1,6 @@
 # History data contracts
 
-Status: proposed, awaiting Q-001.
+Status: accepted under history-interface-v1.
 
 | Type/field | Contract |
 | --- | --- |
@@ -18,7 +18,8 @@ Status: proposed, awaiting Q-001.
 | HistorySemantics | Independent relation HistoryState → List Reconstruction → HistoryState → Prop. |
 | honestHistory | AppQuery → Chainpoint → List Reconstruction; independent ordered ground truth up to that point. |
 
-All exact bytes, relative relevant order and multiplicity matter. The checking
+The primary guarantee authenticates the rebuilt state; exact sequence bytes,
+order and multiplicity are authenticated only by a history commitment. The checking
 root comes solely from the verified state output. The old reconstruction field
 is unchanged and is never substituted for the new history. No new history result
 is smuggled into the existing Claim/Verdict/act types.
@@ -28,6 +29,7 @@ empty initial bytes and return an empty-scheme/empty-byte root. All inherited
 answers gain history none. These observations are unused on inherited paths.
 
 FoldDeterministic relates executable replay to independent functional semantics.
-HistoryRootCollisionResistant authenticates distinct relevant sequences through
-distinct roots. HistoryCommitted binds honest history semantics to asset-bearing
-state-output datum roots. None is computed or supplied by the provider.
+StateRootCollisionResistant makes roots injective on semantically reachable states.
+HistoryCommitmentInjective is the stronger sequence-injectivity premise, reserved
+for history commitments. HistoryCommitted binds honest history semantics to
+asset-bearing state-output datum roots. These are explicit Prop parameters.

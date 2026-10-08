@@ -3,7 +3,8 @@
 Source baseline: 0676f5d8d8e8bfe47d11fb1544772ae685187421.
 Issue #34 and parent #16 are open; no PR existed for feat/34-proof-free-history at
 intake. Live #35 and #39 were read to preserve their ownership boundaries.
-A-022 releases planning/baseline only; a versioned interface ruling releases code.
+The initial roster release permitted planning/baseline. history-interface-v1 now
+releases code with the primary state and secondary sequence guarantees below.
 
 ## Binding inherited contracts
 
@@ -37,14 +38,20 @@ The effect unverified-construct prints the offer and therefore gains a neutral
 history-none field in its representation; its classification/authorization stays
 unchanged. Existing mutation targets stay in the unchanged production modules.
 
-## Design risks resolved in the proposal
+## Design risks and accepted correction
 
-History order is provider supplied and checked indirectly by sequence-sensitive
-root commitment. The theorem authenticates order and duplicates, not only set
-membership. The semantic ground truth must connect the selected point's state
-output with its honest relevant history. Distinct relevant histories must produce
-distinct roots; ordinary state folds can violate this without any hash collision.
-These are explicit assumptions/limits, not conclusions drawn from a passing gate.
+The initial proposal authenticated exact relevant sequences through a root
+injective over histories. The ruling corrects this as the secondary guarantee:
+ordinary trie state commitments permit cancellation and overwrite without a hash
+collision. Primary state soundness instead requires roots injective over reachable
+states. Both guarantees require independent semantic replay and correspondence
+between the honest history and the selected point's committed state output.
+
+A cancelling-pair fixture must satisfy the state premises and accept an alternative
+sequence with the same state while refuting history commitment injectivity. A
+separate fixture inhabits sequence soundness. A third compiled mutant compares a
+weaker state projection and constructively refutes unchanged state soundness.
+The application-rules owner consumes the distinction between commitment kinds.
 
 A separate history verdict exhibits the never-unverified requirement without
 changing the existing Claim, Verdict or act. Root/no-provider refusals keep their

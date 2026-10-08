@@ -1,6 +1,6 @@
 # History function signatures and statement boundaries
 
-Status: proposed, awaiting Q-001. No implementation bodies are specified here.
+Status: accepted under history-interface-v1. No implementation bodies are specified here.
 
 | Function | Arguments | Result |
 | --- | --- | --- |
@@ -15,11 +15,12 @@ its provenance through the existing verified state output. Errors retain the
 selected point. The classifier uses the same verifier/context/declared-absence
 contract as the inherited verdict, but returns a history claim.
 
-HistorySoundness quantifies arbitrary providers and concludes exact honest
-relevant-sequence equality, correct point/query/ledger root, unique honest state
-output, matching datum root and equality to the independently committed semantic
-state under the explicit hypotheses. It supports OneShot or required-completeness
-provenance without allowing a provider to choose the terminal's assumption.
+HistoryStateSoundness quantifies arbitrary providers and concludes correct
+point/query/ledger root, unique honest state output, matching datum root and
+equality to the independently committed semantic state. It has no sequence
+conclusion. HistorySequenceSoundness adds exact relevant-sequence equality under
+HistoryCommitmentInjective. Both support OneShot or required-completeness
+provenance. The provider never chooses the terminal's trust assumption.
 
 HistorySupersetTolerance compares full results for any two lists with equal
 normative policy.relevant filters. The analogous classifier statement compares
