@@ -9,7 +9,7 @@ def acceptedRoot : Root :=
   | .ok value => value
   | .error _ => root
 
-def offered : Session := ⟨point, acceptedRoot, ⟨point, [], some [], acceptedRoot, none, none⟩, .bound point⟩
+def offered : Session := ⟨point, acceptedRoot, ⟨point, [], some [], acceptedRoot, none, none, none⟩, .bound point⟩
 def honestProvider : Provider := fun _ => some offered
 def absentProvider : Provider := fun _ => none
 def newer : Session := { offered with selectedPoint := { point with slot := point.slot + 1 } }

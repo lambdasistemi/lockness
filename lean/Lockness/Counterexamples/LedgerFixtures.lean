@@ -90,10 +90,10 @@ def policyFor (duplicate : Bool) : Policy :=
     datumOf := outputDatum
     parseDatum := parse }
 
-def session : Session := ⟨point, providerRoot, ⟨point, [], some [], providerRoot, none, none⟩, .bound point⟩
-def answer₁ : LedgerAnswer := ⟨point, objectBytes entry₁, some witness, providerRoot, none, none⟩
-def answer₂ : LedgerAnswer := ⟨point, objectBytes entry₂, some witness, providerRoot, none, none⟩
-def substitutedAnswer : LedgerAnswer := ⟨point, objectBytes impostor, some witness, providerRoot, none, none⟩
+def session : Session := ⟨point, providerRoot, ⟨point, [], some [], providerRoot, none, none, none⟩, .bound point⟩
+def answer₁ : LedgerAnswer := ⟨point, objectBytes entry₁, some witness, providerRoot, none, none, none⟩
+def answer₂ : LedgerAnswer := ⟨point, objectBytes entry₂, some witness, providerRoot, none, none, none⟩
+def substitutedAnswer : LedgerAnswer := ⟨point, objectBytes impostor, some witness, providerRoot, none, none, none⟩
 
 theorem root_independently_accepted :
     acceptRoot twoKeyPolicy [honestPublication, secondPublication] point = .ok acceptedRoot := by decide

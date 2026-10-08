@@ -57,6 +57,20 @@ inductive Reason where
   | noVerifier
   deriving DecidableEq, Repr
 
+-- Transaction bytes plus resolved spent outputs; carried for rebuilding, never evidence.
+structure Reconstruction where
+  transaction : Bytes
+  spent : List (TxIn × TxOut)
+  deriving DecidableEq, Repr
+
+-- Transactions in the provider's order; no per-item proof and no root of its own.
+structure HistoryAnswer where
+  transactions : List Reconstruction
+  deriving DecidableEq, Repr
+
+-- An application state, opaque here: no state encoding is chosen.
+abbrev HistoryState := Bytes
+
 structure Policy where
   trustedKeys : List Key
   agreement : List Key → Bool
@@ -85,6 +99,13 @@ structure Policy where
   assetPrefix : Asset → Bytes
   -- Whether the terminal requires completeness for the state output instead of trusting OneShot.
   requireCompleteness : Bool
+  -- Whether a history item belongs to the application; read one item at a time.
+  relevant : Reconstruction → Bool
+  -- The application's replay step over relevant items, from its initial state.
+  fold : HistoryState → Reconstruction → HistoryState
+  initial : HistoryState
+  -- The executable state-root observation compared with the verified datum root.
+  historyRoot : HistoryState → Root
 
 -- Each instance is an arbitrary hypothesis, not an implementation of signatures.
 class SignatureModel where
@@ -121,12 +142,6 @@ inductive Binding where
   | unbound
   deriving DecidableEq, Repr
 
--- Transaction bytes plus resolved spent outputs; carried for rebuilding, never evidence.
-structure Reconstruction where
-  transaction : Bytes
-  spent : List (TxIn × TxOut)
-  deriving DecidableEq, Repr
-
 -- Every object stored under a key with this prefix, as the provider lists it, and the proof.
 structure CompletenessAnswer where
   keyPrefix : Bytes
@@ -141,6 +156,7 @@ structure LedgerAnswer where
   root : Root
   reconstruction : Option Reconstruction
   completeness : Option CompletenessAnswer
+  history : Option HistoryAnswer
   deriving DecidableEq, Repr
 
 structure Session where
