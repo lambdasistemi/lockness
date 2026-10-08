@@ -74,7 +74,7 @@ def historyScenario (scenario : String) : IO UInt32 := do
       selected (historyOffer forgedHistory)
     unless ← expectVariant "root-comparison-removed variant" mutant (.ok forgedClaim) do return 1
     unless decide (forgedClaim.result.transactions ≠ honestRelevant) do return 1
-    IO.println s!"root-comparison-removed accepted=[{names forgedClaim.result.transactions}] honest-relevant=[{names honestRelevant}]; unchanged HistorySequenceSoundness refuted with every premise held"
+    IO.println s!"{provenance} root-comparison-removed accepted=[{names forgedClaim.result.transactions}] honest-relevant=[{names honestRelevant}]; unchanged HistorySequenceSoundness refuted with every premise held"
     return 0
   | "context-dependent-relevance" =>
     unless ← run scenario sequencePolicy (historyOffer paddedHistory) (.verified honest) (.ok honest) do
@@ -87,7 +87,7 @@ def historyScenario (scenario : String) : IO UInt32 := do
         refused do return 1
     unless decide (paddedHistory.filter sequencePolicy.relevant =
         omittedPair.filter sequencePolicy.relevant) do return 1
-    IO.println s!"context-dependent-relevance offered=[{names paddedHistory}] local-selection=verified context-selection=refused; equal relevant filters; unchanged HistorySupersetTolerance refuted"
+    IO.println s!"{provenance} context-dependent-relevance offered=[{names paddedHistory}] local-selection=verified context-selection=refused; equal relevant filters; unchanged HistorySupersetTolerance refuted"
     return 0
   | "cancelling-pair" =>
     let claim := cancelClaim cancelPolicy omittedPair
